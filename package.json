@@ -1,31 +1,63 @@
 {
-  "name": "with-typescript",
+  "name": "with-redux-observable",
   "version": "1.0.0",
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start",
-    "type-check": "tsc"
+    "start": "next start -p 8080",
+    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
   },
   "dependencies": {
-    "@types/next-redux-wrapper": "^3.0.0",
-    "@types/react-redux": "^7.1.9",
-    "fast-redux": "~0.3.0",
+    "@reduxjs/toolkit": "^1.3.6",
+    "@zeit/next-sass": "^1.0.1",
+    "axios": "^0.19.2",
+    "axios-observable": "^1.1.3",
     "next": "latest",
     "next-redux-wrapper": "^6.0.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-redux": "7.1.0",
-    "redux": "^3.6.0",
-    "redux-devtools-extension": "^2.13.2",
-    "redux-thunk": "~2.2.0",
-    "sass": "^1.26.10"
+    "nextjs-fonts": "^0.22.0",
+    "node-sass": "^4.14.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
+    "redux-logger": "^3.0.6",
+    "redux-observable": "^1.2.0",
+    "rxjs": "^6.5.5",
+    "sass": "^1.26.10",
+    "styled-components": "^5.1.1",
+    "universal-rxjs-ajax": "2.0.4"
   },
   "devDependencies": {
-    "@types/node": "^12.12.21",
-    "@types/react": "^16.9.16",
-    "@types/react-dom": "^16.9.4",
-    "typescript": "3.7.3"
+    "@types/node": "^14.0.13",
+    "@types/react": "^16.9.36",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-redux": "^7.1.9",
+    "@types/redux-logger": "^3.0.8",
+    "@types/styled-components": "^5.1.0",
+    "@typescript-eslint/eslint-plugin": "^3.3.0",
+    "@typescript-eslint/parser": "^3.3.0",
+    "babel-plugin-styled-components": "^1.10.7",
+    "eslint": "^7.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react-hooks": "^4.0.4",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
+    "prettier": "^2.0.5",
+    "redux-devtools-extension": "^2.13.8",
+    "typescript": "^3.9.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "license": "ISC"
 }

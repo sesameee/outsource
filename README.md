@@ -1,63 +1,56 @@
-# TypeScript Next.js example
-
-This is a really simple project that shows the usage of Next.js with TypeScript.
-
-## Deploy your own
-
-Deploy the example using [Vercel](https://vercel.com):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/vercel/next.js/tree/canary/examples/with-typescript)
-
-## How to use it?
-
-### Using `create-next-app`
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-typescript with-typescript-app
-# or
-yarn create next-app --example with-typescript with-typescript-app
+## セットアップ
 ```
-
-### Download manually
-
-Download the example:
-
-```bash
-curl https://codeload.github.com/vercel/next.js/tar.gz/canary | tar -xz --strip=2 next.js-canary/examples/with-typescript
-cd with-typescript
-```
-
-Install it and run:
-
-```bash
-npm install
-npm run dev
-# or
 yarn
+```
+
+## nextサーバ起動
+```
 yarn dev
 ```
+open http://localhost:3000
 
-Deploy it to the cloud with [Vercel](https://vercel.com/import?filter=next.js&utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+## ディレクトリ
+```
+.
+├── components // View: 純粋な見た目のコンポーネント/原則ステートは持たない
+├── containers // Controller: データ操作/状態管理/依存関係/ライフサイクル制御/スタイルやViewは一切持たない
+├── pages // 公開ページ
+├── public // 静的公開ファイル
+├── store // グローバルな状態管理（Model）
+├── services // モデル操作・APIクライアント
+├── styles // 共通スタイル
+├── types // 型定義ファイル(型定義は全てここで管理)
+├── hooks // カスタムHooks
+└── utils // 共通に利用する純粋関数
 
-## Notes
-
-This example shows how to integrate the TypeScript type system into Next.js. Since TypeScript is supported out of the box with Next.js, all we have to do is to install TypeScript.
 
 ```
-npm install --save-dev typescript
+
+## 補足
+* 以下サンプルページ (削除予定)
+```
+pages/google-books.tsx
+pages/index.tsx
 ```
 
-To enable TypeScript's features, we install the type declarations for React and Node.
+## リンク
+### ベースプロジェクト
+* [with-typescript](https://github.com/vercel/next.js/tree/canary/examples/with-typescript)
+* [with-redux-toolkit](https://github.com/vercel/next.js/tree/canary/examples/with-redux-toolkit)
+* [with-redux-observable](https://github.com/vercel/next.js/blob/canary/examples/with-redux-observable)
 
-```
-npm install --save-dev @types/react @types/react-dom @types/node
-```
+### [next.js公式](https://nextjs.org/)
 
-When we run `next dev` the next time, Next.js will start looking for any `.ts` or `.tsx` files in our project and builds it. It even automatically creates a `tsconfig.json` file for our project with the recommended settings.
 
-Next.js has built-in TypeScript declarations, so we'll get autocompletion for Next.js' modules straight away.
-
-A `type-check` script is also added to `package.json`, which runs TypeScript's `tsc` CLI in `noEmit` mode to run type-checking separately. You can then include this, for example, in your `test` scripts.
-# breeze
+## TODO
+- `redux-observable | WARNING: this middleware is already associated with a store. createEpicMiddleware should be called for every store.` の解消
+- `4. WrappedApp created new store with withRedux(WrappedApp) { initialState: undefined,
+  initialStateFromGSPorGSSR: undefined }` の解消
+  - どちらもリロードすると出る
+  - 見てる：https://github.com/redux-observable/redux-observable/issues/635
+  - 見てる：https://github.com/redux-observable/redux-observable/pull/539
+- リセットスタイルの適用
+- テストの導入
+  - UT: jest
+  - VRT: [Storybook](https://storybook.js.org/docs/testing/automated-visual-testing/)
+  - E2E: [Cypress](https://www.cypress.io/)

@@ -1,33 +1,14 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { updateAnnouncement } from '../states/announcement/actions'
+import Link from 'next/link'
 
-interface IProps {
-  announcementMessage: string
-  updateAnnouncement: any
+import Header from '@/components/Header'
+
+const TopPage: React.FC = () => {
+  return (
+    <div className="page-wrapper">
+      <Header />
+      <main className="main"></main>
+    </div>
+  )
 }
-
-interface IState {}
-
-class IndexPage extends React.Component<IProps, IState> {
-  render() {
-    const { announcementMessage, updateAnnouncement } = this.props
-    return (
-      <div>
-        Announcement: {announcementMessage}
-        <button onClick={() => updateAnnouncement('We are closed today!')}>Close!</button>
-      </div>
-    )
-  }
-}
-
-const mapStateToProps = (state:any) => ({
-  announcementMessage: state.message,
-})
-
-const mapDispatchToProps = (dispatch:any) => ({
-  updateAnnouncement: bindActionCreators(updateAnnouncement, dispatch)
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(IndexPage)
+export default TopPage

@@ -1,31 +1,26 @@
-import "../style/main.scss";
-import React from "react";
-import { Provider } from "react-redux";
-import App, { Container ,  AppContext  } from "next/app";
-import withRedux from "next-redux-wrapper";
-import { initStore } from "../store";
-interface Props {
-  store: any;
-}
-export default withRedux(initStore)(
-  class MyApp extends App<Props> {
-    static async getInitialProps({ Component, ctx }:AppContext) {
-      return {
-        pageProps: Component.getInitialProps
-          ? await Component.getInitialProps(ctx)
-          : {},
-      };
-    }
+// import React, { FC } from 'react'
+import React from 'react'
+import App, { AppContext } from 'next/app'
 
-    render() {
-      const { Component, pageProps, store } = this.props;
-      return (
-        <Container>
-          <Provider store={store}>
-            <Component {...pageProps} />
-          </Provider>
-        </Container>
-      );
-    }
+import { wrapper } from '@/store/rootStore'
+import '@/styles/bootstrap.min.scss'
+import '@/styles/owl.scss'
+import '@/styles/popup.scss'
+import '@/styles/style.scss'
+import '@/styles/main.scss'
+class MyApp extends App {
+  static async getInitialProps({ Component, ctx }: AppContext) {
+    const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {}
+
+    return { pageProps }
   }
-);
+
+  render() {
+    const { Component, pageProps } = this.props
+
+    return <Component {...pageProps} />
+  }
+}
+
+export default wrapper.withRedux(MyApp)
+// const WrappedApp: FC<AppProps> = ({ Component, pageProps }: AppProps) => <Component {...pageProps} />
