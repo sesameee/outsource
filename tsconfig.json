@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
+    "typeRoots": [
+      "node_modules/@types",
+      "types/my-types"
+  ],
     "paths": {
       "@/*": ["./*"]
     },
@@ -22,6 +26,6 @@
     "strict": true,
     "target": "esnext"
   },
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules","*.js"],
   "include": ["**/*.ts", "**/*.tsx"]
 }
