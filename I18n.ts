@@ -1,8 +1,6 @@
 import NextI18Next from 'next-i18next'
 import Backend from 'i18next-http-backend'
 
-//import get from 'lodash/get'
-
 const NextI18NextInstance = new NextI18Next({
   defaultLanguage: 'tw',
   defaultNS: 'translations',

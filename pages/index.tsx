@@ -9,9 +9,16 @@ const TopPage = ({ t }) => {
   console.log('t  :>> ', t)
   return (
     <div className="page-wrapper">
-      <Header />
-      <a>{t('aaa')}</a>
-      <Main />
+      {/* <Header /> */}
+      <a
+        onClick={() => {
+          i18n.changeLanguage('en')
+          console.log('aaaaaaa')
+        }}
+      >
+        {t('aaa')}
+      </a>
+      {/* <Main /> */}
     </div>
   )
 }
