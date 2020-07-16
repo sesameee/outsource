@@ -1641,10 +1641,19 @@ blockquote.text-white cite span {
 .menu li:hover > .megamenu,
 .menu li.show > ul,
 .menu li.show > .megamenu {
+  width: 100%;
   display: block;
 }
 .menu .megamenu-container {
   position: static;
+  .sub-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    .sub-item {
+      padding: 10px;
+    }
+  }
 }
 .menu ul {
   position: absolute;
@@ -1668,12 +1677,10 @@ blockquote.text-white cite span {
 .menu .megamenu.megamenu-sm {
   left: 0;
   right: auto;
-  width: 456px;
 }
 .menu .megamenu.megamenu-md {
   left: -10rem;
   right: auto;
-  width: 694px;
 }
 .menu .megamenu > ul,
 .menu .megamenu div > ul {
@@ -1686,7 +1693,7 @@ blockquote.text-white cite span {
   box-shadow: none;
   margin-top: 0;
   padding: 0;
-  min-width: 0;
+  min-width: 13rem;
 }
 .menu ul,
 .menu .megamenu {
@@ -1771,7 +1778,6 @@ blockquote.text-white cite span {
   box-shadow: 5px 10px 16px rgba(51, 51, 51, 0.05), -5px 10px 16px rgba(51, 51, 51, 0.05);
 }
 .menu ul {
-  min-width: 218px;
   padding: 1.6rem 0 2rem;
 }
 .menu .megamenu .banner > a {

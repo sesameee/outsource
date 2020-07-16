@@ -1,25 +1,14 @@
 import React from 'react'
-//import Link from 'next/link'
 
 import Header from '@/components/Header'
 import Main from '@/components/Index/Main'
-import { withTranslation, i18n } from '@/I18n'
-console.log('i18n :>> ', i18n)
-const TopPage = ({ t }) => {
-  console.log('t  :>> ', t)
+// import { withTranslation, i18n } from '@/I18n'
+const TopPage = (): JSX.Element => {
   return (
     <div className="page-wrapper">
-      {/* <Header /> */}
-      <a
-        onClick={() => {
-          i18n.changeLanguage('en')
-          console.log('aaaaaaa')
-        }}
-      >
-        {t('aaa')}
-      </a>
-      {/* <Main /> */}
+      <Header />
+      <Main />
     </div>
   )
 }
-export default withTranslation('translations')(TopPage)
+export default TopPage
