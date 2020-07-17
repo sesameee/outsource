@@ -1,20 +1,14 @@
-export interface ChannelList {
+export interface ChannelData {
   cid: string
   channelName: string
   categoryType: string
   imageUrl: string
-  categoryList: ChannelCategory[]
+  categoryList: CategoryData[]
 }
 
-export interface ChannelCategory {
+export interface CategoryData {
   cid: string
   cName: string
   categoryType: string
-  cData: CData[]
-}
-
-export interface CData {
-  cid: string
-  cName: string
-  categoryType: string
+  cData?: CategoryData[]
 }
