@@ -1,4 +1,4 @@
 export interface VerifyCodeData {
-    memberId: string;
-    code: string;
+    memberId: string
+    code: string
 }

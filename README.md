@@ -1,15 +1,19 @@
 ## セットアップ
+
 ```
 yarn
 ```
 
-## nextサーバ起動
+## next サーバ起動
+
 ```
 yarn dev
 ```
+
 open http://localhost:3000
 
 ## ディレクトリ
+
 ```
 .
 ├── components // View: 純粋な見た目のコンポーネント/原則ステートは持たない
@@ -27,30 +31,33 @@ open http://localhost:3000
 ```
 
 ## 補足
-* 以下サンプルページ (削除予定)
+
+-   以下サンプルページ (削除予定)
+
 ```
 pages/google-books.tsx
 pages/index.tsx
 ```
 
 ## リンク
+
 ### ベースプロジェクト
-* [with-typescript](https://github.com/vercel/next.js/tree/canary/examples/with-typescript)
-* [with-redux-toolkit](https://github.com/vercel/next.js/tree/canary/examples/with-redux-toolkit)
-* [with-redux-observable](https://github.com/vercel/next.js/blob/canary/examples/with-redux-observable)
 
-### [next.js公式](https://nextjs.org/)
+-   [with-typescript](https://github.com/vercel/next.js/tree/canary/examples/with-typescript)
+-   [with-redux-toolkit](https://github.com/vercel/next.js/tree/canary/examples/with-redux-toolkit)
+-   [with-redux-observable](https://github.com/vercel/next.js/blob/canary/examples/with-redux-observable)
 
+### [next.js 公式](https://nextjs.org/)
 
 ## TODO
-- `redux-observable | WARNING: this middleware is already associated with a store. createEpicMiddleware should be called for every store.` の解消
-- `4. WrappedApp created new store with withRedux(WrappedApp) { initialState: undefined,
-  initialStateFromGSPorGSSR: undefined }` の解消
-  - どちらもリロードすると出る
-  - 見てる：https://github.com/redux-observable/redux-observable/issues/635
-  - 見てる：https://github.com/redux-observable/redux-observable/pull/539
-- リセットスタイルの適用
-- テストの導入
-  - UT: jest
-  - VRT: [Storybook](https://storybook.js.org/docs/testing/automated-visual-testing/)
-  - E2E: [Cypress](https://www.cypress.io/)
+
+-   `redux-observable | WARNING: this middleware is already associated with a store. createEpicMiddleware should be called for every store.` の解消
+-   `4. WrappedApp created new store with withRedux(WrappedApp) { initialState: undefined, initialStateFromGSPorGSSR: undefined }` の解消
+    -   どちらもリロードすると出る
+    -   見てる：https://github.com/redux-observable/redux-observable/issues/635
+    -   見てる：https://github.com/redux-observable/redux-observable/pull/539
+-   リセットスタイルの適用
+-   テストの導入
+    -   UT: jest
+    -   VRT: [Storybook](https://storybook.js.org/docs/testing/automated-visual-testing/)
+    -   E2E: [Cypress](https://www.cypress.io/)

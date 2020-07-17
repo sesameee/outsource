@@ -1,5 +1,5 @@
 export interface VerifyInvBarCodeData {
-    memberId: string;
-    barCode: string;
-    accessToken: string;
+    memberId: string
+    barCode: string
+    accessToken: string
 }

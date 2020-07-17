@@ -1,8 +1,8 @@
 export interface ForgotPasswordReqData {
-    phone: string;
-    rocId: string;
+    phone: string
+    rocId: string
 }
 
 export interface ForgotPasswordRspData {
-    memberId: string;
+    memberId: string
 }

@@ -3,7 +3,7 @@ import { googleBookSlice } from '@/store/googleBooks/slice'
 import { RootState } from '@/types/stores/root'
 
 const rootReducer = combineReducers({
-  googleBook: googleBookSlice.reducer,
+    googleBook: googleBookSlice.reducer,
 })
 
 export default rootReducer

@@ -1,8 +1,8 @@
-import { ShoppingCartProductData } from './common';
+import { ShoppingCartProductData } from './common'
 
 export interface WishModify {
-    action: string;
-    memberId: string;
+    action: string
+    memberId: string
     shoppingCartProductList: ShoppingCartProductData[]
-    accessToken: string;
+    accessToken: string
 }

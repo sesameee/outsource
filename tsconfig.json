@@ -1,42 +1,28 @@
 {
-  "compilerOptions": {
-    "baseUrl": "./",
-    "typeRoots": [
-      "node_modules/@types",
-      "types/my-types"
-    ],
-    "paths": {
-      "@/*": [
-        "./*"
-      ]
+    "compilerOptions": {
+        "baseUrl": "./",
+        "typeRoots": ["node_modules/@types", "types/my-types"],
+        "paths": {
+            "@/*": ["./*"]
+        },
+        "allowJs": true,
+        "alwaysStrict": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "isolatedModules": true,
+        "jsx": "preserve",
+        "lib": ["dom", "es2017"],
+        "module": "esnext",
+        "moduleResolution": "node",
+        "noFallthroughCasesInSwitch": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "target": "esnext",
+        "noEmit": true
     },
-    "allowJs": true,
-    "alwaysStrict": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "lib": [
-      "dom",
-      "es2017"
-    ],
-    "module": "esnext",
-    "moduleResolution": "node",
-    "noFallthroughCasesInSwitch": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "target": "esnext",
-    "noEmit": true
-  },
-  "exclude": [
-    "node_modules",
-    "*.js"
-  ],
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ]
+    "exclude": ["node_modules", "*.js"],
+    "include": ["**/*.ts", "**/*.tsx"]
 }

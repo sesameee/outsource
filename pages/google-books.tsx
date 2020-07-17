@@ -3,11 +3,11 @@ import React from 'react'
 import { GoogleBooksContainer } from '@/containers/GoogleBooks'
 
 const GoogleBookPage: React.FC = () => {
-  return (
-    <div>
-      <GoogleBooksContainer />
-    </div>
-  )
+    return (
+        <div>
+            <GoogleBooksContainer />
+        </div>
+    )
 }
 
 export default GoogleBookPage

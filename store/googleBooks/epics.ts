@@ -12,27 +12,27 @@ import { VolumeList } from '@/types/apis/googleBooks'
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
 export const initEpic: Epic = (action$) =>
-  action$.pipe(
-    ofType(HYDRATE),
-    switchMap(() => {
-      return of(GoogleBooksActions.reset())
-    }),
-  )
+    action$.pipe(
+        ofType(HYDRATE),
+        switchMap(() => {
+            return of(GoogleBooksActions.reset())
+        }),
+    )
 
 export const fetchGoogleBookEpic: Epic = (action$) =>
-  action$.pipe(
-    ofType(GoogleBooksActions.fetchVolumes),
-    switchMap((action: PayloadAction<{ searchText: string }>) =>
-      HttpService.GetAsync<{ q: string }, VolumeList>('volumes', { q: action.payload.searchText }).pipe(
-        mergeMap((res) => {
-          return of(GoogleBooksActions.fetchVolumesSuccess({ volumeList: res.data }))
-        }),
-        catchError((error: AxiosError) => {
-          return of(GoogleBooksActions.fetchVolumesFailure({ error: error.message }))
-        }),
-        takeUntil(action$.ofType(GoogleBooksActions.stopFetchVolumes)),
-      ),
-    ),
-  )
+    action$.pipe(
+        ofType(GoogleBooksActions.fetchVolumes),
+        switchMap((action: PayloadAction<{ searchText: string }>) =>
+            HttpService.GetAsync<{ q: string }, VolumeList>('volumes', { q: action.payload.searchText }).pipe(
+                mergeMap((res) => {
+                    return of(GoogleBooksActions.fetchVolumesSuccess({ volumeList: res.data }))
+                }),
+                catchError((error: AxiosError) => {
+                    return of(GoogleBooksActions.fetchVolumesFailure({ error: error.message }))
+                }),
+                takeUntil(action$.ofType(GoogleBooksActions.stopFetchVolumes)),
+            ),
+        ),
+    )
 
 export default [initEpic, fetchGoogleBookEpic]

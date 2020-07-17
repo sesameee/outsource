@@ -1,5 +1,5 @@
 export interface BreezeDailyData {
-    desc: string;
-    imageUrl: string;
-    linkUrl: string;
+    desc: string
+    imageUrl: string
+    linkUrl: string
 }

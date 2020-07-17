@@ -1,8 +1,8 @@
-import { ShoppingCartProductData } from "./common";
+import { ShoppingCartProductData } from './common'
 
 export interface ShoppingCartListData {
-    cid: string;
-    name: string;
-    categoryType: string;
-    shoppingCartProducts: ShoppingCartProductData[];
+    cid: string
+    name: string
+    categoryType: string
+    shoppingCartProducts: ShoppingCartProductData[]
 }

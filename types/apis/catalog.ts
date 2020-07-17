@@ -1,11 +1,11 @@
-import { ProductData } from './common';
+import { ProductData } from './common'
 
 export interface CatalogData {
-    cid: string;
-    cName: string;
-    desc: string;
-    categoryType: string;
-    categoryList: CatalogData[];
-    total?: number;
-    cData?: ProductData[];
+    cid: string
+    cName: string
+    desc: string
+    categoryType: string
+    categoryList: CatalogData[]
+    total?: number
+    cData?: ProductData[]
 }

@@ -10,16 +10,16 @@ import '@/styles/style.scss'
 import '@/styles/main.scss'
 import { appWithTranslation } from '../I18n'
 class MyApp extends App {
-  static async getInitialProps({ Component, ctx }: AppContext) {
-    const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {}
-    return { pageProps }
-  }
+    static async getInitialProps({ Component, ctx }: AppContext) {
+        const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {}
+        return { pageProps }
+    }
 
-  render() {
-    const { Component, pageProps } = this.props
+    render() {
+        const { Component, pageProps } = this.props
 
-    return <Component {...pageProps} />
-  }
+        return <Component {...pageProps} />
+    }
 }
 
 export default wrapper.withRedux(appWithTranslation(MyApp))

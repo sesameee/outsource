@@ -1,4 +1,4 @@
 export interface RefundReasonData {
-    code: string;
-    desc: string;
+    code: string
+    desc: string
 }

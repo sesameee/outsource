@@ -1,11 +1,11 @@
 export interface AddressInfoData {
-    cityCode: number;
-    cityName: string;
-    areas: AreaData[];
+    cityCode: number
+    cityName: string
+    areas: AreaData[]
 }
 
 export interface AreaData {
-    areaCode: number;
-    areaName: string;
-    zipCode: number;
+    areaCode: number
+    areaName: string
+    zipCode: number
 }
