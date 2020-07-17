@@ -8,6 +8,7 @@ import '@/styles/owl.scss'
 import '@/styles/popup.scss'
 import '@/styles/style.scss'
 import '@/styles/main.scss'
+import '@/styles/custom.scss'
 import { appWithTranslation } from '../I18n'
 class MyApp extends App {
     static async getInitialProps({ Component, ctx }: AppContext) {

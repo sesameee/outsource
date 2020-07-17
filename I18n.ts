@@ -6,11 +6,11 @@ const NextI18NextInstance = new NextI18Next({
     defaultNS: 'translations',
     otherLanguages: ['en'],
     serverLanguageDetection: true,
-    use: [Backend],
-    backend: {
-        loadPath: 'https://sesameee.github.io/locales/{{lng}}/{{ns}}.json',
-        parse: JSON.parse,
-    },
+    // use: [Backend],
+    // backend: {
+    //     loadPath: 'https://sesameee.github.io/locales/{{lng}}/{{ns}}.json',
+    //     parse: JSON.parse,
+    // },
 })
 
 export const { appWithTranslation, useTranslation, withTranslation, i18n } = NextI18NextInstance

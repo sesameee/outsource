@@ -1,6 +1,8 @@
 import React, { memo } from 'react'
+
 //import OwlItem from './OwlItem'
 // import Link from 'next/link'
+
 
 const Main: React.FC = () => {
     return (
