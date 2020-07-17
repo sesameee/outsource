@@ -1,0 +1,36 @@
+@mixin for-xs {
+    @media (min-width: 576px) {
+        @content;
+    }
+}
+
+@mixin for-s {
+    @media (min-width: 768px) {
+        @content;
+    }
+}
+
+@mixin for-m {
+    @media (min-width: 992px) {
+        @content;
+    }
+}
+
+@mixin for-l {
+    @media (min-width: 1200px) {
+        @content;
+    }
+}
+
+@mixin for-except-xs {
+    @media (min-width: 768px) {
+        @content;
+    }
+    @media (min-width: 992px) {
+        @content;
+    }
+    @media (min-width: 1200px) {
+        @content;
+    }
+}
+

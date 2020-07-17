@@ -16,7 +16,6 @@ class MyDocument extends Document {
                     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
                     <meta name="keywords" content="Breeze Online" />
                     <meta name="description" content="Breeze Online - Breeze Fashion" />
-                    <script type="text/javascript" src="/js/owl.carousel.min.js"></script>
                 </Head>
                 <body>
                     <Main />
