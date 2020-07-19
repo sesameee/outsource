@@ -9,7 +9,7 @@ import '@/styles/popup.scss'
 import '@/styles/style.scss'
 import '@/styles/main.scss'
 import '@/styles/custom.scss'
-import { appWithTranslation } from '../I18n'
+import { appWithTranslation, i18n } from '../I18n'
 class MyApp extends App {
     static async getInitialProps({ Component, ctx }: AppContext) {
         const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {}
@@ -17,6 +17,7 @@ class MyApp extends App {
     }
 
     render() {
+        i18n.changeLanguage('tw')
         const { Component, pageProps } = this.props
 
         return <Component {...pageProps} />

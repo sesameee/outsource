@@ -1,10 +1,20 @@
 import React, { memo } from 'react'
 import ItemList from './ItemList'
+import TopHeader from './TopHeader'
+import MyModal from '../MyModal'
+import MemberTab from '@/components/Member/MemberTab'
 // import Link from 'next/link'
 
-const Header: React.FC = () => {
+type HeaderProps = {
+    isIndex: boolean
+}
+const Header: React.FC<HeaderProps> = ({ isIndex }: HeaderProps) => {
+    const [IsOpenMember, setIsOpenMember] = React.useState(false)
+    const headerClass = isIndex ? 'header header-9' : 'header'
     return (
-        <header className="header header-9">
+        <header className={headerClass}>
+            {!isIndex && <TopHeader />}
+            <MyModal content={<MemberTab />} isOpen={IsOpenMember} setPropIsOpenFn={setIsOpenMember} />
             <div className="header-middle sticky-header">
                 <div className="container">
                     <div className="header-left">
@@ -29,27 +39,6 @@ const Header: React.FC = () => {
                             </ul>
                         </nav>
 
-                        <div className="header-search">
-                            <a href="#" className="search-toggle" role="button">
-                                <i className="icon-search"></i>
-                            </a>
-                            <form action="#" method="get">
-                                <div className="header-search-wrapper">
-                                    <label htmlFor="q" className="sr-only">
-                                        Search
-                                    </label>
-                                    <input
-                                        type="search"
-                                        className="form-control"
-                                        name="q"
-                                        id="q"
-                                        placeholder="Search in..."
-                                        required
-                                    />
-                                </div>
-                            </form>
-                        </div>
-
                         <a href="wishlist.html" className="wishlist-link">
                             <i className="icon-heart-o"></i>
                             <span className="wishlist-count">3</span>
@@ -67,7 +56,6 @@ const Header: React.FC = () => {
                             >
                                 <i className="icon-shopping-cart"></i>
                                 <span className="cart-count">2</span>
-                                <span className="cart-txt">$ 164,00</span>
                             </a>
 
                             <div className="dropdown-menu dropdown-menu-right">
@@ -132,6 +120,10 @@ const Header: React.FC = () => {
                                 </div>
                             </div>
                         </div>
+
+                        <a onClick={() => setIsOpenMember(true)} className="wishlist-link">
+                            <i className="icon-user"></i>
+                        </a>
                     </div>
                 </div>
             </div>

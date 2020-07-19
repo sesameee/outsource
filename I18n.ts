@@ -15,5 +15,4 @@ const NextI18NextInstance = new NextI18Next({
 })
 
 export const { appWithTranslation, useTranslation, withTranslation, i18n } = NextI18NextInstance
-i18n.changeLanguage('tw')
 export default NextI18NextInstance
