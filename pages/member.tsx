@@ -37,8 +37,61 @@ const Member: React.FC<MemberProps> = ({ t }: MemberProps): JSX.Element => {
                     </div>
                 </div>
                 <Nav navData={navList} />
+                <div className="container">
+                    <div className="member-frame">
+                        <ul className="frame-left">
+                            <li className="li">會員資料維護</li>
+                            <li className="li">訂單記錄</li>
+                            <li className="li">訂單記錄</li>
+                            <li className="li active">密碼修改</li>
+                        </ul>
+                        <div className="frame-right">
+                            <form action="#" className="member-from">
+                                <div className="form-group">
+                                    <label htmlFor="register-email">請輸入手機號碼 ( 接收驗證碼 )</label>
+                                    <input
+                                        type="email"
+                                        className="form-control"
+                                        id="register-email"
+                                        name="register-email"
+                                        required
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label htmlFor="register-password">新密碼 ( 請輸入 6-12 位英數混合的密碼 )</label>
+                                    <input
+                                        type="password"
+                                        className="form-control"
+                                        id="register-password"
+                                        name="register-password"
+                                        required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="register-password">
+                                        新密碼確認 ( 請輸入 6-12 位英數混合的密碼 )
+                                    </label>
+                                    <input
+                                        type="password"
+                                        className="form-control"
+                                        id="register-password"
+                                        name="register-password"
+                                        required
+                                    />
+                                </div>
+
+                                <div className="form-footer">
+                                    <button type="submit" className="btn btn-outline-primary-2">
+                                        <span>確認修改</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </main>
-            <div className="member-frame"></div>
+
             <Footer />
         </div>
     )

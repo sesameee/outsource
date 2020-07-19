@@ -1,4 +1,5 @@
 @import './utils';
+@import './color.scss';
 .footer {
     background-color: black;
     min-height: 15.9rem;
@@ -113,5 +114,44 @@
         position: absolute;
         right: 1.5rem;
         top: 1.5rem;
+    }
+}
+
+.member-frame {
+    display: flex;
+    font-weight: 400;
+    .frame-left {
+        margin-left: 10rem;
+        flex-basis: 22rem;
+        .li {
+            cursor: pointer;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            color: #333333;
+            border-bottom: 1px solid rgb(237, 237, 237);
+            font-weight: 400;
+            &.active {
+                color: $mainColor;
+            }
+        }
+    }
+    .frame-right {
+        flex: auto;
+        margin: 0 5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .member-from {
+            max-width: 30rem;
+            margin-bottom: 5rem;
+            label {
+                font-weight: 400;
+            }
+            .form-footer {
+                justify-content: center;
+                padding-top: 5rem;
+            }
+        }
     }
 }
