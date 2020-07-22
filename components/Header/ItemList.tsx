@@ -1,18 +1,21 @@
 import React, { memo } from 'react'
 import ItemSubList from './ItemSubList'
-
-const ItemList: React.FC = () => {
+import { CategoryData } from '@/types/apis/channelList'
+type ItemListProps = {
+    cName: string
+    cData: CategoryData[]
+}
+const ItemList: React.FC<ItemListProps> = ({ cName, cData }: ItemListProps) => {
     return (
         <li className="megamenu-container active">
             <a href="product.html" className="sf-with-ul">
-                Product
+                {cName}
             </a>
             <div className="megamenu megamenu-sm">
                 <div className="sub-container no-gutters">
-                    <ItemSubList />
-                    <ItemSubList />
-                    <ItemSubList />
-                    <ItemSubList />
+                    {cData.map((item, index) => {
+                        return <ItemSubList key={index} cName={item.cName} cData={item.cData} />
+                    })}
                 </div>
             </div>
         </li>

@@ -9,7 +9,7 @@ export const channelListState = (state: RootState): ChannelListState => state.ch
 //     return channelListState.channelListList.totalItems
 // })
 
-export const getBannerList = createSelector<RootState, ChannelListState, ChannelListState['channelList']>(
+export const getChannelList = createSelector<RootState, ChannelListState, ChannelListState['channelList']>(
     channelListState,
     (channelListState: ChannelListState) => {
         return channelListState.channelList

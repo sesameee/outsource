@@ -1,32 +1,13 @@
 import React, { memo } from 'react'
 
 import Banner from './Banner'
+import TopBanner from './TopBanner'
 
 const Main: React.FC = () => {
     return (
         <main className="main">
             <div className="intro-slider-container mb-3 mb-lg-5">
-                <div
-                    className="intro-slider owl-carousel owl-simple owl-nav-inside owl-light"
-                    data-toggle="owl"
-                    data-owl-options='{"nav":false, "dots": false, "loop": false}'
-                >
-                    <div
-                        className="intro-slide"
-                        style={{ backgroundImage: 'url(/images/demos/demo-12/slider/slide-1.jpg)' }}
-                    >
-                        <div className="container intro-content text-center">
-                            <h3 className="intro-subtitle text-white">SEASONAL PICKS</h3>
-                            <h1 className="intro-title text-white">Get All The Good Stuff</h1>
-
-                            <a href="category.html" className="btn btn-outline-white">
-                                <span>DISCOVER MORE</span>
-                                <i className="icon-long-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
+                <TopBanner />
                 <span className="slider-loader text-white"></span>
             </div>
 
@@ -189,4 +170,4 @@ const Main: React.FC = () => {
     )
 }
 
-export default memo(Main)
+export default Main

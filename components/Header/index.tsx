@@ -3,6 +3,7 @@ import ItemList from './ItemList'
 import TopHeader from './TopHeader'
 import MyModal from '../MyModal'
 import MemberTab from '@/components/Member/MemberTab'
+import ChannelList from './ChannelList'
 // import Link from 'next/link'
 
 type HeaderProps = {
@@ -30,13 +31,7 @@ const Header: React.FC<HeaderProps> = ({ isIndex }: HeaderProps) => {
 
                     <div className="header-right">
                         <nav className="main-nav">
-                            <ul className="menu sf-arrows">
-                                <ItemList />
-                                <ItemList />
-                                <ItemList />
-                                <ItemList />
-                                <ItemList />
-                            </ul>
+                            <ChannelList />
                         </nav>
 
                         <a href="wishlist.html" className="wishlist-link">

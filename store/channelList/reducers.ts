@@ -11,13 +11,10 @@ export const setIsSearching: CaseReducer<State, PayloadAction<State>> = (state, 
     })
 }
 
-export const fetchChannelListSuccess: CaseReducer<State, PayloadAction<{ channelList: channelList }>> = (
-    state,
-    action,
-) => {
+export const fetchChannelListSuccess: CaseReducer<State, PayloadAction<{ channelList: any }>> = (state, action) => {
     return produce(state, (draft) => {
         draft['isFetch'] = false
-        draft['channelList'] = action.payload.channelList
+        draft['channelList'] = action.payload.channelList.data
     })
 }
 

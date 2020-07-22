@@ -1,14 +1,11 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { BannerActions } from '@/store'
+import { ChannelListActions } from '@/store'
 
-export const useBanner = (): void => {
+export const useChannelList = (): void => {
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(BannerActions.fetchBanner())
-        return () => {
-            // dispatch(BannerActions.reset())
-        }
+        dispatch(ChannelListActions.fetchChannelList())
     }, [dispatch])
 }

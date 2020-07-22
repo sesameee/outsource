@@ -7,7 +7,7 @@ import { BannerData } from '@/types/apis/banner'
 import Link from 'next/link'
 
 const OwlCarousel = dynamic(() => import('react-owl-carousel'), { ssr: false })
-const OwlItem: React.FC = () => {
+const Banner: React.FC = () => {
     useBanner()
     const bannerList = useSelector(BannerSelectors.getBannerList)
     return (
@@ -66,4 +66,4 @@ const OwlItem: React.FC = () => {
     )
 }
 
-export default memo(OwlItem)
+export default memo(Banner)

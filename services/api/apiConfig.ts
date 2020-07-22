@@ -1,1 +1,2 @@
-export const BANNER = 'mocks/bannerList'
+export const BANNER = 'banner'
+export const CHANNEL_LIST = 'channelList'

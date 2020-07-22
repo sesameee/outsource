@@ -10,7 +10,7 @@ export interface BannerData {
      */
     cid: string
     /**
-     * @examples ["1","2"]
+     * @examples ["image","video"]
      * @description 1 = 使用linkUrl 2 = 內部網連結
      */
     contentType: string

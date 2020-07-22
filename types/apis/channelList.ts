@@ -35,5 +35,5 @@ export interface CategoryData {
     cData: CategoryData[]
 }
 export interface channelList extends Response {
-    data: CategoryData[]
+    data: ChannelData[]
 }

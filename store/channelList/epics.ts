@@ -8,7 +8,7 @@ import { AxiosError } from 'axios'
 import { ChannelListActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
 import { channelList } from '@/types/apis/channelList'
-import { BANNER } from '@/services/api/apiConfig'
+import { CHANNEL_LIST } from '@/services/api/apiConfig'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
@@ -24,7 +24,7 @@ export const fetchChannelListEpic: Epic = (action$) =>
     action$.pipe(
         ofType(ChannelListActions.fetchChannelList),
         switchMap((action: PayloadAction) =>
-            HttpService.PostAsync<null, channelList>(BANNER).pipe(
+            HttpService.PostAsync<null, channelList>(CHANNEL_LIST).pipe(
                 mergeMap((res) => {
                     return of(ChannelListActions.fetchChannelListSuccess({ channelList: res.data }))
                 }),
