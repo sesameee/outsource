@@ -19,4 +19,4 @@ export const googleBookSlice = createSlice({
 const fetchVolumes = createAction<{ searchText: string }>(types.FETCH_VOLUMES)
 const stopFetchVolumes = createAction(types.STOP_FETCH_VOLUMES)
 
-export const createActions = { fetchVolumes, stopFetchVolumes }
+export const googleCreateActions = { fetchVolumes, stopFetchVolumes }

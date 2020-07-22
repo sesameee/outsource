@@ -1,9 +1,15 @@
 import * as GoogleBooksSelectors from './googleBooks/selectors'
-import { googleBookSlice, createActions } from './googleBooks/slice'
-
+import * as BannerSelectors from './banner/selectors'
+import { googleBookSlice, googleCreateActions } from './googleBooks/slice'
+import { bannerSlice, bannerCreateActions } from './banner/slice'
 const GoogleBooksActions = {
     ...googleBookSlice.actions,
-    ...createActions,
+    ...googleCreateActions,
 }
 
-export { GoogleBooksSelectors, GoogleBooksActions }
+const BannerActions = {
+    ...bannerSlice.actions,
+    ...bannerCreateActions,
+}
+
+export { GoogleBooksSelectors, GoogleBooksActions, BannerSelectors, BannerActions }

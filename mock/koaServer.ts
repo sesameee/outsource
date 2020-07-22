@@ -2,6 +2,7 @@ import Koa from 'koa'
 import Router from 'koa-router'
 import * as ts from 'typescript'
 import { tsMockService } from 'faker-ts'
+import cors from '@koa/cors'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function createServer(files: string[], jsonCompilerOptions?: ts.CompilerOptions, basePath?: string) {
@@ -9,7 +10,7 @@ export function createServer(files: string[], jsonCompilerOptions?: ts.CompilerO
     const router = new Router()
 
     const mocker = tsMockService(files, jsonCompilerOptions, basePath)
-
+    app.use(cors())
     app.use(async (ctx, next) => {
         try {
             await next()
@@ -19,6 +20,10 @@ export function createServer(files: string[], jsonCompilerOptions?: ts.CompilerO
     })
 
     router.get('/mocks/:symbol', async (ctx) => {
+        ctx.body = mocker.generateMock(ctx.params.symbol)
+    })
+
+    router.post('/mocks/:symbol', async (ctx) => {
         ctx.body = mocker.generateMock(ctx.params.symbol)
     })
 

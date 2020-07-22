@@ -1,7 +1,6 @@
 import React, { memo } from 'react'
 
-//import OwlItem from './OwlItem'
-// import Link from 'next/link'
+import Banner from './Banner'
 
 const Main: React.FC = () => {
     return (
@@ -91,7 +90,7 @@ const Main: React.FC = () => {
                         <h2 className="title">Recent Arrivals</h2>
                         <p className="title-desc">Aliquam tincidunt mauris eurisus</p>
                     </div>
-                    {/* <OwlItem /> */}
+                    <Banner />
                 </div>
             </div>
             <div className="container">

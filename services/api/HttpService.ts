@@ -3,7 +3,7 @@ import { axios } from './axios'
 import { AxiosRequestConfig } from 'axios'
 
 class HttpService {
-    static readonly BasePath: string = 'https://www.googleapis.com/books/v1' // todo BaseURL変更
+    static readonly BasePath: string = 'http://localhost:8080' // todo BaseURL変更
     public static getBaseUrl = (targetApi: string, basePath: string = HttpService.BasePath): string => {
         // return `/${basePath}/${targetApi}`
         return `${basePath}/${targetApi}`
@@ -18,7 +18,7 @@ class HttpService {
     }
     public static PostAsync<Req, Res>(
         targetApi: string,
-        data: Req,
+        data?: Req,
         basePath?: string,
         config?: AxiosRequestConfig,
     ): AxiosObservable<Res> {

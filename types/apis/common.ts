@@ -34,3 +34,14 @@ export interface ShipInfoData {
     shipType: string
     shippingStatus?: string
 }
+
+export type Response = {
+    /**
+     * @examples ["0000"]
+     */
+    code: string
+    /**
+     * @examples ["成功"]
+     */
+    message: string
+}
