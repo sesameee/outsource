@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Header from '@/components/Header'
-import Main from '@/components/Index/Main'
+// import Main from '@/components/Index/Main'
 import Footer from '@/components/Footer'
 import Nav from '@/components/Nav'
 import { navData } from '@/types/components/nav'

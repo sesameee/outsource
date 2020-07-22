@@ -105,20 +105,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var i18next_http_backend__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(i18next_http_backend__WEBPACK_IMPORTED_MODULE_1__);
 
 
+const DEFAULT_LANFUAGE = 'tw';
 const NextI18NextInstance = new next_i18next__WEBPACK_IMPORTED_MODULE_0___default.a({
-    defaultLanguage: 'tw',
+    defaultLanguage: DEFAULT_LANFUAGE,
     defaultNS: 'translations',
     otherLanguages: ['en'],
     serverLanguageDetection: true,
-    preload: ['tw'],
+    preload: [DEFAULT_LANFUAGE],
     use: [i18next_http_backend__WEBPACK_IMPORTED_MODULE_1___default.a],
     backend: {
         loadPath: 'https://sesameee.github.io/locales/{{lng}}/{{ns}}.json',
         parse: JSON.parse,
-    }
+    },
 });
 const { appWithTranslation, useTranslation, withTranslation, i18n } = NextI18NextInstance;
-i18n.changeLanguage('tw');
 /* harmony default export */ __webpack_exports__["default"] = (NextI18NextInstance);
 
 

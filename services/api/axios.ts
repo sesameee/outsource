@@ -3,8 +3,7 @@ import { AxiosRequestConfig } from 'axios'
 
 Axios.interceptors.request.use(
     (request: AxiosRequestConfig) => {
-        // TODO: 認証処理(PJに合わせる)
-        console.log('リクエスト前処理: ', request.url)
+        console.log('request前處理: ', request.url)
         return request
     },
     (error) => {
@@ -14,8 +13,7 @@ Axios.interceptors.request.use(
 )
 
 Axios.interceptors.response.use((response) => {
-    // TODO: エラーハンドリング(PJのi/oに合わせる)
-    console.log('リクエスト後処理: ', response)
+    console.log('request後處理: ', response)
     return response
 })
 
