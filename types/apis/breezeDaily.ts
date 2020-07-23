@@ -3,3 +3,7 @@ export interface BreezeDailyData {
     imageUrl: string
     linkUrl: string
 }
+
+export interface breezeDailyList extends Response {
+    data: BreezeDailyData[]
+}
