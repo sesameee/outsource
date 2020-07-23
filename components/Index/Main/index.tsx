@@ -1,14 +1,11 @@
 import React, { memo } from 'react'
-
-import Banner from './Banner'
+import Channel from './Channel'
 import TopBanner from './TopBanner'
-
 const Main: React.FC = () => {
     return (
         <main className="main">
             <div className="intro-slider-container mb-3 mb-lg-5">
                 <TopBanner />
-                <span className="slider-loader text-white"></span>
             </div>
 
             <div className="container">
@@ -71,7 +68,7 @@ const Main: React.FC = () => {
                         <h2 className="title">Recent Arrivals</h2>
                         <p className="title-desc">Aliquam tincidunt mauris eurisus</p>
                     </div>
-                    <Banner />
+                    <Channel />
                 </div>
             </div>
             <div className="container">

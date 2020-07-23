@@ -1,29 +1,33 @@
 import React from 'react'
-import dynamic from 'next/dynamic'
 import { useBanner } from '@/hooks/Banner'
 import { BannerSelectors } from '@/store'
 import { useSelector } from 'react-redux'
 import { BannerData } from '@/types/apis/banner'
+import Slider from 'react-slick'
 // import Link from 'next/link'
-
-const OwlCarousel = dynamic(() => import('react-owl-carousel'), { ssr: false })
 const TopBanner: React.FC = () => {
     useBanner()
     const bannerList = useSelector(BannerSelectors.getBannerList)
-    console.log('bannerListAAA :>> ', bannerList)
-    return (
-        <OwlCarousel
-            items={1}
-            nav={false}
-            loop={false}
-            className="intro-slider owl-carousel owl-simple owl-nav-inside owl-light"
-            data-toggle="owl"
-            data-owl-options='{"nav":false, "dots": false, "loop": false}'
-        >
+    const settings = {
+        dots: false,
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        adaptiveHeight: true,
+        autoplay: true,
+        speed: 5000,
+        cssEase: 'linear',
+    }
+
+    return bannerList.length > 0 ? (
+        <Slider {...settings} className="intro-slider">
             {bannerList.map((item: BannerData | null, index: number) =>
                 item?.contentType == 'image' ? (
-                    <div key={index} className="intro-slide" style={{ backgroundImage: `url(${item?.sourceUrl})` }}>
-                        <div className="container intro-content text-center">
+                    <div key={index} className="intro-slide">
+                        <div
+                            className="intro-content text-center"
+                            style={{ backgroundImage: `url(${item?.sourceUrl})`, height: '100vh' }}
+                        >
                             <h3 className="intro-subtitle text-white">{item?.desc}</h3>
                             <h1 className="intro-title text-white">{item?.desc}</h1>
                             <a href={item?.linkUrl} target="blank" className="btn btn-outline-white">
@@ -34,13 +38,17 @@ const TopBanner: React.FC = () => {
                     </div>
                 ) : (
                     <div className="intro-slide" key={index}>
-                        <video autoPlay muted loop className="intro-content">
-                            <source src="/video/1.mp4" type="video/mp4" />
-                        </video>
+                        <div className="intro-content no-padding">
+                            <video autoPlay muted loop>
+                                <source src="/video/1.mp4" type="video/mp4" />
+                            </video>
+                        </div>
                     </div>
                 ),
             )}
-        </OwlCarousel>
+        </Slider>
+    ) : (
+        <span className="slider-loader text-white"></span>
     )
 }
 

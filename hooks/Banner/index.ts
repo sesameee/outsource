@@ -7,8 +7,5 @@ export const useBanner = (): void => {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(BannerActions.fetchBanner())
-        return () => {
-            // dispatch(BannerActions.reset())
-        }
     }, [dispatch])
 }

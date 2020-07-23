@@ -3,6 +3,8 @@ import React from 'react'
 import App, { AppContext } from 'next/app'
 
 import { wrapper } from '@/store/rootStore'
+import '@/styles/slick.scss'
+import '@/styles/slick-theme.scss'
 import '@/styles/bootstrap.min.scss'
 import '@/styles/owl.scss'
 import '@/styles/popup.scss'
