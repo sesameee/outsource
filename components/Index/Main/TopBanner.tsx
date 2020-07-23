@@ -15,7 +15,7 @@ const TopBanner: React.FC = () => {
         slidesToScroll: 1,
         adaptiveHeight: true,
         autoplay: true,
-        speed: 5000,
+        speed: 500,
         cssEase: 'linear',
     }
 

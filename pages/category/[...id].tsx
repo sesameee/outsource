@@ -1,11 +1,55 @@
 import React from 'react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import { withRouter } from 'next/router'
+import { WithRouterProps } from 'next/dist/client/with-router'
+import Nav from '@/components/Nav'
+
+import { useSelector } from 'react-redux'
+import { useChannelList } from '@/hooks/ChannelList'
+import { ChannelListSelectors } from '@/store'
+import { ChannelData, CategoryData } from '@/types/apis/channelList'
+import WidgetFrame from '@/components/Category/WidgetFrame'
 
 // import { withTranslation, i18n } from '@/I18n'
-const category = (): JSX.Element => {
+
+const Category = ({ router }: WithRouterProps): JSX.Element => {
+    console.log('router :>> ', router.query)
+    const query = router.query
+    useChannelList()
+    const channelList = useSelector(ChannelListSelectors.getChannelList)
+    const navData: { title: any; link: string }[] = []
+    const processNav = (id: string, list: CategoryData[] | ChannelData[], path: string, index: number) => {
+        index++
+        const category = list.filter((item: CategoryData | ChannelData) => {
+            return item.cid == id
+        })
+        if (category.length) {
+            const categoryData = category[0]
+            const subName = index == 1 ? categoryData.channelName : categoryData.cName
+            path = `${path}/${categoryData.cid}`
+            navData.push({
+                title: subName,
+                link: path,
+            })
+            const subList = index == 1 ? categoryData.categoryList : categoryData.cData
+            if (subList && Array.isArray(query.id) && query.id[index]) {
+                processNav(query.id[index], subList, path, index)
+            }
+        }
+    }
+
+    if (Array.isArray(query.id)) {
+        processNav(query.id[0], channelList, '/category', 0)
+    }
+
+    const titleArr = [...navData].reverse()
+    const title1 = titleArr[0]
+    const title2 = navData.length > 1 ? titleArr[1] : titleArr[0]
+
     return (
         <div className="page-wrapper">
+            <WidgetFrame />
             <Header isIndex={false} />
             <main className="main">
                 <div
@@ -14,26 +58,12 @@ const category = (): JSX.Element => {
                 >
                     <div className="container">
                         <h1 className="page-title">
-                            Grid 3 Columns<span>Shop</span>
+                            {title1 && title1.title}
+                            <span>{title2 && title2.title}</span>
                         </h1>
                     </div>
                 </div>
-                <nav aria-label="breadcrumb" className="breadcrumb-nav mb-2">
-                    <div className="container">
-                        <ol className="breadcrumb">
-                            <li className="breadcrumb-item">
-                                <a href="index.html">Home</a>
-                            </li>
-                            <li className="breadcrumb-item">
-                                <a href="#">Shop</a>
-                            </li>
-                            <li className="breadcrumb-item active" aria-current="page">
-                                Grid 3 Columns
-                            </li>
-                        </ol>
-                    </div>
-                </nav>
-
+                <Nav navData={navData}></Nav>
                 <div className="page-content">
                     <div className="container">
                         <div className="row">
@@ -57,49 +87,6 @@ const category = (): JSX.Element => {
                                                     <option value="date">Date</option>
                                                 </select>
                                             </div>
-                                        </div>
-                                        <div className="toolbox-layout">
-                                            <a href="category-list.html" className="btn-layout">
-                                                <svg width="16" height="10">
-                                                    <rect x="0" y="0" width="4" height="4" />
-                                                    <rect x="6" y="0" width="10" height="4" />
-                                                    <rect x="0" y="6" width="4" height="4" />
-                                                    <rect x="6" y="6" width="10" height="4" />
-                                                </svg>
-                                            </a>
-
-                                            <a href="category-2cols.html" className="btn-layout">
-                                                <svg width="10" height="10">
-                                                    <rect x="0" y="0" width="4" height="4" />
-                                                    <rect x="6" y="0" width="4" height="4" />
-                                                    <rect x="0" y="6" width="4" height="4" />
-                                                    <rect x="6" y="6" width="4" height="4" />
-                                                </svg>
-                                            </a>
-
-                                            <a href="category.html" className="btn-layout active">
-                                                <svg width="16" height="10">
-                                                    <rect x="0" y="0" width="4" height="4" />
-                                                    <rect x="6" y="0" width="4" height="4" />
-                                                    <rect x="12" y="0" width="4" height="4" />
-                                                    <rect x="0" y="6" width="4" height="4" />
-                                                    <rect x="6" y="6" width="4" height="4" />
-                                                    <rect x="12" y="6" width="4" height="4" />
-                                                </svg>
-                                            </a>
-
-                                            <a href="category-4cols.html" className="btn-layout">
-                                                <svg width="22" height="10">
-                                                    <rect x="0" y="0" width="4" height="4" />
-                                                    <rect x="6" y="0" width="4" height="4" />
-                                                    <rect x="12" y="0" width="4" height="4" />
-                                                    <rect x="18" y="0" width="4" height="4" />
-                                                    <rect x="0" y="6" width="4" height="4" />
-                                                    <rect x="6" y="6" width="4" height="4" />
-                                                    <rect x="12" y="6" width="4" height="4" />
-                                                    <rect x="18" y="6" width="4" height="4" />
-                                                </svg>
-                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -787,390 +774,7 @@ const category = (): JSX.Element => {
                                             Clean All
                                         </a>
                                     </div>
-
-                                    <div className="widget widget-collapsible">
-                                        <h3 className="widget-title">
-                                            <a
-                                                data-toggle="collapse"
-                                                href="#widget-1"
-                                                role="button"
-                                                aria-expanded="true"
-                                                aria-controls="widget-1"
-                                            >
-                                                Category
-                                            </a>
-                                        </h3>
-
-                                        <div className="collapse show" id="widget-1">
-                                            <div className="widget-body">
-                                                <div className="filter-items filter-items-count">
-                                                    <div className="filter-item">
-                                                        <div className="custom-control custom-checkbox">
-                                                            <input
-                                                                type="checkbox"
-                                                                className="custom-control-input"
-                                                                id="cat-1"
-                                                            />
-                                                            <label className="custom-control-label" htmlFor="cat-1">
-                                                                Dresses
-                                                            </label>
-                                                        </div>
-                                                        <span className="item-count">3</span>
-                                                    </div>
-
-                                                    <div className="filter-item">
-                                                        <div className="custom-control custom-checkbox">
-                                                            <input
-                                                                type="checkbox"
-                                                                className="custom-control-input"
-                                                                id="cat-2"
-                                                            />
-                                                            <label className="custom-control-label" htmlFor="cat-2">
-                                                                T-shirts
-                                                            </label>
-                                                        </div>
-                                                        <span className="item-count">0</span>
-                                                    </div>
-
-                                                    <div className="filter-item">
-                                                        <div className="custom-control custom-checkbox">
-                                                            <input
-                                                                type="checkbox"
-                                                                className="custom-control-input"
-                                                                id="cat-3"
-                                                            />
-                                                            <label className="custom-control-label" htmlFor="cat-3">
-                                                                Bags
-                                                            </label>
-                                                        </div>
-                                                        <span className="item-count">4</span>
-                                                    </div>
-
-                                                    <div className="filter-item">
-                                                        <div className="custom-control custom-checkbox">
-                                                            <input
-                                                                type="checkbox"
-                                                                className="custom-control-input"
-                                                                id="cat-4"
-                                                            />
-                                                            <label className="custom-control-label" htmlFor="cat-4">
-                                                                Jackets
-                                                            </label>
-                                                        </div>
-                                                        <span className="item-count">2</span>
-                                                    </div>
-
-                                                    <div className="filter-item">
-                                                        <div className="custom-control custom-checkbox">
-                                                            <input
-                                                                type="checkbox"
-                                                                className="custom-control-input"
-                                                                id="cat-5"
-                                                            />
-                                                            <label className="custom-control-label" htmlFor="cat-5">
-                                                                Shoes
-                                                            </label>
-                                                        </div>
-                                                        <span className="item-count">2</span>
-                                                    </div>
-
-                                                    <div className="filter-item">
-                                                        <div className="custom-control custom-checkbox">
-                                                            <input
-                                                                type="checkbox"
-                                                                className="custom-control-input"
-                                                                id="cat-6"
-                                                            />
-                                                            <label className="custom-control-label" htmlFor="cat-6">
-                                                                Jumpers
-                                                            </label>
-                                                        </div>
-                                                        <span className="item-count">1</span>
-                                                    </div>
-
-                                                    <div className="filter-item">
-                                                        <div className="custom-control custom-checkbox">
-                                                            <input
-                                                                type="checkbox"
-                                                                className="custom-control-input"
-                                                                id="cat-7"
-                                                            />
-                                                            <label className="custom-control-label" htmlFor="cat-7">
-                                                                Jeans
-                                                            </label>
-                                                        </div>
-                                                        <span className="item-count">1</span>
-                                                    </div>
-
-                                                    <div className="filter-item">
-                                                        <div className="custom-control custom-checkbox">
-                                                            <input
-                                                                type="checkbox"
-                                                                className="custom-control-input"
-                                                                id="cat-8"
-                                                            />
-                                                            <label className="custom-control-label" htmlFor="cat-8">
-                                                                Sportwear
-                                                            </label>
-                                                        </div>
-                                                        <span className="item-count">0</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="widget widget-collapsible">
-                                        <h3 className="widget-title">
-                                            <a
-                                                data-toggle="collapse"
-                                                href="#widget-2"
-                                                role="button"
-                                                aria-expanded="true"
-                                                aria-controls="widget-2"
-                                            >
-                                                Size
-                                            </a>
-                                        </h3>
-
-                                        <div className="collapse show" id="widget-2">
-                                            <div className="widget-body">
-                                                <div className="filter-items">
-                                                    <div className="filter-item">
-                                                        <div className="custom-control custom-checkbox">
-                                                            <input
-                                                                type="checkbox"
-                                                                className="custom-control-input"
-                                                                id="size-1"
-                                                            />
-                                                            <label className="custom-control-label" htmlFor="size-1">
-                                                                XS
-                                                            </label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="filter-item">
-                                                        <div className="custom-control custom-checkbox">
-                                                            <input
-                                                                type="checkbox"
-                                                                className="custom-control-input"
-                                                                id="size-2"
-                                                            />
-                                                            <label className="custom-control-label" htmlFor="size-2">
-                                                                S
-                                                            </label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="filter-item">
-                                                        <div className="custom-control custom-checkbox">
-                                                            <input
-                                                                type="checkbox"
-                                                                className="custom-control-input"
-                                                                checked
-                                                                id="size-3"
-                                                            />
-                                                            <label className="custom-control-label" htmlFor="size-3">
-                                                                M
-                                                            </label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="filter-item">
-                                                        <div className="custom-control custom-checkbox">
-                                                            <input
-                                                                type="checkbox"
-                                                                className="custom-control-input"
-                                                                checked
-                                                                id="size-4"
-                                                            />
-                                                            <label className="custom-control-label" htmlFor="size-4">
-                                                                L
-                                                            </label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="filter-item">
-                                                        <div className="custom-control custom-checkbox">
-                                                            <input
-                                                                type="checkbox"
-                                                                className="custom-control-input"
-                                                                id="size-5"
-                                                            />
-                                                            <label className="custom-control-label" htmlFor="size-5">
-                                                                XL
-                                                            </label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="filter-item">
-                                                        <div className="custom-control custom-checkbox">
-                                                            <input
-                                                                type="checkbox"
-                                                                className="custom-control-input"
-                                                                id="size-6"
-                                                            />
-                                                            <label className="custom-control-label" htmlFor="size-6">
-                                                                XXL
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="widget widget-collapsible">
-                                        <h3 className="widget-title">
-                                            <a
-                                                data-toggle="collapse"
-                                                href="#widget-3"
-                                                role="button"
-                                                aria-expanded="true"
-                                                aria-controls="widget-3"
-                                            >
-                                                Colour
-                                            </a>
-                                        </h3>
-                                    </div>
-
-                                    <div className="widget widget-collapsible">
-                                        <h3 className="widget-title">
-                                            <a
-                                                data-toggle="collapse"
-                                                href="#widget-4"
-                                                role="button"
-                                                aria-expanded="true"
-                                                aria-controls="widget-4"
-                                            >
-                                                Brand
-                                            </a>
-                                        </h3>
-
-                                        <div className="collapse show" id="widget-4">
-                                            <div className="widget-body">
-                                                <div className="filter-items">
-                                                    <div className="filter-item">
-                                                        <div className="custom-control custom-checkbox">
-                                                            <input
-                                                                type="checkbox"
-                                                                className="custom-control-input"
-                                                                id="brand-1"
-                                                            />
-                                                            <label className="custom-control-label" htmlFor="brand-1">
-                                                                Next
-                                                            </label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="filter-item">
-                                                        <div className="custom-control custom-checkbox">
-                                                            <input
-                                                                type="checkbox"
-                                                                className="custom-control-input"
-                                                                id="brand-2"
-                                                            />
-                                                            <label className="custom-control-label" htmlFor="brand-2">
-                                                                River Island
-                                                            </label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="filter-item">
-                                                        <div className="custom-control custom-checkbox">
-                                                            <input
-                                                                type="checkbox"
-                                                                className="custom-control-input"
-                                                                id="brand-3"
-                                                            />
-                                                            <label className="custom-control-label" htmlFor="brand-3">
-                                                                Geox
-                                                            </label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="filter-item">
-                                                        <div className="custom-control custom-checkbox">
-                                                            <input
-                                                                type="checkbox"
-                                                                className="custom-control-input"
-                                                                id="brand-4"
-                                                            />
-                                                            <label className="custom-control-label" htmlFor="brand-4">
-                                                                New Balance
-                                                            </label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="filter-item">
-                                                        <div className="custom-control custom-checkbox">
-                                                            <input
-                                                                type="checkbox"
-                                                                className="custom-control-input"
-                                                                id="brand-5"
-                                                            />
-                                                            <label className="custom-control-label" htmlFor="brand-5">
-                                                                UGG
-                                                            </label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="filter-item">
-                                                        <div className="custom-control custom-checkbox">
-                                                            <input
-                                                                type="checkbox"
-                                                                className="custom-control-input"
-                                                                id="brand-6"
-                                                            />
-                                                            <label className="custom-control-label" htmlFor="brand-6">
-                                                                F&F
-                                                            </label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="filter-item">
-                                                        <div className="custom-control custom-checkbox">
-                                                            <input
-                                                                type="checkbox"
-                                                                className="custom-control-input"
-                                                                id="brand-7"
-                                                            />
-                                                            <label className="custom-control-label" htmlFor="brand-7">
-                                                                Nike
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="widget widget-collapsible">
-                                        <h3 className="widget-title">
-                                            <a
-                                                data-toggle="collapse"
-                                                href="#widget-5"
-                                                role="button"
-                                                aria-expanded="true"
-                                                aria-controls="widget-5"
-                                            >
-                                                Price
-                                            </a>
-                                        </h3>
-
-                                        <div className="collapse show" id="widget-5">
-                                            <div className="widget-body">
-                                                <div className="filter-price">
-                                                    <div className="filter-price-text">
-                                                        Price Range:
-                                                        <span id="filter-price-range"></span>
-                                                    </div>
-
-                                                    <div id="price-slider"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <WidgetFrame />
                                 </div>
                             </aside>
                         </div>
@@ -1181,4 +785,4 @@ const category = (): JSX.Element => {
         </div>
     )
 }
-export default category
+export default withRouter(Category)

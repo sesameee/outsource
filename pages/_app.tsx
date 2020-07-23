@@ -3,6 +3,7 @@ import React from 'react'
 import App, { AppContext } from 'next/app'
 
 import { wrapper } from '@/store/rootStore'
+import 'react-pro-sidebar/dist/css/styles.css'
 import '@/styles/slick.scss'
 import '@/styles/slick-theme.scss'
 import '@/styles/bootstrap.min.scss'
