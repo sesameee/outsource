@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React from 'react'
 import ItemList from './ItemList'
 import { useChannelList } from '@/hooks/ChannelList'
 import { ChannelListSelectors } from '@/store'
@@ -11,7 +11,7 @@ const ChannelList: React.FC = () => {
     return (
         <ul className="menu sf-arrows">
             {channelList.map((item, index) => {
-                return <ItemList cName={item.channelName} cData={item.categoryList} key={index} />
+                return <ItemList cName={item.channelName} cData={item.categoryList} key={index} cId={item.cid} />
             })}
         </ul>
     )

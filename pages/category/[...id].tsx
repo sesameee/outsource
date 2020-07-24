@@ -16,11 +16,12 @@ import WidgetFrame from '@/components/Category/WidgetFrame'
 const Category = ({ router }: WithRouterProps): JSX.Element => {
     const query = router.query
     useChannelList()
+
     const channelList = useSelector(ChannelListSelectors.getChannelList)
     const navData: { title: any; link: string }[] = []
     const processNav = (id: string, list: CategoryData[] | ChannelData[], path: string, index: number) => {
         index++
-        const category = list.filter((item: CategoryData | ChannelData) => {
+        const category = (list as any[]).filter((item: CategoryData | ChannelData) => {
             return item.cid == id
         })
         if (category.length) {

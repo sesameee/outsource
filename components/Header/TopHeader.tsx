@@ -1,4 +1,5 @@
 import React, { memo } from 'react'
+import { i18n } from '@/I18n'
 const TopHeader: React.FC = () => {
     return (
         <div className="header-top">
@@ -9,10 +10,10 @@ const TopHeader: React.FC = () => {
                         <div className="header-menu">
                             <ul>
                                 <li>
-                                    <a href="#">English</a>
+                                    <a onClick={() => i18n.changeLanguage('en')}>English</a>
                                 </li>
                                 <li>
-                                    <a href="#">中文</a>
+                                    <a onClick={() => i18n.changeLanguage('tw')}>中文</a>
                                 </li>
                             </ul>
                         </div>

@@ -1,5 +1,4 @@
 import React, { memo } from 'react'
-import ItemList from './ItemList'
 import TopHeader from './TopHeader'
 import MyModal from '../MyModal'
 import MemberTab from '@/components/Member/MemberTab'

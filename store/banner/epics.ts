@@ -2,7 +2,6 @@ import { HYDRATE } from 'next-redux-wrapper'
 import { of } from 'rxjs'
 import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
-import { PayloadAction } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 
 import { BannerActions } from '@/store'
@@ -23,7 +22,7 @@ export const initEpic: Epic = (action$) =>
 export const fetchBannerEpic: Epic = (action$) =>
     action$.pipe(
         ofType(BannerActions.fetchBanner),
-        switchMap((action: PayloadAction) =>
+        switchMap(() =>
             HttpService.PostAsync<null, bannerList>(BANNER).pipe(
                 mergeMap((res) => {
                     return of(BannerActions.fetchBannerSuccess({ bannerList: res.data }))

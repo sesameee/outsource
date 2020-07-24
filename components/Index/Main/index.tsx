@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React from 'react'
 import Channel from './Channel'
 import TopBanner from './TopBanner'
 const Main: React.FC = () => {

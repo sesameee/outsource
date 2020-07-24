@@ -3,7 +3,6 @@ import { produce } from 'immer'
 
 import { State } from '@/types/stores/channelList/state'
 import { initialState } from './initialState'
-import { channelList } from '@/types/apis/channelList'
 
 export const setIsSearching: CaseReducer<State, PayloadAction<State>> = (state, action) => {
     return produce(state, (draft) => {

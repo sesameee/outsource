@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800');
+@import './color.scss';
 .header.header-9 .mobile-menu-toggler {
     font-size: 2.5rem;
 }
@@ -58,11 +59,11 @@
 }
 .header.header-9 .cart-dropdown:hover,
 .header.header-9 .cart-dropdown:focus {
-    color: #c96;
+    color: $mainColor;
 }
 .header.header-9 .cart-dropdown:hover .cart-txt,
 .header.header-9 .cart-dropdown:focus .cart-txt {
-    color: #c96;
+    color: $mainColor;
 }
 .header.header-9 .wishlist-txt,
 .header.header-9 .cart-txt {
@@ -123,7 +124,7 @@
     padding-top: 2rem;
 }
 .intro-content .btn {
-    border-color: #c96;
+    border-color: $mainColor;
     letter-spacing: 0.01em;
 }
 .intro-content .btn i {
@@ -226,7 +227,7 @@
 }
 .product.product-4 .btn-product:hover,
 .product.product-4 .btn-product:focus {
-    background-color: #c96;
+    background-color: $mainColor;
 }
 .product.product-4 .btn-product:hover::before,
 .product.product-4 .btn-product:focus::before {
@@ -258,7 +259,7 @@
 }
 .icon-box-icon {
     font-size: 3rem;
-    color: #c96;
+    color: $mainColor;
 }
 .icon-box-content p {
     letter-spacing: -0.01em;
@@ -274,7 +275,7 @@
 }
 .footer-menu a:hover,
 .footer-menu a:focus {
-    box-shadow: 0 1px 0 #c96;
+    box-shadow: 0 1px 0 $mainColor;
 }
 @media screen and (min-width: 768px) {
     .intro-subtitle {
