@@ -14,7 +14,6 @@ import WidgetFrame from '@/components/Category/WidgetFrame'
 // import { withTranslation, i18n } from '@/I18n'
 
 const Category = ({ router }: WithRouterProps): JSX.Element => {
-    console.log('router :>> ', router.query)
     const query = router.query
     useChannelList()
     const channelList = useSelector(ChannelListSelectors.getChannelList)
@@ -49,7 +48,6 @@ const Category = ({ router }: WithRouterProps): JSX.Element => {
 
     return (
         <div className="page-wrapper">
-            <WidgetFrame />
             <Header isIndex={false} />
             <main className="main">
                 <div

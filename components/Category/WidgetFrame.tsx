@@ -7,8 +7,8 @@ const WidgetFrame: React.FC = () => {
     }
     return (
         <div>
-            <div onClick={() => handleToggleSidebar(!toggled)}>aaaaaaaaaa</div>
-            <ProSidebar breakPoint="md" width="330px" toggled={toggled} onToggle={handleToggleSidebar}>
+            {/* <div onClick={() => handleToggleSidebar(!toggled)}>aaaaaaaaaa</div> */}
+            {/* <ProSidebar breakPoint="md" width="330px" toggled={toggled} onToggle={handleToggleSidebar}>
                 <SidebarContent>
                     <Menu iconShape="square">
                         <SubMenu title="Components">
@@ -29,9 +29,9 @@ const WidgetFrame: React.FC = () => {
                         </SubMenu>
                     </Menu>
                 </SidebarContent>
-            </ProSidebar>
+            </ProSidebar> */}
 
-            {/* <h3 className="widget-title" onClick={() => handleToggleSidebar(!toggled)}>
+            <h3 className="widget-title" onClick={() => handleToggleSidebar(!toggled)}>
                 <a data-toggle="collapse" href="#widget-1" role="button" aria-expanded="true" aria-controls="widget-1">
                     Category
                 </a>
@@ -122,7 +122,6 @@ const WidgetFrame: React.FC = () => {
                     </div>
                 </div>
             </div>
-        */}
         </div>
     )
 }

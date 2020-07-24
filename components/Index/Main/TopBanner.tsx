@@ -13,7 +13,6 @@ const TopBanner: React.FC = () => {
         infinite: true,
         slidesToShow: 1,
         slidesToScroll: 1,
-        adaptiveHeight: true,
         autoplay: true,
         speed: 500,
         cssEase: 'linear',
@@ -39,7 +38,7 @@ const TopBanner: React.FC = () => {
                 ) : (
                     <div className="intro-slide" key={index}>
                         <div className="intro-content no-padding">
-                            <video autoPlay muted loop>
+                            <video autoPlay muted loop className="video" style={{ height: '100vh' }}>
                                 <source src="/video/1.mp4" type="video/mp4" />
                             </video>
                         </div>
