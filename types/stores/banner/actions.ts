@@ -1,0 +1,2 @@
+export const FETCH_BANNER = 'FETCH_BANNER'
+export const STOP_FETCH_BANNER = 'STOP_FETCH_BANNER'

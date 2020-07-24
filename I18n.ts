@@ -1,20 +1,18 @@
 import NextI18Next from 'next-i18next'
 import Backend from 'i18next-http-backend'
-const localePath = 'public/locales'
-const localeStructure = '{{lng}}/{{ns}}'
-const localeExtension = 'json'
+const DEFAULT_LANFUAGE = 'tw'
 const NextI18NextInstance = new NextI18Next({
-  defaultLanguage: 'tw',
-  defaultNS: 'translations',
-  otherLanguages: ['en'],
-  use: [Backend],
-  backend: {
-    queryStringParams: { buildId: process.env.BUILD_ID },
-    loadPath: `http://aaa.com/${localePath}/${localeStructure}.${localeExtension}`,
-    addPath: `/${localePath}/${localeStructure}.missing.${localeExtension}`,
-  },
+    defaultLanguage: DEFAULT_LANFUAGE,
+    defaultNS: 'translations',
+    otherLanguages: ['en'],
+    serverLanguageDetection: true,
+    preload: [DEFAULT_LANFUAGE],
+    use: [Backend],
+    backend: {
+        loadPath: 'https://sesameee.github.io/locales/{{lng}}/{{ns}}.json',
+        parse: JSON.parse,
+    },
 })
 
-export const { appWithTranslation, useTranslation } = NextI18NextInstance
-
+export const { appWithTranslation, useTranslation, withTranslation, i18n } = NextI18NextInstance
 export default NextI18NextInstance

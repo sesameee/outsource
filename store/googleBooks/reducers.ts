@@ -6,25 +6,25 @@ import { initialState } from './initialState'
 import { VolumeList } from '@/types/apis/googleBooks'
 
 export const setIsSearching: CaseReducer<State, PayloadAction<State>> = (state, action) => {
-  return produce(state, (draft) => {
-    draft['isSearching'] = action.payload.isSearching
-  })
+    return produce(state, (draft) => {
+        draft['isSearching'] = action.payload.isSearching
+    })
 }
 
 export const fetchVolumesSuccess: CaseReducer<State, PayloadAction<{ volumeList: VolumeList }>> = (state, action) => {
-  return produce(state, (draft) => {
-    draft['isSearching'] = false
-    draft['volumeList'] = action.payload.volumeList
-  })
+    return produce(state, (draft) => {
+        draft['isSearching'] = false
+        draft['volumeList'] = action.payload.volumeList
+    })
 }
 
 export const fetchVolumesFailure: CaseReducer<State, PayloadAction<{ error: string }>> = (state, action) => {
-  return produce(state, (draft) => {
-    draft['isSearching'] = false
-    draft['error'] = action.payload.error
-  })
+    return produce(state, (draft) => {
+        draft['isSearching'] = false
+        draft['error'] = action.payload.error
+    })
 }
 
 export const reset: CaseReducer = () => {
-  return initialState
+    return initialState
 }

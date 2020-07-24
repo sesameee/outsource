@@ -1,9 +1,13 @@
 import { combineReducers } from '@reduxjs/toolkit'
 import { googleBookSlice } from '@/store/googleBooks/slice'
+import { bannerSlice } from '@/store/banner/slice'
+import { channelListSlice } from '@/store/channelList/slice'
 import { RootState } from '@/types/stores/root'
 
 const rootReducer = combineReducers({
-  googleBook: googleBookSlice.reducer,
+    googleBook: googleBookSlice.reducer,
+    banner: bannerSlice.reducer,
+    channelList: channelListSlice.reducer,
 })
 
 export default rootReducer

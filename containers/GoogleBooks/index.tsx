@@ -7,22 +7,22 @@ import { GoogleBooksSelectors } from '@/store'
 import { useGoogleBooksHandler, useCleanupGoogleBooks } from '@/hooks/GoogleBooks'
 
 export const GoogleBooksContainer: React.FC = () => {
-  const volumeList = useSelector(GoogleBooksSelectors.getVolumeList)
-  const {
-    searchString,
-    handleInputSearchText,
-    handleOnSearchButton,
-    handleOnSearchStopButton,
-  } = useGoogleBooksHandler()
-  useCleanupGoogleBooks()
+    const volumeList = useSelector(GoogleBooksSelectors.getVolumeList)
+    const {
+        searchString,
+        handleInputSearchText,
+        handleOnSearchButton,
+        handleOnSearchStopButton,
+    } = useGoogleBooksHandler()
+    useCleanupGoogleBooks()
 
-  return (
-    <GoogleBooksComponent
-      searchString={searchString}
-      onChangeSearchWord={handleInputSearchText}
-      onClickSearch={handleOnSearchButton}
-      onClickCancel={handleOnSearchStopButton}
-      volumeList={volumeList}
-    />
-  )
+    return (
+        <GoogleBooksComponent
+            searchString={searchString}
+            onChangeSearchWord={handleInputSearchText}
+            onClickSearch={handleOnSearchButton}
+            onClickCancel={handleOnSearchStopButton}
+            volumeList={volumeList}
+        />
+    )
 }

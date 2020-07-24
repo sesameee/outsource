@@ -1,15 +1,17 @@
 import React from 'react'
-//import Link from 'next/link'
 
 import Header from '@/components/Header'
 import Main from '@/components/Index/Main'
-
-const TopPage: React.FC = () => {
-  return (
-    <div className="page-wrapper">
-      <Header />
-      <Main />
-    </div>
-  )
+import Footer from '@/components/Footer'
+import { i18n } from '@/I18n'
+const TopPage = (): JSX.Element => {
+    i18n.changeLanguage('tw')
+    return (
+        <div className="page-wrapper">
+            <Header isIndex={true} />
+            <Main />
+            <Footer />
+        </div>
+    )
 }
 export default TopPage

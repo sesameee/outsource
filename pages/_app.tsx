@@ -3,26 +3,29 @@ import React from 'react'
 import App, { AppContext } from 'next/app'
 
 import { wrapper } from '@/store/rootStore'
+import 'react-pro-sidebar/dist/css/styles.css'
+import '@/styles/slick.scss'
+import '@/styles/slick-theme.scss'
 import '@/styles/bootstrap.min.scss'
 import '@/styles/owl.scss'
 import '@/styles/popup.scss'
 import '@/styles/style.scss'
 import '@/styles/main.scss'
-//import { appWithTranslation } from '../I18n'
+import '@/styles/custom.scss'
+import { appWithTranslation } from '../I18n'
 class MyApp extends App {
-  static async getInitialProps({ Component, ctx }: AppContext) {
-    const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {}
+    static async getInitialProps({ Component, ctx }: AppContext) {
+        const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {}
+        return { pageProps }
+    }
 
-    return { pageProps }
-  }
+    render() {
+        // i18n.changeLanguage('tw')
+        const { Component, pageProps } = this.props
 
-  render() {
-    const { Component, pageProps } = this.props
-
-    return <Component {...pageProps} />
-  }
+        return <Component {...pageProps} />
+    }
 }
 
-//export default wrapper.withRedux(appWithTranslation(MyApp))
-export default wrapper.withRedux(MyApp)
+export default wrapper.withRedux(appWithTranslation(MyApp))
 // const WrappedApp: FC<AppProps> = ({ Component, pageProps }: AppProps) => <Component {...pageProps} />

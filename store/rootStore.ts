@@ -11,23 +11,23 @@ const logger = createLogger({ collapsed: true })
 const onlyDevMiddlewares = new Array<Middleware>()
 
 if (process.env.NODE_ENV === `development`) {
-  onlyDevMiddlewares.push(logger)
+    onlyDevMiddlewares.push(logger)
 }
 export const setupStore = (preloadedState: any) => {
-  const store = configureStore({
-    reducer: rootReducer,
-    preloadedState,
-    devTools: process.env.NODE_ENV !== 'production',
-    middleware: [...onlyDevMiddlewares, epicMiddleware],
-  })
-  epicMiddleware.run(rootEpic)
+    const store = configureStore({
+        reducer: rootReducer,
+        preloadedState,
+        devTools: process.env.NODE_ENV !== 'production',
+        middleware: [...onlyDevMiddlewares, epicMiddleware],
+    })
+    epicMiddleware.run(rootEpic)
 
-  return store
+    return store
 }
 
 export const makeStore: MakeStore<RootState> = (initialState) => {
-  const store = setupStore(initialState)
-  return store
+    const store = setupStore(initialState)
+    return store
 }
 
 export const wrapper = createWrapper<RootState>(makeStore, { debug: true })
