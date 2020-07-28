@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux'
 import { useChannelList } from '@/hooks/ChannelList'
 import { ChannelListSelectors } from '@/store'
 import { ChannelData, CategoryData } from '@/types/apis/channelList'
-import WidgetFrame from '@/components/Category/WidgetFrame'
+import WidgetFrame from '@/components/Catalog'
 
 // import { withTranslation, i18n } from '@/I18n'
 
