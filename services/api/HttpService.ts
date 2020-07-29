@@ -7,9 +7,9 @@ const baseConfig = {
     },
 }
 class HttpService {
-    static readonly BasePath: string = 'https://cors-anywhere.herokuapp.com/http://13.76.80.106:8090/api/online' // todo BaseURL変更
-    public static getBaseUrl = (targetApi: string, basePath: string = HttpService.BasePath): string => {
-        // return `/${basePath}/${targetApi}`
+    static readonly DEV: string = 'http://localhost:3000/api'
+    static readonly BasePath: string = 'http://13.76.80.106:8090/api/online' // todo BaseURL変更
+    public static getBaseUrl = (targetApi: string, basePath: string = HttpService.DEV): string => {
         return `${basePath}/${targetApi}`
     }
     public static GetAsync<Req, Res>(

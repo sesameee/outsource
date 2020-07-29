@@ -11,10 +11,15 @@ export const setIsSearching: CaseReducer<State, PayloadAction<State>> = (state, 
     })
 }
 
-export const fetchBannerSuccess: CaseReducer<State, PayloadAction<{ bannerList: bannerList }>> = (state, action) => {
+export const fetchBannerSuccess: CaseReducer<State, PayloadAction<{ bannerList: bannerList; isRecommend: number }>> = (
+    state,
+    action,
+) => {
     return produce(state, (draft) => {
         draft['isFetch'] = false
-        draft['bannerList'] = action.payload.bannerList.data
+        if (action.payload.isRecommend == 0) {
+            draft['bannerList'] = action.payload.bannerList.data
+        }
     })
 }
 

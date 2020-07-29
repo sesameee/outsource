@@ -5,7 +5,7 @@ import { useCatalog } from '@/hooks/Catalog'
 import { CatalogSelectors } from '@/store'
 import { useSelector } from 'react-redux'
 import { CatalogData } from '@/types/apis/catalog'
-import { ProductData } from '@/types/apis/common'
+//import { ProductData } from '@/types/apis/common'
 const WidgetFrame: React.FC = () => {
     useCatalog()
     const catalog: CatalogData = useSelector(CatalogSelectors.getCatalogList)

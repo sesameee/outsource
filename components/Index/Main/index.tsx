@@ -1,7 +1,14 @@
 import React from 'react'
 import Channel from './Channel'
 import TopBanner from './TopBanner'
-const Main: React.FC = () => {
+import BreezeDaily from './BreezeDaily'
+import { TFunction } from 'next-i18next'
+import { withTranslation } from '@/I18n'
+
+type MainProps = {
+    t: TFunction
+}
+const Main: React.FC<MainProps> = ({ t }: MainProps) => {
     return (
         <main className="main">
             <div className="intro-slider-container mb-3 mb-lg-5">
@@ -9,9 +16,13 @@ const Main: React.FC = () => {
             </div>
 
             <div className="container">
+                <div className="heading text-center mb-4">
+                    <h2 className="title">{t('buy_titile')}</h2>
+                    <p className="title-desc">{t('buy_desc')}</p>
+                </div>
                 <div className="row">
                     <div className="col-md-6">
-                        <div className="banner banner-display banner-link-anim banner-title-hidden">
+                        <div className="banner banner-display banner-link-anim banner-title-hidden banner-1">
                             <a href="#">
                                 <img src="/images/demos/demo-12/banners/banner-1.jpg" alt="Banner" />
                             </a>
@@ -28,7 +39,7 @@ const Main: React.FC = () => {
                     </div>
 
                     <div className="col-md-6">
-                        <div className="banner banner-display banner-link-anim banner-title-hidden">
+                        <div className="banner banner-display banner-link-anim banner-title-hidden banner-2">
                             <a href="#">
                                 <img src="/images/demos/demo-12/banners/banner-2.jpg" alt="Banner" />
                             </a>
@@ -42,7 +53,7 @@ const Main: React.FC = () => {
                                 </a>
                             </div>
                         </div>
-                        <div className="banner banner-display banner-link-anim banner-title-hidden">
+                        <div className="banner banner-display banner-link-anim banner-3">
                             <a href="#">
                                 <img src="/images/demos/demo-12/banners/banner-3.jpg" alt="Banner" />
                             </a>
@@ -59,25 +70,44 @@ const Main: React.FC = () => {
                     </div>
                 </div>
 
+                <div className="row">
+                    <div className="col-md-12">
+                        <div className="banner banner-display banner-link-anim banner-title-hidden banner-4">
+                            <a href="#">
+                                {/* <img src="/images/demos/demo-12/banners/banner-1.jpg" alt="Banner" /> */}
+                            </a>
+
+                            <div className="banner-content banner-content-center">
+                                <h3 className="banner-title text-white">
+                                    <a href="#">This Week's Most Wanted</a>
+                                </h3>
+                                <a href="#" className="btn btn-outline-white banner-link">
+                                    Shop Now
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div className="mb-3"></div>
             </div>
 
             <div className="bg-lighter pt-5 pb-5 mb-5">
                 <div className="container">
                     <div className="heading text-center mb-4">
-                        <h2 className="title">Recent Arrivals</h2>
-                        <p className="title-desc">Aliquam tincidunt mauris eurisus</p>
+                        <h2 className="title">{t('category_title')}</h2>
+                        <p className="title-desc">{t('category_desc')}</p>
                     </div>
                     <Channel />
                 </div>
             </div>
             <div className="container">
                 <div className="heading text-center mb-4">
-                    <h2 className="title">Popular Categories</h2>
-                    <p className="title-desc">Vestibulum auctor dapibus neque</p>
+                    <h2 className="title">{t('breezedaily_title')}</h2>
+                    <p className="title-desc">{t('breezedaily_desc')}</p>
                 </div>
-
-                <div className="row">
+                <BreezeDaily />
+                {/* <div className="row">
                     <div className="col-sm-6 col-lg-4">
                         <div className="banner banner-display banner-link-anim">
                             <a href="#">
@@ -161,10 +191,10 @@ const Main: React.FC = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </main>
     )
 }
 
-export default Main
+export default withTranslation('translations')(Main)

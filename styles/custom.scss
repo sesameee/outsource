@@ -274,9 +274,8 @@
 }
 
 .pro-sidebar .pro-menu .pro-menu-item.pro-sub-menu .pro-inner-list-item .pro-inner-item:before {
-    margin-right:5px;
+    margin-right: 5px;
 }
-
 
 .custom-header {
     position: relative;
@@ -284,8 +283,29 @@
         width: 100vw;
     }
 
-    .sub-container{
+    .sub-container {
         display: flex;
         justify-content: center;
+    }
+}
+
+.banner {
+    &.banner-1 {
+        width: 574px;
+        height: 500px;
+    }
+
+    &.banner-2 {
+        width: 574px;
+        height: 240px;
+    }
+
+    &.banner-3 {
+        width: 574px;
+        height: 240px;
+    }
+
+    &.banner-4 {
+        height: 240px;
     }
 }

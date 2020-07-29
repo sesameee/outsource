@@ -10,7 +10,7 @@
         "mockserve": "ts-node --project mock/tsconfig.json mock/server.ts"
     },
     "engines": {
-        "node": "12.16.3"
+        "node": "12.1.0"
     },
     "dependencies": {
         "@koa/cors": "^3.1.0",
@@ -69,6 +69,7 @@
         "eslint-plugin-react": "^7.20.0",
         "eslint-plugin-react-hooks": "^4.0.4",
         "faker-ts": "^0.0.2",
+        "http-proxy-middleware": "^1.0.5",
         "husky": "^4.2.5",
         "json-schema-faker": "^0.5.0-rcv.24",
         "koa": "^2.13.0",

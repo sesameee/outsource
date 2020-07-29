@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
-import ItemSubList from './ItemSubList'
-import { CategoryData } from '@/types/apis/channelList'
+// import ItemSubList from './ItemSubList'
+// import { CategoryData } from '@/types/apis/channelList'
 import Link from 'next/link'
 type ItemListProps = {
     cName: string

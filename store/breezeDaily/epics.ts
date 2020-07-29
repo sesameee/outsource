@@ -7,7 +7,7 @@ import { AxiosError } from 'axios'
 import { BreezeDailyActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
 import { BreezeDailyDataList } from '@/types/apis/breezeDaily'
-import { CATALOG } from '@/services/api/apiConfig'
+import { BREEZE_DAILY_LIST } from '@/services/api/apiConfig'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
@@ -23,7 +23,7 @@ export const fetchBreezeDailyListEpic: Epic = (action$) =>
     action$.pipe(
         ofType(BreezeDailyActions.fetchBreezeDailyList),
         switchMap(() =>
-            HttpService.PostAsync<null, BreezeDailyDataList>(CATALOG).pipe(
+            HttpService.PostAsync<null, BreezeDailyDataList>(BREEZE_DAILY_LIST).pipe(
                 mergeMap((res) => {
                     return of(BreezeDailyActions.fetchBreezeDailyListSuccess({ breezeDaily: res.data }))
                 }),
