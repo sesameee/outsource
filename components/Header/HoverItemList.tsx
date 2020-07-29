@@ -4,8 +4,9 @@ import { useSelector } from 'react-redux'
 import ItemSubList from './ItemSubList'
 type HoverItemListProps = {
     itemHoverIndex: null | number
+    setItemHoverIndex: React.Dispatch<React.SetStateAction<null | number>>
 }
-const HoverItemList: React.FC<HoverItemListProps> = ({ itemHoverIndex }: HoverItemListProps) => {
+const HoverItemList: React.FC<HoverItemListProps> = ({ itemHoverIndex, setItemHoverIndex }: HoverItemListProps) => {
     const channelList = useSelector(ChannelListSelectors.getChannelList)
     return (
         <ul className="menu sf-arrows">
@@ -13,6 +14,8 @@ const HoverItemList: React.FC<HoverItemListProps> = ({ itemHoverIndex }: HoverIt
                 return (
                     <div
                         className="megamenu megamenu-sm"
+                        onMouseOver={() => setItemHoverIndex(index)}
+                        onMouseLeave={() => setItemHoverIndex(null)}
                         key={index}
                         style={{ display: itemHoverIndex == index ? 'block' : 'none' }}
                     >

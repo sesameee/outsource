@@ -19,7 +19,7 @@ const Header: React.FC<HeaderProps> = ({ isIndex }: HeaderProps) => {
             {!isIndex && <TopHeader />}
             <MyModal content={<MemberTab />} isOpen={IsOpenMember} setPropIsOpenFn={setIsOpenMember} />
             <div className="header-middle sticky-header custom-header">
-                <HoverItemList itemHoverIndex={itemHoverIndex} />
+                <HoverItemList itemHoverIndex={itemHoverIndex} setItemHoverIndex={setItemHoverIndex} />
                 <div className="container">
                     <div className="header-left">
                         <button className="mobile-menu-toggler">

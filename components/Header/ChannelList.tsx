@@ -10,9 +10,6 @@ const ChannelList: React.FC<ChannelListProps> = ({ setItemHoverIndex }: ChannelL
     useChannelList()
     const channelList = useSelector(ChannelListSelectors.getChannelList)
     console.log('channelList :>> ', channelList)
-    function handleMouse(index: any) {
-        setItemHoverIndex(index)
-    }
     return (
         <ul className="menu sf-arrows">
             {channelList.map((item, index) => {
@@ -20,8 +17,8 @@ const ChannelList: React.FC<ChannelListProps> = ({ setItemHoverIndex }: ChannelL
                     <li
                         className="megamenu-container"
                         key={index}
-                        onMouseOver={() => handleMouse(index)}
-                        onMouseLeave={() => handleMouse(null)}
+                        onMouseOver={() => setItemHoverIndex(index)}
+                        onMouseLeave={() => setItemHoverIndex(null)}
                     >
                         <Link href={`/category/${item.cid}`}>
                             <a className="sf-with-ul">{item.channelName}</a>
