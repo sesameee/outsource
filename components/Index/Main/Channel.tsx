@@ -45,7 +45,7 @@ const Channel: React.FC = () => {
                     slidesToScroll: 1,
                     slidesToShow: 3,
                 },
-            }
+            },
         ],
     }
     return (

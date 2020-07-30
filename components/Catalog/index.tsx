@@ -10,13 +10,20 @@ import { CatalogData } from '@/types/apis/catalog'
 type WidgetFrameProps = {
     setfilterProduct: React.Dispatch<React.SetStateAction<any>>
     filterProduct: Set<unknown>
+    filterToggle: boolean
+    setFilterToggle: React.Dispatch<React.SetStateAction<any>>
 }
-const WidgetFrame: React.FC<WidgetFrameProps> = ({ setfilterProduct, filterProduct }: WidgetFrameProps) => {
+const WidgetFrame: React.FC<WidgetFrameProps> = ({
+    setfilterProduct,
+    filterProduct,
+    filterToggle,
+    setFilterToggle,
+}: WidgetFrameProps) => {
     useCatalog()
     const catalog: CatalogData = useSelector(CatalogSelectors.getCatalogList)
-    const [toggled, setToggled] = useState(false)
+    console.log('filterToggle :>> ', filterToggle)
     const handleToggleSidebar = (value: boolean) => {
-        setToggled(value)
+        setFilterToggle(value)
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +37,12 @@ const WidgetFrame: React.FC<WidgetFrameProps> = ({ setfilterProduct, filterProdu
     }
     return (
         <div>
-            <ProSidebar breakPoint="md" toggled={toggled} onToggle={handleToggleSidebar}>
+            <ProSidebar breakPoint="md" toggled={filterToggle} onToggle={handleToggleSidebar}>
+                <div className="filter-section filter-top">
+                    <div onClick={() => setFilterToggle(false)}>返回</div>
+                    <div>商品分類</div>
+                    <div></div>
+                </div>
                 <SidebarContent>
                     {catalog &&
                         catalog.categoryList &&
@@ -38,7 +50,7 @@ const WidgetFrame: React.FC<WidgetFrameProps> = ({ setfilterProduct, filterProdu
                         catalog.categoryList.map((item: CatalogData, index) => {
                             return (
                                 <Menu key={`topMenu${index}`}>
-                                    <SubMenu title={item.cName}>
+                                    <SubMenu title={item.cName} open={true}>
                                         {item.cData &&
                                             item.cData.map((catItem: any, subindex) => {
                                                 return (

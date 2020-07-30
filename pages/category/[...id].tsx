@@ -52,9 +52,18 @@ const Category = ({ router }: CategoryProps): JSX.Element => {
     const title2 = navData.length > 1 ? titleArr[1] : titleArr[0]
 
     const [filterProduct, setfilterProduct] = React.useState(new Set())
+    const [filterToggle, setFilterToggle] = React.useState(false)
 
     return (
         <div className="page-wrapper">
+            <div className="filter-section">
+                <WidgetFrame
+                    filterProduct={filterProduct}
+                    setfilterProduct={setfilterProduct}
+                    filterToggle={filterToggle}
+                    setFilterToggle={setFilterToggle}
+                />
+            </div>
             <Header isIndex={false} />
             <main className="main">
                 <div
@@ -77,6 +86,15 @@ const Category = ({ router }: CategoryProps): JSX.Element => {
                                     <div className="toolbox-left">
                                         <div className="toolbox-info">
                                             {/* Showing <span>9 of 56</span> Products */}
+                                            <button
+                                                className="custom-btn"
+                                                onClick={() => {
+                                                    console.log('aaa :>> ')
+                                                    setFilterToggle(true)
+                                                }}
+                                            >
+                                                篩選
+                                            </button>
                                         </div>
                                     </div>
 
@@ -139,7 +157,7 @@ const Category = ({ router }: CategoryProps): JSX.Element => {
                             </div>
                             <aside className="col-lg-3 order-lg-first">
                                 <div className="sidebar sidebar-shop">
-                                    <div className="widget widget-clean">
+                                    <div className="widget widget-clean filter-section-pc">
                                         <label>Filters:</label>
                                         <a
                                             className="sidebar-filter-clear"
@@ -150,7 +168,14 @@ const Category = ({ router }: CategoryProps): JSX.Element => {
                                             清空
                                         </a>
                                     </div>
-                                    <WidgetFrame filterProduct={filterProduct} setfilterProduct={setfilterProduct} />
+                                    <div className="filter-section-pc">
+                                        <WidgetFrame
+                                            filterProduct={filterProduct}
+                                            setfilterProduct={setfilterProduct}
+                                            filterToggle={filterToggle}
+                                            setFilterToggle={setFilterToggle}
+                                        />
+                                    </div>
                                 </div>
                             </aside>
                         </div>
