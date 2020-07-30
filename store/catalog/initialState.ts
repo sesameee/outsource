@@ -8,5 +8,6 @@ export const initialState: State = {
         categoryType: '',
         categoryList: [],
     },
+    productList: {},
     error: '',
 }

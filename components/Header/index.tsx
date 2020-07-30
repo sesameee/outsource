@@ -28,7 +28,7 @@ const Header: React.FC<HeaderProps> = ({ isIndex }: HeaderProps) => {
                         </button>
 
                         <a href="index.html" className="logo">
-                            <img src="/images/demos/demo-12/logo.png" alt="Molla Logo" width="82" height="25" />
+                            <img src="/images/breezeonline_logo.png" alt="Molla Logo" width="140" height="25" />
                         </a>
                     </div>
                     <div className="header-right">

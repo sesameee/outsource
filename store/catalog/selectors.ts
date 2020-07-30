@@ -15,3 +15,10 @@ export const getCatalogList = createSelector<RootState, CatalogState, CatalogSta
         return catalogState.catalogList
     },
 )
+
+export const getProductList = createSelector<RootState, CatalogState, CatalogState['productList']>(
+    catalogState,
+    (catalogState: CatalogState) => {
+        return catalogState.productList
+    },
+)

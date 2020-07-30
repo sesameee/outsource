@@ -15,5 +15,5 @@ export interface catalogList extends Response {
 }
 
 export interface productList {
-    [key: string]: CatalogData
+    [key: string]: ProductData
 }

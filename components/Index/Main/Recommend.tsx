@@ -3,68 +3,77 @@ import { useSelector } from 'react-redux'
 
 import { useRecommend } from '@/hooks/Banner'
 import { BannerSelectors } from '@/store'
-import { BannerData } from '@/types/apis/banner'
 import { TFunction } from 'next-i18next'
 import { withTranslation } from '@/I18n'
+import Link from 'next/link'
 
 type RecommendProps = {
     t: TFunction
 }
 const Recommend: React.FC<RecommendProps> = ({ t }: RecommendProps) => {
     useRecommend()
-    const recommendList = useSelector(BannerSelectors.getRecommendList)
-    console.log('recommendList :>> ', recommendList)
+    const [item1, item2, item3, item4] = useSelector(BannerSelectors.getRecommendList)
+
     return (
-        <div className="container">
+        <div className="container recommend">
             <div className="heading text-center mb-4">
                 <h2 className="title">{t('buy_titile')}</h2>
                 <p className="title-desc">{t('buy_desc')}</p>
             </div>
             <div className="row">
                 <div className="col-md-6">
-                    <div className="banner banner-display banner-link-anim banner-title-hidden banner-1">
-                        <a href="#">
-                            <img src="/images/demos/demo-12/banners/banner-1.jpg" alt="Banner" />
-                        </a>
-
+                    <div
+                        className="banner banner-display banner-link-anim banner-title-hidden banner-1"
+                        style={{
+                            backgroundImage: `url(${item1?.sourceUrl})`,
+                        }}
+                    >
                         <div className="banner-content banner-content-center">
                             <h3 className="banner-title text-white">
-                                <a href="#">This Week's Most Wanted</a>
+                                {item1 ? <Link href={`category/${item1?.cid}`}>{item1?.desc}</Link> : null}
                             </h3>
-                            <a href="#" className="btn btn-outline-white banner-link">
-                                Shop Now
-                            </a>
+                            {item1 ? (
+                                <Link href={`category/${item1?.cid}`}>
+                                    <a className="btn btn-outline-white banner-link">Discover Now</a>
+                                </Link>
+                            ) : null}
                         </div>
                     </div>
                 </div>
 
                 <div className="col-md-6">
-                    <div className="banner banner-display banner-link-anim banner-title-hidden banner-2">
-                        <a href="#">
-                            <img src="/images/demos/demo-12/banners/banner-2.jpg" alt="Banner" />
-                        </a>
-
+                    <div
+                        className="banner banner-display banner-link-anim banner-title-hidden banner-2"
+                        style={{
+                            backgroundImage: `url(${item2?.sourceUrl})`,
+                        }}
+                    >
                         <div className="banner-content banner-content-center">
                             <h3 className="banner-title text-white">
-                                <a href="#">Bags by Mood</a>
+                                {item2 ? <Link href={`category/${item2?.cid}`}>{item2?.desc}</Link> : null}
                             </h3>
-                            <a href="#" className="btn btn-outline-white banner-link">
-                                Discover Now
-                            </a>
+                            {item2 ? (
+                                <Link href={`category/${item2?.cid}`}>
+                                    <a className="btn btn-outline-white banner-link">Discover Now</a>
+                                </Link>
+                            ) : null}
                         </div>
                     </div>
-                    <div className="banner banner-display banner-link-anim banner-3">
-                        <a href="#">
-                            <img src="/images/demos/demo-12/banners/banner-3.jpg" alt="Banner" />
-                        </a>
-
+                    <div
+                        className="banner banner-display banner-link-anim banner-3"
+                        style={{
+                            backgroundImage: `url(${item3?.sourceUrl})`,
+                        }}
+                    >
                         <div className="banner-content banner-content-center">
                             <h3 className="banner-title text-white">
-                                <a href="#">The Trend Story</a>
+                                {item3 ? <Link href={`category/${item3?.cid}`}>{item3?.desc}</Link> : null}
                             </h3>
-                            <a href="#" className="btn btn-outline-white banner-link">
-                                Shop Now
-                            </a>
+                            {item3 ? (
+                                <Link href={`category/${item3?.cid}`}>
+                                    <a className="btn btn-outline-white banner-link">Discover Now</a>
+                                </Link>
+                            ) : null}
                         </div>
                     </div>
                 </div>
@@ -72,21 +81,25 @@ const Recommend: React.FC<RecommendProps> = ({ t }: RecommendProps) => {
 
             <div className="row">
                 <div className="col-md-12">
-                    <div className="banner banner-display banner-link-anim banner-title-hidden banner-4">
-                        <a href="#">{/* <img src="/images/demos/demo-12/banners/banner-1.jpg" alt="Banner" /> */}</a>
-
+                    <div
+                        className="banner banner-display banner-link-anim banner-title-hidden banner-4"
+                        style={{
+                            backgroundImage: `url(${item4?.sourceUrl})`,
+                        }}
+                    >
                         <div className="banner-content banner-content-center">
                             <h3 className="banner-title text-white">
-                                <a href="#">This Week's Most Wanted</a>
+                                {item4 ? <Link href={`category/${item4?.cid}`}>{item4?.desc}</Link> : null}
                             </h3>
-                            <a href="#" className="btn btn-outline-white banner-link">
-                                Shop Now
-                            </a>
+                            {item4 ? (
+                                <Link href={`category/${item4?.cid}`}>
+                                    <a className="btn btn-outline-white banner-link">Discover Now</a>
+                                </Link>
+                            ) : null}
                         </div>
                     </div>
                 </div>
             </div>
-
             <div className="mb-3"></div>
         </div>
     )

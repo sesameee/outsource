@@ -16,7 +16,6 @@ const Channel: React.FC = () => {
         speed: 500,
         slidesToScroll: 1,
         slidesToShow: 3,
-        variableWidth: true,
         responsive: [
             {
                 breakpoint: 1200,
@@ -46,14 +45,7 @@ const Channel: React.FC = () => {
                     slidesToScroll: 1,
                     slidesToShow: 3,
                 },
-            },
-            {
-                breakpoint: 0,
-                settings: {
-                    slidesToScroll: 1,
-                    slidesToShow: 2,
-                },
-            },
+            }
         ],
     }
     return (

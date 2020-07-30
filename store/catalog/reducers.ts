@@ -3,7 +3,7 @@ import { produce } from 'immer'
 
 import { State } from '@/types/stores/catalog/state'
 import { initialState } from './initialState'
-import { catalogList, CatalogData } from '@/types/apis/catalog'
+import { catalogList, productList } from '@/types/apis/catalog'
 
 export const setIsSearching: CaseReducer<State, PayloadAction<State>> = (state, action) => {
     return produce(state, (draft) => {
@@ -16,11 +16,8 @@ export const fetchCatalogSuccess: CaseReducer<State, PayloadAction<{ catalogList
         const data = action.payload.catalogList.data
         draft['isFetch'] = false
         draft['catalogList'] = data
-        type dataType = {
-            [key: string]: CatalogData
-        }
 
-        const aaaD: dataType = {}
+        const productList: productList = {}
         for (let i = 0; i < data.categoryList?.length; i++) {
             const iData = <any>data.categoryList[i]?.cData
             const iCid = data.categoryList[i]?.cid
@@ -32,14 +29,14 @@ export const fetchCatalogSuccess: CaseReducer<State, PayloadAction<{ catalogList
                     const kCid = jData[k]?.cid
                     for (let l = 0; l < kData?.length; l++) {
                         const data = kData[l]
-                        const id = kData[l]?.cid
                         const pid = kData[l]?.pid
-                        console.log('${iCid}-${jCid}-${kCid} :>> ', `${iCid}-${jCid}-${kCid}-${id}-${pid}`, data)
-                        aaaD[`${iCid}-${jCid}-${kCid}-${id}-${pid}`] = data
+                        // console.log('${iCid}-${jCid}-${kCid} :>> ', `${iCid}-${jCid}-${kCid}-${id}-${pid}`, data)
+                        productList[`c${iCid}-${jCid}-${kCid}-${pid}`] = data
                     }
                 }
             }
         }
+        draft['productList'] = productList
     })
 }
 

@@ -6,14 +6,27 @@ import { CatalogSelectors } from '@/store'
 import { useSelector } from 'react-redux'
 import { CatalogData } from '@/types/apis/catalog'
 //import { ProductData } from '@/types/apis/common'
-const WidgetFrame: React.FC = () => {
+
+type WidgetFrameProps = {
+    setfilterProduct: React.Dispatch<React.SetStateAction<any>>
+    filterProduct: Set<unknown>
+}
+const WidgetFrame: React.FC<WidgetFrameProps> = ({ setfilterProduct, filterProduct }: WidgetFrameProps) => {
     useCatalog()
     const catalog: CatalogData = useSelector(CatalogSelectors.getCatalogList)
-    //console.log('catalog :>> ', catalog && catalog.categoryList && catalog.categoryList[0])
-
     const [toggled, setToggled] = useState(false)
     const handleToggleSidebar = (value: boolean) => {
         setToggled(value)
+    }
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newSet = new Set(filterProduct)
+        const key = e.target.id
+        if (e.target.checked) {
+            setfilterProduct(newSet.add(key))
+        } else {
+            newSet.has(key) && newSet.delete(key) && setfilterProduct(newSet)
+        }
     }
     return (
         <div>
@@ -34,6 +47,7 @@ const WidgetFrame: React.FC = () => {
                                                             {catItem.cData &&
                                                                 catItem.cData.map(
                                                                     (lastItem: CatalogData, cindex: number) => {
+                                                                        const id = `c${item.cid}-${catItem.cid}-${lastItem.cid}`
                                                                         return (
                                                                             <MenuItem key={`menu${cindex}`}>
                                                                                 <div className="filter-item">
@@ -41,11 +55,15 @@ const WidgetFrame: React.FC = () => {
                                                                                         <input
                                                                                             type="checkbox"
                                                                                             className="custom-control-input"
-                                                                                            id={lastItem.cid}
+                                                                                            id={id}
+                                                                                            checked={filterProduct.has(
+                                                                                                id,
+                                                                                            )}
+                                                                                            onChange={handleChange}
                                                                                         />
                                                                                         <label
                                                                                             className="custom-control-label"
-                                                                                            htmlFor={lastItem.cid}
+                                                                                            htmlFor={id}
                                                                                         >
                                                                                             {lastItem.cName}
                                                                                         </label>
