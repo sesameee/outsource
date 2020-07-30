@@ -20,6 +20,9 @@ export const fetchBannerSuccess: CaseReducer<State, PayloadAction<{ bannerList: 
         if (action.payload.isRecommend == 0) {
             draft['bannerList'] = action.payload.bannerList.data
         }
+        if (action.payload.isRecommend == 1) {
+            draft['recommendList'] = action.payload.bannerList.data
+        }
     })
 }
 

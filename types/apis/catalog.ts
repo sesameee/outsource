@@ -13,3 +13,7 @@ export interface CatalogData {
 export interface catalogList extends Response {
     data: CatalogData
 }
+
+export interface productList {
+    [key: string]: CatalogData
+}

@@ -2,9 +2,9 @@ import { AxiosObservable } from 'axios-observable/dist/axios-observable.interfac
 import { axios } from './axios'
 import { AxiosRequestConfig } from 'axios'
 const baseConfig = {
-    headers: {
-        'Content-Type': 'multipart/form-data',
-    },
+    // headers: {
+    //     'Content-Type': 'multipart/form-data',
+    // },
 }
 class HttpService {
     static readonly DEV: string = 'http://localhost:3000/api'

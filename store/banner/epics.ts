@@ -23,7 +23,7 @@ export const initEpic: Epic = (action$) =>
 export const fetchBannerEpic: Epic = (action$) =>
     action$.pipe(
         ofType(BannerActions.fetchBanner),
-        switchMap((action: PayloadAction<{ isRecommend: number }>) =>
+        mergeMap((action: PayloadAction<{ isRecommend: number }>) =>
             HttpService.PostAsync<{ isRecommend: number }, bannerList>(BANNER, {
                 isRecommend: action.payload.isRecommend,
             }).pipe(

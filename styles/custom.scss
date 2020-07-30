@@ -309,3 +309,33 @@
         height: 240px;
     }
 }
+
+.breeze-daily {
+    .banner {
+        width: 100%;
+    }
+    .dailyType1 {
+        &:hover {
+            opacity: 1;
+        }
+        color: rgb(109, 109, 109);
+        opacity: .8;
+        display: flex;
+        height: 500px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 50% 50%;
+    }
+    .dailyType2 {
+        &:hover {
+            opacity: 1;
+        }
+        color: rgb(109, 109, 109);
+        opacity: .8;
+        display: flex;
+        height: 240px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 50% 50%;
+    }
+}
