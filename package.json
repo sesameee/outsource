@@ -10,7 +10,7 @@
         "mockserve": "ts-node --project mock/tsconfig.json mock/server.ts"
     },
     "engines": {
-        "node": "12.1.0"
+        "node": "12.18.3"
     },
     "dependencies": {
         "@koa/cors": "^3.1.0",
