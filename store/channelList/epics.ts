@@ -2,7 +2,6 @@ import { HYDRATE } from 'next-redux-wrapper'
 import { of } from 'rxjs'
 import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
-import { PayloadAction } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 
 import { ChannelListActions } from '@/store'
@@ -23,7 +22,7 @@ export const initEpic: Epic = (action$) =>
 export const fetchChannelListEpic: Epic = (action$) =>
     action$.pipe(
         ofType(ChannelListActions.fetchChannelList),
-        switchMap((action: PayloadAction) =>
+        switchMap(() =>
             HttpService.PostAsync<null, channelList>(CHANNEL_LIST).pipe(
                 mergeMap((res) => {
                     return of(ChannelListActions.fetchChannelListSuccess({ channelList: res.data }))

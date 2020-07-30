@@ -15,3 +15,10 @@ export const getBannerList = createSelector<RootState, BannerState, BannerState[
         return bannerState.bannerList
     },
 )
+
+export const getRecommendList = createSelector<RootState, BannerState, BannerState['recommendList']>(
+    bannerState,
+    (bannerState: BannerState) => {
+        return bannerState.recommendList
+    },
+)

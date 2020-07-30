@@ -160,14 +160,201 @@
     text-align: center;
 }
 
-
 .intro-slide .intro-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    .video {
+        object-fit: cover;
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+    .textFrame {
+        position: relative;
+        text-align: center;
+    }
 }
 
 .no-padding {
     padding: 0;
+}
+
+.product-media {
+    margin: 0 2rem;
+}
+
+.product-body {
+    background-color: transparent;
+}
+
+.menu-title {
+    cursor: pointer;
+}
+
+.filter-item {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pro-sidebar {
+    background-color: #fff;
+}
+
+.pro-sidebar.collapsed .pro-menu > ul > .pro-menu-item.pro-sub-menu > .pro-inner-list-item > .popper-inner {
+    background-color: #fff;
+}
+.pro-sidebar .pro-menu > ul > .pro-sub-menu > .pro-inner-list-item {
+    background-color: #fff;
+}
+
+.pro-sidebar .pro-menu .pro-menu-item.pro-sub-menu .pro-inner-list-item .pro-inner-item {
+    padding: 0;
+    padding-right: 15px;
+}
+.pro-sidebar .pro-menu .pro-menu-item.pro-sub-menu .pro-inner-list-item .pro-inner-item:before {
+    border: unset;
+    width: 0;
+    height: 0;
+    min-width: 0;
+}
+
+.pro-sidebar .pro-menu > ul > .pro-sub-menu > .pro-inner-list-item > div > ul {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.pro-sidebar .pro-menu .pro-menu-item > .pro-inner-item {
+    padding: 0px 35px 0px 0px;
+
+    .pro-item-content {
+        color: #777;
+        font-weight: 400;
+        font-size: 1.6rem;
+        .item-count {
+            height: 2rem;
+            font-weight: 300;
+            font-size: 1.3rem;
+            line-height: 10px;
+            border-radius: 0.6rem;
+            color: #777;
+            padding: 5px 8px;
+            background-color: #f8f8f8;
+        }
+    }
+}
+.pro-sidebar .pro-menu {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.pro-sidebar .pro-menu .pro-menu-item.pro-sub-menu .pro-inner-list-item {
+    padding-left: 0px;
+}
+
+.pro-arrow {
+    display: inline-block;
+    border-style: solid;
+    border-color: #adadad;
+    border-width: 0 2px 2px 0;
+    padding: 2.5px;
+    vertical-align: middle;
+    transition: transform 0.3s;
+    transform: rotate(-45deg);
+}
+.pro-sidebar .pro-menu .pro-menu-item.pro-sub-menu .pro-inner-list-item .pro-inner-item .pro-arrow-wrapper {
+    display: unset;
+}
+
+.pro-sidebar .sub-menu .pro-menu-item > .pro-inner-item .pro-item-content {
+    font-size: 1.4rem;
+}
+
+.pro-sidebar .pro-menu .pro-menu-item.pro-sub-menu .pro-inner-list-item .pro-inner-item:before {
+    margin-right: 5px;
+}
+
+.custom-header {
+    position: relative;
+    .megamenu {
+        width: 100vw;
+    }
+
+    .sub-container {
+        display: flex;
+        justify-content: center;
+    }
+}
+.recommend {
+    .banner {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 50% 50%;
+        display: flex;
+        &:hover {
+            opacity: 1;
+        }
+        opacity: 0.8;
+
+        &.banner-1 {
+            width: 574px;
+            height: 500px;
+        }
+        &.banner-2 {
+            width: 574px;
+            height: 240px;
+        }
+
+        &.banner-3 {
+            width: 574px;
+            height: 240px;
+        }
+
+        &.banner-4 {
+            height: 240px;
+        }
+    }
+}
+
+.breeze-daily {
+    .banner {
+        width: 100%;
+    }
+    .dailyType1 {
+        &:hover {
+            opacity: 1;
+        }
+        opacity: 0.8;
+        display: flex;
+        height: 500px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 50% 50%;
+    }
+    .dailyType2 {
+        &:hover {
+            opacity: 1;
+        }
+        opacity: 0.8;
+        display: flex;
+        height: 240px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 50% 50%;
+    }
+}
+
+
+.product-list {
+    .product-item-img {
+        width: 237px;
+        height: 237px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 50% 50%;
+
+    }
 }

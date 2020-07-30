@@ -1,9 +1,9 @@
 import React, { memo } from 'react'
-import ItemList from './ItemList'
 import TopHeader from './TopHeader'
 import MyModal from '../MyModal'
 import MemberTab from '@/components/Member/MemberTab'
 import ChannelList from './ChannelList'
+import HoverItemList from './HoverItemList'
 // import Link from 'next/link'
 
 type HeaderProps = {
@@ -12,11 +12,14 @@ type HeaderProps = {
 const Header: React.FC<HeaderProps> = ({ isIndex }: HeaderProps) => {
     const [IsOpenMember, setIsOpenMember] = React.useState(false)
     const headerClass = isIndex ? 'header header-9' : 'header'
+    const [itemHoverIndex, setItemHoverIndex] = React.useState<null | number>(null)
+
     return (
         <header className={headerClass}>
             {!isIndex && <TopHeader />}
             <MyModal content={<MemberTab />} isOpen={IsOpenMember} setPropIsOpenFn={setIsOpenMember} />
-            <div className="header-middle sticky-header">
+            <div className="header-middle sticky-header custom-header">
+                <HoverItemList itemHoverIndex={itemHoverIndex} setItemHoverIndex={setItemHoverIndex} />
                 <div className="container">
                     <div className="header-left">
                         <button className="mobile-menu-toggler">
@@ -25,15 +28,13 @@ const Header: React.FC<HeaderProps> = ({ isIndex }: HeaderProps) => {
                         </button>
 
                         <a href="index.html" className="logo">
-                            <img src="/images/demos/demo-12/logo.png" alt="Molla Logo" width="82" height="25" />
+                            <img src="/images/breezeonline_logo.png" alt="Molla Logo" width="140" height="25" />
                         </a>
                     </div>
-
                     <div className="header-right">
                         <nav className="main-nav">
-                            <ChannelList />
+                            <ChannelList setItemHoverIndex={setItemHoverIndex} />
                         </nav>
-
                         <a href="wishlist.html" className="wishlist-link">
                             <i className="icon-heart-o"></i>
                             <span className="wishlist-count">3</span>
