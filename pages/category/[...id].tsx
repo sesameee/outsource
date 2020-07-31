@@ -12,15 +12,13 @@ import { ChannelData, CategoryData } from '@/types/apis/channelList'
 import WidgetFrame from '@/components/Catalog'
 import ProductList from '@/components/Catalog/ProductList'
 import { FilterType } from '@/types/Common'
-import SortSelect from '@/components/Catalog/Sort'
-import { TFunction } from 'next-i18next'
-import { withTranslation } from '@/I18n'
+import SortSelect from '@/components/Catalog/SortSelect'
+
 interface CategoryProps extends WithRouterProps {
     filterProduct: Set<unknown>
-    t: TFunction
 }
 
-const Category = ({ router, t }: CategoryProps): JSX.Element => {
+const Category = ({ router }: CategoryProps): JSX.Element => {
     const query = router.query
     useChannelList()
 
@@ -105,13 +103,13 @@ const Category = ({ router, t }: CategoryProps): JSX.Element => {
                                     <div className="toolbox-right">
                                         <div className="toolbox-sort">
                                             <label htmlFor="sortby">Sort by:</label>
-                                            <SortSelect sortSelect={sortSelect} setsortSelect={setsortSelect} t={t} />
+                                            <SortSelect sortSelect={sortSelect} setsortSelect={setsortSelect} />
                                         </div>
                                     </div>
                                 </div>
 
                                 <div className="products mb-3">
-                                    <ProductList filterProduct={filterProduct} />
+                                    <ProductList filterProduct={filterProduct} sortSelect={sortSelect} />
                                 </div>
                                 {/* <nav aria-label="Page navigation">
                                     <ul className="pagination justify-content-center">
@@ -182,4 +180,4 @@ const Category = ({ router, t }: CategoryProps): JSX.Element => {
         </div>
     )
 }
-export default withTranslation('translations')(withRouter(Category))
+export default withRouter(Category)

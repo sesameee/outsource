@@ -1,13 +1,13 @@
 import React, { memo } from 'react'
-import { TFunction } from 'next-i18next'
 import { FilterType } from '@/types/Common'
+import { useTranslation } from '@/I18n'
 
 type SortProps = {
-    t: TFunction
     sortSelect: FilterType
     setsortSelect: React.Dispatch<React.SetStateAction<any>>
 }
-const SortSelect: React.FC<SortProps> = ({ t, sortSelect, setsortSelect }: SortProps) => {
+const SortSelect: React.FC<SortProps> = ({ sortSelect, setsortSelect }: SortProps) => {
+    const { t } = useTranslation()
     return (
         <div className="select-custom">
             <select

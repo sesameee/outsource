@@ -23,11 +23,12 @@ const SortByType = (type: FilterType, productObj: productList) => {
 
 type ProductListProps = {
     filterProduct: Set<unknown>
+    sortSelect: FilterType
 }
-const ProductList: React.FC<ProductListProps> = ({ filterProduct }: ProductListProps) => {
+const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect }: ProductListProps) => {
     const productObj = useSelector(CatalogSelectors.getProductList)
-    const SortType = FilterType.PRICE_ASCENDING
-    const productList = SortByType(SortType, productObj)
+    // const SortType = FilterType.PRICE_ASCENDING
+    const productList = SortByType(sortSelect, productObj)
     return (
         <div className="row justify-content-center product-list">
             {productList &&
