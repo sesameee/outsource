@@ -47,7 +47,7 @@ const Footer: React.FC<FooterProps> = ({ t }: FooterProps) => {
                 </div>
             </div>
             <div className="footer-bottom">
-                <img className="logo" src="/images/custom/logo.png" />
+                <img className="logo" src="/images/breezeonline_logo.png" />
                 <div className="info">
                     <p>微風股份有限公司 BREEZE COUTURE</p>
                     <p>

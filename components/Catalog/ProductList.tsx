@@ -1,0 +1,103 @@
+import React, { memo } from 'react'
+import { CatalogSelectors } from '@/store'
+import { useSelector } from 'react-redux'
+// import Link from 'next/link'
+type ProductListProps = {
+    filterProduct: Set<unknown>
+}
+const ProductList: React.FC<ProductListProps> = ({ filterProduct }: ProductListProps) => {
+    const productObj = useSelector(CatalogSelectors.getProductList)
+
+    /*
+    PRICE_ASCENDING = 0
+    PRICE_DESCENDING = 1
+    TIME_NEW_TO_OLD = 2
+    TIME_OLD_TO_NEW = 3
+    */
+    // const SortType = 3
+
+    // function SortByType(type) {
+    //     if (productObj && Object.values(productObj).length) {
+    //         const sortList = Object.values(productObj).sort(function (a, b) {
+    //             if (type == 0) return a.price - b.price
+    //             else if (type == 1) return b.price - a.price
+    //             else if (type == 2) return new Date(b.onlineDate) - new Date(a.onlineDate)
+    //             else if (type == 3) return new Date(a.onlineDate) - new Date(b.onlineDate)
+    //         })
+
+    //         let i = 0
+    //         sortList.forEach((element) => {
+    //             i++
+    //             console.log(i + '. price: ' + element.onlineDate)
+    //         })
+    //     }
+    // }
+
+    // SortByType(SortType)
+
+    const productList = productObj && Object.keys(productObj)
+    return (
+        <div className="row justify-content-center product-list">
+            {productList &&
+                productList.length &&
+                productList.map((keyString: string, index: number) => {
+                    const item = productObj[keyString]
+                    const findID = keyString.substr(0, keyString.lastIndexOf('-'))
+                    const showProduct = (filterProduct.size > 0 && filterProduct.has(findID)) || filterProduct.size == 0
+                    return showProduct ? (
+                        <div className="col-6 col-md-4 col-lg-4" key={index}>
+                            <div className="product product-7 text-center">
+                                <figure className="product-media">
+                                    {/* <span className="product-label label-new">New</span> */}
+                                    <div
+                                        className="product-item-img"
+                                        style={{ backgroundImage: `url(${item.imageUrl})` }}
+                                    ></div>
+                                    {/* <a href="product.html">
+                                        <img
+                                            src="/images/products/product-4.jpg"
+                                            alt="Product image"
+                                            className="product-image"
+                                        />
+                                    </a> */}
+
+                                    <div className="product-action-vertical">
+                                        <a href="#" className="btn-product-icon btn-wishlist btn-expandable">
+                                            <span>add to wishlist</span>
+                                        </a>
+                                        <a
+                                            href="popup/quickView.html"
+                                            className="btn-product-icon btn-quickview"
+                                            title="Quick view"
+                                        >
+                                            <span>Quick view</span>
+                                        </a>
+                                        <a href="#" className="btn-product-icon btn-compare" title="Compare">
+                                            <span>Compare</span>
+                                        </a>
+                                    </div>
+                                    <div className="product-action">
+                                        <a href="#" className="btn-product btn-cart">
+                                            <span>add to cart</span>
+                                        </a>
+                                    </div>
+                                </figure>
+
+                                <div className="product-body">
+                                    {/* <div className="product-cat">
+                                        <a href="#">Women</a>
+                                    </div> */}
+                                    <h3 className="product-title">
+                                        <a href="product.html">{item.pName}</a>
+                                    </h3>
+                                    <div className="product-price">${item.price}</div>
+                                </div>
+                            </div>
+                        </div>
+                    ) : null
+                })}
+        </div>
+    )
+}
+
+export default memo(ProductList)

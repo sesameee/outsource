@@ -2,14 +2,14 @@ import { AxiosObservable } from 'axios-observable/dist/axios-observable.interfac
 import { axios } from './axios'
 import { AxiosRequestConfig } from 'axios'
 const baseConfig = {
-    headers: {
-        'Content-Type': 'multipart/form-data',
-    },
+    // headers: {
+    //     'Content-Type': 'multipart/form-data',
+    // },
 }
 class HttpService {
+    static readonly DEV: string = 'http://localhost:3000/api'
     static readonly BasePath: string = 'https://cors-anywhere.herokuapp.com/http://13.76.80.106:8090/api/online' // todo BaseURL変更
     public static getBaseUrl = (targetApi: string, basePath: string = HttpService.BasePath): string => {
-        // return `/${basePath}/${targetApi}`
         return `${basePath}/${targetApi}`
     }
     public static GetAsync<Req, Res>(

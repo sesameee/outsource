@@ -144,12 +144,28 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+const devProxy = {
+    '/api': {
+        target: 'http://13.76.80.106:8090/api/online',
+        pathRewrite: { '^/api': '/' },
+        changeOrigin: true,
+    },
+};
 const port = process.env.PORT || 3000;
-const app = next__WEBPACK_IMPORTED_MODULE_1___default()({ dev: "development" !== 'production' });
+const env = "development";
+const dev = env !== 'production';
+const app = next__WEBPACK_IMPORTED_MODULE_1___default()({ dev });
 const handle = app.getRequestHandler();
 (async () => {
     await app.prepare();
     const server = express__WEBPACK_IMPORTED_MODULE_0___default()();
+    if (dev && devProxy) {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const { createProxyMiddleware } = __webpack_require__(/*! http-proxy-middleware */ "http-proxy-middleware");
+        Object.keys(devProxy).forEach(function (context) {
+            server.use(context, createProxyMiddleware(devProxy['/api']));
+        });
+    }
     await _I18n__WEBPACK_IMPORTED_MODULE_3__["default"].initPromise;
     server.use(next_i18next_middleware__WEBPACK_IMPORTED_MODULE_2___default()(_I18n__WEBPACK_IMPORTED_MODULE_3__["default"]));
     server.get('*', (req, res) => handle(req, res));
@@ -168,6 +184,17 @@ const handle = app.getRequestHandler();
 /***/ (function(module, exports) {
 
 module.exports = require("express");
+
+/***/ }),
+
+/***/ "http-proxy-middleware":
+/*!****************************************!*\
+  !*** external "http-proxy-middleware" ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("http-proxy-middleware");
 
 /***/ }),
 

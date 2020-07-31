@@ -6,6 +6,8 @@ export interface ProductData {
     price: string
     listPrice?: string
     imageUrl: string
+    _id: string
+    onlineDate: string
 }
 
 export interface ShoppingCartProductData {

@@ -9,3 +9,11 @@ export interface CatalogData {
     total?: number
     cData?: ProductData[]
 }
+
+export interface catalogList extends Response {
+    data: CatalogData
+}
+
+export interface productList {
+    [key: string]: ProductData
+}
