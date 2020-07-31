@@ -14,26 +14,26 @@ const ProductList: React.FC<ProductListProps> = ({ filterProduct }: ProductListP
     TIME_NEW_TO_OLD = 2
     TIME_OLD_TO_NEW = 3
     */
-    const SortType = 3
+    // const SortType = 3
 
-    function SortByType(type) {
-        if (productObj && Object.values(productObj).length) {
-            const sortList = Object.values(productObj).sort(function (a, b) {
-                if (type == 0) return a.price - b.price
-                else if (type == 1) return b.price - a.price
-                else if (type == 2) return new Date(b.onlineDate) - new Date(a.onlineDate)
-                else if (type == 3) return new Date(a.onlineDate) - new Date(b.onlineDate)
-            })
+    // function SortByType(type) {
+    //     if (productObj && Object.values(productObj).length) {
+    //         const sortList = Object.values(productObj).sort(function (a, b) {
+    //             if (type == 0) return a.price - b.price
+    //             else if (type == 1) return b.price - a.price
+    //             else if (type == 2) return new Date(b.onlineDate) - new Date(a.onlineDate)
+    //             else if (type == 3) return new Date(a.onlineDate) - new Date(b.onlineDate)
+    //         })
 
-            let i = 0
-            sortList.forEach((element) => {
-                i++
-                console.log(i + '. price: ' + element.onlineDate)
-            })
-        }
-    }
+    //         let i = 0
+    //         sortList.forEach((element) => {
+    //             i++
+    //             console.log(i + '. price: ' + element.onlineDate)
+    //         })
+    //     }
+    // }
 
-    SortByType(SortType)
+    // SortByType(SortType)
 
     const productList = productObj && Object.keys(productObj)
     return (
@@ -100,4 +100,4 @@ const ProductList: React.FC<ProductListProps> = ({ filterProduct }: ProductListP
     )
 }
 
-export default ProductList
+export default memo(ProductList)
