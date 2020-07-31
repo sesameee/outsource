@@ -4,7 +4,7 @@
     "scripts": {
         "dev": "node dist/server.js",
         "build": "next build",
-        "start": "NODE_ENV=production nodemon dist/server.js",
+        "start": "NODE_ENV=production node dist/server.js",
         "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
         "build_server": "webpack --mode=development",
         "mockserve": "ts-node --project mock/tsconfig.json mock/server.ts"
