@@ -18,11 +18,11 @@ const SortSelect: React.FC<SortProps> = ({ sortSelect, setsortSelect }: SortProp
                 onChange={(e) => setsortSelect(e.target.value)}
             >
                 <option value={FilterType.PRICE_ASCENDING} defaultChecked={true}>
-                    {t('sort1')}
+                    {t('sort4')}
                 </option>
-                <option value={FilterType.PRICE_DESCENDING}>{t('sort2')}</option>
-                <option value={FilterType.TIME_NEW_TO_OLD}>{t('sort3')}</option>
-                <option value={FilterType.TIME_OLD_TO_NEW}>{t('sort4')}</option>
+                <option value={FilterType.PRICE_DESCENDING}>{t('sort3')}</option>
+                <option value={FilterType.TIME_NEW_TO_OLD}>{t('sort1')}</option>
+                <option value={FilterType.TIME_OLD_TO_NEW}>{t('sort2')}</option>
             </select>
         </div>
     )

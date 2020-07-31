@@ -4,7 +4,7 @@ import MyModal from '../MyModal'
 import MemberTab from '@/components/Member/MemberTab'
 import ChannelList from './ChannelList'
 import HoverItemList from './HoverItemList'
-// import Link from 'next/link'
+import Link from 'next/link'
 
 type HeaderProps = {
     isIndex: boolean
@@ -26,10 +26,11 @@ const Header: React.FC<HeaderProps> = ({ isIndex }: HeaderProps) => {
                             <span className="sr-only">Toggle mobile menu</span>
                             <i className="icon-bars"></i>
                         </button>
-
-                        <a href="index.html" className="logo">
-                            <img src="/images/breezeonline_logo.png" alt="Molla Logo" width="140" height="25" />
-                        </a>
+                        <Link href="/">
+                            <a className="logo">
+                                <img src="/images/breezeonline_logo.png" alt="Molla Logo" width="140" height="25" />
+                            </a>
+                        </Link>
                     </div>
                     <div className="header-right">
                         <nav className="main-nav">

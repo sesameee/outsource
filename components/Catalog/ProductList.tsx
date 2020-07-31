@@ -6,6 +6,7 @@ import { ProductData } from '@/types/apis/common'
 import { productList } from '@/types/apis/catalog'
 
 const SortByType = (type: FilterType, productObj: productList) => {
+    type = Number(type)
     if (productObj && Object.values(productObj).length) {
         const sortList: ProductData[] = Object.values(productObj).sort((a: ProductData, b: ProductData): any => {
             if (type == FilterType.PRICE_ASCENDING) return Number(a.price) - Number(b.price)
