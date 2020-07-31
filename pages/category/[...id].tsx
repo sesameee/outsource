@@ -11,13 +11,16 @@ import { ChannelListSelectors } from '@/store'
 import { ChannelData, CategoryData } from '@/types/apis/channelList'
 import WidgetFrame from '@/components/Catalog'
 import ProductList from '@/components/Catalog/ProductList'
-
-// import { withTranslation, i18n } from '@/I18n'
+import { FilterType } from '@/types/Common'
+import SortSelect from '@/components/Catalog/Sort'
+import { TFunction } from 'next-i18next'
+import { withTranslation } from '@/I18n'
 interface CategoryProps extends WithRouterProps {
     filterProduct: Set<unknown>
+    t: TFunction
 }
 
-const Category = ({ router }: CategoryProps): JSX.Element => {
+const Category = ({ router, t }: CategoryProps): JSX.Element => {
     const query = router.query
     useChannelList()
 
@@ -53,6 +56,7 @@ const Category = ({ router }: CategoryProps): JSX.Element => {
 
     const [filterProduct, setfilterProduct] = React.useState(new Set())
     const [filterToggle, setFilterToggle] = React.useState(false)
+    const [sortSelect, setsortSelect] = React.useState(FilterType.PRICE_ASCENDING)
 
     return (
         <div className="page-wrapper">
@@ -101,15 +105,7 @@ const Category = ({ router }: CategoryProps): JSX.Element => {
                                     <div className="toolbox-right">
                                         <div className="toolbox-sort">
                                             <label htmlFor="sortby">Sort by:</label>
-                                            <div className="select-custom">
-                                                <select name="sortby" id="sortby" className="form-control">
-                                                    <option value="popularity" selected>
-                                                        Most Popular
-                                                    </option>
-                                                    <option value="rating">Most Rated</option>
-                                                    <option value="date">Date</option>
-                                                </select>
-                                            </div>
+                                            <SortSelect sortSelect={sortSelect} setsortSelect={setsortSelect} t={t} />
                                         </div>
                                     </div>
                                 </div>
@@ -186,4 +182,4 @@ const Category = ({ router }: CategoryProps): JSX.Element => {
         </div>
     )
 }
-export default withRouter(Category)
+export default withTranslation('translations')(withRouter(Category))
