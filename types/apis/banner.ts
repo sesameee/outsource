@@ -30,6 +30,6 @@ export interface BannerData {
     categoryType: string
 }
 
-export interface bannerList extends Response {
+export interface BannerList extends Response {
     data: BannerData[]
 }

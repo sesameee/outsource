@@ -6,4 +6,7 @@ export interface UserLoginReqData {
 
 export interface UserLoginRspData {
     memberId: string
+    token: string
+    accessToken: string
+    accessTokenExpireDate: string
 }
