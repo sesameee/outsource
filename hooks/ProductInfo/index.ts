@@ -1,16 +1,18 @@
-import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-
+import { useEffect } from 'react'
 import { ProductInfoActions } from '@/store'
 
-export const useUserLogin = (): void => {
+export const useProductInfo = (query: any): void => {
     const dispatch = useDispatch()
+    const [cid, pid] = query.id
     useEffect(() => {
-        dispatch(
-            ProductInfoActions.fetchProductInfo({
-                cid: '1',
-                pid: '1',
-            }),
-        )
-    }, [dispatch])
+        if (cid && pid) {
+            dispatch(
+                ProductInfoActions.fetchProductInfo({
+                    cid,
+                    pid,
+                }),
+            )
+        }
+    }, [dispatch, cid, pid])
 }

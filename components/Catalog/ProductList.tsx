@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import { FilterType } from '@/types/Common'
 import { ProductData } from '@/types/apis/common'
 import { productList } from '@/types/apis/catalog'
+import Link from 'next/link'
 
 const SortByType = (type: FilterType, productObj: productList) => {
     type = Number(type)
@@ -41,32 +42,15 @@ const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect }: 
                         <div className="col-6 col-md-4 col-lg-4" key={index}>
                             <div className="product product-7 text-center">
                                 <figure className="product-media">
-                                    {/* <span className="product-label label-new">New</span> */}
-                                    <div
-                                        className="product-item-img"
-                                        style={{ backgroundImage: `url(${item.imageUrl})` }}
-                                    ></div>
-                                    {/* <a href="product.html">
-                                        <img
-                                            src="/images/products/product-4.jpg"
-                                            alt="Product image"
-                                            className="product-image"
-                                        />
-                                    </a> */}
-
+                                    <Link href={`/product/${item.cid}/${item.pid}`}>
+                                        <div
+                                            className="product-item-img"
+                                            style={{ backgroundImage: `url(${item.imageUrl})` }}
+                                        ></div>
+                                    </Link>
                                     <div className="product-action-vertical">
                                         <a href="#" className="btn-product-icon btn-wishlist btn-expandable">
                                             <span>add to wishlist</span>
-                                        </a>
-                                        <a
-                                            href="popup/quickView.html"
-                                            className="btn-product-icon btn-quickview"
-                                            title="Quick view"
-                                        >
-                                            <span>Quick view</span>
-                                        </a>
-                                        <a href="#" className="btn-product-icon btn-compare" title="Compare">
-                                            <span>Compare</span>
                                         </a>
                                     </div>
                                     <div className="product-action">
