@@ -6,6 +6,7 @@ import ChannelEpics from './channelList/epics'
 import CatalogEpics from './catalog/epics'
 import BreezDailyEpics from './breezeDaily/epics'
 import UserLoginEpics from './userLogin/epics'
+import ProductInfoEpics from './productInfo/epics'
 
 export const rootEpic = combineEpics(
     ...GoogleBookEpics,
@@ -14,6 +15,7 @@ export const rootEpic = combineEpics(
     ...CatalogEpics,
     ...BreezDailyEpics,
     ...UserLoginEpics,
+    ...ProductInfoEpics,
 )
 
 const epicMiddleware = createEpicMiddleware()

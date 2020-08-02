@@ -1,3 +1,8 @@
+export interface ProductInfoReqData {
+    cid: string
+    pid: string
+}
+
 export interface ProductInfoData {
     pid: string
     cid: string
