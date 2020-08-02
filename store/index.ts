@@ -5,6 +5,7 @@ import * as ChannelListSelectors from './channelList/selectors'
 import * as BreezeDailySelectors from './breezeDaily/selectors'
 import * as UserLoginSelectors from './userLogin/selectors'
 import * as ProductInfoSelectors from './productInfo/selectors'
+import * as ErrorAlertSelectors from './errorAlert/selectors'
 import { googleBookSlice, googleCreateActions } from './googleBooks/slice'
 import { bannerSlice, bannerCreateActions } from './banner/slice'
 import { catalogSlice, catalogCreateActions } from './catalog/slice'
@@ -12,6 +13,7 @@ import { channelListSlice, channelListCreateActions } from './channelList/slice'
 import { breezeDailySlice, breezeDailyCreateActions } from './breezeDaily/slice'
 import { userLoginSlice, userLoginCreateActions } from './userLogin/slice'
 import { productInfoSlice, productInfoCreateActions } from './productInfo/slice'
+import { errorAlertSlice, errorAlertCreateActions } from './errorAlert/slice'
 
 const GoogleBooksActions = {
     ...googleBookSlice.actions,
@@ -48,6 +50,11 @@ const ProductInfoActions = {
     ...productInfoCreateActions,
 }
 
+const ErrorAlertActions = {
+    ...errorAlertSlice.actions,
+    ...errorAlertCreateActions,
+}
+
 export {
     GoogleBooksSelectors,
     GoogleBooksActions,
@@ -63,4 +70,6 @@ export {
     UserLoginSelectors,
     ProductInfoActions,
     ProductInfoSelectors,
+    ErrorAlertActions,
+    ErrorAlertSelectors,
 }

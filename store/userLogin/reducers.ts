@@ -8,6 +8,7 @@ import { UserLoginRspData } from '@/types/apis/userLogin'
 export const setIsSearching: CaseReducer<State, PayloadAction<State>> = (state, action) => {
     return produce(state, (draft) => {
         draft['isFetch'] = action.payload.isFetch
+        draft['error'] = ''
     })
 }
 
