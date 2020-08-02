@@ -88,13 +88,7 @@ const Category = ({ router }: CategoryProps): JSX.Element => {
                                     <div className="toolbox-left">
                                         <div className="toolbox-info">
                                             {/* Showing <span>9 of 56</span> Products */}
-                                            <button
-                                                className="custom-btn"
-                                                onClick={() => {
-                                                    console.log('aaa :>> ')
-                                                    setFilterToggle(true)
-                                                }}
-                                            >
+                                            <button className="custom-btn" onClick={() => setFilterToggle(true)}>
                                                 篩選
                                             </button>
                                         </div>
@@ -102,7 +96,7 @@ const Category = ({ router }: CategoryProps): JSX.Element => {
 
                                     <div className="toolbox-right">
                                         <div className="toolbox-sort">
-                                            <label htmlFor="sortby">Sort by:</label>
+                                            <label htmlFor="sortby">排序:</label>
                                             <SortSelect sortSelect={sortSelect} setsortSelect={setsortSelect} />
                                         </div>
                                     </div>
@@ -111,48 +105,11 @@ const Category = ({ router }: CategoryProps): JSX.Element => {
                                 <div className="products mb-3">
                                     <ProductList filterProduct={filterProduct} sortSelect={sortSelect} />
                                 </div>
-                                {/* <nav aria-label="Page navigation">
-                                    <ul className="pagination justify-content-center">
-                                        <li className="page-item disabled">
-                                            <a className="page-link page-link-prev" href="#">
-                                                <span aria-hidden="true">
-                                                    <i className="icon-long-arrow-left"></i>
-                                                </span>
-                                                Prev
-                                            </a>
-                                        </li>
-                                        <li className="page-item active" aria-current="page">
-                                            <a className="page-link" href="#">
-                                                1
-                                            </a>
-                                        </li>
-                                        <li className="page-item">
-                                            <a className="page-link" href="#">
-                                                2
-                                            </a>
-                                        </li>
-                                        <li className="page-item">
-                                            <a className="page-link" href="#">
-                                                3
-                                            </a>
-                                        </li>
-                                        <li className="page-item-total">of 6</li>
-                                        <li className="page-item">
-                                            <a className="page-link page-link-next" href="#" aria-label="Next">
-                                                Next{' '}
-                                                <span aria-hidden="true">
-                                                    <i className="icon-long-arrow-right"></i>
-                                                </span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                             */}
                             </div>
                             <aside className="col-lg-3 order-lg-first">
                                 <div className="sidebar sidebar-shop">
-                                    <div className="widget widget-clean filter-section-pc">
-                                        <label>Filters:</label>
+                                    <div className="widget widget-clean">
+                                        <label>篩選:</label>
                                         <a
                                             className="sidebar-filter-clear"
                                             onClick={() => {

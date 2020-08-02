@@ -428,3 +428,15 @@
     background-size: cover;
     background-position: 50% 50%;
 }
+
+.sidebar-filter-clear {
+    color: $mainColor !important;
+    cursor: pointer;
+}
+
+.widget-clean {
+    display: none;
+    @include for-except-xs {
+        display: flex;
+    }
+}
