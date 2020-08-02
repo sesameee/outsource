@@ -466,9 +466,18 @@
         flex-direction: column;
         .btn {
             order: 1;
+            margin-right:0;
+        }
+        .btn-outline-primary-2 {
+            margin-top: 25px;
         }
         .custom-control {
             margin-bottom: 1rem;
+        }
+
+        .forgot-link {
+            margin-top: 10px;
+            margin-left: unset;
         }
     }
 

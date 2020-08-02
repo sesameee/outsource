@@ -1,6 +1,5 @@
 import React from 'react'
 import { useTranslation } from '@/I18n'
-import { FilterType } from '@/types/Common'
 const Login: React.FC = () => {
     const { t } = useTranslation()
     return (
@@ -32,17 +31,16 @@ const Login: React.FC = () => {
                 <div className="custom-control custom-checkbox">
                     <input type="checkbox" className="custom-control-input" id="signin-remember" />
                     <label className="custom-control-label" htmlFor="signin-remember">
-                        Remember Me
+                        {t('login_remember')}
                     </label>
                 </div>
 
                 <button type="submit" className="btn btn-outline-primary-2">
-                    <span>{t('member_password')}</span>
-                    <i className="icon-long-arrow-right"></i>
+                    <span>{t('login_right_now')}</span>
                 </button>
 
                 <a href="#" className="forgot-link">
-                    Forgot Your Password?
+                    {t('forget_password')}
                 </a>
             </div>
         </form>
