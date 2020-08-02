@@ -10,6 +10,13 @@ export interface ProductData {
     onlineDate: string
 }
 
+export interface ShoppingCartListData {
+    cid: string
+    name: string
+    categoryType: string
+    shoppingCartProducts: ShoppingCartProductData[]
+}
+
 export interface ShoppingCartProductData {
     shoppingCartItemId?: number
     cid: string

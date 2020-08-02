@@ -1,11 +1,16 @@
 import React, { memo } from 'react'
 import { useBreezeDaily } from '@/hooks/BreezeDaily'
-import { BreezeDailySelectors } from '@/store'
+import { BreezeDailySelectors, ShoppingCartListSelectors } from '@/store'
 import { useSelector } from 'react-redux'
 
 const BreezeDaily: React.FC = () => {
     useBreezeDaily()
     const [List1, List2, List3, List4] = useSelector(BreezeDailySelectors.getBreezeDailyList)
+
+    const tmp = useSelector(ShoppingCartListSelectors.getShoppingCartList)
+
+    console.log('wahahahah: ' + JSON.stringify(tmp))
+
     return (
         <div className="row breeze-daily">
             <div className="col-sm-6 col-lg-4">

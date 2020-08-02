@@ -8,6 +8,7 @@ import { userLoginSlice } from './userLogin/slice'
 import { productInfoSlice } from './productInfo/slice'
 import { errorAlertSlice } from './errorAlert/slice'
 import { wishListSlice } from './wishList/slice'
+import { shoppingCartListSlice } from './shoppingCartList/slice'
 import { RootState } from '@/types/stores/root'
 
 const rootReducer = combineReducers({
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
     productInfo: productInfoSlice.reducer,
     wishList: wishListSlice.reducer,
     errorAlert: errorAlertSlice.reducer,
+    shoppingCartList: shoppingCartListSlice.reducer,
 })
 
 export default rootReducer

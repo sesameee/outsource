@@ -1,4 +1,4 @@
-import { ProductData } from './common'
+import { ProductData, Response } from './common'
 
 export interface WishListRspData extends Response {
     cid: string
