@@ -414,7 +414,6 @@
     }
 }
 
-
 .pc-flex {
     display: none;
     @include for-except-xs {
@@ -439,4 +438,43 @@
     @include for-except-xs {
         display: flex;
     }
+}
+
+.login-form {
+    .desc {
+        text-align: center;
+    }
+    .phone-frame {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .phoneCode {
+            flex-basis: 10rem;
+            margin-right: 15px;
+            .form-control {
+                padding: 0;
+            }
+        }
+        .phone {
+            flex: 1;
+        }
+    }
+    .label {
+        height: 0rem;
+    }
+    .form-footer {
+        flex-direction: column;
+        .btn {
+            order: 1;
+        }
+        .custom-control {
+            margin-bottom: 1rem;
+        }
+    }
+
+    
+}
+
+.form-box {
+    min-width: 575px;
 }
