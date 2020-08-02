@@ -4,7 +4,6 @@ import { produce } from 'immer'
 import { State } from '@/types/stores/shoppingCartList/state'
 import { initialState } from './initialState'
 import { ShoppingCartListRspData } from '@/types/apis/shoppingCartList'
-import { ShoppingCartListData } from '@/types/apis/common'
 
 export const setIsSearching: CaseReducer<State, PayloadAction<State>> = (state, action) => {
     return produce(state, (draft) => {
@@ -17,7 +16,6 @@ export const fetchShoppingCartListSuccess: CaseReducer<State, PayloadAction<{ da
     action,
 ) => {
     return produce(state, (draft) => {
-        console.log('ssssssss', action.payload)
         draft['isFetch'] = false
         draft['shoppingCartListData'] = action.payload.data.data
     })

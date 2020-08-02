@@ -5,14 +5,20 @@ import MemberTab from '@/components/Member/MemberTab'
 import ChannelList from './ChannelList'
 import HoverItemList from './HoverItemList'
 import Link from 'next/link'
+import Cart from './Cart'
+import { useSelector } from 'react-redux'
+import { WishListSelectors } from '@/store'
+import { useWishList } from '@/hooks/WishList'
 
 type HeaderProps = {
     isIndex: boolean
 }
 const Header: React.FC<HeaderProps> = ({ isIndex }: HeaderProps) => {
+    useWishList()
     const [IsOpenMember, setIsOpenMember] = React.useState(false)
     const headerClass = isIndex ? 'header header-9' : 'header'
     const [itemHoverIndex, setItemHoverIndex] = React.useState<null | number>(null)
+    const wishList = useSelector(WishListSelectors.getWishList)
 
     return (
         <header className={headerClass}>
@@ -40,88 +46,11 @@ const Header: React.FC<HeaderProps> = ({ isIndex }: HeaderProps) => {
                         <nav className="main-nav">
                             <ChannelList setItemHoverIndex={setItemHoverIndex} />
                         </nav>
-                        <a href="wishlist.html" className="wishlist-link">
+                        <a className="wishlist-link">
                             <i className="icon-heart-o"></i>
-                            <span className="wishlist-count">3</span>
+                            {wishList.total && <span className="wishlist-count">{wishList.total}</span>}
                         </a>
-
-                        <div className="dropdown cart-dropdown">
-                            <a
-                                href="#"
-                                className="dropdown-toggle"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                                data-display="static"
-                            >
-                                <i className="icon-shopping-cart"></i>
-                                <span className="cart-count">2</span>
-                            </a>
-
-                            <div className="dropdown-menu dropdown-menu-right">
-                                <div className="dropdown-cart-products">
-                                    <div className="product">
-                                        <div className="product-cart-details">
-                                            <h4 className="product-title">
-                                                <a href="product.html">Beige knitted elastic runner shoes</a>
-                                            </h4>
-
-                                            <span className="cart-product-info">
-                                                <span className="cart-product-qty">1</span>x $84.00
-                                            </span>
-                                        </div>
-
-                                        <figure className="product-image-container">
-                                            <a href="product.html" className="product-image">
-                                                <img src="/images/products/cart/product-1.jpg" alt="product" />
-                                            </a>
-                                        </figure>
-                                        <a href="#" className="btn-remove" title="Remove Product">
-                                            <i className="icon-close"></i>
-                                        </a>
-                                    </div>
-
-                                    <div className="product">
-                                        <div className="product-cart-details">
-                                            <h4 className="product-title">
-                                                <a href="product.html">Blue utility pinafore denim dress</a>
-                                            </h4>
-
-                                            <span className="cart-product-info">
-                                                <span className="cart-product-qty">1</span>x $76.00
-                                            </span>
-                                        </div>
-
-                                        <figure className="product-image-container">
-                                            <a href="product.html" className="product-image">
-                                                <img src="/images/products/cart/product-2.jpg" alt="product" />
-                                            </a>
-                                        </figure>
-                                        <a href="#" className="btn-remove" title="Remove Product">
-                                            <i className="icon-close"></i>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div className="dropdown-cart-total">
-                                    <span>Total</span>
-
-                                    <span className="cart-total-price">$160.00</span>
-                                </div>
-
-                                <div className="dropdown-cart-action">
-                                    <a href="cart.html" className="btn btn-primary">
-                                        View Cart
-                                    </a>
-                                    <a href="checkout.html" className="btn btn-outline-primary-2">
-                                        <span>Checkout</span>
-                                        <i className="icon-long-arrow-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
+                        <Cart />
                         <a onClick={() => setIsOpenMember(true)} className="wishlist-link">
                             <i className="icon-user"></i>
                         </a>

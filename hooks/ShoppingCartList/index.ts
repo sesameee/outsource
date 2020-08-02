@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { ShoppingCartListActions } from '@/store'
 
-export const useProductInfo = (): void => {
+export const useShoppingCartList = (): void => {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(

@@ -5,8 +5,11 @@ type RegisterProps = {
 }
 
 const Register: React.FC<RegisterProps> = ({ setPropIsOpenFn }: RegisterProps) => {
+    const a = () => {
+        setPropIsOpenFn(false)
+    }
     return (
-        <form action="#">
+        <form action="#" onSubmit={() => a}>
             <div className="form-group">
                 <label htmlFor="register-email">Your email address *</label>
                 <input type="email" className="form-control" id="register-email" name="register-email" required />
