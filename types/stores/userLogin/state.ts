@@ -1,7 +1,7 @@
-import { UserLoginReqData } from '@/types/apis/userLogin'
+import { UserLoginRspData } from '@/types/apis/userLogin'
 
 export type State = {
     isFetch: boolean
-    userLoginData: UserLoginReqData
+    userLoginData: UserLoginRspData
     error: string
 }

@@ -4,6 +4,7 @@ import { bannerSlice } from '@/store/banner/slice'
 import { catalogSlice } from '@/store/catalog/slice'
 import { breezeDailySlice } from '@/store/breezeDaily/slice'
 import { channelListSlice } from '@/store/channelList/slice'
+import { userLoginSlice } from './userLogin/slice'
 import { RootState } from '@/types/stores/root'
 
 const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
     channelList: channelListSlice.reducer,
     catalog: catalogSlice.reducer,
     breezeDaily: breezeDailySlice.reducer,
+    userLogin: userLoginSlice.reducer,
 })
 
 export default rootReducer

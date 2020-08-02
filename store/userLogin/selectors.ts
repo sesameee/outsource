@@ -9,16 +9,9 @@ export const userLoginState = (state: RootState): UserLoginState => state.userLo
 //     return userLoginState.userLoginList.totalItems
 // })
 
-export const getUserLoginList = createSelector<RootState, UserLoginState, UserLoginState['userLoginList']>(
+export const getUserLoginData = createSelector<RootState, UserLoginState, UserLoginState['userLoginData']>(
     userLoginState,
     (userLoginState: UserLoginState) => {
-        return userLoginState.userLoginList
-    },
-)
-
-export const getRecommendList = createSelector<RootState, UserLoginState, UserLoginState['recommendList']>(
-    userLoginState,
-    (userLoginState: UserLoginState) => {
-        return userLoginState.recommendList
+        return userLoginState.userLoginData
     },
 )

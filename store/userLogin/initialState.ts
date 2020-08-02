@@ -1,7 +1,11 @@
-import { State } from 'types/stores/banner/state'
+import { State } from 'types/stores/userLogin/state'
 export const initialState: State = {
     isFetch: false,
-    bannerList: [],
-    recommendList: [],
+    userLoginData: {
+        memberId: '',
+        token: '',
+        accessToken: '',
+        accessTokenExpireDate: '',
+    },
     error: '',
 }

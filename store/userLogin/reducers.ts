@@ -17,7 +17,7 @@ export const fetchUserLoginSuccess: CaseReducer<State, PayloadAction<{ UserLogin
 ) => {
     return produce(state, (draft) => {
         draft['isFetch'] = false
-        draft['UserLoginData'] = action.payload.UserLoginData
+        draft['userLoginData'] = action.payload.UserLoginData
     })
 }
 
