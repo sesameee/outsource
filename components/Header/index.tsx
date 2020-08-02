@@ -17,7 +17,11 @@ const Header: React.FC<HeaderProps> = ({ isIndex }: HeaderProps) => {
     return (
         <header className={headerClass}>
             {!isIndex && <TopHeader />}
-            <MyModal content={<MemberTab />} isOpen={IsOpenMember} setPropIsOpenFn={setIsOpenMember} />
+            <MyModal
+                content={<MemberTab setPropIsOpenFn={setIsOpenMember} />}
+                isOpen={IsOpenMember}
+                setPropIsOpenFn={setIsOpenMember}
+            />
             <div className="header-middle sticky-header custom-header">
                 <HoverItemList itemHoverIndex={itemHoverIndex} setItemHoverIndex={setItemHoverIndex} />
                 <div className="container">

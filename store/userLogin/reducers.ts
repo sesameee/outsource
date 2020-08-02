@@ -3,7 +3,7 @@ import { produce } from 'immer'
 
 import { State } from '@/types/stores/userLogin/state'
 import { initialState } from './initialState'
-import { UserLoginRspData } from '@/types/apis/userLogin'
+import { UserLoginRspAllData } from '@/types/apis/userLogin'
 
 export const setIsSearching: CaseReducer<State, PayloadAction<State>> = (state, action) => {
     return produce(state, (draft) => {
@@ -12,13 +12,13 @@ export const setIsSearching: CaseReducer<State, PayloadAction<State>> = (state, 
     })
 }
 
-export const fetchUserLoginSuccess: CaseReducer<State, PayloadAction<{ UserLoginData: UserLoginRspData }>> = (
+export const fetchUserLoginSuccess: CaseReducer<State, PayloadAction<{ UserLoginData: UserLoginRspAllData }>> = (
     state,
     action,
 ) => {
     return produce(state, (draft) => {
         draft['isFetch'] = false
-        draft['userLoginData'] = action.payload.UserLoginData
+        draft['userLoginData'] = action.payload.UserLoginData.data
     })
 }
 

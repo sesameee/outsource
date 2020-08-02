@@ -7,7 +7,7 @@ import { PayloadAction } from '@reduxjs/toolkit'
 
 import { UserLoginActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
-import { UserLoginReqData, UserLoginRspData } from '@/types/apis/userLogin'
+import { UserLoginReqData, UserLoginRspAllData } from '@/types/apis/userLogin'
 import { USER_LOGIN } from '@/services/api/apiConfig'
 
 // TODO: do something
@@ -24,7 +24,7 @@ export const fetchUserLoginEpic: Epic = (action$) =>
     action$.pipe(
         ofType(UserLoginActions.fetchUserLogin),
         mergeMap((action: PayloadAction<UserLoginReqData>) =>
-            HttpService.PostAsync<UserLoginReqData, UserLoginRspData>(USER_LOGIN, {
+            HttpService.PostAsync<UserLoginReqData, UserLoginRspAllData>(USER_LOGIN, {
                 phoneCode: action.payload.phoneCode,
                 phone: action.payload.phone,
                 password: action.payload.password,

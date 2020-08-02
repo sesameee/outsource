@@ -4,16 +4,20 @@ import React, { memo } from 'react'
 import Tab, { tabDataVo } from '../commons/Tab'
 import { useTranslation } from '@/I18n'
 
-const MemberTab: React.FC = () => {
+type MemberTabProps = {
+    setPropIsOpenFn: any
+}
+
+const MemberTab: React.FC<MemberTabProps> = ({ setPropIsOpenFn }: MemberTabProps) => {
     const { t } = useTranslation()
     const TabData: tabDataVo[] = [
         {
             title: t('login'),
-            content: <Login />,
+            content: <Login setPropIsOpenFn={setPropIsOpenFn} />,
         },
         {
             title: t('register'),
-            content: <Register />,
+            content: <Register setPropIsOpenFn={setPropIsOpenFn} />,
         },
     ]
 

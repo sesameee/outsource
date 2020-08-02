@@ -1,18 +1,46 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from '@/I18n'
 import { useForm } from 'react-hook-form'
 import { UserLoginReqData } from '@/types/apis/userLogin'
 import { useUserLoginHandler } from '@/hooks/UserLogin'
-const Login: React.FC = () => {
+import ErrorAlert from '../commons/ErrorAlert'
+import { useDispatch, useSelector } from 'react-redux'
+import { ErrorAlertActions, UserLoginSelectors } from '@/store'
+
+type LoginProps = {
+    setPropIsOpenFn: any
+}
+
+const Login: React.FC<LoginProps> = ({ setPropIsOpenFn }: LoginProps) => {
     const { t } = useTranslation()
     const { register, handleSubmit } = useForm<UserLoginReqData>()
     const { handleLoginSubmit } = useUserLoginHandler()
+    const error = useSelector(UserLoginSelectors.getUserLoginError)
+    const success = useSelector(UserLoginSelectors.getUserLoginData)
+    const dispatch = useDispatch()
+    useEffect(() => {
+        if (error) {
+            dispatch(
+                ErrorAlertActions.toggleErrorAlert({
+                    isOpen: true,
+                    error: error,
+                }),
+            )
+        }
+    }, [dispatch, error])
+
+    useEffect(() => {
+        if (success.memberId) {
+            setPropIsOpenFn(false)
+        }
+    }, [setPropIsOpenFn, success.memberId])
+
     const onSubmit = (data: UserLoginReqData) => {
-        console.log('data', data)
         handleLoginSubmit(data)
     }
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="login-form">
+            <ErrorAlert />
             <div className="desc">{t('login_desc_01')}</div>
             <div className="phone-frame">
                 <div className="form-group phoneCode">

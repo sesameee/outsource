@@ -21,7 +21,7 @@ const customStyles = {
 type MyModalProps = {
     content: ReactElement
     isOpen: boolean
-    setPropIsOpenFn: React.Dispatch<React.SetStateAction<boolean>>
+    setPropIsOpenFn: any
 }
 
 const MyModal: React.FC<MyModalProps> = ({ content, isOpen, setPropIsOpenFn }: MyModalProps) => {

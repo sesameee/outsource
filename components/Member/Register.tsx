@@ -1,6 +1,10 @@
 import React from 'react'
 
-const Register: React.FC = () => {
+type RegisterProps = {
+    setPropIsOpenFn: any
+}
+
+const Register: React.FC<RegisterProps> = ({ setPropIsOpenFn }: RegisterProps) => {
     return (
         <form action="#">
             <div className="form-group">

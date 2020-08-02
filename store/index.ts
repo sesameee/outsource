@@ -13,7 +13,7 @@ import { channelListSlice, channelListCreateActions } from './channelList/slice'
 import { breezeDailySlice, breezeDailyCreateActions } from './breezeDaily/slice'
 import { userLoginSlice, userLoginCreateActions } from './userLogin/slice'
 import { productInfoSlice, productInfoCreateActions } from './productInfo/slice'
-import { errorAlertSlice, errorAlertCreateActions } from './errorAlert/slice'
+import { errorAlertSlice } from './errorAlert/slice'
 
 const GoogleBooksActions = {
     ...googleBookSlice.actions,
@@ -52,7 +52,6 @@ const ProductInfoActions = {
 
 const ErrorAlertActions = {
     ...errorAlertSlice.actions,
-    ...errorAlertCreateActions,
 }
 
 export {

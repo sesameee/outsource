@@ -11,3 +11,10 @@ export const getUserLoginData = createSelector<RootState, UserLoginState, UserLo
         return userLoginState.userLoginData
     },
 )
+
+export const getUserLoginError = createSelector<RootState, UserLoginState, UserLoginState['error']>(
+    userLoginState,
+    (userLoginState: UserLoginState) => {
+        return userLoginState.error
+    },
+)

@@ -1,3 +1,4 @@
+import { Response } from './common'
 export interface UserLoginReqData {
     phoneCode: string
     phone: string
@@ -9,4 +10,8 @@ export interface UserLoginRspData {
     token: string
     accessToken: string
     accessTokenExpireDate: string
+}
+
+export interface UserLoginRspAllData extends Response {
+    data: UserLoginRspData
 }
