@@ -38,7 +38,13 @@ const MyModal: React.FC<MyModalProps> = ({ content, isOpen, setPropIsOpenFn }: M
 
     return (
         <div>
-            <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles} contentLabel="Example Modal">
+            <Modal
+                isOpen={modalIsOpen}
+                ariaHideApp={false}
+                onRequestClose={closeModal}
+                style={customStyles}
+                contentLabel="Example Modal"
+            >
                 <button type="button" className="myModal close" onClick={closeModal}>
                     <span aria-hidden="true">
                         <i className="icon-close"></i>

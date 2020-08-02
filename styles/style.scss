@@ -12920,7 +12920,6 @@ button:focus {
 .form-tab .form-footer .btn {
     margin-left: auto;
     margin-top: 1rem;
-    order: 2;
     width: 100%;
 }
 .form-tab .form-footer a {
@@ -12937,7 +12936,6 @@ button:focus {
     margin: 0;
 }
 .form-tab .form-footer .forgot-link {
-    order: -1;
     width: 100%;
     margin-bottom: 0.6rem;
 }
@@ -13004,10 +13002,8 @@ button:focus {
     .form-tab .form-footer .btn {
         margin-left: 0;
         margin-right: 1.6rem;
-        order: -1;
     }
     .form-tab .form-footer .forgot-link {
-        order: 2;
         width: auto;
         margin-bottom: 0;
         margin-left: auto;

@@ -464,9 +464,9 @@
     }
     .form-footer {
         flex-direction: column;
+        text-align: center;
         .btn {
-            order: 1;
-            margin-right:0;
+            margin-right: 0;
         }
         .btn-outline-primary-2 {
             margin-top: 25px;
@@ -480,10 +480,10 @@
             margin-left: unset;
         }
     }
-
-    
 }
 
 .form-box {
-    min-width: 575px;
+    @include for-except-xs {
+        min-width: 575px;
+    }
 }

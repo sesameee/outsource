@@ -16,17 +16,3 @@ export const useRecommend = (): void => {
         dispatch(BannerActions.fetchBanner({ isRecommend: 1 }))
     }, [dispatch])
 }
-
-
-export const useUserLogin = (): void => {
-    const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(
-            UserLoginActions.fetchUserLogin({
-                phoneCode: '886',
-                phone: '9283929292',
-                password: '219219',
-            }),
-        )
-    }, [dispatch])
-}

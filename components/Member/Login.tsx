@@ -1,30 +1,52 @@
 import React from 'react'
 import { useTranslation } from '@/I18n'
+import { useForm } from 'react-hook-form'
+import { UserLoginReqData } from '@/types/apis/userLogin'
+import { useUserLoginHandler } from '@/hooks/UserLogin'
 const Login: React.FC = () => {
     const { t } = useTranslation()
+    const { register, handleSubmit } = useForm<UserLoginReqData>()
+    const { handleLoginSubmit } = useUserLoginHandler()
+    const onSubmit = (data: UserLoginReqData) => {
+        console.log('data', data)
+        handleLoginSubmit(data)
+    }
     return (
-        <form action="#" className="login-form">
+        <form onSubmit={handleSubmit(onSubmit)} className="login-form">
             <div className="desc">{t('login_desc_01')}</div>
             <div className="phone-frame">
                 <div className="form-group phoneCode">
-                    <label className="label" htmlFor="singin-phoneCode">
+                    <label className="label" htmlFor="phoneCode">
                         {t('cellphone_number')} *
                     </label>
-                    <select className="form-control" id="singin-phoneCode" name="singin-phoneCode">
+                    <select ref={register({ required: true })} className="form-control" id="phoneCode" name="phoneCode">
                         <option value={886} defaultChecked={true}>
                             TW +886
                         </option>
                     </select>
                 </div>
                 <div className="form-group phone">
-                    <label className="label" htmlFor="singin-phone"></label>
-                    <input type="number" className="form-control" id="singin-phone" name="singin-phone" required />
+                    <label className="label" htmlFor="phone"></label>
+                    <input
+                        ref={register({ required: true })}
+                        type="phone"
+                        className="form-control"
+                        id="phone"
+                        name="phone"
+                        required
+                    />
                 </div>
             </div>
-
             <div className="form-group">
-                <label htmlFor="singin-password">{t('member_password')} *</label>
-                <input type="password" className="form-control" id="singin-password" name="singin-password" required />
+                <label htmlFor="password">{t('member_password')} *</label>
+                <input
+                    ref={register({ required: true })}
+                    type="password"
+                    className="form-control"
+                    id="password"
+                    name="password"
+                    required
+                />
             </div>
 
             <div className="form-footer">
