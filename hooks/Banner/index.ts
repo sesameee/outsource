@@ -1,12 +1,18 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { BannerActions, UserLoginActions } from '@/store'
+import { BannerActions, UserLoginActions, ProductInfoActions } from '@/store'
 
 export const useBanner = (): void => {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(BannerActions.fetchBanner({ isRecommend: 0 }))
+        dispatch(
+            ProductInfoActions.fetchProductInfo({
+                cid: '1',
+                pid: '1',
+            }),
+        )
     }, [dispatch])
 }
 
@@ -16,7 +22,6 @@ export const useRecommend = (): void => {
         dispatch(BannerActions.fetchBanner({ isRecommend: 1 }))
     }, [dispatch])
 }
-
 
 export const useUserLogin = (): void => {
     const dispatch = useDispatch()
