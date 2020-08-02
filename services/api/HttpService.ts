@@ -9,7 +9,7 @@ const baseConfig = {
 class HttpService {
     static readonly DEV: string = 'http://localhost:3000/api'
     static readonly BasePath: string = 'https://sit1-ec.breezedigital.com.tw/api/online' // todo BaseURL変更
-    public static getBaseUrl = (targetApi: string, basePath: string = HttpService.DEV): string => {
+    public static getBaseUrl = (targetApi: string, basePath: string = HttpService.BasePath): string => {
         return `${basePath}/${targetApi}`
     }
     public static GetAsync<Req, Res>(
