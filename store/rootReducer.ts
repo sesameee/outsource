@@ -7,6 +7,7 @@ import { channelListSlice } from '@/store/channelList/slice'
 import { userLoginSlice } from './userLogin/slice'
 import { productInfoSlice } from './productInfo/slice'
 import { errorAlertSlice } from './errorAlert/slice'
+import { wishListSlice } from './wishList/slice'
 import { RootState } from '@/types/stores/root'
 
 const rootReducer = combineReducers({
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     breezeDaily: breezeDailySlice.reducer,
     userLogin: userLoginSlice.reducer,
     productInfo: productInfoSlice.reducer,
+    wishList: wishListSlice.reducer,
     errorAlert: errorAlertSlice.reducer,
 })
 

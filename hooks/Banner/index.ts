@@ -1,12 +1,13 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { BannerActions, ProductInfoActions } from '@/store'
+import { BannerActions, WishListActions } from '@/store'
 
 export const useBanner = (): void => {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(BannerActions.fetchBanner({ isRecommend: 0 }))
+        dispatch(WishListActions.fetchWishList())
     }, [dispatch])
 }
 

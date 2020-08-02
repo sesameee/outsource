@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux'
 const BreezeDaily: React.FC = () => {
     useBreezeDaily()
     const [List1, List2, List3, List4] = useSelector(BreezeDailySelectors.getBreezeDailyList)
-    // console.log('breezeDailyList :>> ', breezeDailyList)
     return (
         <div className="row breeze-daily">
             <div className="col-sm-6 col-lg-4">

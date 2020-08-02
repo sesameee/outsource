@@ -7,6 +7,7 @@ import CatalogEpics from './catalog/epics'
 import BreezDailyEpics from './breezeDaily/epics'
 import UserLoginEpics from './userLogin/epics'
 import ProductInfoEpics from './productInfo/epics'
+import WishListEpics from './wishList/epics'
 
 export const rootEpic = combineEpics(
     ...GoogleBookEpics,
@@ -16,6 +17,7 @@ export const rootEpic = combineEpics(
     ...BreezDailyEpics,
     ...UserLoginEpics,
     ...ProductInfoEpics,
+    ...WishListEpics,
 )
 
 const epicMiddleware = createEpicMiddleware()

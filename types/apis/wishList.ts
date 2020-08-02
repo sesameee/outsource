@@ -1,8 +1,6 @@
 import { ProductData } from './common'
 
-export interface WishListData {
-    code: string
-    message: string
+export interface WishListRspData extends Response {
     cid: string
     name: string
     categoryType: string
