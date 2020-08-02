@@ -7,7 +7,7 @@ import { PayloadAction } from '@reduxjs/toolkit'
 
 import { ProductInfoActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
-import { ProductInfoReqData, ProductInfoData } from '@/types/apis/productInfo'
+import { ProductInfoReqData, ProductInfoRspData } from '@/types/apis/productInfo'
 import { PRODUCT_INFO } from '@/services/api/apiConfig'
 
 // TODO: do something
@@ -24,7 +24,7 @@ export const fetchProductInfoEpic: Epic = (action$) =>
     action$.pipe(
         ofType(ProductInfoActions.fetchProductInfo),
         mergeMap((action: PayloadAction<ProductInfoReqData>) =>
-            HttpService.PostAsync<ProductInfoReqData, ProductInfoData>(PRODUCT_INFO, {
+            HttpService.PostAsync<ProductInfoReqData, ProductInfoRspData>(PRODUCT_INFO, {
                 cid: action.payload.cid,
                 pid: action.payload.pid,
             }).pipe(

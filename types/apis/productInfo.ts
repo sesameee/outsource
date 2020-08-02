@@ -22,6 +22,10 @@ export interface ProductInfoData {
     breadCrumbs: BreadCrumbData[]
 }
 
+export interface ProductInfoRspData extends Response {
+    data: ProductInfoData
+}
+
 export interface ProductDetailInfoData {
     sizeName1: string
     sizeName2: string

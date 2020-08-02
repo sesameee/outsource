@@ -9,7 +9,6 @@ type ChannelListProps = {
 const ChannelList: React.FC<ChannelListProps> = ({ setItemHoverIndex }: ChannelListProps) => {
     useChannelList()
     const channelList = useSelector(ChannelListSelectors.getChannelList)
-    console.log('channelList :>> ', channelList)
     return (
         <ul className="menu sf-arrows">
             {channelList.map((item, index) => {
