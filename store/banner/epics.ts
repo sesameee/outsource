@@ -7,7 +7,7 @@ import { PayloadAction } from '@reduxjs/toolkit'
 
 import { BannerActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
-import { bannerList } from '@/types/apis/banner'
+import { BannerList } from '@/types/apis/banner'
 import { BANNER } from '@/services/api/apiConfig'
 
 // TODO: do something
@@ -24,7 +24,7 @@ export const fetchBannerEpic: Epic = (action$) =>
     action$.pipe(
         ofType(BannerActions.fetchBanner),
         mergeMap((action: PayloadAction<{ isRecommend: number }>) =>
-            HttpService.PostAsync<{ isRecommend: number }, bannerList>(BANNER, {
+            HttpService.PostAsync<{ isRecommend: number }, BannerList>(BANNER, {
                 isRecommend: action.payload.isRecommend,
             }).pipe(
                 mergeMap((res) => {

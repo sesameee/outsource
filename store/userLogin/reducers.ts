@@ -1,9 +1,9 @@
 import { CaseReducer, PayloadAction } from '@reduxjs/toolkit'
 import { produce } from 'immer'
 
-import { State } from '@/types/stores/banner/state'
+import { State } from '@/types/stores/userLogin/state'
 import { initialState } from './initialState'
-import { BannerList } from '@/types/apis/banner'
+import { UserLoginRspData } from '@/types/apis/userLogin'
 
 export const setIsSearching: CaseReducer<State, PayloadAction<State>> = (state, action) => {
     return produce(state, (draft) => {
@@ -11,22 +11,17 @@ export const setIsSearching: CaseReducer<State, PayloadAction<State>> = (state, 
     })
 }
 
-export const fetchBannerSuccess: CaseReducer<State, PayloadAction<{ bannerList: BannerList; isRecommend: number }>> = (
+export const fetchUserLoginSuccess: CaseReducer<State, PayloadAction<{ UserLoginData: UserLoginRspData }>> = (
     state,
     action,
 ) => {
     return produce(state, (draft) => {
         draft['isFetch'] = false
-        if (action.payload.isRecommend == 0) {
-            draft['bannerList'] = action.payload.bannerList.data
-        }
-        if (action.payload.isRecommend == 1) {
-            draft['recommendList'] = action.payload.bannerList.data
-        }
+        draft['UserLoginData'] = action.payload.UserLoginData
     })
 }
 
-export const fetchBannerFailure: CaseReducer<State, PayloadAction<{ error: string }>> = (state, action) => {
+export const fetchUserLoginFailure: CaseReducer<State, PayloadAction<{ error: string }>> = (state, action) => {
     return produce(state, (draft) => {
         draft['isFetch'] = false
         draft['error'] = action.payload.error
