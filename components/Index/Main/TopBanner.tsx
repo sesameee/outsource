@@ -3,8 +3,27 @@ import { useBanner } from '@/hooks/Banner'
 import { BannerSelectors } from '@/store'
 import { useSelector } from 'react-redux'
 import { BannerData } from '@/types/apis/banner'
-import Slider from 'react-slick'
+import Slider, { CustomArrowProps } from 'react-slick'
 // import Link from 'next/link'
+
+const PrevArrow: React.FC<CustomArrowProps> = ({ className, style, onClick }: CustomArrowProps) => {
+    const classStyle = `${className} topBannerArrow left`
+    return (
+        <div className={classStyle} style={{ ...style, display: 'block' }} onClick={onClick}>
+            <img src="/images/custom/home_banner_arrow_left_n.png" />
+        </div>
+    )
+}
+
+const NextArrow: React.FC<CustomArrowProps> = ({ className, style, onClick }: CustomArrowProps) => {
+    const classStyle = `${className} topBannerArrow right`
+    return (
+        <div className={classStyle} style={{ ...style, display: 'block' }} onClick={onClick}>
+            <img src="/images/custom/home_banner_arrow_right_n.png" />
+        </div>
+    )
+}
+
 const TopBanner: React.FC = () => {
     useBanner()
     const bannerList = useSelector(BannerSelectors.getBannerList)
@@ -16,6 +35,8 @@ const TopBanner: React.FC = () => {
         autoplay: false,
         speed: 500,
         cssEase: 'linear',
+        nextArrow: <NextArrow />,
+        prevArrow: <PrevArrow />,
     }
 
     return bannerList.length > 0 ? (

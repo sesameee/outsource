@@ -46,10 +46,12 @@ const Header: React.FC<HeaderProps> = ({ isIndex }: HeaderProps) => {
                         <nav className="main-nav">
                             <ChannelList setItemHoverIndex={setItemHoverIndex} />
                         </nav>
-                        <a className="wishlist-link">
-                            <i className="icon-heart-o"></i>
-                            {wishList.total && <span className="wishlist-count">{wishList.total}</span>}
-                        </a>
+                        <Link href="/wishlist">
+                            <a className="wishlist-link">
+                                <i className="icon-heart-o"></i>
+                                <span className="wishlist-count">{wishList.total}</span>
+                            </a>
+                        </Link>
                         <Cart />
                         <a onClick={() => setIsOpenMember(true)} className="wishlist-link">
                             <i className="icon-user"></i>
