@@ -30,7 +30,7 @@ export const fetchWishModifyEpic: Epic = (action$) =>
                 shoppingCartProductList: action.payload.shoppingCartProductList,
             }).pipe(
                 mergeMap((res) => {
-                    return of(WishModifyActions.fetchWishModifySuccess({ message: res.data.message }))
+                    return of(WishModifyActions.fetchWishModifySuccess(res.data))
                 }),
                 catchError((error: AxiosError) => {
                     return of(WishModifyActions.fetchWishModifyFailure({ error: error.message }))
