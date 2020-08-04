@@ -1,3 +1,24 @@
-// 此api需要確認回傳內容
+import { Response } from './common'
 
-export {}
+export interface MemberAddressInfoReqData {
+    memberId: string
+    category: number
+    accessToken: string
+}
+
+export interface MemberAddressInfoData {
+    addressInfoId: number
+    category: number
+    name?: string
+    cityCode?: number
+    areaCode?: number
+    address?: string
+    tel?: string
+    mobile?: string
+    email?: string
+    isDefault: boolean
+}
+
+export interface MemberAddressInfoRspData extends Response {
+    data: MemberAddressInfoData[]
+}

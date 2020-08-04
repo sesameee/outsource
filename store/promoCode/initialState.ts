@@ -1,6 +1,9 @@
-import { State } from 'types/stores/shoppingCartModify/state'
+import { State } from 'types/stores/promoCode/state'
 export const initialState: State = {
     isFetch: false,
-    message: '',
+    name: '',
+    discountPercent: '',
+    discountRate: '',
+    data: [],
     error: '',
 }
