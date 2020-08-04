@@ -1,12 +1,15 @@
-export interface PromoCodeRequest {
+import { Response } from "./common";
+
+export interface PromoCodeReqData {
     promoCode: string
     memberId: string
     pid: string[]
     accessToken: string
 }
 
-// TODO: 返回格式需要查證
-export interface PromoCodeResponse {
-    discount: string
+export interface PromoCodeRspData extends Response {
+    name: string
+    discountPercent: string
+    discountRate: string
     data: string[]
 }
