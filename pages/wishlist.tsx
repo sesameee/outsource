@@ -7,7 +7,7 @@ import Nav from '@/components/Nav'
 import { navData } from '@/types/components/nav'
 import { TFunction } from 'next-i18next'
 import { withTranslation } from '@/I18n'
-import ItemList from '@/components/WishList/itemList'
+import ItemList from '@/components/WishList/ItemList'
 // import { withTranslation, i18n } from '@/I18n'
 type MemberProps = {
     t: TFunction

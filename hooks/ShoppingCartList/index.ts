@@ -1,9 +1,10 @@
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { ShoppingCartListActions } from '@/store'
-
+import { useTranslation } from '@/I18n'
 export const useShoppingCartList = (): void => {
     const dispatch = useDispatch()
+    const { i18n } = useTranslation()
     useEffect(() => {
         dispatch(
             ShoppingCartListActions.fetchShoppingCartList({
@@ -12,5 +13,5 @@ export const useShoppingCartList = (): void => {
                 accessToken: '1',
             }),
         )
-    }, [dispatch])
+    }, [dispatch, i18n.language])
 }

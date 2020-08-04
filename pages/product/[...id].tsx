@@ -13,6 +13,7 @@ import { BreadCrumbCategoryData } from '@/types/apis/productInfo'
 import DescTab from '@/components/Product/DescTab'
 import Gallery from '@/components/Product/Gallery'
 import Link from 'next/link'
+import NumberInput from '@/components/commons/NumberInput'
 
 interface CategoryProps extends WithRouterProps {
     filterProduct: Set<unknown>
@@ -102,17 +103,7 @@ const Product = ({ router }: CategoryProps): JSX.Element => {
                                         <div className="details-filter-row details-row-size">
                                             <label htmlFor="qty">Qty:</label>
                                             <div className="product-details-quantity">
-                                                <input
-                                                    type="number"
-                                                    id="qty"
-                                                    className="form-control"
-                                                    value="1"
-                                                    min="1"
-                                                    max="10"
-                                                    step="1"
-                                                    data-decimals="0"
-                                                    required
-                                                />
+                                                <NumberInput inputName="qty" />
                                             </div>
                                         </div>
 

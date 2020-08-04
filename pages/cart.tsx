@@ -2,6 +2,7 @@ import React from 'react'
 import Header from '@/components/Header'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import CartItemList from '@/components/Cart/CartItemList'
 
 // import { withTranslation, i18n } from '@/I18n'
 const cart = (): JSX.Element => {
@@ -38,94 +39,15 @@ const cart = (): JSX.Element => {
                                     <table className="table table-cart table-mobile">
                                         <thead>
                                             <tr>
-                                                <th>Product</th>
-                                                <th>Price</th>
-                                                <th>Quantity</th>
-                                                <th>Total</th>
+                                                <th>商品名稱</th>
+                                                <th>商品售價</th>
+                                                <th>數量</th>
+                                                <th>商品總額</th>
+                                                <th>折扣後金額</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
-
-                                        <tbody>
-                                            <tr>
-                                                <td className="product-col">
-                                                    <div className="product">
-                                                        <figure className="product-media">
-                                                            <a href="#">
-                                                                <img
-                                                                    src="/images/products/table/product-1.jpg"
-                                                                    alt="Product image"
-                                                                />
-                                                            </a>
-                                                        </figure>
-
-                                                        <h3 className="product-title">
-                                                            <a href="#">Beige knitted elastic runner shoes</a>
-                                                        </h3>
-                                                    </div>
-                                                </td>
-                                                <td className="price-col">$84.00</td>
-                                                <td className="quantity-col">
-                                                    <div className="cart-product-quantity">
-                                                        <input
-                                                            type="number"
-                                                            className="form-control"
-                                                            value="1"
-                                                            min="1"
-                                                            max="10"
-                                                            step="1"
-                                                            data-decimals="0"
-                                                            required
-                                                        />
-                                                    </div>
-                                                </td>
-                                                <td className="total-col">$84.00</td>
-                                                <td className="remove-col">
-                                                    <button className="btn-remove">
-                                                        <i className="icon-close"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="product-col">
-                                                    <div className="product">
-                                                        <figure className="product-media">
-                                                            <a href="#">
-                                                                <img
-                                                                    src="/images/products/table/product-2.jpg"
-                                                                    alt="Product image"
-                                                                />
-                                                            </a>
-                                                        </figure>
-
-                                                        <h3 className="product-title">
-                                                            <a href="#">Blue utility pinafore denim dress</a>
-                                                        </h3>
-                                                    </div>
-                                                </td>
-                                                <td className="price-col">$76.00</td>
-                                                <td className="quantity-col">
-                                                    <div className="cart-product-quantity">
-                                                        <input
-                                                            type="number"
-                                                            className="form-control"
-                                                            value="1"
-                                                            min="1"
-                                                            max="10"
-                                                            step="1"
-                                                            data-decimals="0"
-                                                            required
-                                                        />
-                                                    </div>
-                                                </td>
-                                                <td className="total-col">$76.00</td>
-                                                <td className="remove-col">
-                                                    <button className="btn-remove">
-                                                        <i className="icon-close"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
+                                        <CartItemList />
                                     </table>
 
                                     <div className="cart-bottom">
@@ -150,7 +72,7 @@ const cart = (): JSX.Element => {
                                 </div>
                                 <aside className="col-lg-3">
                                     <div className="summary summary-cart">
-                                        <h3 className="summary-title">Cart Total</h3>
+                                        <h3 className="summary-title">購物車明細</h3>
 
                                         <table className="table table-summary">
                                             <tbody>
