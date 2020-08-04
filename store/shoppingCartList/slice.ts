@@ -17,7 +17,7 @@ export const shoppingCartListSlice = createSlice({
     },
 })
 
-const fetchShoppingCartList = createAction<ShoppingCartListReqData>(types.FETCH_SHOPPINTCARTLIST)
-const stopFetchShoppingCartList = createAction(types.STOP_FETCH_SHOPPINTCARTLIST)
+const fetchShoppingCartList = createAction<ShoppingCartListReqData>(types.FETCH_SHOPPINGCARTLIST)
+const stopFetchShoppingCartList = createAction(types.STOP_FETCH_SHOPPINGCARTLIST)
 
 export const shoppingCartListCreateActions = { fetchShoppingCartList, stopFetchShoppingCartList }

@@ -8,6 +8,7 @@ import * as ProductInfoSelectors from './productInfo/selectors'
 import * as ErrorAlertSelectors from './errorAlert/selectors'
 import * as WishListSelectors from './wishList/selectors'
 import * as ShoppingCartListSelectors from './shoppingCartList/selectors'
+import * as ShoppingCartModifySelectors from './shoppingCartModify/selectors'
 import { googleBookSlice, googleCreateActions } from './googleBooks/slice'
 import { bannerSlice, bannerCreateActions } from './banner/slice'
 import { catalogSlice, catalogCreateActions } from './catalog/slice'
@@ -18,6 +19,7 @@ import { productInfoSlice, productInfoCreateActions } from './productInfo/slice'
 import { errorAlertSlice } from './errorAlert/slice'
 import { wishListSlice, wishListCreateActions } from './wishList/slice'
 import { shoppingCartListSlice, shoppingCartListCreateActions } from './shoppingCartList/slice'
+import { shoppingCartModifySlice, shoppingCartModifyCreateActions } from './shoppingCartModify/slice'
 
 const GoogleBooksActions = {
     ...googleBookSlice.actions,
@@ -68,6 +70,11 @@ const ShoppingCartListActions = {
     ...shoppingCartListCreateActions,
 }
 
+const ShoppingCartModifyActions = {
+    ...shoppingCartModifySlice.actions,
+    ...shoppingCartModifyCreateActions,
+}
+
 export {
     GoogleBooksSelectors,
     GoogleBooksActions,
@@ -89,4 +96,6 @@ export {
     WishListSelectors,
     ShoppingCartListActions,
     ShoppingCartListSelectors,
+    ShoppingCartModifyActions,
+    ShoppingCartModifySelectors,
 }
