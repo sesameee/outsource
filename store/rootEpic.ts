@@ -10,6 +10,7 @@ import ProductInfoEpics from './productInfo/epics'
 import WishListEpics from './wishList/epics'
 import ShoppingCartListEpics from './shoppingCartList/epics'
 import ShoppingCartModifyEpics from './shoppingCartModify/epics'
+import WishModifyEpics from './wishModify/epics'
 
 export const rootEpic = combineEpics(
     ...GoogleBookEpics,
@@ -22,6 +23,7 @@ export const rootEpic = combineEpics(
     ...WishListEpics,
     ...ShoppingCartListEpics,
     ...ShoppingCartModifyEpics,
+    ...WishModifyEpics,
 )
 
 const epicMiddleware = createEpicMiddleware()
