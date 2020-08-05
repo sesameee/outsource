@@ -1,6 +1,6 @@
-import { ShipInfoData } from './common'
+import { ShipInfoData, Response } from './common'
 
-export interface CheckoutData {
+export interface CheckoutReqData {
     memberId: string
     mid?: string
     tid?: string
@@ -38,3 +38,5 @@ export interface PayInfoData {
     price: number
     amount: number
 }
+
+export interface CheckoutRspData extends Response {}

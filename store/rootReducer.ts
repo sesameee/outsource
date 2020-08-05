@@ -13,6 +13,7 @@ import { shoppingCartModifySlice } from './shoppingCartModify/slice'
 import { wishModifySlice } from './wishModify/slice'
 import { promoCodeSlice } from './promoCode/slice'
 import { memberAddressInfoSlice } from './memberAddressInfo/slice'
+import { checkoutSlice } from './checkout/slice'
 import { RootState } from '@/types/stores/root'
 
 const rootReducer = combineReducers({
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
     wishModify: wishModifySlice.reducer,
     promoCode: promoCodeSlice.reducer,
     memberAddressInfo: memberAddressInfoSlice.reducer,
+    checkout: checkoutSlice.reducer,
 })
 
 export default rootReducer
