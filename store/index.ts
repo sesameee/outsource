@@ -13,6 +13,7 @@ import * as WishModifySelectors from './wishModify/selectors'
 import * as PromoCodeSelectors from './promoCode/selectors'
 import * as MemberAddressInfoSelectors from './memberAddressInfo/selectors'
 import * as CheckoutSelectors from './checkout/selectors'
+import * as AddressInfoSelectors from './addressInfo/selectors'
 import { googleBookSlice, googleCreateActions } from './googleBooks/slice'
 import { bannerSlice, bannerCreateActions } from './banner/slice'
 import { catalogSlice, catalogCreateActions } from './catalog/slice'
@@ -28,6 +29,7 @@ import { wishModifySlice, wishModifyCreateActions } from './wishModify/slice'
 import { promoCodeSlice, promoCodeCreateActions } from './promoCode/slice'
 import { memberAddressInfoSlice, memberAddressInfoCreateActions } from './memberAddressInfo/slice'
 import { checkoutSlice, checkoutCreateActions } from './checkout/slice'
+import { addressInfoSlice, addressInfoCreateActions } from './addressInfo/slice'
 
 const GoogleBooksActions = {
     ...googleBookSlice.actions,
@@ -103,6 +105,11 @@ const CheckoutActions = {
     ...checkoutCreateActions,
 }
 
+const AddressInfoActions = {
+    ...addressInfoSlice.actions,
+    ...addressInfoCreateActions,
+}
+
 export {
     GoogleBooksSelectors,
     GoogleBooksActions,
@@ -134,4 +141,6 @@ export {
     MemberAddressInfoSelectors,
     CheckoutActions,
     CheckoutSelectors,
+    AddressInfoActions,
+    AddressInfoSelectors,
 }

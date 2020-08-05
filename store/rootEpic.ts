@@ -14,6 +14,7 @@ import WishModifyEpics from './wishModify/epics'
 import PromoCodeEpics from './promoCode/epics'
 import MemberAddressInfo from './memberAddressInfo/epics'
 import Checkout from './checkout/epics'
+import AddressInfo from './addressInfo/epics'
 
 export const rootEpic = combineEpics(
     ...GoogleBookEpics,
@@ -30,6 +31,7 @@ export const rootEpic = combineEpics(
     ...PromoCodeEpics,
     ...MemberAddressInfo,
     ...Checkout,
+    ...AddressInfo,
 )
 
 const epicMiddleware = createEpicMiddleware()
