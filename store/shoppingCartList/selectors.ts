@@ -16,3 +16,14 @@ export const getShoppingCartList = createSelector<
 >(shoppingCartListState, (shoppingCartListState: ShoppingCartListState) => {
     return shoppingCartListState.shoppingCartListData
 })
+
+export const getShoppingCartPriceList = createSelector(getShoppingCartList, (list) => {
+    return list.map((item: { shoppingCartProducts: any[] }) => {
+        if (item.shoppingCartProducts && item.shoppingCartProducts[0]) {
+            const detail = item.shoppingCartProducts[0]
+            return detail?.price && detail?.qty && detail?.price * detail?.qty
+        } else {
+            return 0
+        }
+    })
+})

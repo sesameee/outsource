@@ -2,6 +2,7 @@ import React from 'react'
 import { useShoppingCartList } from '@/hooks/ShoppingCart'
 import { ShoppingCartListSelectors } from '@/store'
 import { useSelector } from 'react-redux'
+import Link from 'next/link'
 // type CartProps = {
 //     setItemHoverIndex: React.Dispatch<React.SetStateAction<null | number>>
 // }
@@ -70,7 +71,9 @@ const Cart: React.FC = () => {
                 </div>
 
                 <div className="dropdown-cart-action">
-                    <a className="btn btn-primary">View Cart</a>
+                    <Link href="/cart">
+                        <a className="btn btn-primary">View Cart</a>
+                    </Link>
                     <a className="btn btn-outline-primary-2">
                         <span>Checkout</span>
                         <i className="icon-long-arrow-right"></i>

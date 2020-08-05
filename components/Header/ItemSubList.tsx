@@ -11,7 +11,7 @@ const ItemSubList: React.FC<ItemSubListProps> = ({ cName, cData, cPId, cId }: It
     return (
         <div className="sub-item">
             <div className="menu-col">
-                <Link href={`/category/${cPId}`}>
+                <Link href={`/category/${cPId}/${cId}`}>
                     <div className="menu-title">{cName}</div>
                 </Link>
                 <ul>
