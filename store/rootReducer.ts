@@ -16,6 +16,7 @@ import { memberAddressInfoSlice } from './memberAddressInfo/slice'
 import { checkoutSlice } from './checkout/slice'
 import { addressInfoSlice } from './addressInfo/slice'
 import { donateInvoiceSlice } from './donateInvoice/slice'
+import { verifyInvBarCodeSlice } from './verifyInvBarCode/slice'
 import { RootState } from '@/types/stores/root'
 
 const rootReducer = combineReducers({
@@ -36,6 +37,7 @@ const rootReducer = combineReducers({
     checkout: checkoutSlice.reducer,
     addressInfo: addressInfoSlice.reducer,
     donateInvoice: donateInvoiceSlice.reducer,
+    verifyInvBarCode: verifyInvBarCodeSlice.reducer
 })
 
 export default rootReducer

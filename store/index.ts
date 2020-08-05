@@ -15,6 +15,7 @@ import * as MemberAddressInfoSelectors from './memberAddressInfo/selectors'
 import * as CheckoutSelectors from './checkout/selectors'
 import * as AddressInfoSelectors from './addressInfo/selectors'
 import * as DonateInvoiceSelectors from './donateInvoice/selectors'
+import * as VerifyInvBarCodeSelectors from './verifyInvBarCode/selectors'
 import { googleBookSlice, googleCreateActions } from './googleBooks/slice'
 import { bannerSlice, bannerCreateActions } from './banner/slice'
 import { catalogSlice, catalogCreateActions } from './catalog/slice'
@@ -32,6 +33,7 @@ import { memberAddressInfoSlice, memberAddressInfoCreateActions } from './member
 import { checkoutSlice, checkoutCreateActions } from './checkout/slice'
 import { addressInfoSlice, addressInfoCreateActions } from './addressInfo/slice'
 import { donateInvoiceSlice, donateInvoiceCreateActions } from './donateInvoice/slice'
+import { verifyInvBarCodeSlice, verifyInvBarCodeCreateActions } from './verifyInvBarCode/slice'
 
 const GoogleBooksActions = {
     ...googleBookSlice.actions,
@@ -117,6 +119,11 @@ const DonateInvoiceActions = {
     ...donateInvoiceCreateActions,
 }
 
+const VerifyInvBarCodeActions = {
+    ...verifyInvBarCodeSlice.actions,
+    ...verifyInvBarCodeCreateActions,
+}
+
 export {
     GoogleBooksSelectors,
     GoogleBooksActions,
@@ -152,4 +159,6 @@ export {
     AddressInfoSelectors,
     DonateInvoiceActions,
     DonateInvoiceSelectors,
+    VerifyInvBarCodeActions,
+    VerifyInvBarCodeSelectors,
 }
