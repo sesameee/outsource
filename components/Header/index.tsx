@@ -8,7 +8,7 @@ import Link from 'next/link'
 import Cart from './Cart'
 import { useSelector } from 'react-redux'
 import { WishListSelectors } from '@/store'
-import { useWishList } from '@/hooks/WishList'
+import { useWishList } from '@/hooks/Wish'
 
 type HeaderProps = {
     isIndex: boolean

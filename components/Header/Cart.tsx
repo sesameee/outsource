@@ -1,5 +1,5 @@
 import React from 'react'
-import { useShoppingCartList } from '@/hooks/ShoppingCartList'
+import { useShoppingCartList } from '@/hooks/ShoppingCart'
 import { ShoppingCartListSelectors } from '@/store'
 import { useSelector } from 'react-redux'
 // type CartProps = {
