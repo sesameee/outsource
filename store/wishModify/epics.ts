@@ -1,7 +1,7 @@
 import { HYDRATE } from 'next-redux-wrapper'
 import { of } from 'rxjs'
 import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
-import { Epic, ofType, ActionsObservable } from 'redux-observable'
+import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 import { PayloadAction } from '@reduxjs/toolkit'
 

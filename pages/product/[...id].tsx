@@ -24,6 +24,7 @@ const Product = ({ router }: CategoryProps): JSX.Element => {
     useProductInfo(query)
     const productData = useSelector(ProductInfoSelectors.getProductInfo)
     const navData: navData[] = []
+    const [amount, setAmount] = React.useState(0)
     const breadCrumbs = productData.breadCrumbs[0]
     const info = productData.info
     const imgArr = productData.imageUrl
@@ -103,7 +104,7 @@ const Product = ({ router }: CategoryProps): JSX.Element => {
                                         <div className="details-filter-row details-row-size">
                                             <label htmlFor="qty">Qty:</label>
                                             <div className="product-details-quantity">
-                                                <NumberInput inputName="qty" />
+                                                <NumberInput inputName="qty" amount={amount} setAmount={setAmount} />
                                             </div>
                                         </div>
 
