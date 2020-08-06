@@ -550,3 +550,12 @@
         content:''
     }
 }
+
+.table.table-summary .summary-new td {
+    padding-bottom: 0;
+    height: auto;
+    border-bottom: none;
+    color: #333;
+    font-weight: 400;
+    font-size: 1.6rem;
+}

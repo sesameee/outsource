@@ -30,7 +30,7 @@ const NumberInput: React.FC<NumberInputProps> = ({
                         }
                         if (num >= 0) {
                             setAmount(num)
-                            amountCB && amountCB()
+                            amountCB && amountCB(num)
                         }
                     }}
                     style={{ minWidth: '26px' }}
@@ -59,7 +59,7 @@ const NumberInput: React.FC<NumberInputProps> = ({
                             return
                         }
                         setAmount(num)
-                        amountCB && amountCB()
+                        amountCB && amountCB(num)
                     }}
                     style={{ minWidth: '26px' }}
                     className="btn btn-increment btn-spinner"

@@ -9,10 +9,9 @@ export const promoCodeState = (state: RootState): PromoCodeState => state.promoC
 //     return promoCodeState.shoppingCartListList.totalItems
 // })
 
-export const promoCode = createSelector<
-    RootState,
-    PromoCodeState,
-    PromoCodeState
->(promoCodeState, (promoCodeState: PromoCodeState) => {
-    return promoCodeState
-})
+export const promoCode = createSelector<RootState, PromoCodeState, PromoCodeState>(
+    promoCodeState,
+    (promoCodeState: PromoCodeState) => {
+        return promoCodeState
+    },
+)
