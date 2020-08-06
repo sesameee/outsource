@@ -13,6 +13,7 @@ import { BreadCrumbCategoryData } from '@/types/apis/productInfo'
 import DescTab from '@/components/Product/DescTab'
 import Gallery from '@/components/Product/Gallery'
 import Link from 'next/link'
+import NumberInput from '@/components/commons/NumberInput'
 
 interface CategoryProps extends WithRouterProps {
     filterProduct: Set<unknown>
@@ -23,6 +24,7 @@ const Product = ({ router }: CategoryProps): JSX.Element => {
     useProductInfo(query)
     const productData = useSelector(ProductInfoSelectors.getProductInfo)
     const navData: navData[] = []
+    const [amount, setAmount] = React.useState(0)
     const breadCrumbs = productData.breadCrumbs[0]
     const info = productData.info
     const imgArr = productData.imageUrl
@@ -102,17 +104,7 @@ const Product = ({ router }: CategoryProps): JSX.Element => {
                                         <div className="details-filter-row details-row-size">
                                             <label htmlFor="qty">Qty:</label>
                                             <div className="product-details-quantity">
-                                                <input
-                                                    type="number"
-                                                    id="qty"
-                                                    className="form-control"
-                                                    value="1"
-                                                    min="1"
-                                                    max="10"
-                                                    step="1"
-                                                    data-decimals="0"
-                                                    required
-                                                />
+                                                <NumberInput inputName="qty" amount={amount} setAmount={setAmount} />
                                             </div>
                                         </div>
 

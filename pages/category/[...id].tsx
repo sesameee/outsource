@@ -85,14 +85,9 @@ const Category = ({ router }: CategoryProps): JSX.Element => {
                         <div className="row">
                             <div className="col-lg-9">
                                 <div className="toolbox">
-                                    <div className="toolbox-left">
-                                        <div className="toolbox-info">
-                                            {/* Showing <span>9 of 56</span> Products */}
-                                            <button className="custom-btn" onClick={() => setFilterToggle(true)}>
-                                                篩選
-                                            </button>
-                                        </div>
-                                    </div>
+                                    <button className="custom-btn" onClick={() => setFilterToggle(true)}>
+                                        篩選
+                                    </button>
 
                                     <div className="toolbox-right">
                                         <div className="toolbox-sort">

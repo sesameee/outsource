@@ -9,6 +9,17 @@ import { productInfoSlice } from './productInfo/slice'
 import { errorAlertSlice } from './errorAlert/slice'
 import { wishListSlice } from './wishList/slice'
 import { shoppingCartListSlice } from './shoppingCartList/slice'
+import { shoppingCartModifySlice } from './shoppingCartModify/slice'
+import { wishModifySlice } from './wishModify/slice'
+import { promoCodeSlice } from './promoCode/slice'
+import { memberAddressInfoSlice } from './memberAddressInfo/slice'
+import { checkoutSlice } from './checkout/slice'
+import { addressInfoSlice } from './addressInfo/slice'
+import { donateInvoiceSlice } from './donateInvoice/slice'
+import { verifyInvBarCodeSlice } from './verifyInvBarCode/slice'
+import { orderListSlice } from './orderList/slice'
+import { orderDetailSlice } from './orderDetail/slice'
+import { refundSlice } from './refund/slice'
 import { RootState } from '@/types/stores/root'
 
 const rootReducer = combineReducers({
@@ -22,6 +33,17 @@ const rootReducer = combineReducers({
     wishList: wishListSlice.reducer,
     errorAlert: errorAlertSlice.reducer,
     shoppingCartList: shoppingCartListSlice.reducer,
+    shoppingCartModify: shoppingCartModifySlice.reducer,
+    wishModify: wishModifySlice.reducer,
+    promoCode: promoCodeSlice.reducer,
+    memberAddressInfo: memberAddressInfoSlice.reducer,
+    checkout: checkoutSlice.reducer,
+    addressInfo: addressInfoSlice.reducer,
+    donateInvoice: donateInvoiceSlice.reducer,
+    verifyInvBarCode: verifyInvBarCodeSlice.reducer,
+    orderList: orderListSlice.reducer,
+    orderDetail: orderDetailSlice.reducer,
+    refund: refundSlice.reducer,
 })
 
 export default rootReducer

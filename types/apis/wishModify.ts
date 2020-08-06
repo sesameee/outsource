@@ -1,8 +1,9 @@
-import { ShoppingCartProductData } from './common'
+import { ShoppingCartProductData, Response } from './common'
 
-export interface WishModify {
+export interface WishModifyReqData {
     action: string
     memberId: string
     shoppingCartProductList: ShoppingCartProductData[]
-    accessToken: string
 }
+
+export interface WishModifyRspData extends Response {}

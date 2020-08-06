@@ -5,6 +5,7 @@ import { FilterType } from '@/types/Common'
 import { ProductData } from '@/types/apis/common'
 import { productList } from '@/types/apis/catalog'
 import Link from 'next/link'
+import { useShoppingCartModifyHandler } from '@/hooks/ShoppingCart'
 
 const SortByType = (type: FilterType, productObj: productList) => {
     type = Number(type)
@@ -31,6 +32,7 @@ const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect }: 
     const productObj = useSelector(CatalogSelectors.getProductList)
     // const SortType = FilterType.PRICE_ASCENDING
     const productList = SortByType(sortSelect, productObj)
+    const { handleCart } = useShoppingCartModifyHandler()
     return (
         <div className="row justify-content-center product-list">
             {productList &&
@@ -49,13 +51,26 @@ const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect }: 
                                         ></div>
                                     </Link>
                                     <div className="product-action-vertical">
-                                        <a href="#" className="btn-product-icon btn-wishlist btn-expandable">
-                                            <span>add to wishlist</span>
+                                        <a className="btn-product-icon btn-wishlist btn-expandable">
+                                            <span>加入願望清單</span>
                                         </a>
                                     </div>
                                     <div className="product-action">
-                                        <a href="#" className="btn-product btn-cart">
-                                            <span>add to cart</span>
+                                        <a
+                                            className="btn-product btn-cart"
+                                            onClick={() => {
+                                                handleCart('add', [
+                                                    {
+                                                        cid: item.cid,
+                                                        pid: item.pid,
+                                                        spec1: '',
+                                                        spec2: '',
+                                                        qty: 1,
+                                                    },
+                                                ])
+                                            }}
+                                        >
+                                            <span>加入購物車</span>
                                         </a>
                                     </div>
                                 </figure>

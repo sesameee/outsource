@@ -8,6 +8,17 @@ import * as ProductInfoSelectors from './productInfo/selectors'
 import * as ErrorAlertSelectors from './errorAlert/selectors'
 import * as WishListSelectors from './wishList/selectors'
 import * as ShoppingCartListSelectors from './shoppingCartList/selectors'
+import * as ShoppingCartModifySelectors from './shoppingCartModify/selectors'
+import * as WishModifySelectors from './wishModify/selectors'
+import * as PromoCodeSelectors from './promoCode/selectors'
+import * as MemberAddressInfoSelectors from './memberAddressInfo/selectors'
+import * as CheckoutSelectors from './checkout/selectors'
+import * as AddressInfoSelectors from './addressInfo/selectors'
+import * as DonateInvoiceSelectors from './donateInvoice/selectors'
+import * as VerifyInvBarCodeSelectors from './verifyInvBarCode/selectors'
+import * as OrderListSelectors from './orderList/selectors'
+import * as OrderDetailSelectors from './orderDetail/selectors'
+import * as RefundSelectors from './refund/selectors'
 import { googleBookSlice, googleCreateActions } from './googleBooks/slice'
 import { bannerSlice, bannerCreateActions } from './banner/slice'
 import { catalogSlice, catalogCreateActions } from './catalog/slice'
@@ -18,6 +29,17 @@ import { productInfoSlice, productInfoCreateActions } from './productInfo/slice'
 import { errorAlertSlice } from './errorAlert/slice'
 import { wishListSlice, wishListCreateActions } from './wishList/slice'
 import { shoppingCartListSlice, shoppingCartListCreateActions } from './shoppingCartList/slice'
+import { shoppingCartModifySlice, shoppingCartModifyCreateActions } from './shoppingCartModify/slice'
+import { wishModifySlice, wishModifyCreateActions } from './wishModify/slice'
+import { promoCodeSlice, promoCodeCreateActions } from './promoCode/slice'
+import { memberAddressInfoSlice, memberAddressInfoCreateActions } from './memberAddressInfo/slice'
+import { checkoutSlice, checkoutCreateActions } from './checkout/slice'
+import { addressInfoSlice, addressInfoCreateActions } from './addressInfo/slice'
+import { donateInvoiceSlice, donateInvoiceCreateActions } from './donateInvoice/slice'
+import { verifyInvBarCodeSlice, verifyInvBarCodeCreateActions } from './verifyInvBarCode/slice'
+import { orderListSlice, orderListCreateActions } from './orderList/slice'
+import { orderDetailSlice, orderDetailCreateActions } from './orderDetail/slice'
+import { refundSlice, refundCreateActions } from './refund/slice'
 
 const GoogleBooksActions = {
     ...googleBookSlice.actions,
@@ -68,6 +90,61 @@ const ShoppingCartListActions = {
     ...shoppingCartListCreateActions,
 }
 
+const ShoppingCartModifyActions = {
+    ...shoppingCartModifySlice.actions,
+    ...shoppingCartModifyCreateActions,
+}
+
+const WishModifyActions = {
+    ...wishModifySlice.actions,
+    ...wishModifyCreateActions,
+}
+
+const PromoCodeActions = {
+    ...promoCodeSlice.actions,
+    ...promoCodeCreateActions,
+}
+
+const MemberAddressInfoActions = {
+    ...memberAddressInfoSlice.actions,
+    ...memberAddressInfoCreateActions,
+}
+
+const CheckoutActions = {
+    ...checkoutSlice.actions,
+    ...checkoutCreateActions,
+}
+
+const AddressInfoActions = {
+    ...addressInfoSlice.actions,
+    ...addressInfoCreateActions,
+}
+
+const DonateInvoiceActions = {
+    ...donateInvoiceSlice.actions,
+    ...donateInvoiceCreateActions,
+}
+
+const VerifyInvBarCodeActions = {
+    ...verifyInvBarCodeSlice.actions,
+    ...verifyInvBarCodeCreateActions,
+}
+
+const OrderListActions = {
+    ...orderListSlice.actions,
+    ...orderListCreateActions,
+}
+
+const OrderDetailActions = {
+    ...orderDetailSlice.actions,
+    ...orderDetailCreateActions,
+}
+
+const RefundActions = {
+    ...refundSlice.actions,
+    ...refundCreateActions,
+}
+
 export {
     GoogleBooksSelectors,
     GoogleBooksActions,
@@ -89,4 +166,26 @@ export {
     WishListSelectors,
     ShoppingCartListActions,
     ShoppingCartListSelectors,
+    ShoppingCartModifyActions,
+    ShoppingCartModifySelectors,
+    WishModifyActions,
+    WishModifySelectors,
+    PromoCodeActions,
+    PromoCodeSelectors,
+    MemberAddressInfoActions,
+    MemberAddressInfoSelectors,
+    CheckoutActions,
+    CheckoutSelectors,
+    AddressInfoActions,
+    AddressInfoSelectors,
+    DonateInvoiceActions,
+    DonateInvoiceSelectors,
+    VerifyInvBarCodeActions,
+    VerifyInvBarCodeSelectors,
+    OrderListActions,
+    OrderListSelectors,
+    OrderDetailActions,
+    OrderDetailSelectors,
+    RefundActions,
+    RefundSelectors,
 }

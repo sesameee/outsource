@@ -9,6 +9,17 @@ import UserLoginEpics from './userLogin/epics'
 import ProductInfoEpics from './productInfo/epics'
 import WishListEpics from './wishList/epics'
 import ShoppingCartListEpics from './shoppingCartList/epics'
+import ShoppingCartModifyEpics from './shoppingCartModify/epics'
+import WishModifyEpics from './wishModify/epics'
+import PromoCodeEpics from './promoCode/epics'
+import MemberAddressInfo from './memberAddressInfo/epics'
+import Checkout from './checkout/epics'
+import AddressInfo from './addressInfo/epics'
+import DonateInvoice from './donateInvoice/epics'
+import VerifyInvBarCode from './verifyInvBarCode/epics'
+import OrderLIst from './orderList/epics'
+import OrderDetail from './orderDetail/epics'
+import Refund from './refund/epics'
 
 export const rootEpic = combineEpics(
     ...GoogleBookEpics,
@@ -20,6 +31,17 @@ export const rootEpic = combineEpics(
     ...ProductInfoEpics,
     ...WishListEpics,
     ...ShoppingCartListEpics,
+    ...ShoppingCartModifyEpics,
+    ...WishModifyEpics,
+    ...PromoCodeEpics,
+    ...MemberAddressInfo,
+    ...Checkout,
+    ...AddressInfo,
+    ...DonateInvoice,
+    ...VerifyInvBarCode,
+    ...OrderLIst,
+    ...OrderDetail,
+    ...Refund,
 )
 
 const epicMiddleware = createEpicMiddleware()

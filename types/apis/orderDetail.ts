@@ -1,29 +1,40 @@
-import { ShipInfoData, ShoppingCartProductData } from './common'
+import { ShipInfoData, ShoppingCartProductData, Response } from './common'
 
 export interface OrderDetailReqData {
     memberId: string
-    orderNo: string
+    transId: string
     accessToken: string
 }
 
-export interface OrderDetailRspData {
-    orderNo: string
-    pid: string
-    pName: string
-    pay: number
-    txStatus: string
+export interface BrandInfoData {
+    orderId: string
+    orderStatus: string
+    cid: string
+    categoryType: string
+    name: string
     txStatusCode: string
-    txDate: string
-    invoiceAmount: number
-    totalAmount: number
-    shipInfo: ShipInfoData
-    brandInfos: BrandInfoData[]
+    shippingStatus: string
     canRefund: boolean
+    orderProducts: ShoppingCartProductData[]
 }
 
-export interface BrandInfoData {
-    cid: string
-    name: string
-    categoryType: string
-    orderProducts: ShoppingCartProductData[]
+export interface OrderDetailData {
+    transId: string
+    prdName: string
+    pay: string
+    invoiceAmount: string
+    txStatus: string
+    txDate: string
+    txType: number
+    invoiceNo: string
+    totalAmount: string
+    discount: string
+    discountType: string
+    points: string
+    shipInfo: ShipInfoData
+    brandInfos: BrandInfoData[]
+}
+
+export interface OrderDetailRspData extends Response {
+    data: OrderDetailData
 }
