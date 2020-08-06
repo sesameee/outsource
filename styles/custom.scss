@@ -300,17 +300,27 @@
         opacity: 0.8;
 
         &.banner-1 {
-            width: 574px;
+            
+            width: 100%;
             height: 500px;
+            @include for-l {
+                width: 574px;
+            }
         }
         &.banner-2 {
-            width: 574px;
+            width: 100%;
             height: 240px;
+            @include for-l {
+                width: 574px;
+            }
         }
 
         &.banner-3 {
-            width: 574px;
+            width: 100%;
             height: 240px;
+            @include for-l {
+                width: 574px;
+            }
         }
 
         &.banner-4 {
@@ -360,7 +370,8 @@
 .custom-btn {
     display: block;
     border: 1px solid $mainColor;
-    padding: 10px 150px;
+    padding: 10px;
+    width: 80%;
     background-color: #fff;
     color: $mainColor;
     &:hover {
@@ -370,6 +381,9 @@
     @include for-except-xs {
         display: none;
     }
+}
+.toolbox-right {
+    flex: 1;
 }
 
 .filter-section {
