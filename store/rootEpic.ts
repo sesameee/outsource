@@ -18,6 +18,7 @@ import AddressInfo from './addressInfo/epics'
 import DonateInvoice from './donateInvoice/epics'
 import VerifyInvBarCode from './verifyInvBarCode/epics'
 import OrderLIst from './orderList/epics'
+import OrderDetail from './orderDetail/epics'
 
 export const rootEpic = combineEpics(
     ...GoogleBookEpics,
@@ -38,6 +39,7 @@ export const rootEpic = combineEpics(
     ...DonateInvoice,
     ...VerifyInvBarCode,
     ...OrderLIst,
+    ...OrderDetail,
 )
 
 const epicMiddleware = createEpicMiddleware()

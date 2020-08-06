@@ -17,6 +17,7 @@ import * as AddressInfoSelectors from './addressInfo/selectors'
 import * as DonateInvoiceSelectors from './donateInvoice/selectors'
 import * as VerifyInvBarCodeSelectors from './verifyInvBarCode/selectors'
 import * as OrderListSelectors from './orderList/selectors'
+import * as OrderDetailSelectors from './orderDetail/selectors'
 import { googleBookSlice, googleCreateActions } from './googleBooks/slice'
 import { bannerSlice, bannerCreateActions } from './banner/slice'
 import { catalogSlice, catalogCreateActions } from './catalog/slice'
@@ -36,6 +37,7 @@ import { addressInfoSlice, addressInfoCreateActions } from './addressInfo/slice'
 import { donateInvoiceSlice, donateInvoiceCreateActions } from './donateInvoice/slice'
 import { verifyInvBarCodeSlice, verifyInvBarCodeCreateActions } from './verifyInvBarCode/slice'
 import { orderListSlice, orderListCreateActions } from './orderList/slice'
+import { orderDetailSlice, orderDetailCreateActions } from './orderDetail/slice'
 
 const GoogleBooksActions = {
     ...googleBookSlice.actions,
@@ -131,6 +133,11 @@ const OrderListActions = {
     ...orderListCreateActions,
 }
 
+const OrderDetailActions = {
+    ...orderDetailSlice.actions,
+    ...orderDetailCreateActions,
+}
+
 export {
     GoogleBooksSelectors,
     GoogleBooksActions,
@@ -170,4 +177,6 @@ export {
     VerifyInvBarCodeSelectors,
     OrderListActions,
     OrderListSelectors,
+    OrderDetailActions,
+    OrderDetailSelectors,
 }
