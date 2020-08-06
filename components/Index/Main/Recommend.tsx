@@ -18,7 +18,7 @@ const Recommend: React.FC<RecommendProps> = ({ t }: RecommendProps) => {
         <div className="container recommend">
             <div className="heading text-center mb-4">
                 <h2 className="title">{t('buy_titile')}</h2>
-                <p className="title-desc">{t('buy_desc')}</p>
+                {/* <p className="title-desc">{t('buy_desc')}</p> */}
             </div>
             <div className="row">
                 {item1 ? (

@@ -20,7 +20,7 @@ const Main: React.FC<MainProps> = ({ t }: MainProps) => {
                 <div className="container">
                     <div className="heading text-center mb-4">
                         <h2 className="title">{t('category_title')}</h2>
-                        <p className="title-desc">{t('category_desc')}</p>
+                        {/* <p className="title-desc">{t('category_desc')}</p> */}
                     </div>
                     <Channel />
                 </div>
@@ -28,7 +28,7 @@ const Main: React.FC<MainProps> = ({ t }: MainProps) => {
             <div className="container">
                 <div className="heading text-center mb-4">
                     <h2 className="title">{t('breezedaily_title')}</h2>
-                    <p className="title-desc">{t('breezedaily_desc')}</p>
+                    {/* <p className="title-desc">{t('breezedaily_desc')}</p> */}
                 </div>
                 <BreezeDaily />
             </div>
