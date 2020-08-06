@@ -8,6 +8,7 @@ import { ShoppingCartModifyRspData } from '@/types/apis/shoppingCartModify'
 export const setIsSearching: CaseReducer<State, PayloadAction<State>> = (state, action) => {
     return produce(state, (draft) => {
         draft['isFetch'] = action.payload.isFetch
+        draft['message'] = ''
     })
 }
 
