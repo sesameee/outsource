@@ -5,31 +5,30 @@ import { useSelector } from 'react-redux'
 import NumberInput from '../commons/NumberInput'
 import { ShoppingCartProductData } from '@/types/apis/common'
 import { State as PromoCodeState } from '@/types/stores/promoCode/state'
+import { accMul } from '@/utils'
 
 type CartItemProps = {
     sum: any[]
     setSum: any
 }
 const CartItemList: React.FC<CartItemProps> = ({ sum, setSum }: CartItemProps) => {
-    const shoppingCartListData = useSelector(ShoppingCartListSelectors.getShoppingCartList)
+    const shoppingCartListData = useSelector(ShoppingCartListSelectors.getShoppingCartItemList)
     const promoCodeData = useSelector(PromoCodeSelectors.promoCode)
     return (
         <tbody>
             {shoppingCartListData &&
                 shoppingCartListData.map((item, index) => {
-                    const detail = item.shoppingCartProducts[0]
-                    if (detail) {
-                        return (
-                            <ItemDetail
-                                detail={detail}
-                                promoCodeData={promoCodeData}
-                                sum={sum}
-                                setSum={setSum}
-                                index={index}
-                                name={item.name}
-                            />
-                        )
-                    }
+                    return (
+                        <ItemDetail
+                            key={index}
+                            detail={item}
+                            promoCodeData={promoCodeData}
+                            sum={sum}
+                            setSum={setSum}
+                            index={index}
+                            name={item._name}
+                        />
+                    )
                 })}
         </tbody>
     )
@@ -53,23 +52,19 @@ const ItemDetail: React.FC<ItemDetailProps> = ({
 }: ItemDetailProps) => {
     const [amount, setAmount] = React.useState(detail?.qty || 0)
     const price = (detail?.price && amount && detail?.price * amount) || 0
-    let isHaveDiscount = false
-    let discount = 0
+    const isHaveDiscount = promoCodeData && promoCodeData.data.indexOf(detail.pid) != -1
+    const discount = isHaveDiscount ? accMul(price, Number(promoCodeData.discountRate)) : 0
 
-    if (promoCodeData && promoCodeData.data && detail) {
-        isHaveDiscount = promoCodeData.data.indexOf(detail.pid) != -1
-        discount = price * Number(promoCodeData.discountRate)
-    }
     const amountCB = (num: number) => {
         if (sum[index]) {
-            sum[index] = detail?.price && num && detail?.price * num
+            const price = (detail?.price && num && detail?.price * num) || 0
+            sum[index] = price
             if (isHaveDiscount) {
-                sum[index] = detail?.price && num && detail?.price * num * Number(promoCodeData.discountRate)
+                sum[index] = accMul(price, Number(promoCodeData.discountRate))
             }
             setSum([...sum])
         }
     }
-
     return (
         <tr key={index}>
             <td className="product-col">

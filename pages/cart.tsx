@@ -7,6 +7,7 @@ import { ShoppingCartListSelectors, PromoCodeSelectors } from '@/store'
 import { useSelector } from 'react-redux'
 import { useShoppingCartList } from '@/hooks/ShoppingCart'
 import PromoCode from '@/components/Cart/PromoCode'
+import { accAdd, accSubtr } from '@/utils'
 // import { withTranslation, i18n } from '@/I18n'
 const Cart: React.FC = () => {
     const navMock = [
@@ -26,13 +27,14 @@ const Cart: React.FC = () => {
     const [sum, setSum] = React.useState([0])
     const [amount, setAmount] = React.useState(0)
     const [disCountamount, setDisCountamount] = React.useState(0)
+    const finalAmount = promoData.name ? accSubtr(amount, disCountamount) : amount
     useEffect(() => {
         setSum(priceArr)
         if (sum) {
             const num = sum.reduce((accumulator, currentValue) => Number(accumulator) + Number(currentValue), 0)
             setAmount(num)
             const disNum = discountArr.reduce(
-                (accumulator, currentValue) => Number(accumulator) + Number(currentValue),
+                (accumulator, currentValue) => accAdd(Number(accumulator), Number(currentValue)),
                 0,
             )
             setDisCountamount(disNum)
@@ -138,7 +140,7 @@ const Cart: React.FC = () => {
 
                                                 <tr className="summary-total">
                                                     <td>結帳金額:</td>
-                                                    <td>${Number(sum) - disCountamount}</td>
+                                                    <td>${finalAmount}</td>
                                                 </tr>
                                             </tbody>
                                         </table>

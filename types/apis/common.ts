@@ -31,6 +31,12 @@ export interface ShoppingCartProductData {
     spec2?: string
 }
 
+export interface ShoppingCartProductDataTrans extends ShoppingCartProductData {
+    _cid: string
+    _name: string
+    _categoryType: string
+}
+
 export interface ShipInfoData {
     displayName?: string
     receiveAddress: string
