@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux'
 import { useShoppingCartList } from '@/hooks/ShoppingCart'
 import PromoCode from '@/components/Cart/PromoCode'
 import { accAdd, accSubtr } from '@/utils'
+import Link from 'next/link'
 // import { withTranslation, i18n } from '@/I18n'
 const Cart: React.FC = () => {
     const navMock = [
@@ -119,6 +120,7 @@ const Cart: React.FC = () => {
                                                                 id="free-shipping"
                                                                 name="shipping"
                                                                 className="custom-control-input"
+                                                                checked={true}
                                                             />
                                                             <label
                                                                 className="custom-control-label"
@@ -144,13 +146,9 @@ const Cart: React.FC = () => {
                                                 </tr>
                                             </tbody>
                                         </table>
-
-                                        <a
-                                            href="checkout.html"
-                                            className="btn btn-outline-primary-2 btn-order btn-block"
-                                        >
-                                            前往結帳
-                                        </a>
+                                        <Link href="/checkout" prefetch={true}>
+                                            <a className="btn btn-outline-primary-2 btn-order btn-block">前往結帳</a>
+                                        </Link>
                                     </div>
 
                                     {/* <a href="category.html" className="btn btn-outline-dark-2 btn-block mb-3">

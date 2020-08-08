@@ -8,7 +8,7 @@ import Link from 'next/link'
 // }
 const Cart: React.FC = () => {
     useShoppingCartList()
-    const CartList = useSelector(ShoppingCartListSelectors.getShoppingCartList)
+    const CartList = useSelector(ShoppingCartListSelectors.getShoppingCartItemList)
     let total = 0
     return (
         <div className="dropdown cart-dropdown">
@@ -29,31 +29,22 @@ const Cart: React.FC = () => {
                 <div className="dropdown-cart-products">
                     {CartList &&
                         CartList.map((item, index) => {
-                            if (item.shoppingCartProducts && item.shoppingCartProducts[0]) {
-                                const thisItem = item.shoppingCartProducts[0]
-                                total = total + Number(thisItem.qty) * Number(thisItem.price)
-                            }
-
+                            total = total + Number(item.qty) * Number(item.price)
                             return (
                                 <div className="product" key={index}>
                                     <div className="product-cart-details">
                                         <h4 className="product-title">
-                                            <a href="product.html">{item.name}</a>
+                                            <a href="product.html">{item.productName}</a>
                                         </h4>
 
                                         <span className="cart-product-info">
-                                            <span className="cart-product-qty">
-                                                {item.shoppingCartProducts && item.shoppingCartProducts[0].qty}
-                                            </span>
-                                            x ${item.shoppingCartProducts && item.shoppingCartProducts[0].price}
+                                            <span className="cart-product-qty">{item.qty}</span>x ${item.price}
                                         </span>
                                     </div>
 
                                     <figure className="product-image-container">
                                         <a href="product.html" className="product-image">
-                                            {item.shoppingCartProducts && (
-                                                <img src={item.shoppingCartProducts[0].imageUrl} alt="product" />
-                                            )}
+                                            <img src={item.imageUrl} alt="product" />
                                         </a>
                                     </figure>
                                     <a href="#" className="btn-remove" title="Remove Product">
@@ -63,21 +54,20 @@ const Cart: React.FC = () => {
                             )
                         })}
                 </div>
-
                 <div className="dropdown-cart-total">
                     <span>Total</span>
-
                     <span className="cart-total-price">${total}</span>
                 </div>
-
                 <div className="dropdown-cart-action">
-                    <Link href="/cart">
+                    <Link href="/cart" prefetch={false}>
                         <a className="btn btn-primary">View Cart</a>
                     </Link>
-                    <a className="btn btn-outline-primary-2">
-                        <span>Checkout</span>
-                        <i className="icon-long-arrow-right"></i>
-                    </a>
+                    <Link href="/checkout" prefetch={false}>
+                        <a className="btn btn-outline-primary-2">
+                            <span>Checkout</span>
+                            <i className="icon-long-arrow-right"></i>
+                        </a>
+                    </Link>
                 </div>
             </div>
         </div>
