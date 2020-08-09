@@ -17,9 +17,9 @@ import NumberInput from '@/components/commons/NumberInput'
 
 interface CategoryProps extends WithRouterProps {
     filterProduct: Set<unknown>
+    token: string
 }
-
-const Product = ({ router }: CategoryProps): JSX.Element => {
+const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element => {
     const query = router.query
     useProductInfo(query)
     const productData = useSelector(ProductInfoSelectors.getProductInfo)
@@ -40,7 +40,7 @@ const Product = ({ router }: CategoryProps): JSX.Element => {
 
     return (
         <div className="page-wrapper">
-            <Header isIndex={false} />
+            <Header isIndex={false} token={token} />
             <main className="main">
                 <Nav navData={navData}></Nav>
                 <div className="page-content">
@@ -188,5 +188,11 @@ const Product = ({ router }: CategoryProps): JSX.Element => {
             <Footer />
         </div>
     )
+}
+
+import cookies from 'next-cookies'
+import { NextPageContext, NextPage } from 'next'
+Product.getInitialProps = async (ctx: NextPageContext) => {
+    return { token: cookies(ctx).token || '' }
 }
 export default withRouter(Product)

@@ -40,8 +40,11 @@ const SidePageFrom: React.FC<SidePageFromProps> = ({ pageName }: SidePageFromPro
             return <PasswordModify />
     }
 }
+type MemberProps = {
+    token: string
+}
 
-const Member: NextPage = (): JSX.Element => {
+const Member: NextPage<any> = ({ token }: MemberProps): JSX.Element => {
     const { t } = useTranslation()
     const navList: navData[] = [
         {
@@ -80,7 +83,7 @@ const Member: NextPage = (): JSX.Element => {
 
     return (
         <div className="page-wrapper">
-            <Header isIndex={false} />
+            <Header isIndex={false} token={token} />
             <main className="main">
                 <div
                     className="page-header text-center"
@@ -108,9 +111,9 @@ const Member: NextPage = (): JSX.Element => {
     )
 }
 
+import cookies from 'next-cookies'
 Member.getInitialProps = async (ctx: NextPageContext) => {
-    console.log('ctxAAAA :>> ', ctx.req)
-    return { stars: 1 }
+    return { token: cookies(ctx).token || '' }
 }
 
 export default Member

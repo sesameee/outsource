@@ -10,6 +10,7 @@ import { NextPageContext, NextPage } from 'next'
 import { VerifyCodeData } from '@/types/apis/verifyCode'
 import { ForgotPasswordReqData } from '@/types/apis/forgotPassword'
 import { useForm } from 'react-hook-form'
+import cookies from 'next-cookies'
 
 const FromFirstStep: React.FC = () => {
     const { t } = useTranslation()
@@ -67,7 +68,7 @@ const FromFrame: React.FC = () => {
     }
 }
 
-const ForgetPassword: NextPage = (): JSX.Element => {
+const ForgetPassword: React.FC = (): JSX.Element => {
     const { t } = useTranslation()
     const navList: navData[] = [
         {
@@ -81,7 +82,7 @@ const ForgetPassword: NextPage = (): JSX.Element => {
     ]
     return (
         <div className="page-wrapper">
-            <Header isIndex={false} />
+            <Header isIndex={false} token={''} />
             <main className="main">
                 <div
                     className="page-header text-center"
@@ -104,10 +105,5 @@ const ForgetPassword: NextPage = (): JSX.Element => {
         </div>
     )
 }
-
-// Member.getInitialProps = async (ctx: NextPageContext) => {
-//     console.log('ctxAAAA :>> ', ctx.req)
-//     return { stars: 1 }
-// }
 
 export default ForgetPassword

@@ -13,12 +13,14 @@ import WidgetFrame from '@/components/Catalog'
 import ProductList from '@/components/Catalog/ProductList'
 import { FilterType } from '@/types/Common'
 import SortSelect from '@/components/Catalog/SortSelect'
+import { NextPage } from 'next'
 
 interface CategoryProps extends WithRouterProps {
     filterProduct: Set<unknown>
+    token: string
 }
 
-const Category = ({ router }: CategoryProps): JSX.Element => {
+const Category: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element => {
     const query = router.query
     useChannelList()
 
@@ -66,7 +68,7 @@ const Category = ({ router }: CategoryProps): JSX.Element => {
                     setFilterToggle={setFilterToggle}
                 />
             </div>
-            <Header isIndex={false} />
+            <Header isIndex={false} token={token} />
             <main className="main">
                 <div
                     className="page-header text-center"
@@ -132,4 +134,10 @@ const Category = ({ router }: CategoryProps): JSX.Element => {
         </div>
     )
 }
+import cookies from 'next-cookies'
+import { NextPageContext } from 'next'
+Category.getInitialProps = async (ctx: NextPageContext) => {
+    return { token: cookies(ctx).token || '' }
+}
+
 export default withRouter(Category)

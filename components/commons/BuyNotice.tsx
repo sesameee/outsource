@@ -1,9 +1,5 @@
 import React, { memo } from 'react'
-import { ErrorAlertSelectors } from '@/store'
-import { useSelector } from 'react-redux'
 import MyModal from '../MyModal'
-import { useDispatch } from 'react-redux'
-import { ErrorAlertActions } from '@/store'
 
 const Text: React.FC = () => {
     return (
@@ -90,18 +86,12 @@ const Text: React.FC = () => {
     )
 }
 
-const BuyNotice: React.FC = () => {
-    const data = useSelector(ErrorAlertSelectors.errorAlertState)
-    const dispatch = useDispatch()
-    const closeModal = () =>
-        dispatch(
-            ErrorAlertActions.toggleErrorAlert({
-                isOpen: false,
-                error: '',
-            }),
-        )
-
-    return <MyModal content={<Text />} isOpen={true} setPropIsOpenFn={closeModal} />
+type BuyNoticeProps = {
+    setOpenBuyNotice: any
+    openBuyNotice: boolean
+}
+const BuyNotice: React.FC<BuyNoticeProps> = ({ setOpenBuyNotice, openBuyNotice }: BuyNoticeProps) => {
+    return <MyModal content={<Text />} isOpen={openBuyNotice} setPropIsOpenFn={setOpenBuyNotice} />
 }
 
 export default memo(BuyNotice)

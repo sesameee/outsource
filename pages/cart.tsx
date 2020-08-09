@@ -10,7 +10,10 @@ import PromoCode from '@/components/Cart/PromoCode'
 import { accAdd, accSubtr } from '@/utils'
 import Link from 'next/link'
 // import { withTranslation, i18n } from '@/I18n'
-const Cart: React.FC = () => {
+type CartProps = {
+    token: string
+}
+const Cart: NextPage<any> = ({ token }: CartProps): JSX.Element => {
     const navMock = [
         {
             title: '首頁',
@@ -43,7 +46,7 @@ const Cart: React.FC = () => {
     }, [sum, priceArr, discountArr])
     return (
         <div className="page-wrapper">
-            <Header isIndex={false} />
+            <Header isIndex={false} token={token} />
             <main className="main">
                 <div
                     className="page-header text-center"
@@ -165,4 +168,11 @@ const Cart: React.FC = () => {
         </div>
     )
 }
+
+import cookies from 'next-cookies'
+import { NextPage, NextPageContext } from 'next'
+Cart.getInitialProps = async (ctx: NextPageContext) => {
+    return { token: cookies(ctx).token || '' }
+}
+
 export default Cart

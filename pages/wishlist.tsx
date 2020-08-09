@@ -25,7 +25,7 @@ const Member: React.FC<MemberProps> = ({ t }: MemberProps): JSX.Element => {
     ]
     return (
         <div className="page-wrapper">
-            <Header isIndex={false} />
+            <Header isIndex={false} token="" />
             <main className="main">
                 <div
                     className="page-header text-center"

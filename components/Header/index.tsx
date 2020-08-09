@@ -13,15 +13,16 @@ import MobileMenu from './MobileMenu'
 
 type HeaderProps = {
     isIndex: boolean
+    token: string
 }
-const Header: React.FC<HeaderProps> = ({ isIndex }: HeaderProps) => {
+
+const Header: React.FC<HeaderProps> = ({ isIndex, token }: HeaderProps) => {
     useWishList()
     const [IsOpenMember, setIsOpenMember] = React.useState(false)
     const [itemHoverIndex, setItemHoverIndex] = React.useState<null | number>(null)
     const [IsOpenMenu, setIsOpenMenu] = React.useState(false)
     const headerClass = isIndex ? 'header header-9' : 'header'
     const wishList = useSelector(WishListSelectors.getWishList)
-
     return (
         <header className={headerClass}>
             <MobileMenu IsOpenMenu={IsOpenMenu} setIsOpenMenu={setIsOpenMenu} />
@@ -56,9 +57,17 @@ const Header: React.FC<HeaderProps> = ({ isIndex }: HeaderProps) => {
                             </a>
                         </Link>
                         <Cart />
-                        <a onClick={() => setIsOpenMember(true)} className="wishlist-link">
-                            <i className="icon-user"></i>
-                        </a>
+                        {token ? (
+                            <Link href="/member/points">
+                                <a className="wishlist-link">
+                                    <i className="icon-user"></i>
+                                </a>
+                            </Link>
+                        ) : (
+                            <a onClick={() => setIsOpenMember(true)} className="wishlist-link">
+                                <i className="icon-user"></i>
+                            </a>
+                        )}
                     </div>
                 </div>
             </div>

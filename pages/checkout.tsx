@@ -11,7 +11,7 @@ import PromoCode from '@/components/Cart/PromoCode'
 import { accAdd, accSubtr } from '@/utils'
 import ProductDetail from '@/components/Checkout/ProductDetail'
 import BuyNotice from '@/components/commons/BuyNotice'
-
+import { NextPage, NextPageContext } from 'next'
 
 // import { withTranslation, i18n } from '@/I18n'
 enum InvoiceFromType {
@@ -72,7 +72,10 @@ const InvoiceFrom: React.FC<InvoiceFromProps> = ({ type }: InvoiceFromProps) => 
     }
 }
 
-const Cart: React.FC = () => {
+type CheckoutProps = {
+    token: string
+}
+const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
     const navMock = [
         {
             title: '首頁',
@@ -101,6 +104,8 @@ const Cart: React.FC = () => {
     console.log('AddressInfo :>> ', AddressInfo)
 
     const [city, setCity] = React.useState(0)
+
+    const [openBuyNotice, setOpenBuyNotice] = React.useState(false)
     useEffect(() => {
         setSum(priceArr)
         if (sum) {
@@ -115,8 +120,8 @@ const Cart: React.FC = () => {
     }, [sum, priceArr, discountArr])
     return (
         <div className="page-wrapper">
-            <BuyNotice />
-            <Header isIndex={false} />
+            <BuyNotice openBuyNotice={openBuyNotice} setOpenBuyNotice={setOpenBuyNotice} />
+            <Header isIndex={false} token={token} />
             <main className="main">
                 <div
                     className="page-header text-center"
@@ -225,7 +230,11 @@ const Cart: React.FC = () => {
                                                     required
                                                 />
                                                 <label className="custom-control-label" htmlFor="checkout-diff-address">
-                                                    我已詳閱並同意<span>購物須知</span>及取消交易/退貨條件及方式
+                                                    我已詳閱並同意
+                                                    <span className="main-color" onClick={() => setOpenBuyNotice(true)}>
+                                                        購物須知
+                                                    </span>
+                                                    及取消交易/退貨條件及方式
                                                 </label>
                                             </div>
                                         </div>
@@ -362,4 +371,9 @@ const Cart: React.FC = () => {
         </div>
     )
 }
-export default Cart
+import cookies from 'next-cookies'
+Checkout.getInitialProps = async (ctx: NextPageContext) => {
+    return { token: cookies(ctx).token || '' }
+}
+
+export default Checkout
