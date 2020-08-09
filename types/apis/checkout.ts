@@ -11,6 +11,9 @@ export interface CheckoutReqData {
     invoiceInfo: InvoiceInfoData
     totalAmount: number
     shippingAmount: number
+    receiveName: string
+    receiveEmail: string
+    receiveMemo?: string
     data: CheckoutProductData[]
 }
 

@@ -20,6 +20,7 @@ class MyDocument extends Document {
                 <body>
                     <Main />
                     <NextScript />
+                    <script src="https://js.tappaysdk.com/tpdirect/v5.2.0"></script>
                 </body>
             </Html>
         )
