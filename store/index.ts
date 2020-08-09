@@ -19,6 +19,12 @@ import * as VerifyInvBarCodeSelectors from './verifyInvBarCode/selectors'
 import * as OrderListSelectors from './orderList/selectors'
 import * as OrderDetailSelectors from './orderDetail/selectors'
 import * as RefundSelectors from './refund/selectors'
+import * as UserRegisterSelectors from './userRegister/selectors'
+import * as RegisterUserInfoSelectors from './registerUserInfo/selectors'
+import * as ForgotPasswordSelectors from './forgotPassword/selectors'
+import * as ResetPasswordSelectors from './resetPassword/selectors'
+import * as UserSetupSelectors from './userSetup/selectors'
+import * as UserPointsSelectors from './userPoints/selectors'
 import { googleBookSlice, googleCreateActions } from './googleBooks/slice'
 import { bannerSlice, bannerCreateActions } from './banner/slice'
 import { catalogSlice, catalogCreateActions } from './catalog/slice'
@@ -40,6 +46,12 @@ import { verifyInvBarCodeSlice, verifyInvBarCodeCreateActions } from './verifyIn
 import { orderListSlice, orderListCreateActions } from './orderList/slice'
 import { orderDetailSlice, orderDetailCreateActions } from './orderDetail/slice'
 import { refundSlice, refundCreateActions } from './refund/slice'
+import { userRegisterSlice, userRegisterCreateActions } from './userRegister/slice'
+import { registerUserInfoSlice, registerUserInfoCreateActions } from './registerUserInfo/slice'
+import { forgotPasswordSlice, forgotPasswordCreateActions } from './forgotPassword/slice'
+import { resetPasswordSlice, resetPasswordCreateActions } from './resetPassword/slice'
+import { userSetupSlice, userSetupCreateActions } from './userSetup/slice'
+import { userPointsSlice, userPointsCreateActions } from './userPoints/slice'
 
 const GoogleBooksActions = {
     ...googleBookSlice.actions,
@@ -145,6 +157,36 @@ const RefundActions = {
     ...refundCreateActions,
 }
 
+const UserRegisterActions = {
+    ...userRegisterSlice.actions,
+    ...userRegisterCreateActions,
+}
+
+const RegisterUserInfoActions = {
+    ...registerUserInfoSlice.actions,
+    ...registerUserInfoCreateActions,
+}
+
+const ForgotPasswordActions = {
+    ...forgotPasswordSlice.actions,
+    ...forgotPasswordCreateActions,
+}
+
+const ResetPasswordActions = {
+    ...resetPasswordSlice.actions,
+    ...resetPasswordCreateActions,
+}
+
+const UserSetupActions = {
+    ...userSetupSlice.actions,
+    ...userSetupCreateActions,
+}
+
+const UserPointsActions = {
+    ...userPointsSlice.actions,
+    ...userPointsCreateActions,
+}
+
 export {
     GoogleBooksSelectors,
     GoogleBooksActions,
@@ -188,4 +230,16 @@ export {
     OrderDetailSelectors,
     RefundActions,
     RefundSelectors,
+    UserRegisterActions,
+    UserRegisterSelectors,
+    RegisterUserInfoActions,
+    RegisterUserInfoSelectors,
+    ForgotPasswordActions,
+    ForgotPasswordSelectors,
+    ResetPasswordActions,
+    ResetPasswordSelectors,
+    UserSetupActions,
+    UserSetupSelectors,
+    UserPointsActions,
+    UserPointsSelectors,
 }

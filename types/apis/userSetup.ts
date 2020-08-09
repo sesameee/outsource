@@ -1,3 +1,5 @@
+import { Response } from './common'
+
 export interface UserSetupReqData {
     memberId: string
     email: string
@@ -6,3 +8,5 @@ export interface UserSetupReqData {
     address: string
     accessToken: string
 }
+
+export type UserSetupRspData = Response

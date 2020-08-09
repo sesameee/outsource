@@ -1,3 +1,5 @@
+import { Response } from './common'
+
 export interface RegisterUserInfoReqData {
     memberId: string
     rocId: string
@@ -7,3 +9,5 @@ export interface RegisterUserInfoReqData {
     address: string
     accessToken: string
 }
+
+export type RegisterUserInfoRspData = Response
