@@ -10,6 +10,9 @@ import { useAddressInfo } from '@/hooks/AddressInfo'
 import PromoCode from '@/components/Cart/PromoCode'
 import { accAdd, accSubtr } from '@/utils'
 import ProductDetail from '@/components/Checkout/ProductDetail'
+import BuyNotice from '@/components/commons/BuyNotice'
+
+
 // import { withTranslation, i18n } from '@/I18n'
 enum InvoiceFromType {
     MemberDriver = 1,
@@ -112,6 +115,7 @@ const Cart: React.FC = () => {
     }, [sum, priceArr, discountArr])
     return (
         <div className="page-wrapper">
+            <BuyNotice />
             <Header isIndex={false} />
             <main className="main">
                 <div

@@ -1792,6 +1792,10 @@ blockquote.text-white cite span {
 .menu .megamenu li a {
     padding-right: 0;
     padding-left: 0;
+    &:hover {
+        color: $mainColor !important;
+        font-weight: bold;
+    }
 }
 .menu .megamenu .btn {
     min-width: 210px;
