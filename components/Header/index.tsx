@@ -9,6 +9,7 @@ import Cart from './Cart'
 import { useSelector } from 'react-redux'
 import { WishListSelectors } from '@/store'
 import { useWishList } from '@/hooks/Wish'
+import MobileMenu from './MobileMenu'
 
 type HeaderProps = {
     isIndex: boolean
@@ -16,12 +17,14 @@ type HeaderProps = {
 const Header: React.FC<HeaderProps> = ({ isIndex }: HeaderProps) => {
     useWishList()
     const [IsOpenMember, setIsOpenMember] = React.useState(false)
-    const headerClass = isIndex ? 'header header-9' : 'header'
     const [itemHoverIndex, setItemHoverIndex] = React.useState<null | number>(null)
+    const [IsOpenMenu, setIsOpenMenu] = React.useState(false)
+    const headerClass = isIndex ? 'header header-9' : 'header'
     const wishList = useSelector(WishListSelectors.getWishList)
 
     return (
         <header className={headerClass}>
+            <MobileMenu IsOpenMenu={IsOpenMenu} setIsOpenMenu={setIsOpenMenu} />
             {!isIndex && <TopHeader />}
             <MyModal
                 content={<MemberTab setPropIsOpenFn={setIsOpenMember} />}
@@ -32,7 +35,7 @@ const Header: React.FC<HeaderProps> = ({ isIndex }: HeaderProps) => {
                 <HoverItemList itemHoverIndex={itemHoverIndex} setItemHoverIndex={setItemHoverIndex} />
                 <div className="container">
                     <div className="header-left">
-                        <button className="mobile-menu-toggler">
+                        <button className="mobile-menu-toggler" onClick={() => setIsOpenMenu(true)}>
                             <span className="sr-only">Toggle mobile menu</span>
                             <i className="icon-bars"></i>
                         </button>

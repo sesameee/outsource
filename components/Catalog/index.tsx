@@ -50,7 +50,7 @@ const WidgetFrame: React.FC<WidgetFrameProps> = ({
                         catalog.categoryList.map((item: CatalogData, index) => {
                             return (
                                 <Menu key={`topMenu${index}`}>
-                                    <SubMenu title={item.cName} open={true}>
+                                    <SubMenu title={item.cName} defaultOpen={true}>
                                         {item.cData &&
                                             item.cData.map((catItem: any, subindex) => {
                                                 return (

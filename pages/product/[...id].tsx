@@ -68,7 +68,7 @@ const Product = ({ router }: CategoryProps): JSX.Element => {
                                         </div>
 
                                         <div className="details-filter-row details-row-size">
-                                            <label>Color:</label>
+                                            <label>顏色:</label>
 
                                             <div className="product-nav product-nav-thumbs">
                                                 {info &&
@@ -87,7 +87,7 @@ const Product = ({ router }: CategoryProps): JSX.Element => {
                                             <div className="select-custom">
                                                 <select name="size" id="size" className="form-control">
                                                     <option value="#" selected>
-                                                        Select a size
+                                                        尺寸:
                                                     </option>
                                                     {info &&
                                                         info.map((item, index) => {
@@ -102,7 +102,7 @@ const Product = ({ router }: CategoryProps): JSX.Element => {
                                         </div>
 
                                         <div className="details-filter-row details-row-size">
-                                            <label htmlFor="qty">Qty:</label>
+                                            <label htmlFor="qty">數量:</label>
                                             <div className="product-details-quantity">
                                                 <NumberInput inputName="qty" amount={amount} setAmount={setAmount} />
                                             </div>
@@ -110,12 +110,12 @@ const Product = ({ router }: CategoryProps): JSX.Element => {
 
                                         <div className="product-details-action">
                                             <a href="#" className="btn-product btn-cart">
-                                                <span>add to cart</span>
+                                                <span>加入購物車</span>
                                             </a>
 
                                             <div className="details-action-wrapper">
                                                 <a href="#" className="btn-product btn-wishlist" title="Wishlist">
-                                                    <span>Add to Wishlist</span>
+                                                    <span>加入喜愛清單</span>
                                                 </a>
                                             </div>
                                         </div>

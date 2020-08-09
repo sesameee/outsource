@@ -1,23 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { memo } from 'react'
+import { useAddressInfo } from '@/hooks/AddressInfo'
+import { ErrorAlertActions, AddressInfoSelectors } from '@/store'
+import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from '@/I18n'
 import { useForm } from 'react-hook-form'
-import { UserRegisterReqData } from '@/types/apis/userRegister'
-import ErrorAlert from '../commons/ErrorAlert'
-import { useDispatch, useSelector } from 'react-redux'
-import { ErrorAlertActions, AddressInfoSelectors } from '@/store'
-import { VerifyCodeData } from '@/types/apis/verifyCode'
-import { RegisterUserInfoReqData } from '@/types/apis/registerUserInfo'
-import { useAddressInfo } from '@/hooks/AddressInfo'
 
-type RegisterProps = {
-    setPropIsOpenFn: any
-}
-
-const FromFirstStep: React.FC = () => {
+const UserInfo: React.FC = () => {
+    useAddressInfo()
     const { t } = useTranslation()
     const { register, handleSubmit } = useForm<UserRegisterReqData>()
+    const AddressInfo = useSelector(AddressInfoSelectors.getAddressInfo)
+    const [city, setCity] = React.useState(0)
     return (
-        <form action="#" onSubmit={() => a}>
+        <form action="#" className="member-from" onSubmit={() => a}>
             <div className="form-group">
                 <label htmlFor="name">姓名 *</label>
                 <input type="text" className="form-control" id="name" name="name" required />
@@ -49,66 +44,6 @@ const FromFirstStep: React.FC = () => {
                 </div>
             </div>
             <div className="form-group">
-                <label htmlFor="email">電子郵件* ( 訂單發送位置 )</label>
-                <input type="email" className="form-control" id="email" name="email" required />
-            </div>
-
-            <div className="form-group">
-                <label htmlFor="pwd1">密碼* ( 請輸入 6-12 位英數混合的密碼 )</label>
-                <input type="password" className="form-control" id="pwd1" name="pwd1" required />
-            </div>
-            <div className="form-group">
-                <label htmlFor="pwd2">確認密碼* ( 請輸入 6-12 位英數混合的密碼 )</label>
-                <input type="password" className="form-control" id="pwd2" name="pwd2" required />
-            </div>
-
-            <div className="form-footer">
-                <div className="custom-control custom-checkbox">
-                    <input type="checkbox" className="custom-control-input" id="register-policy" required />
-                    <label className="custom-control-label" htmlFor="register-policy">
-                        我已詳閱並同意<a href="#">會員條款</a>
-                    </label>
-                </div>
-
-                <button type="submit" className="btn btn-outline-primary-2 btn-block">
-                    <span>下一步</span>
-                </button>
-            </div>
-        </form>
-    )
-}
-
-const FromSecondStep: React.FC = () => {
-    const { t } = useTranslation()
-    const { register, handleSubmit } = useForm<VerifyCodeData>()
-    return (
-        <form action="#" onSubmit={() => handleSubmit}>
-            <div className="form-group">
-                <label htmlFor="code">簡訊驗證碼 *</label>
-                <input type="text" className="form-control" id="code" name="code" required />
-            </div>
-            <div className="form-footer">
-                <label>
-                    若 30 秒內未收到啟用碼 <a href="#">重傳啟用碼</a>
-                </label>
-            </div>
-        </form>
-    )
-}
-
-const FromThirdStep: React.FC = () => {
-    useAddressInfo()
-    const { t } = useTranslation()
-    const { register, handleSubmit } = useForm<RegisterUserInfoReqData>()
-    const AddressInfo = useSelector(AddressInfoSelectors.getAddressInfo)
-    const [city, setCity] = React.useState(0)
-    return (
-        <form className="from-third-step" action="#" onSubmit={() => a}>
-            <div className="form-group">
-                <label htmlFor="rocId">身份證字號 *</label>
-                <input type="text" className="form-control" id="rocId" name="rocId" required />
-            </div>
-            <div className="form-group">
                 <label className="label" htmlFor="sex">
                     性別
                 </label>
@@ -119,6 +54,15 @@ const FromThirdStep: React.FC = () => {
                     <option value="f">女</option>
                 </select>
             </div>
+            <div className="form-group">
+                <label htmlFor="rocId">身份證字號 *</label>
+                <input type="text" className="form-control" id="rocId" name="rocId" required />
+            </div>
+            <div className="form-group">
+                <label htmlFor="email">電子郵件 *</label>
+                <input type="email" className="form-control" id="email" name="email" required />
+            </div>
+
             <div className="form-group">
                 <label className="label" htmlFor="address">
                     地址 *
@@ -165,39 +109,21 @@ const FromThirdStep: React.FC = () => {
                     </div>
                 </div>
             </div>
-
             <div className="form-group">
                 <input type="text" className="form-control" id="address" name="address" required />
             </div>
+
             <div className="form-footer">
-                <label>小提醒～此頁資訊如未填寫完整，可能會影響您的權益喔</label>
-                <button type="submit" className="btn btn-outline-primary-2 btn-block margin-top-more">
-                    <span>完成</span>
+                <label className="custom-control-label" htmlFor="register-policy">
+                    請填寫完整資料，確保您能完整接收活動通知與優惠資訊
+                </label>
+
+                <button type="submit" className="btn btn-outline-primary-2 btn-block">
+                    <span>下一步</span>
                 </button>
-                <a>略過並完成註冊</a>
             </div>
         </form>
     )
 }
 
-const Register: React.FC<RegisterProps> = ({ setPropIsOpenFn }: RegisterProps) => {
-    const a = () => {
-        setPropIsOpenFn(false)
-    }
-    const [step, setStep] = React.useState(1)
-    switch (step) {
-        case 1:
-            return <FromFirstStep />
-
-        case 2:
-            return <FromSecondStep />
-
-        case 3:
-            return <FromThirdStep />
-
-        default:
-            return <FromFirstStep />
-    }
-}
-
-export default Register
+export default memo(UserInfo)
