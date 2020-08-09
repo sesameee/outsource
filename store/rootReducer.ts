@@ -20,6 +20,12 @@ import { verifyInvBarCodeSlice } from './verifyInvBarCode/slice'
 import { orderListSlice } from './orderList/slice'
 import { orderDetailSlice } from './orderDetail/slice'
 import { refundSlice } from './refund/slice'
+import { userRegisterSlice } from './userRegister/slice'
+import { registerUserInfoSlice } from './registerUserInfo/slice'
+import { forgotPasswordSlice } from './forgotPassword/slice'
+import { resetPasswordSlice } from './resetPassword/slice'
+import { userSetupSlice } from './userSetup/slice'
+import { userPointsSlice } from './userPoints/slice'
 import { RootState } from '@/types/stores/root'
 
 const rootReducer = combineReducers({
@@ -44,6 +50,12 @@ const rootReducer = combineReducers({
     orderList: orderListSlice.reducer,
     orderDetail: orderDetailSlice.reducer,
     refund: refundSlice.reducer,
+    userRegister: userRegisterSlice.reducer,
+    registerUserInfo: registerUserInfoSlice.reducer,
+    forgotPassword: forgotPasswordSlice.reducer,
+    resetPassword: resetPasswordSlice.reducer,
+    userSetup: userSetupSlice.reducer,
+    userPoints: userPointsSlice.reducer,
 })
 
 export default rootReducer

@@ -20,6 +20,12 @@ import VerifyInvBarCode from './verifyInvBarCode/epics'
 import OrderLIst from './orderList/epics'
 import OrderDetail from './orderDetail/epics'
 import Refund from './refund/epics'
+import UserRegister from './userRegister/epics'
+import RegisterUserInfo from './registerUserInfo/epics'
+import ForgotPassword from './forgotPassword/epics'
+import ResetPassword from './resetPassword/epics'
+import UserSetup from './userSetup/epics'
+import UserPoints from './userPoints/epics'
 
 export const rootEpic = combineEpics(
     ...GoogleBookEpics,
@@ -42,6 +48,12 @@ export const rootEpic = combineEpics(
     ...OrderLIst,
     ...OrderDetail,
     ...Refund,
+    ...UserRegister,
+    ...RegisterUserInfo,
+    ...ForgotPassword,
+    ...ResetPassword,
+    ...UserSetup,
+    ...UserPoints,
 )
 
 const epicMiddleware = createEpicMiddleware()

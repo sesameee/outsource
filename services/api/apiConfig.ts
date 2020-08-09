@@ -17,3 +17,11 @@ export const VERIFY_INV_BARCODE = 'verifyInvBarCode'
 export const ORDER_LIST = 'orderList'
 export const ORDER_DETAIL = 'orderDetail'
 export const REFUND = 'refund'
+
+export const USER_REGISTER = 'userRegister'
+export const REGISTER_USER_INFO = 'registerUserInfo'
+
+export const FORGOT_PASSWORD = 'forgotPassword'
+export const RESET_PASSWORD = 'resetPassword'
+export const USER_SETUP = 'userSetup'
+export const USER_POINTS = 'userPoints'

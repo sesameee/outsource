@@ -1,3 +1,5 @@
+import { Response } from './common'
+
 export interface UserRegisterReqData {
     name: string
     phoneCode: string
@@ -8,6 +10,10 @@ export interface UserRegisterReqData {
     registerFrom: string
 }
 
-export interface UserRegisterRspData {
+export interface UserRegisterData {
     memberId: string
+}
+
+export interface UserRegisterRspData extends Response {
+    data: UserRegisterData
 }
