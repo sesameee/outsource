@@ -60,13 +60,13 @@ const Order: React.FC = () => {
                                                     </figure>
 
                                                     <h3 className="product-title">
-                                                        <p>111</p>
-                                                        aaaa
+                                                        <p>Alexender Wang</p>
+                                                        Sienna Bungee 60mm high-heel sandals
                                                         <p>blue / large</p>
                                                     </h3>
                                                 </div>
                                             </td>
-                                            <td className="price-col">$123</td>
+                                            <td className="price-col">$2300</td>
                                             <td className="quantity-col">1</td>
                                             <td className="remove-col" rowSpan={2}>
                                                 <button type="button" className="btn btn-outline-primary-2 btn-block">
@@ -78,18 +78,17 @@ const Order: React.FC = () => {
                                             <td className="product-col">
                                                 <div className="product">
                                                     <figure className="product-media">
-                                                        <a href="#">
-                                                            <img src="" alt="Product image" />
-                                                        </a>
+                                                        <a href="#">{/* <img src="" alt="Product image" /> */}</a>
                                                     </figure>
 
                                                     <h3 className="product-title">
-                                                        <p>111</p>
-                                                        aaaa
+                                                        <p>Alexender Wang</p>
+                                                        Stadium sneakers
+                                                        <p>blue / large</p>
                                                     </h3>
                                                 </div>
                                             </td>
-                                            <td className="price-col">$123</td>
+                                            <td className="price-col">$12000</td>
                                             <td className="quantity-col">1</td>
                                         </tr>
                                     </table>

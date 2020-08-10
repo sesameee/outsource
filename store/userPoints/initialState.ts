@@ -4,7 +4,7 @@ export const initialState: State = {
     data: {
         totalPoints: 0,
         expiryPoints: 0,
-        expiryDate: '1',
+        expiryDate: '',
     },
     error: '',
 }

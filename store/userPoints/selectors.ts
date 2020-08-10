@@ -9,9 +9,9 @@ export const userPointsState = (state: RootState): UserPointsState => state.user
 //     return userPointsState.shoppingCartListList.totalItems
 // })
 
-export const userPoints = createSelector<RootState, UserPointsState, UserPointsState>(
+export const userPoints = createSelector<RootState, UserPointsState, UserPointsState['data']>(
     userPointsState,
     (userPointsState: UserPointsState) => {
-        return userPointsState
+        return userPointsState.data
     },
 )

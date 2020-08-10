@@ -22,7 +22,7 @@ const BreezeDaily: React.FC = () => {
                             </a>
                         </h3>
                         <a href={List1?.linkUrl} target="blank" className="btn btn-outline-white banner-link">
-                            Shop Now
+                            Discover Now
                         </a>
                     </div>
                 </div>
@@ -40,7 +40,7 @@ const BreezeDaily: React.FC = () => {
                             </a>
                         </h3>
                         <a href={List2?.linkUrl} target="blank" className="btn btn-outline-white banner-link">
-                            Shop Now
+                            Discover Now
                         </a>
                     </div>
                 </div>
@@ -78,7 +78,7 @@ const BreezeDaily: React.FC = () => {
                                     </a>
                                 </h3>
                                 <a href={List4?.linkUrl} target="blank" className="btn btn-outline-white banner-link">
-                                    Shop Now
+                                    Discover Now
                                 </a>
                             </div>
                         </div>
