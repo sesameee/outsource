@@ -1,13 +1,19 @@
-import React, { useEffect } from 'react'
-import { useTranslation } from '@/I18n'
+import React from 'react'
+// import { useTranslation } from '@/I18n'
+// import { useForm } from 'react-hook-form'
+// import { UserRegisterReqData } from '@/types/apis/userRegister'
+// import ErrorAlert from '../commons/ErrorAlert'
+// import { useDispatch, useSelector } from 'react-redux'
+// import { ErrorAlertActions, AddressInfoSelectors } from '@/store'
+// import { VerifyCodeData } from '@/types/apis/verifyCode'
+// import { RegisterUserInfoReqData } from '@/types/apis/registerUserInfo'
+
+import { useSelector } from 'react-redux'
+import { useAddressInfo } from '@/hooks/AddressInfo'
+import { AddressInfoSelectors } from '@/store'
 import { useForm } from 'react-hook-form'
 import { UserRegisterReqData } from '@/types/apis/userRegister'
-import ErrorAlert from '../commons/ErrorAlert'
-import { useDispatch, useSelector } from 'react-redux'
-import { ErrorAlertActions, AddressInfoSelectors } from '@/store'
-import { VerifyCodeData } from '@/types/apis/verifyCode'
-import { RegisterUserInfoReqData } from '@/types/apis/registerUserInfo'
-import { useAddressInfo } from '@/hooks/AddressInfo'
+import { useTranslation } from '@/I18n'
 
 type RegisterProps = {
     setPropIsOpenFn: any
@@ -15,9 +21,9 @@ type RegisterProps = {
 
 const FromFirstStep: React.FC = () => {
     const { t } = useTranslation()
-    const { register, handleSubmit } = useForm<UserRegisterReqData>()
+    const { register } = useForm<UserRegisterReqData>()
     return (
-        <form action="#" onSubmit={() => a}>
+        <form action="#">
             <div className="form-group">
                 <label htmlFor="name">姓名 *</label>
                 <input type="text" className="form-control" id="name" name="name" required />
@@ -79,10 +85,10 @@ const FromFirstStep: React.FC = () => {
 }
 
 const FromSecondStep: React.FC = () => {
-    const { t } = useTranslation()
-    const { register, handleSubmit } = useForm<VerifyCodeData>()
+    //const { t } = useTranslation()
+    //const { register, handleSubmit } = useForm<VerifyCodeData>()
     return (
-        <form action="#" onSubmit={() => handleSubmit}>
+        <form action="#">
             <div className="form-group">
                 <label htmlFor="code">簡訊驗證碼 *</label>
                 <input type="text" className="form-control" id="code" name="code" required />
@@ -98,12 +104,12 @@ const FromSecondStep: React.FC = () => {
 
 const FromThirdStep: React.FC = () => {
     useAddressInfo()
-    const { t } = useTranslation()
-    const { register, handleSubmit } = useForm<RegisterUserInfoReqData>()
+    //const { t } = useTranslation()
+    //const { register, handleSubmit } = useForm<RegisterUserInfoReqData>()
     const AddressInfo = useSelector(AddressInfoSelectors.getAddressInfo)
     const [city, setCity] = React.useState(0)
     return (
-        <form className="from-third-step" action="#" onSubmit={() => a}>
+        <form className="from-third-step" action="#">
             <div className="form-group">
                 <label htmlFor="rocId">身份證字號 *</label>
                 <input type="text" className="form-control" id="rocId" name="rocId" required />
@@ -183,8 +189,10 @@ const FromThirdStep: React.FC = () => {
 const Register: React.FC<RegisterProps> = ({ setPropIsOpenFn }: RegisterProps) => {
     const a = () => {
         setPropIsOpenFn(false)
+        setStep(0)
     }
     const [step, setStep] = React.useState(1)
+    console.log(a)
     switch (step) {
         case 1:
             return <FromFirstStep />

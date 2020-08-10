@@ -1,5 +1,4 @@
 import React from 'react'
-import { useShoppingCartList } from '@/hooks/ShoppingCart'
 import { ShoppingCartListSelectors } from '@/store'
 import { useSelector } from 'react-redux'
 // import Link from 'next/link'

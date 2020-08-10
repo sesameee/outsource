@@ -1,8 +1,7 @@
 import React, { memo } from 'react'
-// import ItemSubList from './ItemSubList'
 // import { CategoryData } from '@/types/apis/channelList'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
+// import Link from 'next/link'
+// import { useRouter } from 'next/router'
 const Points: React.FC = () => {
     return (
         <div className="point-frame">

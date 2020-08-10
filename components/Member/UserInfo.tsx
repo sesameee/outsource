@@ -1,9 +1,10 @@
 import React, { memo } from 'react'
 import { useAddressInfo } from '@/hooks/AddressInfo'
-import { ErrorAlertActions, AddressInfoSelectors } from '@/store'
-import { useDispatch, useSelector } from 'react-redux'
+import { AddressInfoSelectors } from '@/store'
+import { useSelector } from 'react-redux'
 import { useTranslation } from '@/I18n'
 import { useForm } from 'react-hook-form'
+import { UserRegisterReqData } from '@/types/apis/userRegister'
 
 const UserInfo: React.FC = () => {
     useAddressInfo()
@@ -12,7 +13,7 @@ const UserInfo: React.FC = () => {
     const AddressInfo = useSelector(AddressInfoSelectors.getAddressInfo)
     const [city, setCity] = React.useState(0)
     return (
-        <form action="#" className="member-from" onSubmit={() => a}>
+        <form action="#" className="member-from" onSubmit={() => handleSubmit}>
             <div className="form-group">
                 <label htmlFor="name">姓名 *</label>
                 <input type="text" className="form-control" id="name" name="name" required />

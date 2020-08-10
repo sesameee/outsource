@@ -1,6 +1,4 @@
 import { i18n } from '@/I18n'
-import { expr } from 'jquery'
-import { NextPageContext } from 'next'
 
 export const changeLanguage = () => {
     i18n.changeLanguage('en')
@@ -135,8 +133,4 @@ export const deleteCookie = (name: string): void => {
 
     // Set it
     document.cookie = name + '=; expires=' + date.toUTCString() + '; path=/'
-}
-import cookies from 'next-cookies'
-export const hocServerSide = async (ctx: NextPageContext): Promise<T> => {
-    return { token: cookies(ctx).token || '' }
 }

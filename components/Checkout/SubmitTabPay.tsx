@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
 import ProductDetail from './ProductDetail'
+import { TPDirect } from '@/types/Common'
+declare let window: TPDirect
 const SubmitTabPay: React.FC = () => {
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -8,22 +10,22 @@ const SubmitTabPay: React.FC = () => {
                 'app_jJk5eM3hTTbRarr4Fh1lWJjoik5Hs4GjBU4m99Sgpb7erLn6aDCd8secnCMS',
                 'sandbox',
             )
-            const fields = {
-                number: {
-                    // css selector
-                    element: '#card-number',
-                    placeholder: '**** **** **** ****',
-                },
-                expirationDate: {
-                    // DOM object
-                    element: document.getElementById('card-expiration-date'),
-                    placeholder: 'MM / YY',
-                },
-                ccv: {
-                    element: '#card-ccv',
-                    placeholder: 'ccv',
-                },
-            }
+            // const fields = {
+            //     number: {
+            //         // css selector
+            //         element: '#card-number',
+            //         placeholder: '**** **** **** ****',
+            //     },
+            //     expirationDate: {
+            //         // DOM object
+            //         element: document.getElementById('card-expiration-date'),
+            //         placeholder: 'MM / YY',
+            //     },
+            //     ccv: {
+            //         element: '#card-ccv',
+            //         placeholder: 'ccv',
+            //     },
+            // }
             // window.TPDirect.card.setup({
             //     // Display ccv field
 

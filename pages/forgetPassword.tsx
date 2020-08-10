@@ -1,20 +1,18 @@
 import React from 'react'
 import Header from '@/components/Header'
-// import Main from '@/components/Index/Main'
 import Footer from '@/components/Footer'
 import Nav from '@/components/Nav'
 import { navData } from '@/types/components/nav'
 import { useTranslation } from '@/I18n'
-import { useRouter } from 'next/router'
-import { NextPageContext, NextPage } from 'next'
-import { VerifyCodeData } from '@/types/apis/verifyCode'
-import { ForgotPasswordReqData } from '@/types/apis/forgotPassword'
-import { useForm } from 'react-hook-form'
-import cookies from 'next-cookies'
+//import { useRouter } from 'next/router'
+//import { NextPageContext, NextPage } from 'next'
+// import { VerifyCodeData } from '@/types/apis/verifyCode'
+// import { ForgotPasswordReqData } from '@/types/apis/forgotPassword'
+// import { useForm } from 'react-hook-form'
 
 const FromFirstStep: React.FC = () => {
-    const { t } = useTranslation()
-    const { register, handleSubmit } = useForm<ForgotPasswordReqData>()
+    //const { t } = useTranslation()
+    //const { register, handleSubmit } = useForm<ForgotPasswordReqData>()
 
     return (
         <form action="#">
@@ -36,8 +34,8 @@ const FromFirstStep: React.FC = () => {
 }
 
 const FromSecondStep: React.FC = () => {
-    const { t } = useTranslation()
-    const { register, handleSubmit } = useForm<VerifyCodeData>()
+    //const { t } = useTranslation()
+    //const { register, handleSubmit } = useForm<VerifyCodeData>()
 
     return (
         <form action="#">
@@ -56,6 +54,7 @@ const FromSecondStep: React.FC = () => {
 
 const FromFrame: React.FC = () => {
     const [step, setStep] = React.useState(1)
+    console.log('setStep :>> ', setStep)
     switch (step) {
         case 1:
             return <FromFirstStep />

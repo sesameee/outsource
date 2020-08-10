@@ -7,10 +7,6 @@ export enum FilterType {
     TIME_OLD_TO_NEW = 3,
 }
 
-declare global {
-    interface Window {
-        TPDirect: any
-    }
+export interface TPDirect extends Window {
+    TPDirect: any
 }
-
-window.TPDirect = window.TPDirect || {}

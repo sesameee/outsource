@@ -2,14 +2,14 @@ import React, { useEffect } from 'react'
 import Header from '@/components/Header'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
-import CartItemList from '@/components/Cart/CartItemList'
+// import CartItemList from '@/components/Cart/CartItemList'
 import { ShoppingCartListSelectors, PromoCodeSelectors, AddressInfoSelectors } from '@/store'
 import { useSelector } from 'react-redux'
 import { useShoppingCartList } from '@/hooks/ShoppingCart'
 import { useAddressInfo } from '@/hooks/AddressInfo'
-import PromoCode from '@/components/Cart/PromoCode'
+//import PromoCode from '@/components/Cart/PromoCode'
 import { accAdd, accSubtr } from '@/utils'
-import ProductDetail from '@/components/Checkout/ProductDetail'
+//import ProductDetail from '@/components/Checkout/ProductDetail'
 import BuyNotice from '@/components/commons/BuyNotice'
 import { NextPage, NextPageContext } from 'next'
 const SubmitTabPay = dynamic(() => import('@/components/Checkout/SubmitTabPay'), {
@@ -103,7 +103,7 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
     const finalAmount = promoData.name ? accSubtr(amount, disCountamount) : amount
     const AddressInfo = useSelector(AddressInfoSelectors.getAddressInfo)
     const [invoice, setInvoice] = React.useState(InvoiceFromType.PhoneBarcode)
-    console.log('AddressInfo :>> ', AddressInfo)
+    console.log('AddressInfo :>> ', finalAmount)
 
     const [city, setCity] = React.useState(0)
 

@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import CartItemList from '../Cart/CartItemList'
+// import CartItemList from '../Cart/CartItemList'
 
 export interface tabDataVo {
     title: string
@@ -56,9 +56,7 @@ const Order: React.FC = () => {
                                             <td className="product-col">
                                                 <div className="product">
                                                     <figure className="product-media">
-                                                        <a href="#">
-                                                            <img src="" alt="Product image" />
-                                                        </a>
+                                                        <a href="#">{/* <img src="" alt="Product image" /> */}</a>
                                                     </figure>
 
                                                     <h3 className="product-title">
