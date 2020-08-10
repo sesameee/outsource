@@ -14,13 +14,13 @@ const Channel: React.FC = () => {
         dots: true,
         infinite: true,
         speed: 500,
-        slidesToScroll: 1,
+        slidesToScroll: 3,
         slidesToShow: 3,
         responsive: [
             {
                 breakpoint: 1200,
                 settings: {
-                    slidesToScroll: 1,
+                    slidesToScroll: 3,
                     slidesToShow: 4,
                     dots: true,
                 },
