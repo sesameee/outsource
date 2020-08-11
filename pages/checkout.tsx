@@ -12,9 +12,6 @@ import { accAdd, accSubtr } from '@/utils'
 //import ProductDetail from '@/components/Checkout/ProductDetail'
 import BuyNotice from '@/components/commons/BuyNotice'
 import { NextPage, NextPageContext } from 'next'
-const SubmitTabPay = dynamic(() => import('@/components/Checkout/SubmitTabPay'), {
-    ssr: false,
-})
 // import { withTranslation, i18n } from '@/I18n'
 enum InvoiceFromType {
     MemberDriver = 1,
@@ -103,7 +100,6 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
     const finalAmount = promoData.name ? accSubtr(amount, disCountamount) : amount
     const AddressInfo = useSelector(AddressInfoSelectors.getAddressInfo)
     const [invoice, setInvoice] = React.useState(InvoiceFromType.PhoneBarcode)
-    console.log('AddressInfo :>> ', finalAmount)
 
     const [city, setCity] = React.useState(0)
 
@@ -128,7 +124,7 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
             setDisCountamount(disNum)
         }
     }, [sum, priceArr, discountArr])
-
+    useSetupTabPay()
     return (
         <div className="page-wrapper">
             <BuyNotice openBuyNotice={openBuyNotice} setOpenBuyNotice={setOpenBuyNotice} />
@@ -256,7 +252,109 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
                                             </div>
                                         </div>
                                     </div>
-                                    <SubmitTabPay />
+
+                                    <aside className="col-lg-3">
+                                        <div className="summary">
+                                            <h3 className="summary-title">訂單明細</h3>
+                                            <ProductDetail />
+                                            <div className="accordion-summary" id="accordion-payment">
+                                                <div className="card">
+                                                    <div className="card-header" id="heading-1">
+                                                        <h2 className="card-title">
+                                                            <a
+                                                                role="button"
+                                                                data-toggle="collapse"
+                                                                href="#collapse-1"
+                                                                aria-expanded="true"
+                                                                aria-controls="collapse-1"
+                                                            >
+                                                                信用卡 ( 一次付清 )
+                                                            </a>
+                                                        </h2>
+                                                    </div>
+                                                    <div
+                                                        id="collapse-1"
+                                                        className="collapse show"
+                                                        aria-labelledby="heading-1"
+                                                        data-parent="#accordion-payment"
+                                                    >
+                                                        <div className="card-body">
+                                                            <div className="card-section-1">
+                                                                <label>信用卡卡號</label>
+                                                                <img
+                                                                    className="item"
+                                                                    src="/images/custom/mastercard.png"
+                                                                />
+                                                                <img className="item" src="/images/custom/jcb.png" />
+                                                                <img className="item" src="/images/custom/amex.png" />
+                                                            </div>
+                                                            <div id="card-number" className="tabpay-input"></div>
+                                                            <div className="card-section-2">
+                                                                <div className="credit-expires item">
+                                                                    <label>到期日 (月/日)</label>
+                                                                    <div
+                                                                        id="card-expiration-date"
+                                                                        className="tabpay-input"
+                                                                    ></div>
+                                                                </div>
+                                                                <div className="item">
+                                                                    <label>末三碼</label>
+                                                                    <div id="card-ccv" className="tabpay-input"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="card">
+                                                    <div className="card-header" id="heading-1">
+                                                        <h2 className="card-title">
+                                                            <a
+                                                                role="button"
+                                                                data-toggle="collapse"
+                                                                href="#collapse-2"
+                                                                aria-expanded="false"
+                                                                aria-controls="collapse-2"
+                                                                className="collapsed card-select"
+                                                            >
+                                                                <img
+                                                                    className="card-icon"
+                                                                    src="/images/custom/googlepay.png"
+                                                                />
+                                                                <span>Google pay</span>
+                                                            </a>
+                                                        </h2>
+                                                    </div>
+                                                </div>
+                                                <div className="card">
+                                                    <div className="card-header" id="heading-1">
+                                                        <h2 className="card-title">
+                                                            <a
+                                                                role="button"
+                                                                data-toggle="collapse"
+                                                                href="#collapse-2"
+                                                                aria-expanded="false"
+                                                                aria-controls="collapse-2"
+                                                                className="collapsed card-select"
+                                                            >
+                                                                <img
+                                                                    className="card-icon"
+                                                                    src="/images/custom/applepay.png"
+                                                                />
+                                                                <span>Apple Pay</span>
+                                                            </a>
+                                                        </h2>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button
+                                                type="submit"
+                                                className="btn btn-outline-primary-2 btn-order btn-block"
+                                            >
+                                                <span className="btn-text">送出訂單</span>
+                                                <span className="btn-hover-text">確認送出訂單</span>
+                                            </button>
+                                        </div>
+                                    </aside>
                                 </div>
                             </form>
                         </div>
@@ -270,8 +368,9 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
 import cookies from 'next-cookies'
 import { CheckoutReqData } from '@/types/apis/checkout'
 import { useForm } from 'react-hook-form'
-import { useCheckoutHandler } from '@/hooks/Checkout'
+import { useCheckoutHandler, useSetupTabPay } from '@/hooks/Checkout'
 import dynamic from 'next/dynamic'
+import ProductDetail from '@/components/Checkout/ProductDetail'
 Checkout.getInitialProps = async (ctx: NextPageContext) => {
     return { token: cookies(ctx).token || '' }
 }

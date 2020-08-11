@@ -630,6 +630,9 @@
         .card-section-2 {
             margin-top: 5px;
             display: flex;
+            .item {
+                flex: 1;
+            }
             .credit-expires {
                 margin-right: 10px;
             }
@@ -805,4 +808,15 @@
             color: $mainColor;
         }
     }
+}
+
+.tabpay-input {
+    width: 100%;
+    border: 1px solid #9c9c9c;
+    background-color: #fff;
+    border-radius: 3px;
+    height: 30px;
+    padding: 0 10px;
+    font-size: 1rem;
+    line-height: 42px;
 }

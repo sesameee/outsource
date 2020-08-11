@@ -10,57 +10,68 @@ const SubmitTabPay: React.FC = () => {
                 'app_jJk5eM3hTTbRarr4Fh1lWJjoik5Hs4GjBU4m99Sgpb7erLn6aDCd8secnCMS',
                 'sandbox',
             )
-            // const fields = {
-            //     number: {
-            //         // css selector
-            //         element: '#card-number',
-            //         placeholder: '**** **** **** ****',
-            //     },
-            //     expirationDate: {
-            //         // DOM object
-            //         element: document.getElementById('card-expiration-date'),
-            //         placeholder: 'MM / YY',
-            //     },
-            //     ccv: {
-            //         element: '#card-ccv',
-            //         placeholder: 'ccv',
-            //     },
-            // }
-            // window.TPDirect.card.setup({
-            //     // Display ccv field
 
-            //     fields: fields,
-            //     styles: {
-            //         // Style all elements
-            //         input: {
-            //             color: 'gray',
-            //         },
-            //         // Styling ccv field
-            //         'input.ccv': {
-            //             // 'font-size': '16px'
-            //         },
-            //         // Styling expiration-date field
-            //         'input.expiration-date': {
-            //             // 'font-size': '16px'
-            //         },
-            //         // Styling card-number field
-            //         'input.card-number': {
-            //             // 'font-size': '16px'
-            //         },
-            //         // style focus state
-            //         ':focus': {
-            //             // 'color': 'black'
-            //         },
-            //         // style valid state
-            //         '.valid': {
-            //             color: 'green',
-            //         },
-            //         // style invalid state
-            //         '.invalid': {
-            //             color: 'red',
-            //         },
-            //     },
-            // })
+            // expirationDate: {
+            //     // DOM object
+            //     element: document.getElementById('card-expiration-date'),
+            //     placeholder: 'MM / YY',
+            // },
+            // ccv: {
+            //     element: '#card-ccv',
+            //     placeholder: 'ccv',
+            // },
+            const fields = {
+                number: {
+                    // css selector
+                    element: '#card-number',
+                    placeholder: '**** **** **** ****',
+                },
+                expirationDate: {
+                    // DOM object
+                    element: document.getElementById('card-expiration-date'),
+                    placeholder: 'MM / YY',
+                },
+                ccv: {
+                    element: '#card-ccv',
+                    placeholder: 'ccv',
+                },
+            }
+            window.TPDirect.card.setup({
+                // Display ccv field
+
+                fields: fields,
+                styles: {
+                    // Style all elements
+                    input: {
+                        color: 'black',
+                    },
+                    // Styling ccv field
+                    'input.ccv': {
+                        // 'font-size': '16px'
+                    },
+                    // Styling expiration-date field
+                    'input.expiration-date': {
+                        // 'font-size': '16px'
+                    },
+                    // Styling card-number field
+                    'input.card-number': {
+                        'font-size': '0.7rem',
+                        'line-height': '42px',
+                    },
+                    // style focus state
+                    ':focus': {
+                        // 'color': 'black'
+                    },
+                    // style valid state
+                    '.valid': {
+                        color: 'green',
+                    },
+                    // style invalid state
+                    '.invalid': {
+                        color: 'red',
+                    },
+                },
+            })
         }
     }, [])
     return (
@@ -96,42 +107,15 @@ const SubmitTabPay: React.FC = () => {
                                     <img className="item" src="/images/custom/jcb.png" />
                                     <img className="item" src="/images/custom/amex.png" />
                                 </div>
-                                {/* <div id="card-number"></div>
-                                <div id="card-expiration-date"></div>
-                                <div id="card-ccv"></div> */}
-                                <input
-                                    type="tel"
-                                    inputMode="numeric"
-                                    pattern="[0-9\s]{13,19}"
-                                    autoComplete="cc-number"
-                                    maxLength={19}
-                                    placeholder="1234 1234 1234 1234"
-                                    className="input"
-                                />
+                                <div id="card-number" className="tabpay-input"></div>
                                 <div className="card-section-2">
-                                    <div className="credit-expires">
+                                    <div className="credit-expires item">
                                         <label>到期日 (月/日)</label>
-                                        <input
-                                            maxLength={7}
-                                            name="credit-expires"
-                                            pattern="\d*"
-                                            placeholder="MM / YY"
-                                            type="tel"
-                                            className="input"
-                                            id="card-expiration-date"
-                                        />
+                                        <div id="card-expiration-date" className="tabpay-input"></div>
                                     </div>
-
-                                    <div>
+                                    <div className="item">
                                         <label>末三碼</label>
-                                        <input
-                                            maxLength={4}
-                                            name="credit-cvc"
-                                            pattern="\d*"
-                                            placeholder="CVC"
-                                            type="tel"
-                                            className="input"
-                                        />
+                                        <div id="card-ccv" className="tabpay-input"></div>
                                     </div>
                                 </div>
                             </div>
