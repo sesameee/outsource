@@ -59,7 +59,7 @@ const TopBanner: React.FC = () => {
                 ) : (
                     <div className="intro-slide" key={index}>
                         <div className="intro-content no-padding" style={{ height: '100vh' }}>
-                            <iframe className="video" src={item?.sourceUrl}></iframe>
+                            <iframe className="video" src={item?.sourceUrl} allow="autoplay"></iframe>
                             <div className="textFrame">
                                 <h3 className="intro-subtitle text-white">{item?.desc}</h3>
                                 <h1 className="intro-title text-white">{item?.desc}</h1>
