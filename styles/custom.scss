@@ -820,3 +820,11 @@
     font-size: 1rem;
     line-height: 42px;
 }
+
+.barcode-label {
+    display: flex;
+    justify-content: space-between;
+    span {
+        color: green;
+    }
+}

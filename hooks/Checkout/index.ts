@@ -102,9 +102,28 @@ export const useCheckoutHandler = (): any => {
     const dispatch = useDispatch()
     const handleCheckoutSubmit = useCallback(
         (data: any) => {
-            dispatch(CheckoutActions.fetchCheckout(data))
+            console.log('data :>> ', data)
+            const tappayStatus = window.TPDirect.card.getTappayFieldsStatus()
+            // 確認是否可以 getPrime
+            if (tappayStatus.canGetPrime === false) {
+                alert('請輸入信用卡資訊')
+                return
+            }
+            // Get prime
+            window.TPDirect.card.getPrime((result: any) => {
+                if (result.status !== 0) {
+                    alert('信用卡資訊有誤 ' + result.msg)
+                    return
+                }
+
+                const sendData = { ...data, payType: 2, payload: result.card.prime }
+                console.log('sendData :>> ', sendData)
+                dispatch(CheckoutActions.fetchCheckout(sendData))
+                alert('get prime 成功，prime: ' + result.card.prime)
+            })
         },
         [dispatch],
     )
+
     return { handleCheckoutSubmit }
 }

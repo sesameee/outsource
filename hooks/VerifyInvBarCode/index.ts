@@ -1,7 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { VerifyInvBarCodeActions } from '@/store'
 import { useCallback } from 'react'
-import { VerifyInvBarCodeReqData } from '@/types/apis/verifyInvBarCode'
 
 export const useVerifyInvBarCodeHandler = (): any => {
     const dispatch = useDispatch()
@@ -16,5 +15,8 @@ export const useVerifyInvBarCodeHandler = (): any => {
         },
         [dispatch],
     )
-    return { handleVerifyInvBarCodeSubmit }
+    const handleReset = useCallback(() => {
+        dispatch(VerifyInvBarCodeActions.reset())
+    }, [dispatch])
+    return { handleVerifyInvBarCodeSubmit, handleReset }
 }
