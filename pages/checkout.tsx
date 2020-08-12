@@ -24,14 +24,29 @@ type InvoiceFromProps = {
 }
 
 const InvoiceFrom: React.FC<InvoiceFromProps> = ({ type }: InvoiceFromProps) => {
+    const AddressInfo = useSelector(AddressInfoSelectors.getAddressInfo)
+    const [city, setCity] = React.useState(0)
+    const { handleVerifyInvBarCodeSubmit } = useVerifyInvBarCodeHandler()
+    const [barcode, setBarcode] = React.useState('')
+    const handleBarcode = () => {
+        handleVerifyInvBarCodeSubmit(barcode)
+    }
+
     switch (type) {
         case InvoiceFromType.PhoneBarcode:
             return (
                 <>
-                    <label>請輸入手機條碼 *</label>
+                    <label htmlFor="carrierCode">請輸入手機條碼 *</label>
                     <div className="checkout-custom-btn">
-                        <input type="text" className="form-control" required />
-                        <button type="button" className="btn btn-outline-primary-2">
+                        <input
+                            type="text"
+                            name="carrierCode"
+                            defaultValue={barcode}
+                            onChange={(e) => setBarcode(e.target.value)}
+                            className="form-control"
+                            required
+                        />
+                        <button type="button" className="btn btn-outline-primary-2" onClick={() => handleBarcode()}>
                             檢查
                         </button>
                     </div>
@@ -40,14 +55,58 @@ const InvoiceFrom: React.FC<InvoiceFromProps> = ({ type }: InvoiceFromProps) => 
         case InvoiceFromType.MemberDriver:
             return (
                 <>
-                    <label>姓名 *</label>
-                    <input type="text" className="form-control" required />
-                    <label>電話 *</label>
-                    <input type="text" className="form-control" required />
-                    <label>email *</label>
-                    <input type="text" className="form-control" required />
-                    <label>地址 *</label>
-                    <input type="text" className="form-control" required />
+                    <label htmlFor="invoiceName">姓名 *</label>
+                    <input type="text" name="invoiceName" className="form-control" required />
+                    <label htmlFor="carrierCode">電話 *</label>
+                    <input type="text" name="carrierCode" className="form-control" required />
+                    <label htmlFor="invoiceEmail">email *</label>
+                    <input type="text" name="invoiceEmail" className="form-control" required />
+                    <div className="row">
+                        <div className="col-sm-6">
+                            <label htmlFor="invoiceCityCode">縣市 *</label>
+                            <div className="select-custom">
+                                <select
+                                    name="invoiceCityCode"
+                                    id="invoiceCityCode"
+                                    className="form-control"
+                                    onChange={(e) => setCity(Number(e.target.value))}
+                                >
+                                    <option value="" selected={true}>
+                                        請選擇縣市
+                                    </option>
+                                    {AddressInfo.map((item, index) => {
+                                        return (
+                                            <option key={index} value={index}>
+                                                {item.cityName}
+                                            </option>
+                                        )
+                                    })}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div className="col-sm-6">
+                            <label htmlFor="invoiceAreaCode">區域 *</label>
+                            <div className="select-custom">
+                                <select name="invoiceAreaCode" id="invoiceAreaCode" className="form-control">
+                                    <option value="" selected={true}>
+                                        請選擇區域
+                                    </option>
+                                    {AddressInfo[city] &&
+                                        AddressInfo[city].areas.map((item, index) => {
+                                            return (
+                                                <option key={`a${index}`} value={item.zipCode}>
+                                                    {item.areaName}
+                                                </option>
+                                            )
+                                        })}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <label htmlFor="carrierCode">地址 *</label>
+                    <input type="text" name="carrierCode" className="form-control" required />
                 </>
             )
         case InvoiceFromType.Donate:
@@ -108,7 +167,6 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
     const { register, handleSubmit } = useForm<CheckoutReqData>()
     const { handleCheckoutSubmit } = useCheckoutHandler()
     const onSubmit = (data: any) => {
-        console.log('dataAAAA :>> ', data)
         handleCheckoutSubmit(data)
     }
 
@@ -125,6 +183,7 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
         }
     }, [sum, priceArr, discountArr])
     useSetupTabPay()
+
     return (
         <div className="page-wrapper">
             <BuyNotice openBuyNotice={openBuyNotice} setOpenBuyNotice={setOpenBuyNotice} />
@@ -148,28 +207,40 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
                                 <div className="row">
                                     <div className="col-lg-9">
                                         <h2 className="checkout-title">配送資訊</h2>
-                                        <label>姓名 *</label>
+                                        <label htmlFor="receiveName">姓名 *</label>
                                         <input
                                             type="text"
                                             className="form-control"
                                             required
-                                            name="name"
+                                            name="receiveName"
                                             ref={register({ required: true })}
                                         />
 
-                                        <label>手機號碼 *</label>
-                                        <input type="text" className="form-control" required />
+                                        <label htmlFor="receiveMobile">手機號碼 *</label>
+                                        <input
+                                            name="receiveMobile"
+                                            type="text"
+                                            className="form-control"
+                                            required
+                                            ref={register({ required: true })}
+                                        />
 
-                                        <label>電子郵件 *</label>
-                                        <input type="text" className="form-control" required />
+                                        <label htmlFor="receiveEmail">電子郵件 *</label>
+                                        <input
+                                            name="receiveEmail"
+                                            type="text"
+                                            className="form-control"
+                                            required
+                                            ref={register({ required: true })}
+                                        />
 
                                         <div className="row">
                                             <div className="col-sm-6">
-                                                <label htmlFor="size">收件人縣市 *</label>
+                                                <label htmlFor="receiveAreaCode">收件人縣市 *</label>
                                                 <div className="select-custom">
                                                     <select
-                                                        name="size"
-                                                        id="size"
+                                                        name="receiveAreaCode"
+                                                        id="receiveAreaCode"
                                                         className="form-control"
                                                         onChange={(e) => setCity(Number(e.target.value))}
                                                     >
@@ -188,9 +259,13 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
                                             </div>
 
                                             <div className="col-sm-6">
-                                                <label htmlFor="size">收件人區域 *</label>
+                                                <label htmlFor="receiveCityCode">收件人區域 *</label>
                                                 <div className="select-custom">
-                                                    <select name="size" id="size" className="form-control">
+                                                    <select
+                                                        name="receiveCityCode"
+                                                        id="receiveCityCode"
+                                                        className="form-control"
+                                                    >
                                                         <option value="" selected={true}>
                                                             請選擇收件人區域
                                                         </option>
@@ -207,14 +282,14 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
                                             </div>
                                         </div>
 
-                                        <label>收件人詳細地址 *</label>
-                                        <input type="text" className="form-control" required />
+                                        <label htmlFor="receiveAddress">收件人詳細地址 *</label>
+                                        <input type="text" name="receiveAddress" className="form-control" required />
 
-                                        <label htmlFor="size">發票類型 *</label>
+                                        <label htmlFor="invoiceInfo">發票類型 *</label>
                                         <div className="select-custom">
                                             <select
-                                                name="invoice"
-                                                id="invoice"
+                                                name="invoiceInfo"
+                                                id="invoiceInfo"
                                                 className="form-control"
                                                 onChange={(e) => setInvoice(Number(e.target.value))}
                                             >
@@ -227,8 +302,9 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
                                             </select>
                                         </div>
                                         <InvoiceFrom type={invoice} />
-                                        <label>備註</label>
+                                        <label htmlFor="receiveMemo">備註</label>
                                         <textarea
+                                            name="receiveMemo"
                                             className="form-control"
                                             cols={30}
                                             rows={4}
@@ -257,6 +333,12 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
                                         <div className="summary">
                                             <h3 className="summary-title">訂單明細</h3>
                                             <ProductDetail />
+                                            <input
+                                                type="text"
+                                                name="shipType"
+                                                value="delivery"
+                                                style={{ display: 'none' }}
+                                            />
                                             <div className="accordion-summary" id="accordion-payment">
                                                 <div className="card">
                                                     <div className="card-header" id="heading-1">
@@ -371,6 +453,7 @@ import { useForm } from 'react-hook-form'
 import { useCheckoutHandler, useSetupTabPay } from '@/hooks/Checkout'
 import dynamic from 'next/dynamic'
 import ProductDetail from '@/components/Checkout/ProductDetail'
+import { useVerifyInvBarCodeHandler } from '@/hooks/VerifyInvBarCode'
 Checkout.getInitialProps = async (ctx: NextPageContext) => {
     return { token: cookies(ctx).token || '' }
 }

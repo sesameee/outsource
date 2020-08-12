@@ -1,16 +1,20 @@
-import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { VerifyInvBarCodeActions } from '@/store'
-import { useTranslation } from '@/I18n'
+import { useCallback } from 'react'
+import { VerifyInvBarCodeReqData } from '@/types/apis/verifyInvBarCode'
 
-export const useVerifyInvBarCode = (): void => {
-    const { i18n } = useTranslation()
+export const useVerifyInvBarCodeHandler = (): any => {
     const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(VerifyInvBarCodeActions.fetchVerifyInvBarCode({
-            memberId: '1',
-            barCode: '1',
-            accessToken: '1',
-        }))
-    }, [dispatch, i18n.language])
+    const handleVerifyInvBarCodeSubmit = useCallback(
+        (barCode: string) => {
+            const data = {
+                memberId: '1',
+                barCode,
+                accessToken: '1',
+            }
+            dispatch(VerifyInvBarCodeActions.fetchVerifyInvBarCode(data))
+        },
+        [dispatch],
+    )
+    return { handleVerifyInvBarCodeSubmit }
 }
