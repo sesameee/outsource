@@ -39,15 +39,29 @@ const TopBanner: React.FC = () => {
         prevArrow: <PrevArrow />,
     }
 
-    return bannerList.length > 0 ? (
-        <Slider {...settings} className="intro-slider">
-            {bannerList.map((item: BannerData | null, index: number) =>
-                item?.contentType == 'image' ? (
-                    <div key={index} className="intro-slide">
-                        <div
-                            className="intro-content text-center"
-                            style={{ backgroundImage: `url(${item?.sourceUrl})`, height: '100vh' }}
-                        >
+    const BannerItem = (item: BannerData) => {
+        switch (item.contentType) {
+            case 'image':
+                return (
+                    <div
+                        className="intro-content text-center"
+                        style={{ backgroundImage: `url(${item?.sourceUrl})`, height: '100vh' }}
+                    >
+                        <h3 className="intro-subtitle text-white">{item?.desc}</h3>
+                        <h1 className="intro-title text-white">{item?.desc}</h1>
+                        <a href={item?.linkUrl} target="blank" className="btn btn-outline-white">
+                            <span>DISCOVER MORE</span>
+                            <i className="icon-long-arrow-right"></i>
+                        </a>
+                    </div>
+                )
+            case 'video':
+                return (
+                    <div className="intro-content no-padding" style={{ height: '100vh' }}>
+                        <video autoPlay muted loop playsInline className="video" style={{ objectFit: 'cover' }}>
+                            <source src={item?.sourceUrl} type="video/mp4" />
+                        </video>
+                        <div className="textFrame">
                             <h3 className="intro-subtitle text-white">{item?.desc}</h3>
                             <h1 className="intro-title text-white">{item?.desc}</h1>
                             <a href={item?.linkUrl} target="blank" className="btn btn-outline-white">
@@ -56,22 +70,40 @@ const TopBanner: React.FC = () => {
                             </a>
                         </div>
                     </div>
-                ) : (
-                    <div className="intro-slide" key={index}>
-                        <div className="intro-content no-padding" style={{ height: '100vh' }}>
-                            <iframe className="video" src={item?.sourceUrl} allow="autoplay"></iframe>
-                            <div className="textFrame">
-                                <h3 className="intro-subtitle text-white">{item?.desc}</h3>
-                                <h1 className="intro-title text-white">{item?.desc}</h1>
-                                <a href={item?.linkUrl} target="blank" className="btn btn-outline-white">
-                                    <span>DISCOVER MORE</span>
-                                    <i className="icon-long-arrow-right"></i>
-                                </a>
-                            </div>
+                )
+            case 'youtube':
+                return (
+                    <div className="intro-content no-padding" style={{ height: '100vh' }}>
+                        <iframe
+                            className="video"
+                            src={item?.sourceUrl}
+                            allow="autoplay"
+                            style={{ border: 'none' }}
+                        ></iframe>
+                        <div className="textFrame">
+                            <h3 className="intro-subtitle text-white">{item?.desc}</h3>
+                            <h1 className="intro-title text-white">{item?.desc}</h1>
+                            <a href={item?.linkUrl} target="blank" className="btn btn-outline-white">
+                                <span>DISCOVER MORE</span>
+                                <i className="icon-long-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
-                ),
-            )}
+                )
+            default:
+                break
+        }
+    }
+
+    return bannerList.length > 0 ? (
+        <Slider {...settings} className="intro-slider">
+            {bannerList.map((item: BannerData | null, index: number) => {
+                return (
+                    <div key={index} className="intro-slide">
+                        {item && BannerItem(item)}
+                    </div>
+                )
+            })}
         </Slider>
     ) : (
         <span className="slider-loader text-white"></span>
