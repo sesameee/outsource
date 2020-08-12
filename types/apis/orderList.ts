@@ -3,7 +3,7 @@ import { Response } from './common'
 export interface OrderListReqData {
     memberId: string
     days?: number
-    payType?: number
+    payType?: number | null
     accessToken: string
 }
 

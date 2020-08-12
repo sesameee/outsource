@@ -1,20 +1,17 @@
-import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { ResetPasswordActions } from '@/store'
-import { useTranslation } from '@/I18n'
-
-export const useResetPassword = (): void => {
-    const { i18n } = useTranslation()
+import { useCallback } from 'react'
+export const useResetPasswordHandler = (): any => {
     const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(
-            ResetPasswordActions.fetchResetPassword({
+    const handleResetPasswordSubmit = useCallback(
+        (data: { phone: '1'; pwd1: '1'; pwd2: '1'; type: 0 }) => {
+            const send = {
+                ...data,
                 memberId: '1',
-                phone: '1',
-                pwd1: '1',
-                pwd2: '1',
-                type: 0,
-            }),
-        )
-    }, [dispatch, i18n.language])
+            }
+            dispatch(ResetPasswordActions.fetchResetPassword(send))
+        },
+        [dispatch],
+    )
+    return { handleResetPasswordSubmit }
 }

@@ -13,7 +13,7 @@ import { accAdd, accSubtr } from '@/utils'
 import BuyNotice from '@/components/commons/BuyNotice'
 import { NextPage, NextPageContext } from 'next'
 import cookies from 'next-cookies'
-import { CheckoutReqData } from '@/types/apis/checkout'
+import { CheckoutReqData, CheckoutProductData } from '@/types/apis/checkout'
 import { useForm } from 'react-hook-form'
 import { useCheckoutHandler, useSetupTabPay } from '@/hooks/Checkout'
 // import { withTranslation, i18n } from '@/I18n'
@@ -196,6 +196,7 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
     const promoData = useSelector(PromoCodeSelectors.promoCode)
     const priceArr = useSelector(ShoppingCartListSelectors.getShoppingCartPriceList)
     const discountArr = useSelector(ShoppingCartListSelectors.getShoppingCartDisCountPriceList)
+    const cartArr = useSelector(ShoppingCartListSelectors.getShoppingCartItemList)
     const [sum, setSum] = React.useState([0])
     const [amount, setAmount] = React.useState(0)
     const [disCountamount, setDisCountamount] = React.useState(0)
@@ -204,14 +205,26 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
     const [invoice, setInvoice] = React.useState(InvoiceFromType.PhoneBarcode)
 
     const [city, setCity] = React.useState(0)
-
     const [openBuyNotice, setOpenBuyNotice] = React.useState(false)
 
     const { register, handleSubmit } = useForm<CheckoutReqData>()
     const { handleCheckoutSubmit } = useCheckoutHandler()
     const onSubmit = (data: any) => {
-        console.log('data :>> ', data)
-
+        const cartData = cartArr.map((item) => {
+            const amount = (item?.qty || 0) * (item?.price || 0) || 0
+            return {
+                pid: item.pid,
+                cid: item.cid,
+                sizeName1: item.spec1,
+                sizeName2: item.spec2,
+                payInfo: {
+                    qty: item.qty,
+                    price: item.price,
+                    amount: amount,
+                },
+            }
+        })
+        data = { ...data, totalAmount: finalAmount, data: cartData, shippingAmount: 60 }
         handleCheckoutSubmit(data)
     }
 
@@ -321,7 +334,7 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
                                                         {AddressInfo[city] &&
                                                             AddressInfo[city].areas.map((item, index) => {
                                                                 return (
-                                                                    <option key={`a${index}`} value={item.zipCode}>
+                                                                    <option key={`a${index}`} value={item.areaCode}>
                                                                         {item.areaName}
                                                                     </option>
                                                                 )
