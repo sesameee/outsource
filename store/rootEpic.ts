@@ -20,6 +20,7 @@ import VerifyInvBarCode from './verifyInvBarCode/epics'
 import OrderLIst from './orderList/epics'
 import OrderDetail from './orderDetail/epics'
 import Refund from './refund/epics'
+import VerifyCode from './verifyCode/epics'
 import UserRegister from './userRegister/epics'
 import RegisterUserInfo from './registerUserInfo/epics'
 import ForgotPassword from './forgotPassword/epics'
@@ -48,6 +49,7 @@ export const rootEpic = combineEpics(
     ...OrderLIst,
     ...OrderDetail,
     ...Refund,
+    ...VerifyCode,
     ...UserRegister,
     ...RegisterUserInfo,
     ...ForgotPassword,

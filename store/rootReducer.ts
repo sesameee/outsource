@@ -20,6 +20,7 @@ import { verifyInvBarCodeSlice } from './verifyInvBarCode/slice'
 import { orderListSlice } from './orderList/slice'
 import { orderDetailSlice } from './orderDetail/slice'
 import { refundSlice } from './refund/slice'
+import { verifyCodeSlice } from './verifyCode/slice'
 import { userRegisterSlice } from './userRegister/slice'
 import { registerUserInfoSlice } from './registerUserInfo/slice'
 import { forgotPasswordSlice } from './forgotPassword/slice'
@@ -50,6 +51,7 @@ const rootReducer = combineReducers({
     orderList: orderListSlice.reducer,
     orderDetail: orderDetailSlice.reducer,
     refund: refundSlice.reducer,
+    verifyCode: verifyCodeSlice.reducer,
     userRegister: userRegisterSlice.reducer,
     registerUserInfo: registerUserInfoSlice.reducer,
     forgotPassword: forgotPasswordSlice.reducer,

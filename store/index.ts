@@ -19,6 +19,7 @@ import * as VerifyInvBarCodeSelectors from './verifyInvBarCode/selectors'
 import * as OrderListSelectors from './orderList/selectors'
 import * as OrderDetailSelectors from './orderDetail/selectors'
 import * as RefundSelectors from './refund/selectors'
+import * as VerifyCodeSelectors from './verifyCode/selectors'
 import * as UserRegisterSelectors from './userRegister/selectors'
 import * as RegisterUserInfoSelectors from './registerUserInfo/selectors'
 import * as ForgotPasswordSelectors from './forgotPassword/selectors'
@@ -46,6 +47,7 @@ import { verifyInvBarCodeSlice, verifyInvBarCodeCreateActions } from './verifyIn
 import { orderListSlice, orderListCreateActions } from './orderList/slice'
 import { orderDetailSlice, orderDetailCreateActions } from './orderDetail/slice'
 import { refundSlice, refundCreateActions } from './refund/slice'
+import { verifyCodeSlice, verifyCodeCreateActions } from './verifyCode/slice'
 import { userRegisterSlice, userRegisterCreateActions } from './userRegister/slice'
 import { registerUserInfoSlice, registerUserInfoCreateActions } from './registerUserInfo/slice'
 import { forgotPasswordSlice, forgotPasswordCreateActions } from './forgotPassword/slice'
@@ -157,6 +159,11 @@ const RefundActions = {
     ...refundCreateActions,
 }
 
+const VerifyCodeActions = {
+    ...verifyCodeSlice.actions,
+    ...verifyCodeCreateActions,
+}
+
 const UserRegisterActions = {
     ...userRegisterSlice.actions,
     ...userRegisterCreateActions,
@@ -230,6 +237,8 @@ export {
     OrderDetailSelectors,
     RefundActions,
     RefundSelectors,
+    VerifyCodeActions,
+    VerifyCodeSelectors,
     UserRegisterActions,
     UserRegisterSelectors,
     RegisterUserInfoActions,
