@@ -1,22 +1,24 @@
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { UserRegisterActions } from '@/store'
-import { useTranslation } from '@/I18n'
-
-export const useUserRegister = (): void => {
-    const { i18n } = useTranslation()
+import { UserRegisterSelectors } from '@/store'
+import { useCallback } from 'react'
+import { UserRegisterReqData } from '@/types/apis/userRegister'
+export const useUserRegisterHandler = (): any => {
     const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(
-            UserRegisterActions.fetchUserRegister({
-                name: '1',
-                phoneCode: '1',
-                phone: '1',
-                email: '1',
-                pwd1: '1',
-                pwd2: '1',
-                registerFrom: '1',
-            }),
-        )
-    }, [dispatch, i18n.language])
+    const handleRegiterSubmit = useCallback(
+        (data: UserRegisterReqData) => {
+            dispatch(UserRegisterActions.fetchUserRegister(data))
+        },
+        [dispatch],
+    )
+    const HandleUserRegisterRes = (setStep: any): void => {
+        const userRegisterRes = useSelector(UserRegisterSelectors.userRegister)
+        useEffect(() => {
+            if (userRegisterRes.data.memberId) {
+                setStep(2)
+            }
+        }, [setStep, userRegisterRes.data])
+    }
+    return { handleRegiterSubmit, HandleUserRegisterRes }
 }

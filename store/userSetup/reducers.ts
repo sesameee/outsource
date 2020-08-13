@@ -11,9 +11,10 @@ export const setIsSearching: CaseReducer<State, PayloadAction<State>> = (state, 
     })
 }
 
-export const fetchUserSetupSuccess: CaseReducer<State, PayloadAction<UserSetupRspData>> = (state) => {
+export const fetchUserSetupSuccess: CaseReducer<State, PayloadAction<UserSetupRspData>> = (state, action) => {
     return produce(state, (draft) => {
         draft['isFetch'] = false
+        draft['code'] = action.payload.code
     })
 }
 

@@ -1,32 +1,42 @@
 import React from 'react'
-// import { useTranslation } from '@/I18n'
-// import { useForm } from 'react-hook-form'
-// import { UserRegisterReqData } from '@/types/apis/userRegister'
-// import ErrorAlert from '../commons/ErrorAlert'
-// import { useDispatch, useSelector } from 'react-redux'
-// import { ErrorAlertActions, AddressInfoSelectors } from '@/store'
-// import { VerifyCodeData } from '@/types/apis/verifyCode'
-// import { RegisterUserInfoReqData } from '@/types/apis/registerUserInfo'
-
 import { useSelector } from 'react-redux'
 import { useAddressInfo } from '@/hooks/AddressInfo'
 import { AddressInfoSelectors } from '@/store'
 import { useForm } from 'react-hook-form'
 import { UserRegisterReqData } from '@/types/apis/userRegister'
 import { useTranslation } from '@/I18n'
+import { useUserRegisterHandler } from '@/hooks/UserRegister'
+import { VerifyCodeData } from '@/types/apis/verifyCode'
+import { RegisterUserInfoReqData } from '@/types/apis/registerUserInfo'
+import { useUserRegisterSetupHandler } from '@/hooks/UserSetup'
 
 type RegisterProps = {
     setPropIsOpenFn: any
 }
-
-const FromFirstStep: React.FC = () => {
+type RegisterFromProps = {
+    setStep: any
+    setPropIsOpenFn?: any
+}
+const FromFirstStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromProps) => {
     const { t } = useTranslation()
-    const { register } = useForm<UserRegisterReqData>()
+    const { register, handleSubmit } = useForm<UserRegisterReqData>()
+    const { handleRegiterSubmit, HandleUserRegisterRes } = useUserRegisterHandler()
+    const onSubmit = (data: UserRegisterReqData) => {
+        handleRegiterSubmit(data)
+    }
+    HandleUserRegisterRes(setStep)
     return (
-        <form action="#">
+        <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
                 <label htmlFor="name">姓名 *</label>
-                <input type="text" className="form-control" id="name" name="name" required />
+                <input
+                    ref={register({ required: true })}
+                    type="text"
+                    className="form-control"
+                    id="name"
+                    name="name"
+                    required
+                />
             </div>
 
             <div className="phone-frame">
@@ -56,16 +66,37 @@ const FromFirstStep: React.FC = () => {
             </div>
             <div className="form-group">
                 <label htmlFor="email">電子郵件* ( 訂單發送位置 )</label>
-                <input type="email" className="form-control" id="email" name="email" required />
+                <input
+                    ref={register({ required: true })}
+                    type="email"
+                    className="form-control"
+                    id="email"
+                    name="email"
+                    required
+                />
             </div>
 
             <div className="form-group">
                 <label htmlFor="pwd1">密碼* ( 請輸入 6-12 位英數混合的密碼 )</label>
-                <input type="password" className="form-control" id="pwd1" name="pwd1" required />
+                <input
+                    ref={register({ required: true })}
+                    type="password"
+                    className="form-control"
+                    id="pwd1"
+                    name="pwd1"
+                    required
+                />
             </div>
             <div className="form-group">
                 <label htmlFor="pwd2">確認密碼* ( 請輸入 6-12 位英數混合的密碼 )</label>
-                <input type="password" className="form-control" id="pwd2" name="pwd2" required />
+                <input
+                    ref={register({ required: true })}
+                    type="password"
+                    className="form-control"
+                    id="pwd2"
+                    name="pwd2"
+                    required
+                />
             </div>
 
             <div className="form-footer">
@@ -84,41 +115,67 @@ const FromFirstStep: React.FC = () => {
     )
 }
 
-const FromSecondStep: React.FC = () => {
-    //const { t } = useTranslation()
-    //const { register, handleSubmit } = useForm<VerifyCodeData>()
+const FromSecondStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromProps) => {
+    const { register, handleSubmit } = useForm<VerifyCodeData>()
+    const { handleRegiterSetupSubmit } = useUserRegisterSetupHandler()
+    const onSubmit = (data: UserRegisterReqData) => {
+        handleRegiterSetupSubmit(data)
+        setStep(3)
+    }
     return (
-        <form action="#">
+        <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
                 <label htmlFor="code">簡訊驗證碼 *</label>
-                <input type="text" className="form-control" id="code" name="code" required />
+                <input
+                    type="text"
+                    ref={register({ required: true })}
+                    className="form-control"
+                    id="code"
+                    name="code"
+                    required
+                />
             </div>
             <div className="form-footer">
                 <label>
-                    若 30 秒內未收到啟用碼 <a href="#">重傳啟用碼</a>
+                    若 30 秒內未收到啟用碼 <a onClick={handleSubmit(onSubmit)}>重傳啟用碼</a>
                 </label>
+                <button type="submit" className="btn btn-outline-primary-2 btn-block margin-top-more">
+                    <span>送出</span>
+                </button>
             </div>
         </form>
     )
 }
 
-const FromThirdStep: React.FC = () => {
+const FromThirdStep: React.FC<RegisterFromProps> = ({ setPropIsOpenFn }: RegisterFromProps) => {
     useAddressInfo()
     //const { t } = useTranslation()
-    //const { register, handleSubmit } = useForm<RegisterUserInfoReqData>()
+    const { register, handleSubmit } = useForm<RegisterUserInfoReqData>()
     const AddressInfo = useSelector(AddressInfoSelectors.getAddressInfo)
     const [city, setCity] = React.useState(0)
+    const { handleRegiterSetupSubmit, HandleUserRegisterSetupRes } = useUserRegisterSetupHandler()
+    const onSubmit = (data: UserRegisterReqData) => {
+        handleRegiterSetupSubmit(data)
+    }
+    HandleUserRegisterSetupRes(setPropIsOpenFn)
     return (
-        <form className="from-third-step" action="#">
+        <form className="from-third-step" onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
                 <label htmlFor="rocId">身份證字號 *</label>
-                <input type="text" className="form-control" id="rocId" name="rocId" required />
+                <input
+                    type="text"
+                    ref={register({ required: true })}
+                    className="form-control"
+                    id="rocId"
+                    name="rocId"
+                    required
+                />
             </div>
             <div className="form-group">
                 <label className="label" htmlFor="sex">
                     性別
                 </label>
-                <select className="form-control" id="sex" name="sex">
+                <select ref={register} className="form-control" id="sex" name="sex">
                     <option value="m" defaultChecked={true}>
                         男
                     </option>
@@ -133,6 +190,7 @@ const FromThirdStep: React.FC = () => {
                     <div className="col-sm-6">
                         <div className="select-custom">
                             <select
+                                ref={register({ required: true })}
                                 name="cityCode"
                                 id="cityCode"
                                 className="form-control"
@@ -154,7 +212,12 @@ const FromThirdStep: React.FC = () => {
 
                     <div className="col-sm-6">
                         <div className="select-custom">
-                            <select name="areaCode" id="areaCode" className="form-control">
+                            <select
+                                ref={register({ required: true })}
+                                name="areaCode"
+                                id="areaCode"
+                                className="form-control"
+                            >
                                 <option value="" selected={true}>
                                     請選擇區域
                                 </option>
@@ -173,14 +236,21 @@ const FromThirdStep: React.FC = () => {
             </div>
 
             <div className="form-group">
-                <input type="text" className="form-control" id="address" name="address" required />
+                <input
+                    ref={register({ required: true })}
+                    type="text"
+                    className="form-control"
+                    id="address"
+                    name="address"
+                    required
+                />
             </div>
             <div className="form-footer">
                 <label>小提醒～此頁資訊如未填寫完整，可能會影響您的權益喔</label>
                 <button type="submit" className="btn btn-outline-primary-2 btn-block margin-top-more">
                     <span>完成</span>
                 </button>
-                <a>略過並完成註冊</a>
+                <a onClick={() => setPropIsOpenFn(false)}>略過並完成註冊</a>
             </div>
         </form>
     )
@@ -192,19 +262,18 @@ const Register: React.FC<RegisterProps> = ({ setPropIsOpenFn }: RegisterProps) =
         setStep(0)
     }
     const [step, setStep] = React.useState(1)
-    console.log(a)
     switch (step) {
         case 1:
-            return <FromFirstStep />
+            return <FromFirstStep setStep={setStep} />
 
         case 2:
-            return <FromSecondStep />
+            return <FromSecondStep setStep={setStep} />
 
         case 3:
-            return <FromThirdStep />
+            return <FromThirdStep setStep={setStep} setPropIsOpenFn={setPropIsOpenFn} />
 
         default:
-            return <FromFirstStep />
+            return <FromFirstStep setStep={setStep} />
     }
 }
 
