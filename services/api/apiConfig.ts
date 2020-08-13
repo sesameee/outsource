@@ -18,6 +18,8 @@ export const ORDER_LIST = 'orderList'
 export const ORDER_DETAIL = 'orderDetail'
 export const REFUND = 'refund'
 
+export const VERIFY_CODE = 'verifyCode'
+
 export const USER_REGISTER = 'userRegister'
 export const REGISTER_USER_INFO = 'registerUserInfo'
 
