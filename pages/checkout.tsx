@@ -2,20 +2,17 @@ import React, { useEffect } from 'react'
 import Header from '@/components/Header'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
-// import CartItemList from '@/components/Cart/CartItemList'
 import { ShoppingCartListSelectors, PromoCodeSelectors, AddressInfoSelectors, VerifyInvBarCodeSelectors } from '@/store'
 import { useSelector } from 'react-redux'
 import { useShoppingCartList } from '@/hooks/ShoppingCart'
 import { useAddressInfo } from '@/hooks/AddressInfo'
-//import PromoCode from '@/components/Cart/PromoCode'
 import { accAdd, accSubtr } from '@/utils'
-//import ProductDetail from '@/components/Checkout/ProductDetail'
 import BuyNotice from '@/components/commons/BuyNotice'
 import { NextPage, NextPageContext } from 'next'
 import cookies from 'next-cookies'
 import { CheckoutReqData } from '@/types/apis/checkout'
 import { useForm } from 'react-hook-form'
-import { useCheckoutHandler, useSetupTabPay } from '@/hooks/Checkout'
+import { useCheckoutHandler } from '@/hooks/Checkout'
 // import { withTranslation, i18n } from '@/I18n'
 enum InvoiceFromType {
     MemberDriver = 1,
@@ -208,7 +205,8 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
     const [openBuyNotice, setOpenBuyNotice] = React.useState(false)
 
     const { register, handleSubmit } = useForm<CheckoutReqData>()
-    const { handleCheckoutSubmit } = useCheckoutHandler()
+    const { handleCheckoutSubmit, useSetupTabPay, HandleCheckoutRes } = useCheckoutHandler()
+    const router = useRouter()
     const onSubmit = (data: any) => {
         const cartData = cartArr.map((item) => {
             const amount = (item?.qty || 0) * (item?.price || 0) || 0
@@ -225,7 +223,7 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
             }
         })
         data = { ...data, totalAmount: finalAmount, data: cartData, shippingAmount: 60 }
-        handleCheckoutSubmit(data)
+        handleCheckoutSubmit(data, router)
     }
 
     useEffect(() => {
@@ -241,6 +239,7 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
         }
     }, [sum, priceArr, discountArr])
     useSetupTabPay()
+    HandleCheckoutRes(router)
 
     return (
         <div className="page-wrapper">
@@ -522,6 +521,7 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
 
 import ProductDetail from '@/components/Checkout/ProductDetail'
 import { useVerifyInvBarCodeHandler } from '@/hooks/VerifyInvBarCode'
+import { useRouter } from 'next/router'
 Checkout.getInitialProps = async (ctx: NextPageContext) => {
     return { token: cookies(ctx).token || '' }
 }

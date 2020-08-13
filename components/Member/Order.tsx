@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect, useCallback } from 'react'
 import { useOrderList } from '@/hooks/OrderList'
 import { OrderListSelectors, OrderDetailSelectors } from '@/store'
 import { useSelector } from 'react-redux'
@@ -10,15 +10,25 @@ export interface tabDataVo {
 }
 
 const Order: React.FC = () => {
-    useOrderList()
-    const { getOrderDetail } = useOrderDetailHandler()
-    const [tabIndex, setTabIndex] = React.useState(1)
+    const [tabIndex, setTabIndex] = React.useState(0)
     const OrderList = useSelector(OrderListSelectors.orderList)
+    const { getOrderDetail } = useOrderDetailHandler()
+    const handelChangeIndex = useCallback(
+        (index: number) => {
+            setTabIndex(index)
+            getOrderDetail(OrderList[index].transId)
+        },
+        [setTabIndex, getOrderDetail, OrderList],
+    )
+    useOrderList()
+    useEffect(() => {
+        if (OrderList.length > 0) {
+            handelChangeIndex(0)
+        }
+    }, [OrderList, handelChangeIndex])
+
     const OrderDetail = useSelector(OrderDetailSelectors.orderDetail)
-    const handelChangeIndex = (index: number) => {
-        setTabIndex(index)
-        getOrderDetail(OrderList[index].transId)
-    }
+
     return (
         <div className="accordion accordion-rounded" id="accordion-5" style={{ width: '100%' }}>
             {OrderList.map((_item, index) => {
