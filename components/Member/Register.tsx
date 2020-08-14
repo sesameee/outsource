@@ -257,10 +257,6 @@ const FromThirdStep: React.FC<RegisterFromProps> = ({ setPropIsOpenFn }: Registe
 }
 
 const Register: React.FC<RegisterProps> = ({ setPropIsOpenFn }: RegisterProps) => {
-    const a = () => {
-        setPropIsOpenFn(false)
-        setStep(0)
-    }
     const [step, setStep] = React.useState(1)
     switch (step) {
         case 1:

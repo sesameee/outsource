@@ -8,7 +8,7 @@ export const useCheckoutHandler = (): any => {
     const dispatch = useDispatch()
 
     const handleCheckoutSubmit = useCallback(
-        (data: any, router) => {
+        (data: any) => {
             console.log('data :>> ', data)
             const tappayStatus = window.TPDirect.card.getTappayFieldsStatus()
             // 確認是否可以 getPrime
