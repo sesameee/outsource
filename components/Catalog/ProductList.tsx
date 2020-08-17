@@ -82,7 +82,12 @@ const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect }: 
                                     <h3 className="product-title">
                                         <a href="product.html">{item.pName}</a>
                                     </h3>
-                                    <div className="product-price">${item.price}</div>
+                                    <div className="product-price highlight-color">
+                                        {item.listPrice != item.price ? (
+                                            <span className=" product-last-price">${item.listPrice}</span>
+                                        ) : null}{' '}
+                                        ${item.price}
+                                    </div>
                                 </div>
                             </div>
                         </div>
