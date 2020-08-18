@@ -20,9 +20,12 @@ import { verifyInvBarCodeSlice } from './verifyInvBarCode/slice'
 import { orderListSlice } from './orderList/slice'
 import { orderDetailSlice } from './orderDetail/slice'
 import { refundSlice } from './refund/slice'
+import { refundReasonSlice } from './refundReason/slice'
 import { verifyCodeSlice } from './verifyCode/slice'
 import { userRegisterSlice } from './userRegister/slice'
 import { registerUserInfoSlice } from './registerUserInfo/slice'
+import { generateAccessTokenSlice } from './generateAccessToken/slice'
+import { refreshTokenSlice } from './refreshToken/slice'
 import { forgotPasswordSlice } from './forgotPassword/slice'
 import { resetPasswordSlice } from './resetPassword/slice'
 import { userSetupSlice } from './userSetup/slice'
@@ -51,9 +54,12 @@ const rootReducer = combineReducers({
     orderList: orderListSlice.reducer,
     orderDetail: orderDetailSlice.reducer,
     refund: refundSlice.reducer,
+    refundReason: refundReasonSlice.reducer,
     verifyCode: verifyCodeSlice.reducer,
     userRegister: userRegisterSlice.reducer,
     registerUserInfo: registerUserInfoSlice.reducer,
+    generateAccessToken: generateAccessTokenSlice.reducer,
+    refreshToken: refreshTokenSlice.reducer,
     forgotPassword: forgotPasswordSlice.reducer,
     resetPassword: resetPasswordSlice.reducer,
     userSetup: userSetupSlice.reducer,
