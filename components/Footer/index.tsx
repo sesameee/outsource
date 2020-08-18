@@ -2,6 +2,7 @@ import React, { memo } from 'react'
 // import Link from 'next/link'
 import { withTranslation } from '@/I18n'
 import { TFunction } from 'next-i18next'
+import Link from 'next/link'
 
 type FooterProps = {
     t: TFunction
@@ -14,23 +15,35 @@ const Footer: React.FC<FooterProps> = ({ t }: FooterProps) => {
                     <div className="left-item">
                         <dl>
                             <dt>{t('store_info')}</dt>
-                            <dd>{t('store_location')}</dd>
+                            <dd>
+                                <a href="https://www.breezecenter.com/branches/001" target="blank">
+                                    {t('store_location')}
+                                </a>
+                            </dd>
                         </dl>
                         <dl>
                             <dt>{t('customer_service')}</dt>
                             <dd>{t('contact_us')}</dd>
-                            <dd>{t('q_n_a')}</dd>
+                            <dd>
+                                <Link href="/faq">{t('q_n_a')}</Link>
+                            </dd>
                         </dl>
                         <dl>
                             <dt>{t('shopping_online')}</dt>
-                            <dd>{t('order_problem')}</dd>
+                            <dd>
+                                <Link href="/faq">{t('order_problem')}</Link>
+                            </dd>
                             <dd>{t('privacy_policy')}</dd>
                             <dd>{t('terms_of_service')}</dd>
                         </dl>
                         <dl>
                             <dt>{t('about_us')}</dt>
                             <dd>{t('about_breeze')}</dd>
-                            <dd>{t('breezedaily')}</dd>
+                            <dd>
+                                <a href="https://www.breezedaily.com.tw/" target="blank">
+                                    {t('breezedaily')}
+                                </a>
+                            </dd>
                         </dl>
                     </div>
 
