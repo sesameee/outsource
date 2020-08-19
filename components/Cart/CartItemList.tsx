@@ -78,6 +78,7 @@ const ItemDetail: React.FC<ItemDetailProps> = ({
                     <h3 className="product-title">
                         <p>{name}</p>
                         {detail?.productName}
+                        <p>{detail.spec1}</p>
                     </h3>
                 </div>
             </td>

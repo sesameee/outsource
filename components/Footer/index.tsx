@@ -3,13 +3,37 @@ import React, { memo } from 'react'
 import { withTranslation } from '@/I18n'
 import { TFunction } from 'next-i18next'
 import Link from 'next/link'
+import MyModal from '../MyModal'
 
 type FooterProps = {
     t: TFunction
 }
 const Footer: React.FC<FooterProps> = ({ t }: FooterProps) => {
+    const [IsOpenService, setIsOpenService] = React.useState(false)
+    const [IsOpenPrivacy, setIsOpenPrivacy] = React.useState(false)
+
     return (
         <footer className="footer">
+            <MyModal
+                content={
+                    <iframe
+                        style={{ width: '80vw', height: '80vh', padding: '3rem', border: 'none' }}
+                        src="/html/service.html"
+                    ></iframe>
+                }
+                isOpen={IsOpenService}
+                setPropIsOpenFn={setIsOpenService}
+            />
+            <MyModal
+                content={
+                    <iframe
+                        style={{ width: '80vw', height: '80vh', padding: '3rem', border: 'none' }}
+                        src="/html/privacy.html"
+                    ></iframe>
+                }
+                isOpen={IsOpenPrivacy}
+                setPropIsOpenFn={setIsOpenPrivacy}
+            />
             <div className="container">
                 <div className="footer-frame">
                     <div className="left-item">
@@ -23,7 +47,11 @@ const Footer: React.FC<FooterProps> = ({ t }: FooterProps) => {
                         </dl>
                         <dl>
                             <dt>{t('customer_service')}</dt>
-                            <dd>{t('contact_us')}</dd>
+                            <dd>
+                                <a href="#" onClick={() => window.open('mailto:xxxx@breeze.com')}>
+                                    {t('contact_us')}
+                                </a>
+                            </dd>
                             <dd>
                                 <Link href="/faq">{t('q_n_a')}</Link>
                             </dd>
@@ -31,18 +59,21 @@ const Footer: React.FC<FooterProps> = ({ t }: FooterProps) => {
                         <dl>
                             <dt>{t('shopping_online')}</dt>
                             <dd>
-                                <Link href="/faq">{t('order_problem')}</Link>
+                                <a href="#" onClick={() => setIsOpenPrivacy(true)}>
+                                    {t('privacy_policy')}
+                                </a>
                             </dd>
-                            <dd>{t('privacy_policy')}</dd>
                             <dd>
-                                <Link href="/html/service.html">
-                                    <a target="_blank">{t('terms_of_service')}</a>
-                                </Link>
+                                <a href="#" onClick={() => setIsOpenService(true)}>
+                                    {t('terms_of_service')}
+                                </a>
                             </dd>
                         </dl>
                         <dl>
                             <dt>{t('about_us')}</dt>
-                            <dd>{t('about_breeze')}</dd>
+                            <dd>
+                                <Link href="/about">{t('about_breeze')}</Link>
+                            </dd>
                             <dd>
                                 <a href="https://www.breezedaily.com.tw/" target="blank">
                                     {t('breezedaily')}

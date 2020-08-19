@@ -6,6 +6,7 @@ import { useUserLoginHandler } from '@/hooks/UserLogin'
 import ErrorAlert from '../commons/ErrorAlert'
 import { useDispatch, useSelector } from 'react-redux'
 import { ErrorAlertActions, UserLoginSelectors } from '@/store'
+import { useRouter } from 'next/router'
 
 type LoginProps = {
     setPropIsOpenFn: any
@@ -28,12 +29,13 @@ const Login: React.FC<LoginProps> = ({ setPropIsOpenFn }: LoginProps) => {
             )
         }
     }, [dispatch, error])
-
+    const router = useRouter()
     useEffect(() => {
         if (success.memberId) {
+            router.push('/member/points')
             setPropIsOpenFn(false)
         }
-    }, [setPropIsOpenFn, success.memberId])
+    }, [setPropIsOpenFn, success.memberId, router])
 
     const onSubmit = (data: UserLoginReqData) => {
         handleLoginSubmit(data)
@@ -89,7 +91,7 @@ const Login: React.FC<LoginProps> = ({ setPropIsOpenFn }: LoginProps) => {
                     <span>{t('login_right_now')}</span>
                 </button>
 
-                <a href="#" className="forgot-link">
+                <a href="/forgetPassword" className="forgot-link">
                     {t('forget_password')}
                 </a>
             </div>

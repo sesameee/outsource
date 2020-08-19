@@ -110,7 +110,6 @@ const NextI18NextInstance = new next_i18next__WEBPACK_IMPORTED_MODULE_0___defaul
     defaultLanguage: DEFAULT_LANFUAGE,
     defaultNS: 'translations',
     otherLanguages: ['en'],
-    serverLanguageDetection: true,
     preload: [DEFAULT_LANFUAGE],
     use: [i18next_http_backend__WEBPACK_IMPORTED_MODULE_1___default.a],
     backend: {

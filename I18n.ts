@@ -5,7 +5,6 @@ const NextI18NextInstance = new NextI18Next({
     defaultLanguage: DEFAULT_LANFUAGE,
     defaultNS: 'translations',
     otherLanguages: ['en'],
-    serverLanguageDetection: true,
     preload: [DEFAULT_LANFUAGE],
     use: [Backend],
     backend: {

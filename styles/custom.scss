@@ -12,6 +12,12 @@
 .footer {
     background-color: black;
     min-height: 15.9rem;
+    a {
+        &:hover,
+        &:focus {
+            color: $specialColor;
+        }
+    }
     .footer-frame {
         display: flex;
         justify-content: space-between;
@@ -861,5 +867,13 @@
         .btn {
             margin: 0 1rem;
         }
+    }
+}
+
+.about {
+    img {
+        margin-bottom: 3rem;
+        width: 100%;
+        height: auto;
     }
 }
