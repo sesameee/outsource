@@ -34,7 +34,11 @@ const Footer: React.FC<FooterProps> = ({ t }: FooterProps) => {
                                 <Link href="/faq">{t('order_problem')}</Link>
                             </dd>
                             <dd>{t('privacy_policy')}</dd>
-                            <dd>{t('terms_of_service')}</dd>
+                            <dd>
+                                <Link href="/html/service.html">
+                                    <a target="_blank">{t('terms_of_service')}</a>
+                                </Link>
+                            </dd>
                         </dl>
                         <dl>
                             <dt>{t('about_us')}</dt>
