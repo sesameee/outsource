@@ -6,6 +6,7 @@ type MemberProps = {
     t: TFunction
 }
 const Service: React.FC<MemberProps> = ({ t }: MemberProps): JSX.Element => {
+    console.log(t)
     return <div className="page-wrapper">{/* <div dangerouslySetInnerHTML={{ __html: html }} /> */}</div>
 }
 export default withTranslation('translations')(Service)
