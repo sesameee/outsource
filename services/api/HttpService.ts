@@ -6,7 +6,6 @@ const baseConfig = {
     //     'Content-Type': 'multipart/form-data',
     // },
 }
-
 //const isDev = process.env.NODE_ENV.trim() !== 'production'
 class HttpService {
     static readonly DEV: string = 'http://localhost:3000/api'
