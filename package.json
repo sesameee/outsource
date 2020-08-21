@@ -7,6 +7,7 @@
         "start": "NODE_ENV=production node dist/server.js",
         "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
         "build_server": "webpack --mode=development",
+        "build_server_p": "webpack --mode=production",
         "mockserve": "ts-node --project mock/tsconfig.json mock/server.ts"
     },
     "dependencies": {
