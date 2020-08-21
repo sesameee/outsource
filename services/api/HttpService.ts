@@ -7,12 +7,12 @@ const baseConfig = {
     // },
 }
 
-const isDev = process.env.NODE_ENV.trim() !== 'production'
+//const isDev = process.env.NODE_ENV.trim() !== 'production'
 class HttpService {
     static readonly DEV: string = 'http://localhost:3000/api'
     static readonly BasePath: string = 'http://online-api.breezeonline.com/api/online'
     public static getBaseUrl = (targetApi: string, basePath: string = HttpService.BasePath): string => {
-        basePath = isDev ? HttpService.DEV : HttpService.BasePath
+        // basePath = isDev ? HttpService.DEV : HttpService.BasePath
         return `${basePath}/${targetApi}`
     }
     public static GetAsync<Req, Res>(
