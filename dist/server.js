@@ -145,7 +145,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const devProxy = {
     '/api': {
-        target: 'http://13.76.80.106:8090/api/online',
+        target: 'http://online-api.breezeonline.com/api/online',
         pathRewrite: { '^/api': '/' },
         changeOrigin: true,
     },

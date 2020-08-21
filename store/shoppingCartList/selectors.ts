@@ -21,17 +21,18 @@ export const getShoppingCartList = createSelector<
 
 export const getShoppingCartItemList = createSelector(getShoppingCartList, (list) => {
     const itemList: ShoppingCartProductDataTrans[] = []
-    list.map((item: ShoppingCartListData) => {
-        item.shoppingCartProducts &&
-            item.shoppingCartProducts.map((data: ShoppingCartProductData) => {
-                itemList.push({
-                    ...data,
-                    _cid: item.cid,
-                    _name: item.name,
-                    _categoryType: item.categoryType,
+    list &&
+        list.map((item: ShoppingCartListData) => {
+            item.shoppingCartProducts &&
+                item.shoppingCartProducts.map((data: ShoppingCartProductData) => {
+                    itemList.push({
+                        ...data,
+                        _cid: item.cid,
+                        _name: item.name,
+                        _categoryType: item.categoryType,
+                    })
                 })
-            })
-    })
+        })
     return itemList
 })
 

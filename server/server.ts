@@ -4,7 +4,7 @@ import nextI18NextMiddleware from 'next-i18next/middleware'
 import nextI18next from '../I18n'
 const devProxy = {
     '/api': {
-        target: 'http://13.76.80.106:8090/api/online',
+        target: 'http://online-api.breezeonline.com/api/online',
         pathRewrite: { '^/api': '/' },
         changeOrigin: true,
     },
