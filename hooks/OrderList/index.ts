@@ -9,8 +9,8 @@ export const useOrderList = (): void => {
     useEffect(() => {
         dispatch(
             OrderListActions.fetchOrderList({
-                memberId: '1',
-                accessToken: '1',
+                memberId: '',
+                accessToken: '',
             }),
         )
     }, [dispatch, i18n.language])

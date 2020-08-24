@@ -9,15 +9,15 @@ export const useRefund = (): void => {
     useEffect(() => {
         dispatch(
             RefundActions.fetchRefund({
-                memberId: '1',
-                cid: '1',
-                pid: '1',
-                spec1: '1',
-                spec2: '1',
+                memberId: '',
+                cid: '',
+                pid: '',
+                spec1: '',
+                spec2: '',
                 qty: 1,
-                reason: '1',
-                memo: '1',
-                accessToken: '1',
+                reason: '',
+                memo: '',
+                accessToken: '',
             }),
         )
     }, [dispatch, i18n.language])

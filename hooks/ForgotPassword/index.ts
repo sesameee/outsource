@@ -1,12 +1,25 @@
-import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { ForgotPasswordActions } from '@/store'
-import { useTranslation } from '@/I18n'
+import { useCallback, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { ForgotPasswordActions, ForgotPasswordSelectors } from '@/store'
+import { ForgotPasswordReqData } from '@/types/apis/forgotPassword'
 
-export const useForgotPassword = (): void => {
-    const { i18n } = useTranslation()
+export const useForgotPassword = (): any => {
     const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(ForgotPasswordActions.fetchForgotPassword({ phone: '1', rocId: '1' }))
-    }, [dispatch, i18n.language])
+    const handleForgotPasswordSubmit = useCallback(
+        (data: ForgotPasswordReqData) => {
+            dispatch(ForgotPasswordActions.fetchForgotPassword(data))
+        },
+        [dispatch],
+    )
+
+    const HandleForgotPasswordRes = (setStep: any): void => {
+        const res = useSelector(ForgotPasswordSelectors.forgotPassword)
+        useEffect(() => {
+            console.log('res.data.memberId :>> ', res.data.memberId)
+            if (res.data.memberId != '') {
+                setStep(2)
+            }
+        }, [setStep, res])
+    }
+    return { handleForgotPasswordSubmit, HandleForgotPasswordRes }
 }

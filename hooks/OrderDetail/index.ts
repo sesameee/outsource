@@ -9,9 +9,9 @@ export const useOrderDetail = (): void => {
     useEffect(() => {
         dispatch(
             OrderDetailActions.fetchOrderDetail({
-                memberId: '1',
-                transId: '1',
-                accessToken: '1',
+                memberId: '',
+                transId: '',
+                accessToken: '',
             }),
         )
     }, [dispatch, i18n.language])

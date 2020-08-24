@@ -7,9 +7,9 @@ export const useVerifyInvBarCodeHandler = (): any => {
     const handleVerifyInvBarCodeSubmit = useCallback(
         (barCode: string) => {
             const data = {
-                memberId: '1',
+                memberId: '',
                 barCode,
-                accessToken: '1',
+                accessToken: '',
             }
             dispatch(VerifyInvBarCodeActions.fetchVerifyInvBarCode(data))
         },

@@ -9,9 +9,9 @@ export const usePromoCode = (): void => {
     useEffect(() => {
         dispatch(
             MemberAddressInfoActions.fetchMemberAddressInfo({
-                memberId: '1',
+                memberId: '',
                 category: 1,
-                accessToken: '1',
+                accessToken: '',
             }),
         )
     }, [dispatch, i18n.language])

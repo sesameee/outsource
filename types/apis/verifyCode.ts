@@ -1,4 +1,4 @@
-import { Response } from "./common";
+import { Response } from './common'
 
 export interface VerifyCodeReqData {
     memberId: string

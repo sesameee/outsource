@@ -1,4 +1,4 @@
-import { Response } from "./common";
+import { Response } from './common'
 
 export interface PromoCodeReqData {
     promoCode: string

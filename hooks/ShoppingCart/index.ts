@@ -3,19 +3,19 @@ import { useEffect, useCallback } from 'react'
 import { ShoppingCartListActions, ShoppingCartModifyActions, ShoppingCartModifySelectors } from '@/store'
 import { useTranslation } from '@/I18n'
 
-export const useShoppingCartList = (): void => {
+export const useShoppingCartList = (shipType: string): void => {
     const cartModify = useSelector(ShoppingCartModifySelectors.shoppingCartModify)
     const dispatch = useDispatch()
     const { i18n } = useTranslation()
     useEffect(() => {
         dispatch(
             ShoppingCartListActions.fetchShoppingCartList({
-                memberId: '1',
-                shipType: '1',
-                accessToken: '1',
+                memberId: '',
+                shipType,
+                accessToken: '',
             }),
         )
-    }, [dispatch, i18n.language, cartModify])
+    }, [dispatch, i18n.language, cartModify, shipType])
 }
 
 export const useShoppingCartModify = (): void => {
@@ -25,7 +25,7 @@ export const useShoppingCartModify = (): void => {
         dispatch(
             ShoppingCartModifyActions.fetchShoppingCartModify({
                 action: 'add',
-                memberId: '1',
+                memberId: '',
                 shoppingCartProductList: [],
             }),
         )
@@ -39,7 +39,7 @@ export const useShoppingCartModifyHandler = (): any => {
             dispatch(
                 ShoppingCartModifyActions.fetchShoppingCartModify({
                     action: action,
-                    memberId: '1',
+                    memberId: '',
                     shoppingCartProductList: shoppingCartProductList,
                 }),
             ),

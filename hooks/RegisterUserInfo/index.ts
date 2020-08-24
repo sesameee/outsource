@@ -9,13 +9,13 @@ export const useRegisterUserInfo = (): void => {
     useEffect(() => {
         dispatch(
             RegisterUserInfoActions.fetchRegisterUserInfo({
-                memberId: '1',
-                rocId: '1',
-                sex: '1',
+                memberId: '',
+                rocId: '',
+                sex: '',
                 cityCode: 0,
                 areaCode: 0,
-                address: '1',
-                accessToken: '1',
+                address: '',
+                accessToken: '',
             }),
         )
     }, [dispatch, i18n.language])

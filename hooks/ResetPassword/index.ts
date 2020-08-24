@@ -7,7 +7,7 @@ export const useResetPasswordHandler = (): any => {
         (data: { phone: '1'; pwd1: '1'; pwd2: '1'; type: 0 }) => {
             const send = {
                 ...data,
-                memberId: '1',
+                memberId: '',
             }
             dispatch(ResetPasswordActions.fetchResetPassword(send))
         },

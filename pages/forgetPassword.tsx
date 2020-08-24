@@ -4,25 +4,47 @@ import Footer from '@/components/Footer'
 import Nav from '@/components/Nav'
 import { navData } from '@/types/components/nav'
 import { useTranslation } from '@/I18n'
-//import { useRouter } from 'next/router'
-//import { NextPageContext, NextPage } from 'next'
-// import { VerifyCodeData } from '@/types/apis/verifyCode'
-// import { ForgotPasswordReqData } from '@/types/apis/forgotPassword'
-// import { useForm } from 'react-hook-form'
+import { useForgotPassword } from '@/hooks/ForgotPassword'
+import { useForm } from 'react-hook-form'
+import { ForgotPasswordReqData } from '@/types/apis/forgotPassword'
+import { VerifyCodeData } from '@/types/apis/verifyCode'
+import { useVerifyCodeHandler } from '@/hooks/VerifyCode'
 
-const FromFirstStep: React.FC = () => {
-    //const { t } = useTranslation()
-    //const { register, handleSubmit } = useForm<ForgotPasswordReqData>()
+type FromFirstStepProps = {
+    setStep: any
+}
 
+const FromFirstStep: React.FC<FromFirstStepProps> = ({ setStep }: FromFirstStepProps) => {
+    // const { t } = useTranslation()
+    const { handleForgotPasswordSubmit, HandleForgotPasswordRes } = useForgotPassword()
+    const { register, handleSubmit } = useForm<ForgotPasswordReqData>()
+    const onSubmit = (data: any) => {
+        handleForgotPasswordSubmit({ ...data, type: 2 })
+    }
+    HandleForgotPasswordRes(setStep)
     return (
-        <form action="#">
+        <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
                 <label htmlFor="phone">請輸入手機號碼 ( 接收驗證碼 ) *</label>
-                <input type="tel" className="form-control" id="phone" name="phone" required />
+                <input
+                    ref={register({ required: true })}
+                    type="tel"
+                    className="form-control"
+                    id="phone"
+                    name="phone"
+                    required
+                />
             </div>
             <div className="form-group">
                 <label htmlFor="rocId">請輸入身份證字號 *</label>
-                <input type="tel" className="form-control" id="rocId" name="rocId" required />
+                <input
+                    ref={register({ required: true })}
+                    type="text"
+                    className="form-control"
+                    id="rocId"
+                    name="rocId"
+                    required
+                />
             </div>
             <div className="form-footer">
                 <button type="submit" className="btn btn-outline-primary-2 btn-block margin-top-more">
@@ -35,13 +57,24 @@ const FromFirstStep: React.FC = () => {
 
 const FromSecondStep: React.FC = () => {
     //const { t } = useTranslation()
-    //const { register, handleSubmit } = useForm<VerifyCodeData>()
+    const { handleVerifyCodeSubmit } = useVerifyCodeHandler()
+    const { register, handleSubmit } = useForm<VerifyCodeData>()
+    const onSubmit = (data: any) => {
+        handleVerifyCodeSubmit(data)
+    }
 
     return (
-        <form action="#">
+        <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
                 <label htmlFor="code">請輸入手機驗證碼 *</label>
-                <input type="text" className="form-control" id="code" name="code" required />
+                <input
+                    ref={register({ required: true })}
+                    type="text"
+                    className="form-control"
+                    id="code"
+                    name="code"
+                    required
+                />
             </div>
             <div className="form-footer">
                 <button type="submit" className="btn btn-outline-primary-2 btn-block margin-top-more">
@@ -54,16 +87,15 @@ const FromSecondStep: React.FC = () => {
 
 const FromFrame: React.FC = () => {
     const [step, setStep] = React.useState(1)
-    console.log('setStep :>> ', setStep)
     switch (step) {
         case 1:
-            return <FromFirstStep />
+            return <FromFirstStep setStep={setStep} />
 
         case 2:
             return <FromSecondStep />
 
         default:
-            return <FromFirstStep />
+            return <FromFirstStep setStep={setStep} />
     }
 }
 

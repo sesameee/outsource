@@ -11,10 +11,10 @@ export const usePromoCode = (): void => {
     useEffect(() => {
         dispatch(
             PromoCodeActions.fetchPromoCode({
-                promoCode: '1',
-                memberId: '1',
+                promoCode: '',
+                memberId: '',
                 pid: [],
-                accessToken: '1',
+                accessToken: '',
             }),
         )
     }, [dispatch, i18n.language])
@@ -27,9 +27,9 @@ export const usePromoCodeHandler = (): any => {
         (promoCode: string) => {
             const data: PromoCodeReqData = {
                 promoCode,
-                memberId: '1',
+                memberId: '',
                 pid: pid,
-                accessToken: '1',
+                accessToken: '',
             }
             dispatch(PromoCodeActions.fetchPromoCode(data))
         },

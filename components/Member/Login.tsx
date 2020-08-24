@@ -15,19 +15,7 @@ const Login: React.FC<LoginProps> = ({ setPropIsOpenFn }: LoginProps) => {
     const { t } = useTranslation()
     const { register, handleSubmit } = useForm<UserLoginReqData>()
     const { handleLoginSubmit } = useUserLoginHandler()
-    const error = useSelector(UserLoginSelectors.getUserLoginError)
     const success = useSelector(UserLoginSelectors.getUserLoginData)
-    const dispatch = useDispatch()
-    useEffect(() => {
-        if (error) {
-            dispatch(
-                ErrorAlertActions.toggleErrorAlert({
-                    isOpen: true,
-                    error: error,
-                }),
-            )
-        }
-    }, [dispatch, error])
     const router = useRouter()
     useEffect(() => {
         if (success.memberId) {

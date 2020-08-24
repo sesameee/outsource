@@ -15,10 +15,12 @@ export const useWishModify = (): void => {
     const { i18n } = useTranslation()
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(WishModifyActions.fetchWishModify({
-            action: 'add',
-            memberId: '1',
-            shoppingCartProductList: [],
-        }))
+        dispatch(
+            WishModifyActions.fetchWishModify({
+                action: 'add',
+                memberId: '',
+                shoppingCartProductList: [],
+            }),
+        )
     }, [dispatch, i18n.language])
 }
