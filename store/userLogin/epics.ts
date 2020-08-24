@@ -9,6 +9,7 @@ import { UserLoginActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
 import { UserLoginReqData, UserLoginRspAllData } from '@/types/apis/userLogin'
 import { USER_LOGIN } from '@/services/api/apiConfig'
+import { epicSuccessMiddleware } from '../epicMiddleware'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
@@ -30,7 +31,8 @@ export const fetchUserLoginEpic: Epic = (action$) =>
                 password: action.payload.password,
             }).pipe(
                 mergeMap((res) => {
-                    return of(
+                    return epicSuccessMiddleware(
+                        res,
                         UserLoginActions.fetchUserLoginSuccess({
                             UserLoginData: res.data,
                         }),

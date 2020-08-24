@@ -1,6 +1,8 @@
 @import './utils';
 @import './color.scss';
-
+#__next {
+    height: 100%;
+}
 .main-color {
     color: $mainColor;
 }
@@ -369,6 +371,9 @@
 .breeze-daily {
     .banner {
         width: 100%;
+        .banner-title {
+            padding: 1rem;
+        }
     }
     .dailyType1 {
         &:hover {

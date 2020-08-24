@@ -8,6 +8,7 @@ import { CatalogActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
 import { catalogList } from '@/types/apis/catalog'
 import { CATALOG } from '@/services/api/apiConfig'
+import { PayloadAction } from '@reduxjs/toolkit'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
@@ -22,8 +23,11 @@ export const initEpic: Epic = (action$) =>
 export const fetchCatalogEpic: Epic = (action$) =>
     action$.pipe(
         ofType(CatalogActions.fetchCatalog),
-        switchMap(() =>
-            HttpService.PostAsync<null, catalogList>(CATALOG).pipe(
+        switchMap((action: PayloadAction<{ categoryType: string; cid: string }>) =>
+            HttpService.PostAsync<{ categoryType: string; cid: string }, catalogList>(CATALOG, {
+                cid: action.payload.cid,
+                categoryType: action.payload.categoryType,
+            }).pipe(
                 mergeMap((res) => {
                     return of(CatalogActions.fetchCatalogSuccess({ catalogList: res.data }))
                 }),

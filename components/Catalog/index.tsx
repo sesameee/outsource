@@ -8,20 +8,23 @@ import { CatalogData } from '@/types/apis/catalog'
 //import { ProductData } from '@/types/apis/common'
 
 type WidgetFrameProps = {
+    categoryType: string
+    cid: string
     setfilterProduct: React.Dispatch<React.SetStateAction<any>>
     filterProduct: Set<unknown>
     filterToggle: boolean
     setFilterToggle: React.Dispatch<React.SetStateAction<any>>
 }
 const WidgetFrame: React.FC<WidgetFrameProps> = ({
+    categoryType,
+    cid,
     setfilterProduct,
     filterProduct,
     filterToggle,
     setFilterToggle,
 }: WidgetFrameProps) => {
-    useCatalog()
+    useCatalog(cid, categoryType)
     const catalog: CatalogData = useSelector(CatalogSelectors.getCatalogList)
-    console.log('filterToggle :>> ', filterToggle)
     const handleToggleSidebar = (value: boolean) => {
         setFilterToggle(value)
     }

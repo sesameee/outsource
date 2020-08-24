@@ -20,12 +20,12 @@ export const initEpic: Epic = (action$) =>
         }),
     )
 
-export const fetchRefundEpic: Epic = (action$) =>
+export const fetchRefundEpic: Epic = (action$, state$) =>
     action$.pipe(
         ofType(RefundActions.fetchRefund),
         mergeMap((action: PayloadAction<RefundReqData>) =>
             HttpService.PostAsync<RefundReqData, RefundRspData>(REFUND, {
-                memberId: action.payload.memberId,
+                memberId: state$.value.userLogin.memberId,
                 cid: action.payload.cid,
                 pid: action.payload.pid,
                 spec1: action.payload.spec1,
@@ -33,7 +33,7 @@ export const fetchRefundEpic: Epic = (action$) =>
                 qty: action.payload.qty,
                 reason: action.payload.reason,
                 memo: action.payload.memo,
-                accessToken: action.payload.accessToken,
+                accessToken: state$.value.userLogin.accessToken,
             }).pipe(
                 mergeMap((res) => {
                     return of(RefundActions.fetchRefundSuccess(res.data))

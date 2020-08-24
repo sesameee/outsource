@@ -20,14 +20,14 @@ export const initEpic: Epic = (action$) =>
         }),
     )
 
-export const fetchVerifyInvBarCodeListEpic: Epic = (action$) =>
+export const fetchVerifyInvBarCodeListEpic: Epic = (action$, state$) =>
     action$.pipe(
         ofType(VerifyInvBarCodeActions.fetchVerifyInvBarCode),
         switchMap((action: PayloadAction<VerifyInvBarCodeReqData>) =>
             HttpService.PostAsync<VerifyInvBarCodeReqData, VerifyInvBarCodeRspData>(VERIFY_INV_BARCODE, {
-                memberId: action.payload.memberId,
+                memberId: state$.value.userLogin.memberId,
                 barCode: action.payload.barCode,
-                accessToken: action.payload.accessToken,
+                accessToken: state$.value.userLogin.accessToken,
             }).pipe(
                 mergeMap((res) => {
                     return of(VerifyInvBarCodeActions.fetchVerifyInvBarCodeSuccess(res.data))

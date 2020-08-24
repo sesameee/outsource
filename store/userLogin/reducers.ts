@@ -18,11 +18,13 @@ export const fetchUserLoginSuccess: CaseReducer<State, PayloadAction<{ UserLogin
     action,
 ) => {
     return produce(state, (draft) => {
+        const { memberId, accessToken, accessTokenExpireDate, userId, token } = action.payload.UserLoginData.data
         draft['isFetch'] = false
-        draft['userLoginData'] = action.payload.UserLoginData.data
-
-        setCookie('accessToken', draft['userLoginData'].accessToken)
-        setCookie('token', draft['userLoginData'].token)
+        memberId && (draft['memberId'] = memberId) && setCookie('memberId', memberId)
+        accessToken && (draft['accessToken'] = accessToken) && setCookie('accessToken', accessToken)
+        accessTokenExpireDate && (draft['accessTokenExpireDate'] = accessTokenExpireDate)
+        userId && (draft['userId'] = userId) && setCookie('userId', userId)
+        token && (draft['token'] = token) && setCookie('token', token)
     })
 }
 
@@ -30,6 +32,8 @@ export const fetchUserLoginFailure: CaseReducer<State, PayloadAction<{ error: st
     return produce(state, (draft) => {
         draft['isFetch'] = false
         draft['error'] = action.payload.error
+        deleteCookie('memberId')
+        deleteCookie('userId')
         deleteCookie('accessToken')
         deleteCookie('token')
     })

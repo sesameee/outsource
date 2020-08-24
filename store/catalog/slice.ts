@@ -16,7 +16,7 @@ export const catalogSlice = createSlice({
     },
 })
 
-const fetchCatalog = createAction(types.FETCH_CATALOG)
+const fetchCatalog = createAction<{ cid: string; categoryType: string }>(types.FETCH_CATALOG)
 const stopFetchCatalog = createAction(types.STOP_FETCH_CATALOG)
 
 export const catalogCreateActions = { fetchCatalog, stopFetchCatalog }

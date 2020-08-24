@@ -23,7 +23,8 @@ interface CategoryProps extends WithRouterProps {
 const Category: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element => {
     const query = router.query
     useChannelList()
-
+    let cid = ''
+    let categoryType = ''
     const channelList = useSelector(ChannelListSelectors.getChannelList)
     const navData: { title: any; link: string }[] = []
     const processNav = (id: string, list: CategoryData[] | ChannelData[], path: string, index: number) => {
@@ -35,6 +36,8 @@ const Category: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element 
             const categoryData = category[0]
             const subName = index == 1 ? categoryData.channelName : categoryData.cName
             path = `${path}/${categoryData.cid}`
+            cid = categoryData.cid
+            categoryType = categoryData.categoryType
             navData.push({
                 title: subName,
                 link: path,
@@ -62,6 +65,8 @@ const Category: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element 
         <div className="page-wrapper">
             <div className="filter-section">
                 <WidgetFrame
+                    categoryType={categoryType}
+                    cid={cid}
                     filterProduct={filterProduct}
                     setfilterProduct={setfilterProduct}
                     filterToggle={filterToggle}
@@ -118,6 +123,8 @@ const Category: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element 
                                     </div>
                                     <div className="filter-section-pc">
                                         <WidgetFrame
+                                            categoryType={categoryType}
+                                            cid={cid}
                                             filterProduct={filterProduct}
                                             setfilterProduct={setfilterProduct}
                                             filterToggle={filterToggle}

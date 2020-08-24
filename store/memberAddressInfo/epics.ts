@@ -9,6 +9,7 @@ import { MemberAddressInfoActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
 import { MemberAddressInfoReqData, MemberAddressInfoRspData } from '@/types/apis/memberAddressInfo'
 import { MEMBER_ADDRESS_INFO } from '@/services/api/apiConfig'
+import { epicSuccessMiddleware } from '../epicMiddleware'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
@@ -20,17 +21,17 @@ export const initEpic: Epic = (action$) =>
         }),
     )
 
-export const fetchMemberAddressInfoEpic: Epic = (action$) =>
+export const fetchMemberAddressInfoEpic: Epic = (action$, state$) =>
     action$.pipe(
         ofType(MemberAddressInfoActions.fetchMemberAddressInfo),
         mergeMap((action: PayloadAction<MemberAddressInfoReqData>) =>
             HttpService.PostAsync<MemberAddressInfoReqData, MemberAddressInfoRspData>(MEMBER_ADDRESS_INFO, {
-                memberId: action.payload.memberId,
+                memberId: state$.value.userLogin.memberId,
                 category: action.payload.category,
-                accessToken: action.payload.accessToken,
+                accessToken: state$.value.userLogin.accessToken,
             }).pipe(
                 mergeMap((res) => {
-                    return of(MemberAddressInfoActions.fetchMemberAddressInfoSuccess(res.data))
+                    return epicSuccessMiddleware(res, MemberAddressInfoActions.fetchMemberAddressInfoSuccess(res.data))
                 }),
                 catchError((error: AxiosError) => {
                     return of(MemberAddressInfoActions.fetchMemberAddressInfoFailure({ error: error.message }))

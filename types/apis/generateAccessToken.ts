@@ -1,3 +1,4 @@
+import { Response } from './common'
 export interface GenerateAccessTokenReqData {
     token: string
 }
@@ -7,6 +8,6 @@ export interface GenerateAccessTokenData {
     accessTokenExpireDate: string
 }
 
-export interface GenerateAccessTokenRspData {
+export interface GenerateAccessTokenRspData extends Response {
     data: GenerateAccessTokenData
 }

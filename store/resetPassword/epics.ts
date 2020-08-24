@@ -20,12 +20,12 @@ export const initEpic: Epic = (action$) =>
         }),
     )
 
-export const fetchResetPasswordEpic: Epic = (action$) =>
+export const fetchResetPasswordEpic: Epic = (action$, state$) =>
     action$.pipe(
         ofType(ResetPasswordActions.fetchResetPassword),
         mergeMap((action: PayloadAction<ResetPasswordReqData>) =>
             HttpService.PostAsync<ResetPasswordReqData, ResetPasswordRspData>(RESET_PASSWORD, {
-                memberId: action.payload.memberId,
+                memberId: state$.value.userLogin.memberId,
                 phone: action.payload.phone,
                 pwd1: action.payload.pwd1,
                 pwd2: action.payload.pwd2,

@@ -20,15 +20,15 @@ export const initEpic: Epic = (action$) =>
         }),
     )
 
-export const fetchPromoCodeEpic: Epic = (action$) =>
+export const fetchPromoCodeEpic: Epic = (action$, state$) =>
     action$.pipe(
         ofType(PromoCodeActions.fetchPromoCode),
         mergeMap((action: PayloadAction<PromoCodeReqData>) =>
             HttpService.PostAsync<PromoCodeReqData, PromoCodeRspData>(PROMO_CODE, {
                 promoCode: action.payload.promoCode,
-                memberId: action.payload.memberId,
+                memberId: state$.value.userLogin.memberId,
                 pid: action.payload.pid,
-                accessToken: action.payload.accessToken,
+                accessToken: state$.value.userLogin.accessToken,
             }).pipe(
                 mergeMap((res) => {
                     return of(PromoCodeActions.fetchPromoCodeSuccess(res.data))

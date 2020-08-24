@@ -20,12 +20,12 @@ export const initEpic: Epic = (action$) =>
         }),
     )
 
-export const fetchVerifyCodeListEpic: Epic = (action$) =>
+export const fetchVerifyCodeListEpic: Epic = (action$, state$) =>
     action$.pipe(
         ofType(VerifyCodeActions.fetchVerifyCode),
         switchMap((action: PayloadAction<VerifyCodeReqData>) =>
             HttpService.PostAsync<VerifyCodeReqData, VerifyCodeRspData>(VERIFY_CODE, {
-                memberId: action.payload.memberId,
+                memberId: state$.value.userLogin.memberId,
                 code: action.payload.code,
             }).pipe(
                 mergeMap((res) => {

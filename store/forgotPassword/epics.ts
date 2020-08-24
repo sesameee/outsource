@@ -9,6 +9,7 @@ import { ForgotPasswordActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
 import { ForgotPasswordReqData, ForgotPasswordRspData } from '@/types/apis/forgotPassword'
 import { FORGOT_PASSWORD } from '@/services/api/apiConfig'
+import { epicSuccessMiddleware } from '../epicMiddleware'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
@@ -29,7 +30,7 @@ export const fetchForgotPasswordEpic: Epic = (action$) =>
                 rocId: action.payload.rocId,
             }).pipe(
                 mergeMap((res) => {
-                    return of(ForgotPasswordActions.fetchForgotPasswordSuccess(res.data))
+                    return epicSuccessMiddleware(res, ForgotPasswordActions.fetchForgotPasswordSuccess(res.data))
                 }),
                 catchError((error: AxiosError) => {
                     return of(ForgotPasswordActions.fetchForgotPasswordFailure({ error: error.message }))

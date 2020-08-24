@@ -3608,7 +3608,10 @@ p {
     right: 0;
     top: 0;
     z-index: 1040;
-    background-color: transparent;
+    background: linear-gradient(270deg, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0.1) 94%);
+    background: -moz-linear-gradient(270deg, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0.1) 94%);
+    background: -webkit-linear-gradient(270deg, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0.1) 94%);
+    background: -o-linear-gradient(270deg, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0.1) 94%);
 }
 .header-9 .header-middle {
     border-bottom: none;

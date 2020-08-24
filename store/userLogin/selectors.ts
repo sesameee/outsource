@@ -5,10 +5,10 @@ import { State as UserLoginState } from '@/types/stores/userLogin/state'
 
 export const userLoginState = (state: RootState): UserLoginState => state.userLogin
 
-export const getUserLoginData = createSelector<RootState, UserLoginState, UserLoginState['userLoginData']>(
+export const getUserLoginData = createSelector<RootState, UserLoginState, UserLoginState>(
     userLoginState,
     (userLoginState: UserLoginState) => {
-        return userLoginState.userLoginData
+        return userLoginState
     },
 )
 

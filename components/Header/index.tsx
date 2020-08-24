@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux'
 import { WishListSelectors } from '@/store'
 import { useWishList } from '@/hooks/Wish'
 import MobileMenu from './MobileMenu'
+import ErrorAlert from '../commons/ErrorAlert'
 
 type HeaderProps = {
     isIndex: boolean
@@ -33,6 +34,7 @@ const Header: React.FC<HeaderProps> = ({ isIndex, token }: HeaderProps) => {
                 setPropIsOpenFn={setIsOpenMember}
             />
             <div className="header-middle sticky-header custom-header">
+                <ErrorAlert />
                 <HoverItemList itemHoverIndex={itemHoverIndex} setItemHoverIndex={setItemHoverIndex} />
                 <div className="container">
                     <div className="header-left">

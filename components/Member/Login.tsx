@@ -3,7 +3,6 @@ import { useTranslation } from '@/I18n'
 import { useForm } from 'react-hook-form'
 import { UserLoginReqData } from '@/types/apis/userLogin'
 import { useUserLoginHandler } from '@/hooks/UserLogin'
-import ErrorAlert from '../commons/ErrorAlert'
 import { useDispatch, useSelector } from 'react-redux'
 import { ErrorAlertActions, UserLoginSelectors } from '@/store'
 import { useRouter } from 'next/router'
@@ -42,7 +41,6 @@ const Login: React.FC<LoginProps> = ({ setPropIsOpenFn }: LoginProps) => {
     }
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="login-form">
-            <ErrorAlert />
             <div className="desc">{t('login_desc_01')}</div>
             <div className="phone-frame">
                 <div className="form-group phoneCode">

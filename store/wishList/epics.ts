@@ -19,11 +19,14 @@ export const initEpic: Epic = (action$) =>
         }),
     )
 
-export const fetchWishListListEpic: Epic = (action$) =>
+export const fetchWishListListEpic: Epic = (action$, state$) =>
     action$.pipe(
         ofType(WishListActions.fetchWishList),
         switchMap(() =>
-            HttpService.PostAsync<null, WishListRspData>(WISH_LIST).pipe(
+            HttpService.PostAsync<any, WishListRspData>(WISH_LIST, {
+                memberId: state$.value.userLogin.memberId,
+                accessToken: state$.value.userLogin.accessToken,
+            }).pipe(
                 mergeMap((res) => {
                     return of(WishListActions.fetchWishListSuccess(res.data))
                 }),

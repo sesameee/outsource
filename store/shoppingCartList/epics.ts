@@ -20,14 +20,14 @@ export const initEpic: Epic = (action$) =>
         }),
     )
 
-export const fetchShoppingCartListEpic: Epic = (action$) =>
+export const fetchShoppingCartListEpic: Epic = (action$, state$) =>
     action$.pipe(
         ofType(ShoppingCartListActions.fetchShoppingCartList),
         mergeMap((action: PayloadAction<ShoppingCartListReqData>) =>
             HttpService.PostAsync<ShoppingCartListReqData, ShoppingCartListRspData>(SHOPPING_CART_LIST, {
-                memberId: action.payload.memberId,
+                memberId: state$.value.userLogin.memberId,
                 shipType: action.payload.shipType,
-                accessToken: action.payload.accessToken,
+                accessToken: state$.value.userLogin.accessToken,
             }).pipe(
                 mergeMap((res) => {
                     return of(ShoppingCartListActions.fetchShoppingCartListSuccess({ data: res.data }))

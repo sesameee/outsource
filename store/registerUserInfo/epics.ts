@@ -20,18 +20,18 @@ export const initEpic: Epic = (action$) =>
         }),
     )
 
-export const fetchRegisterUserInfoEpic: Epic = (action$) =>
+export const fetchRegisterUserInfoEpic: Epic = (action$, state$) =>
     action$.pipe(
         ofType(RegisterUserInfoActions.fetchRegisterUserInfo),
         mergeMap((action: PayloadAction<RegisterUserInfoReqData>) =>
             HttpService.PostAsync<RegisterUserInfoReqData, RegisterUserInfoRspData>(REGISTER_USER_INFO, {
-                memberId: action.payload.memberId,
+                memberId: state$.value.userLogin.memberId,
                 rocId: action.payload.rocId,
                 sex: action.payload.sex,
                 cityCode: action.payload.cityCode,
                 areaCode: action.payload.areaCode,
                 address: action.payload.address,
-                accessToken: action.payload.accessToken,
+                accessToken: state$.value.userLogin.accessToken,
             }).pipe(
                 mergeMap((res) => {
                     return of(RegisterUserInfoActions.fetchRegisterUserInfoSuccess(res.data))

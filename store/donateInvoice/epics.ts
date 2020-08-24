@@ -8,6 +8,7 @@ import { DonateInvoiceActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
 import { DonateInvoiceRspData } from '@/types/apis/donateInvoice'
 import { DONATE_INVOICE } from '@/services/api/apiConfig'
+import { epicSuccessMiddleware } from '../epicMiddleware'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
@@ -25,7 +26,10 @@ export const fetchDonateInvoiceListEpic: Epic = (action$) =>
         switchMap(() =>
             HttpService.PostAsync<null, DonateInvoiceRspData>(DONATE_INVOICE).pipe(
                 mergeMap((res) => {
-                    return of(DonateInvoiceActions.fetchDonateInvoiceSuccess({ donateInvoice: res.data }))
+                    return epicSuccessMiddleware(
+                        res,
+                        DonateInvoiceActions.fetchDonateInvoiceSuccess({ donateInvoice: res.data }),
+                    )
                 }),
                 catchError((error: AxiosError) => {
                     return of(DonateInvoiceActions.fetchDonateInvoiceFailure({ error: error.message }))

@@ -20,13 +20,13 @@ export const initEpic: Epic = (action$) =>
         }),
     )
 
-export const fetchWishModifyEpic: Epic = (action$) =>
+export const fetchWishModifyEpic: Epic = (action$, state$) =>
     action$.pipe(
         ofType(WishModifyActions.fetchWishModify),
         mergeMap((action: PayloadAction<WishModifyReqData>) =>
             HttpService.PostAsync<WishModifyReqData, WishModifyRspData>(WISH_MODIFY, {
                 action: action.payload.action,
-                memberId: action.payload.memberId,
+                memberId: state$.value.userLogin.memberId,
                 shoppingCartProductList: action.payload.shoppingCartProductList,
             }).pipe(
                 mergeMap((res) => {

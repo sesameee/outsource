@@ -7,9 +7,10 @@ export interface UserLoginReqData {
 
 export interface UserLoginRspData {
     memberId: string
-    token: string
-    accessToken: string
-    accessTokenExpireDate: string
+    token?: string
+    accessToken?: string
+    accessTokenExpireDate?: string
+    userId?: string
 }
 
 export interface UserLoginRspAllData extends Response {
