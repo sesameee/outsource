@@ -12,7 +12,6 @@ const ChannelList: React.FC<ChannelListProps> = ({ setItemHoverIndex }: ChannelL
     return (
         <ul className="menu sf-arrows">
             {channelList.map((item, index) => {
-                console.log('item :>> ', item)
                 return (
                     <li
                         className="megamenu-container"
