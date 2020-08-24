@@ -9,10 +9,9 @@ export const verifyCodeState = (state: RootState): VerifyCodeState => state.veri
 //     return verifyCodeState.verifyCode.totalItems
 // })
 
-export const getVerifyCode = createSelector<
-    RootState,
-    VerifyCodeState,
-    VerifyCodeState['data']
->(verifyCodeState, (verifyCodeState: VerifyCodeState) => {
-    return verifyCodeState.data
-})
+export const getVerifyCode = createSelector<RootState, VerifyCodeState, VerifyCodeState['data']>(
+    verifyCodeState,
+    (verifyCodeState: VerifyCodeState) => {
+        return verifyCodeState.data
+    },
+)

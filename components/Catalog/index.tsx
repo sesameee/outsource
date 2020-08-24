@@ -32,10 +32,96 @@ const WidgetFrame: React.FC<WidgetFrameProps> = ({
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newSet = new Set(filterProduct)
         const key = e.target.id
+        console.log('key :>> ', key)
         if (e.target.checked) {
             setfilterProduct(newSet.add(key))
         } else {
             newSet.has(key) && newSet.delete(key) && setfilterProduct(newSet)
+        }
+    }
+
+    const MenuList = () => {
+        if (catalog.categoryList.length == 0) {
+            return <> </>
+        }
+        if (catalog.categoryType == 'subCategory') {
+            return catalog.categoryList.map((item: CatalogData, index) => {
+                return (
+                    <Menu key={`topMenu${index}`}>
+                        <SubMenu title={item.cName} defaultOpen={true}>
+                            {item.cData &&
+                                item.cData.map((catItem: any, subindex) => {
+                                    const id = `c${catalog.cid}-${item.cid}-${catItem.cid}-${catItem.pid}`
+                                    console.log('catItem :>> ', catItem)
+                                    return (
+                                        <MenuItem key={`menu${subindex}`}>
+                                            <div className="filter-item">
+                                                <div className="custom-control custom-checkbox">
+                                                    <input
+                                                        type="checkbox"
+                                                        className="custom-control-input"
+                                                        id={id}
+                                                        checked={filterProduct.has(id)}
+                                                        onChange={handleChange}
+                                                    />
+                                                    <label className="custom-control-label" htmlFor={id}>
+                                                        {id}
+                                                        {catItem.pName}
+                                                    </label>
+                                                </div>
+                                                <span className="item-count">{catItem.total}</span>
+                                            </div>
+                                        </MenuItem>
+                                    )
+                                })}
+                        </SubMenu>
+                    </Menu>
+                )
+            })
+        } else {
+            return catalog.categoryList.map((item: CatalogData, index) => {
+                return (
+                    <Menu key={`topMenu${index}`}>
+                        <SubMenu title={item.cName} defaultOpen={true}>
+                            {item.cData &&
+                                item.cData.map((catItem: any, subindex) => {
+                                    return (
+                                        <Menu key={`subMenu${subindex}`} className="sub-menu">
+                                            <SubMenu title={catItem.cName}>
+                                                {catItem.cData &&
+                                                    catItem.cData.map((lastItem: CatalogData, cindex: number) => {
+                                                        const id = `c${item.cid}-${catItem.cid}-${lastItem.cid}`
+                                                        return (
+                                                            <MenuItem key={`menu${cindex}`}>
+                                                                <div className="filter-item">
+                                                                    <div className="custom-control custom-checkbox">
+                                                                        <input
+                                                                            type="checkbox"
+                                                                            className="custom-control-input"
+                                                                            id={id}
+                                                                            checked={filterProduct.has(id)}
+                                                                            onChange={handleChange}
+                                                                        />
+                                                                        <label
+                                                                            className="custom-control-label"
+                                                                            htmlFor={id}
+                                                                        >
+                                                                            {lastItem.cName}
+                                                                        </label>
+                                                                    </div>
+                                                                    <span className="item-count">{lastItem.total}</span>
+                                                                </div>
+                                                            </MenuItem>
+                                                        )
+                                                    })}
+                                            </SubMenu>
+                                        </Menu>
+                                    )
+                                })}
+                        </SubMenu>
+                    </Menu>
+                )
+            })
         }
     }
     return (
@@ -46,60 +132,7 @@ const WidgetFrame: React.FC<WidgetFrameProps> = ({
                     <div>商品分類</div>
                     <div></div>
                 </div>
-                <SidebarContent>
-                    {catalog &&
-                        catalog.categoryList &&
-                        catalog.categoryList.length &&
-                        catalog.categoryList.map((item: CatalogData, index) => {
-                            return (
-                                <Menu key={`topMenu${index}`}>
-                                    <SubMenu title={item.cName} defaultOpen={true}>
-                                        {item.cData &&
-                                            item.cData.map((catItem: any, subindex) => {
-                                                return (
-                                                    <Menu key={`subMenu${subindex}`} className="sub-menu">
-                                                        <SubMenu title={catItem.cName}>
-                                                            {catItem.cData &&
-                                                                catItem.cData.map(
-                                                                    (lastItem: CatalogData, cindex: number) => {
-                                                                        const id = `c${item.cid}-${catItem.cid}-${lastItem.cid}`
-                                                                        return (
-                                                                            <MenuItem key={`menu${cindex}`}>
-                                                                                <div className="filter-item">
-                                                                                    <div className="custom-control custom-checkbox">
-                                                                                        <input
-                                                                                            type="checkbox"
-                                                                                            className="custom-control-input"
-                                                                                            id={id}
-                                                                                            checked={filterProduct.has(
-                                                                                                id,
-                                                                                            )}
-                                                                                            onChange={handleChange}
-                                                                                        />
-                                                                                        <label
-                                                                                            className="custom-control-label"
-                                                                                            htmlFor={id}
-                                                                                        >
-                                                                                            {lastItem.cName}
-                                                                                        </label>
-                                                                                    </div>
-                                                                                    <span className="item-count">
-                                                                                        {lastItem.total}
-                                                                                    </span>
-                                                                                </div>
-                                                                            </MenuItem>
-                                                                        )
-                                                                    },
-                                                                )}
-                                                        </SubMenu>
-                                                    </Menu>
-                                                )
-                                            })}
-                                    </SubMenu>
-                                </Menu>
-                            )
-                        })}
-                </SidebarContent>
+                <SidebarContent>{MenuList()}</SidebarContent>
             </ProSidebar>
         </div>
     )

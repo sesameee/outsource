@@ -9,6 +9,7 @@ import { useUserRegisterHandler } from '@/hooks/UserRegister'
 import { VerifyCodeData } from '@/types/apis/verifyCode'
 import { RegisterUserInfoReqData } from '@/types/apis/registerUserInfo'
 import { useUserRegisterSetupHandler } from '@/hooks/UserSetup'
+import { useVerifyCodeHandler } from '@/hooks/VerifyCode'
 
 type RegisterProps = {
     setPropIsOpenFn: any
@@ -19,7 +20,7 @@ type RegisterFromProps = {
 }
 const FromFirstStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromProps) => {
     const { t } = useTranslation()
-    const { register, handleSubmit } = useForm<UserRegisterReqData>()
+    const { register, handleSubmit, errors } = useForm<UserRegisterReqData>()
     const { handleRegiterSubmit, HandleUserRegisterRes } = useUserRegisterHandler()
     const onSubmit = (data: UserRegisterReqData) => {
         handleRegiterSubmit(data)
@@ -79,7 +80,12 @@ const FromFirstStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromPro
             <div className="form-group">
                 <label htmlFor="pwd1">密碼* ( 請輸入 6-12 位英數混合的密碼 )</label>
                 <input
-                    ref={register({ required: true })}
+                    ref={register({
+                        required: true,
+                        maxLength: 12,
+                        minLength: 6,
+                        pattern: /^([a-zA-Z]+\d+|\d+[a-zA-Z]+)[a-zA-Z0-9]*$/,
+                    })}
                     type="password"
                     className="form-control"
                     id="pwd1"
@@ -90,8 +96,12 @@ const FromFirstStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromPro
             <div className="form-group">
                 <label htmlFor="pwd2">確認密碼* ( 請輸入 6-12 位英數混合的密碼 )</label>
                 <input
-                    ref={register({ required: true })}
-                    type="password"
+                    ref={register({
+                        required: true,
+                        maxLength: 12,
+                        minLength: 6,
+                        pattern: /^([a-zA-Z]+\d+|\d+[a-zA-Z]+)[a-zA-Z0-9]*$/,
+                    })}
                     className="form-control"
                     id="pwd2"
                     name="pwd2"
@@ -117,11 +127,11 @@ const FromFirstStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromPro
 
 const FromSecondStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromProps) => {
     const { register, handleSubmit } = useForm<VerifyCodeData>()
-    const { handleRegiterSetupSubmit } = useUserRegisterSetupHandler()
+    const { HandleVerifyCodeRes, handleVerifyCodeSubmit } = useVerifyCodeHandler()
     const onSubmit = (data: UserRegisterReqData) => {
-        handleRegiterSetupSubmit(data)
-        setStep(3)
+        handleVerifyCodeSubmit(data)
     }
+    HandleVerifyCodeRes(setStep)
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">

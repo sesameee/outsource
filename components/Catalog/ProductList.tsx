@@ -30,6 +30,7 @@ type ProductListProps = {
 }
 const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect }: ProductListProps) => {
     const productObj = useSelector(CatalogSelectors.getProductList)
+    console.log('productObjssss :>> ', productObj)
     // const SortType = FilterType.PRICE_ASCENDING
     const productList = SortByType(sortSelect, productObj)
     const { handleCart } = useShoppingCartModifyHandler()
@@ -38,7 +39,8 @@ const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect }: 
             {productList &&
                 productList.length &&
                 productList.map((item: ProductData, index: number) => {
-                    const findID = item._id.substr(0, item._id.lastIndexOf('-'))
+                    //const findID = item._id.substr(0, item._id.lastIndexOf('-'))
+                    const findID = item._id
                     const showProduct = (filterProduct.size > 0 && filterProduct.has(findID)) || filterProduct.size == 0
                     return showProduct ? (
                         <div className="col-6 col-md-4 col-lg-4" key={index}>
@@ -80,7 +82,10 @@ const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect }: 
                                         <a href="#">Women</a>
                                     </div> */}
                                     <h3 className="product-title">
-                                        <a href="product.html">{item.pName}</a>
+                                        <a href="product.html">
+                                            {item._id}
+                                            {item.pName}
+                                        </a>
                                     </h3>
                                     <div className="product-price highlight-color">
                                         {item.listPrice != item.price ? (

@@ -10,6 +10,7 @@ import HttpService from '@/services/api/HttpService'
 import { UserRegisterReqData } from '@/types/apis/userRegister'
 import { USER_REGISTER } from '@/services/api/apiConfig'
 import { UserLoginRspAllData } from '@/types/apis/userLogin'
+import { epicSuccessMiddleware } from '../epicMiddleware'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
@@ -35,7 +36,8 @@ export const fetchUserRegisterEpic: Epic = (action$) =>
                 registerFrom: action.payload.registerFrom,
             }).pipe(
                 mergeMap((res) => {
-                    return of(
+                    return epicSuccessMiddleware(
+                        res,
                         UserLoginActions.fetchUserLoginSuccess({
                             UserLoginData: res.data,
                         }),

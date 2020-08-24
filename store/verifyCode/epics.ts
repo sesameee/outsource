@@ -4,7 +4,7 @@ import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 
-import { VerifyCodeActions } from '@/store'
+import { VerifyCodeActions, UserLoginActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
 import { VerifyCodeRspData, VerifyCodeReqData } from '@/types/apis/verifyCode'
 import { VERIFY_CODE } from '@/services/api/apiConfig'
@@ -24,12 +24,17 @@ export const fetchVerifyCodeListEpic: Epic = (action$, state$) =>
     action$.pipe(
         ofType(VerifyCodeActions.fetchVerifyCode),
         switchMap((action: PayloadAction<VerifyCodeReqData>) =>
-            HttpService.PostAsync<VerifyCodeReqData, VerifyCodeRspData>(VERIFY_CODE, {
+            HttpService.PostAsync<VerifyCodeReqData, any>(VERIFY_CODE, {
                 memberId: state$.value.userLogin.memberId,
                 code: action.payload.code,
             }).pipe(
                 mergeMap((res) => {
-                    return of(VerifyCodeActions.fetchVerifyCodeSuccess(res.data))
+                    return of(
+                        VerifyCodeActions.fetchVerifyCodeSuccess(res.data),
+                        UserLoginActions.fetchUserLoginSuccess({
+                            UserLoginData: res.data,
+                        }),
+                    )
                 }),
                 catchError((error: AxiosError) => {
                     return of(VerifyCodeActions.fetchVerifyCodeFailure({ error: error.message }))
