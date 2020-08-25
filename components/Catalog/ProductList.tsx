@@ -83,7 +83,7 @@ const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect }: 
                                     </div> */}
                                     <h3 className="product-title">
                                         <a href="product.html">
-                                            {item._id}
+                                            {/* {item._id} */}
                                             {item.pName}
                                         </a>
                                     </h3>

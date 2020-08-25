@@ -65,7 +65,7 @@ const WidgetFrame: React.FC<WidgetFrameProps> = ({
                                                         onChange={handleChange}
                                                     />
                                                     <label className="custom-control-label" htmlFor={id}>
-                                                        {id}
+                                                        {/* {id} */}
                                                         {catItem.pName}
                                                     </label>
                                                 </div>

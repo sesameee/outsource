@@ -6,7 +6,7 @@ import { AxiosError } from 'axios'
 
 import { VerifyCodeActions, UserLoginActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
-import { VerifyCodeRspData, VerifyCodeReqData } from '@/types/apis/verifyCode'
+import { VerifyCodeReqData } from '@/types/apis/verifyCode'
 import { VERIFY_CODE } from '@/services/api/apiConfig'
 import { PayloadAction } from '@reduxjs/toolkit'
 

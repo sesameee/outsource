@@ -20,7 +20,7 @@ type RegisterFromProps = {
 }
 const FromFirstStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromProps) => {
     const { t } = useTranslation()
-    const { register, handleSubmit, errors } = useForm<UserRegisterReqData>()
+    const { register, handleSubmit } = useForm<UserRegisterReqData>()
     const { handleRegiterSubmit, HandleUserRegisterRes } = useUserRegisterHandler()
     const onSubmit = (data: UserRegisterReqData) => {
         handleRegiterSubmit(data)

@@ -31,7 +31,8 @@ export const fetchUserLoginEpic: Epic = (action$) =>
                 password: action.payload.password,
             }).pipe(
                 mergeMap((res) => {
-                    return of(
+                    return epicSuccessMiddleware(
+                        res,
                         UserLoginActions.fetchUserLoginSuccess({
                             UserLoginData: res.data,
                         }),

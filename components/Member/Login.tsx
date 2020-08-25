@@ -3,8 +3,8 @@ import { useTranslation } from '@/I18n'
 import { useForm } from 'react-hook-form'
 import { UserLoginReqData } from '@/types/apis/userLogin'
 import { useUserLoginHandler } from '@/hooks/UserLogin'
-import { useDispatch, useSelector } from 'react-redux'
-import { ErrorAlertActions, UserLoginSelectors } from '@/store'
+import { useSelector } from 'react-redux'
+import { UserLoginSelectors } from '@/store'
 import { useRouter } from 'next/router'
 
 type LoginProps = {

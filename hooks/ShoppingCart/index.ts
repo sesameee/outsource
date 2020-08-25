@@ -3,7 +3,7 @@ import { useEffect, useCallback } from 'react'
 import { ShoppingCartListActions, ShoppingCartModifyActions, ShoppingCartModifySelectors } from '@/store'
 import { useTranslation } from '@/I18n'
 
-export const useShoppingCartList = (shipType: string): void => {
+export const useShoppingCartList = (): void => {
     const cartModify = useSelector(ShoppingCartModifySelectors.shoppingCartModify)
     const dispatch = useDispatch()
     const { i18n } = useTranslation()
@@ -11,11 +11,11 @@ export const useShoppingCartList = (shipType: string): void => {
         dispatch(
             ShoppingCartListActions.fetchShoppingCartList({
                 memberId: '',
-                shipType,
+                shipType: '1',
                 accessToken: '',
             }),
         )
-    }, [dispatch, i18n.language, cartModify, shipType])
+    }, [dispatch, i18n.language, cartModify])
 }
 
 export const useShoppingCartModify = (): void => {

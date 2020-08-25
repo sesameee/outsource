@@ -28,7 +28,6 @@ export const fetchCatalogSuccess: CaseReducer<State, PayloadAction<{ catalogList
                     const cid = iData[l]?.cid
                     const pid = iData[l]?.pid
                     const id = `c${data.cid}-${iCid}-${cid}-${pid}`
-                    console.log('id :>> ', id)
                     tmpData['_id'] = id
                     productList[id] = tmpData
                 }
@@ -54,8 +53,6 @@ export const fetchCatalogSuccess: CaseReducer<State, PayloadAction<{ catalogList
                 }
             }
         }
-
-        console.log('productList :>> ', productList)
         draft['productList'] = productList
     })
 }
