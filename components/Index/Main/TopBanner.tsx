@@ -32,7 +32,7 @@ const TopBanner: React.FC = () => {
         infinite: true,
         slidesToShow: 1,
         slidesToScroll: 1,
-        autoplay: false,
+        autoplay: true,
         speed: 500,
         cssEase: 'linear',
         nextArrow: <NextArrow />,
