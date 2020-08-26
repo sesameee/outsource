@@ -1,4 +1,4 @@
-import { VerifyCodeData } from "@/types/apis/verifyCode";
+import { VerifyCodeData } from '@/types/apis/verifyCode'
 
 export type State = {
     isFetch: boolean

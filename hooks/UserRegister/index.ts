@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { UserRegisterActions } from '@/store'
-import { UserRegisterSelectors } from '@/store'
+import { UserRegisterActions, UserLoginSelectors } from '@/store'
 import { useCallback } from 'react'
 import { UserRegisterReqData } from '@/types/apis/userRegister'
 export const useUserRegisterHandler = (): any => {
@@ -13,12 +12,12 @@ export const useUserRegisterHandler = (): any => {
         [dispatch],
     )
     const HandleUserRegisterRes = (setStep: any): void => {
-        const userRegisterRes = useSelector(UserRegisterSelectors.userRegister)
+        const userRegisterRes = useSelector(UserLoginSelectors.getUserLoginData)
         useEffect(() => {
-            if (userRegisterRes.data.memberId) {
+            if (userRegisterRes.memberId) {
                 setStep(2)
             }
-        }, [setStep, userRegisterRes.data])
+        }, [setStep, userRegisterRes.memberId])
     }
     return { handleRegiterSubmit, HandleUserRegisterRes }
 }

@@ -24,6 +24,7 @@ const Header: React.FC<HeaderProps> = ({ isIndex, token }: HeaderProps) => {
     const [IsOpenMenu, setIsOpenMenu] = React.useState(false)
     const headerClass = isIndex ? 'header header-9' : 'header'
     const wishList = useSelector(WishListSelectors.getWishList)
+    console.log('token :>> ', token)
     return (
         <header className={headerClass}>
             <MobileMenu IsOpenMenu={IsOpenMenu} setIsOpenMenu={setIsOpenMenu} />
@@ -55,10 +56,10 @@ const Header: React.FC<HeaderProps> = ({ isIndex, token }: HeaderProps) => {
                         <Link href="/wishlist">
                             <a className="wishlist-link">
                                 <i className="icon-heart-o"></i>
-                                <span className="wishlist-count">{wishList.total}</span>
+                                {wishList.total > 0 && <span className="wishlist-count">{wishList.total}</span>}
                             </a>
                         </Link>
-                        <Cart />
+                        <Cart setIsOpenMember={setIsOpenMember} />
                         {token ? (
                             <Link href="/member/points">
                                 <a className="wishlist-link">

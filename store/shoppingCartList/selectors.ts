@@ -11,6 +11,14 @@ export const shoppingCartListState = (state: RootState): ShoppingCartListState =
 //     return shoppingCartListState.shoppingCartListList.totalItems
 // })
 
+export const getShoppingCartListCookie = createSelector<
+    RootState,
+    ShoppingCartListState,
+    ShoppingCartListState['shoppingCartListDataCookie']
+>(shoppingCartListState, (shoppingCartListState: ShoppingCartListState) => {
+    return shoppingCartListState.shoppingCartListDataCookie
+})
+
 export const getShoppingCartList = createSelector<
     RootState,
     ShoppingCartListState,

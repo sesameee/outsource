@@ -765,7 +765,7 @@ blockquote.text-white cite span {
     align-items: center;
     text-decoration: none !important;
     line-height: 1;
-    color: #333;
+    color:$mainFontColor;
 }
 .cart-dropdown .dropdown-toggle::after,
 .compare-dropdown .dropdown-toggle::after {

@@ -60,15 +60,19 @@ const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect }: 
                                         <a
                                             className="btn-product btn-cart"
                                             onClick={() => {
-                                                handleCart('add', [
-                                                    {
-                                                        cid: item.cid,
-                                                        pid: item.pid,
-                                                        spec1: '',
-                                                        spec2: '',
-                                                        qty: 1,
-                                                    },
-                                                ])
+                                                handleCart(
+                                                    'add',
+                                                    [
+                                                        {
+                                                            cid: item.cid,
+                                                            pid: item.pid,
+                                                            spec1: '',
+                                                            spec2: '',
+                                                            qty: 1,
+                                                        },
+                                                    ],
+                                                    { ...item, qty: 1 },
+                                                )
                                             }}
                                         >
                                             <span>加入購物車</span>

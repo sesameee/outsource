@@ -9,10 +9,10 @@ import { deleteCookie } from '@/utils'
  * @param fn epic action
  */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const epicSuccessMiddleware = (res: any, fn: any) => {
+export const epicSuccessMiddleware = (res: any, fn: any, fn2?: any) => {
     console.log('res.data.code :>> ', res.data.code)
     if (res.data.code === '0000') {
-        return of(fn)
+        return fn2 ? of(fn, fn2) : of(fn)
     } else if (res.data.code === '8012' || res.data.code === '8013') {
         return throwError(res.data.code)
     } else {

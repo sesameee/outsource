@@ -11,7 +11,7 @@ const logger = createLogger({ collapsed: true })
 const onlyDevMiddlewares = new Array<Middleware>()
 
 if (process.env.NODE_ENV === `development`) {
-    onlyDevMiddlewares.push(logger)
+    //onlyDevMiddlewares.push(logger)
 }
 export const setupStore = (preloadedState: any) => {
     const store = configureStore({

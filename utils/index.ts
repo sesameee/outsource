@@ -103,7 +103,9 @@ export const setCookie = (name: string, val: string): void => {
     date.setTime(date.getTime() + 30 * 24 * 60 * 60 * 1000)
 
     // Set it
-    document.cookie = name + '=' + value + '; expires=' + date.toUTCString() + '; path=/'
+    if (typeof window !== 'undefined') {
+        document.cookie = name + '=' + value + '; expires=' + date.toUTCString() + '; path=/'
+    }
 }
 
 /**

@@ -18,11 +18,11 @@ const Login: React.FC<LoginProps> = ({ setPropIsOpenFn }: LoginProps) => {
     const success = useSelector(UserLoginSelectors.getUserLoginData)
     const router = useRouter()
     useEffect(() => {
-        if (success.memberId) {
+        if (success.accessToken) {
             router.push('/member/points')
             setPropIsOpenFn(false)
         }
-    }, [setPropIsOpenFn, success.memberId, router])
+    }, [setPropIsOpenFn, success.accessToken, router])
 
     const onSubmit = (data: UserLoginReqData) => {
         handleLoginSubmit(data)

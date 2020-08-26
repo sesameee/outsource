@@ -19,7 +19,7 @@ export const useUserRegisterSetupHandler = (): any => {
                 console.log('userRegisterRes.code :>> ', userRegisterRes.code)
                 if (userRegisterRes.code === '0000') {
                     // close register
-                    setPropIsOpenFn(false)
+                    //setPropIsOpenFn(false)
                 }
             }
         }, [setPropIsOpenFn, userRegisterRes.code])

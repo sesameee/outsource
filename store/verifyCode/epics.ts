@@ -9,6 +9,7 @@ import HttpService from '@/services/api/HttpService'
 import { VerifyCodeReqData } from '@/types/apis/verifyCode'
 import { VERIFY_CODE } from '@/services/api/apiConfig'
 import { PayloadAction } from '@reduxjs/toolkit'
+import { epicSuccessMiddleware } from '../epicMiddleware'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
@@ -29,7 +30,8 @@ export const fetchVerifyCodeListEpic: Epic = (action$, state$) =>
                 code: action.payload.code,
             }).pipe(
                 mergeMap((res) => {
-                    return of(
+                    return epicSuccessMiddleware(
+                        res,
                         VerifyCodeActions.fetchVerifyCodeSuccess(res.data),
                         UserLoginActions.fetchUserLoginSuccess({
                             UserLoginData: res.data,

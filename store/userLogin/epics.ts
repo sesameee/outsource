@@ -16,8 +16,17 @@ import { epicSuccessMiddleware } from '../epicMiddleware'
 export const initEpic: Epic = (action$) =>
     action$.pipe(
         ofType(HYDRATE),
-        switchMap(() => {
-            return of(UserLoginActions.reset())
+        switchMap((action) => {
+            const userLogin = action.payload.userLogin
+            return of(
+                UserLoginActions.fetchUserLoginSuccess({
+                    UserLoginData: {
+                        data: userLogin,
+                        code: '0000',
+                        message: '',
+                    },
+                }),
+            )
         }),
     )
 

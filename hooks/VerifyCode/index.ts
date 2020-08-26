@@ -13,11 +13,12 @@ export const useVerifyCodeHandler = (): any => {
     )
     const HandleVerifyCodeRes = (setStep: any): void => {
         const Res = useSelector(VerifyCodeSelectors.getVerifyCode)
+        const accessToken = (Res && Res.accessToken) || ''
         useEffect(() => {
-            if (Res.accessToken != '') {
+            if (accessToken != '') {
                 setStep(3)
             }
-        }, [setStep, Res.accessToken])
+        }, [setStep, accessToken])
     }
     const handleReset = useCallback(() => {
         dispatch(VerifyCodeActions.reset())

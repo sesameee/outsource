@@ -102,6 +102,7 @@ const FromFirstStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromPro
                         minLength: 6,
                         pattern: /^([a-zA-Z]+\d+|\d+[a-zA-Z]+)[a-zA-Z0-9]*$/,
                     })}
+                    type="password"
                     className="form-control"
                     id="pwd2"
                     name="pwd2"

@@ -14,10 +14,34 @@ import '@/styles/main.scss'
 import '@/styles/custom.scss'
 import { appWithTranslation, i18n } from '../I18n'
 import { getCookie, setCookie } from '@/utils'
+import { UserLoginActions, ShoppingCartListActions } from '@/store'
+import { NextPageContext } from 'next'
+import cookies from 'next-cookies'
 
+const cookieServerProgress = (ctx: NextPageContext) => {
+    const memberId = cookies(ctx).memberId !== undefined ? (cookies(ctx).memberId as string) : ''
+    const userId = cookies(ctx).userId !== undefined ? (cookies(ctx).userId as string) : ''
+    const token = cookies(ctx).token !== undefined ? (cookies(ctx).token as string) : ''
+    const accessToken = cookies(ctx).accessToken !== undefined ? (cookies(ctx).accessToken as string) : ''
+    const cartList = cookies(ctx).cartList !== undefined ? (cookies(ctx).cartList as string) : ''
+    const UserLoginData = {
+        code: '0000',
+        data: {
+            memberId,
+            token,
+            accessToken,
+            userId,
+        },
+        message: 'cookie',
+    }
+    console.log('cartListJJJJ :>> ', cartList)
+    accessToken && ctx.store.dispatch(UserLoginActions.fetchUserLoginSuccess({ UserLoginData }))
+    cartList && ctx.store.dispatch(ShoppingCartListActions.setShoppingCartListCookie({ data: cartList }))
+}
 class MyApp extends App {
     static async getInitialProps({ Component, ctx }: AppContext) {
         const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {}
+        cookieServerProgress(ctx)
         return { pageProps }
     }
     componentDidMount() {

@@ -5,9 +5,9 @@ import {
     ShoppingCartModifyActions,
     ShoppingCartModifySelectors,
     UserLoginSelectors,
+    ShoppingCartListSelectors,
 } from '@/store'
 import { useTranslation } from '@/I18n'
-import { setCookie, getCookie } from '@/utils'
 
 export const useShoppingCartList = (): void => {
     const cartModify = useSelector(ShoppingCartModifySelectors.shoppingCartModify)
@@ -41,10 +41,9 @@ export const useShoppingCartModify = (): void => {
 export const useShoppingCartModifyHandler = (): any => {
     const dispatch = useDispatch()
     const getUser = useSelector(UserLoginSelectors.getUserLoginData)
-
+    const getCartList = useSelector(ShoppingCartListSelectors.getShoppingCartListCookie)
     const handleCart = useCallback(
-        (action: string, shoppingCartProductList: []) => {
-            console.log('getUser :>> ', getUser)
+        (action: string, shoppingCartProductList: [], itemData: any) => {
             if (getUser.accessToken) {
                 return dispatch(
                     ShoppingCartModifyActions.fetchShoppingCartModify({
@@ -54,17 +53,17 @@ export const useShoppingCartModifyHandler = (): any => {
                     }),
                 )
             } else {
-                const cartList = getCookie('cartList')
-                if (cartList == undefined) {
-                    setCookie('cartList', JSON.stringify(shoppingCartProductList))
-                } else {
-                    const arr = cartList && JSON.parse(cartList)
-                    arr.push([...shoppingCartProductList])
-                    setCookie('cartList', JSON.stringify(arr))
+                if (getCartList.length > 0) {
+                    getCartList.push(itemData)
                 }
+                return dispatch(
+                    ShoppingCartListActions.setShoppingCartListCookie({
+                        data: getCartList.length > 0 ? getCartList : [itemData],
+                    }),
+                )
             }
         },
-        [dispatch, getUser],
+        [dispatch, getUser, getCartList],
     )
     return { handleCart }
 }

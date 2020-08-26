@@ -12,11 +12,18 @@ import { SHOPPING_CART_LIST } from '@/services/api/apiConfig'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
+
 export const initEpic: Epic = (action$) =>
     action$.pipe(
         ofType(HYDRATE),
-        switchMap(() => {
-            return of(ShoppingCartListActions.reset())
+        switchMap((action) => {
+            const shoppingCartList = action.payload.shoppingCartList
+            return of(
+                ShoppingCartListActions.reset(),
+                ShoppingCartListActions.setShoppingCartListCookie({
+                    data: shoppingCartList.shoppingCartListDataCookie,
+                }),
+            )
         }),
     )
 

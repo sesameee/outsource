@@ -12,6 +12,7 @@ export const shoppingCartListSlice = createSlice({
     reducers: {
         fetchShoppingCartListSuccess: reducers.fetchShoppingCartListSuccess,
         fetchShoppingCartListFailure: reducers.fetchShoppingCartListFailure,
+        setShoppingCartListCookie: reducers.setShoppingCartListCookie,
         setIsFetch: reducers.setIsSearching,
         reset: reducers.reset,
     },
