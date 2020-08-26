@@ -32,7 +32,6 @@ const WidgetFrame: React.FC<WidgetFrameProps> = ({
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newSet = new Set(filterProduct)
         const key = e.target.id
-        console.log('key :>> ', key)
         if (e.target.checked) {
             setfilterProduct(newSet.add(key))
         } else {
@@ -52,7 +51,6 @@ const WidgetFrame: React.FC<WidgetFrameProps> = ({
                             {item.cData &&
                                 item.cData.map((catItem: any, subindex) => {
                                     const id = `c${catalog.cid}-${item.cid}-${catItem.cid}-${catItem.pid}`
-                                    console.log('catItem :>> ', catItem)
                                     return (
                                         <MenuItem key={`menu${subindex}`}>
                                             <div className="filter-item">
@@ -65,7 +63,6 @@ const WidgetFrame: React.FC<WidgetFrameProps> = ({
                                                         onChange={handleChange}
                                                     />
                                                     <label className="custom-control-label" htmlFor={id}>
-                                                        {/* {id} */}
                                                         {catItem.pName}
                                                     </label>
                                                 </div>
@@ -89,8 +86,8 @@ const WidgetFrame: React.FC<WidgetFrameProps> = ({
                                         <Menu key={`subMenu${subindex}`} className="sub-menu">
                                             <SubMenu title={catItem.cName}>
                                                 {catItem.cData &&
-                                                    catItem.cData.map((lastItem: CatalogData, cindex: number) => {
-                                                        const id = `c${item.cid}-${catItem.cid}-${lastItem.cid}`
+                                                    catItem.cData.map((lastItem: any, cindex: number) => {
+                                                        const id = `c${item.cid}-${catItem.cid}-${lastItem.cid}-${lastItem.pid}`
                                                         return (
                                                             <MenuItem key={`menu${cindex}`}>
                                                                 <div className="filter-item">
@@ -106,7 +103,7 @@ const WidgetFrame: React.FC<WidgetFrameProps> = ({
                                                                             className="custom-control-label"
                                                                             htmlFor={id}
                                                                         >
-                                                                            {lastItem.cName}
+                                                                            {lastItem.pName}
                                                                         </label>
                                                                     </div>
                                                                     <span className="item-count">{lastItem.total}</span>

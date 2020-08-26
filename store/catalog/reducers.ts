@@ -40,15 +40,12 @@ export const fetchCatalogSuccess: CaseReducer<State, PayloadAction<{ catalogList
                     const jData = iData[j]?.cData
                     const jCid = iData[j]?.cid
                     for (let k = 0; k < jData?.length; k++) {
-                        const kData = jData[k]?.cData
                         const kCid = jData[k]?.cid
-                        for (let l = 0; l < kData?.length; l++) {
-                            const tmpData = kData[l]
-                            const pid = kData[l]?.pid
-                            const id = `c${iCid}-${jCid}-${kCid}-${pid}`
-                            tmpData['_id'] = id
-                            productList[id] = tmpData
-                        }
+                        const tmpData = jData[k]
+                        const pid = tmpData?.pid
+                        const id = `c${iCid}-${jCid}-${kCid}-${pid}`
+                        tmpData['_id'] = id
+                        productList[id] = tmpData
                     }
                 }
             }

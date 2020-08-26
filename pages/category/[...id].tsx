@@ -144,7 +144,9 @@ const Category: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element 
 import cookies from 'next-cookies'
 import { NextPageContext } from 'next'
 Category.getInitialProps = async (ctx: NextPageContext) => {
-    return { token: cookies(ctx).token || '' }
+    const token = cookies(ctx).token
+    const cartList = cookies(ctx).cartList
+    return { token, cartList }
 }
 
 export default withRouter(Category)
