@@ -53,14 +53,25 @@ export const useShoppingCartModifyHandler = (): any => {
                     }),
                 )
             } else {
-                if (getCartList.length > 0) {
-                    getCartList.push(itemData)
+                if (action == 'add') {
+                    if (getCartList.length > 0) {
+                        getCartList.push(itemData)
+                    }
+                    return dispatch(
+                        ShoppingCartListActions.setShoppingCartListCookie({
+                            data: getCartList.length > 0 ? getCartList : [itemData],
+                        }),
+                    )
+                } else {
+                    if (getCartList.length > 0) {
+                        getCartList.splice(itemData, 1)
+                    }
+                    return dispatch(
+                        ShoppingCartListActions.setShoppingCartListCookie({
+                            data: getCartList,
+                        }),
+                    )
                 }
-                return dispatch(
-                    ShoppingCartListActions.setShoppingCartListCookie({
-                        data: getCartList.length > 0 ? getCartList : [itemData],
-                    }),
-                )
             }
         },
         [dispatch, getUser, getCartList],

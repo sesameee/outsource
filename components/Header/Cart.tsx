@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useShoppingCartList } from '@/hooks/ShoppingCart'
+import { useShoppingCartList, useShoppingCartModifyHandler } from '@/hooks/ShoppingCart'
 import { ShoppingCartListSelectors, UserLoginSelectors } from '@/store'
 import { useSelector } from 'react-redux'
 import Link from 'next/link'
@@ -10,25 +10,19 @@ type CartProps = {
 const Cart: React.FC<CartProps> = ({ setIsOpenMember }: CartProps) => {
     useShoppingCartList()
     const UserAuth = useSelector(UserLoginSelectors.getUserLoginData)
-
-    useEffect(() => {
-        console.log('UserAuth :>> ', UserAuth.token)
-    }, [UserAuth])
-    const getUser = useSelector(UserLoginSelectors.getUserLoginData)
     const getShoppingCartItemList = useSelector(ShoppingCartListSelectors.getShoppingCartItemList)
     const getShoppingCartListCookie = useSelector(ShoppingCartListSelectors.getShoppingCartListCookie)
     let total = 0
     const [CartList, setCartList] = React.useState<any[]>([])
     const count = CartList && CartList.length
+    const { handleCart } = useShoppingCartModifyHandler()
     useEffect(() => {
-        console.log('getShoppingCartListCookie :>> ', getShoppingCartListCookie)
-        if (getUser.accessToken) {
+        if (UserAuth.accessToken) {
             setCartList(getShoppingCartItemList)
         } else {
             setCartList(getShoppingCartListCookie)
         }
-    }, [getUser, getShoppingCartItemList, getShoppingCartListCookie, CartList])
-    console.log('CartList :>> ', CartList)
+    }, [UserAuth, getShoppingCartItemList, getShoppingCartListCookie, CartList])
     return (
         <div className="dropdown cart-dropdown">
             {UserAuth.accessToken ? (
@@ -82,7 +76,25 @@ const Cart: React.FC<CartProps> = ({ setIsOpenMember }: CartProps) => {
                                             <img src={item.imageUrl} alt="product" />
                                         </a>
                                     </figure>
-                                    <a className="btn-remove" title="Remove Product">
+                                    <a
+                                        className="btn-remove"
+                                        title="Remove Product"
+                                        onClick={() => {
+                                            handleCart(
+                                                'delete',
+                                                [
+                                                    {
+                                                        cid: item.cid,
+                                                        pid: item.pid,
+                                                        spec1: '',
+                                                        spec2: '',
+                                                        qty: 1,
+                                                    },
+                                                ],
+                                                index,
+                                            )
+                                        }}
+                                    >
                                         <i className="icon-close"></i>
                                     </a>
                                 </div>

@@ -24,7 +24,6 @@ const Header: React.FC<HeaderProps> = ({ isIndex, token }: HeaderProps) => {
     const [IsOpenMenu, setIsOpenMenu] = React.useState(false)
     const headerClass = isIndex ? 'header header-9' : 'header'
     const wishList = useSelector(WishListSelectors.getWishList)
-    console.log('token :>> ', token)
     return (
         <header className={headerClass}>
             <MobileMenu IsOpenMenu={IsOpenMenu} setIsOpenMenu={setIsOpenMenu} />

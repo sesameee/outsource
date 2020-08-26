@@ -5,7 +5,7 @@ import { State } from '@/types/stores/shoppingCartList/state'
 import { initialState } from './initialState'
 import { ShoppingCartListRspData } from '@/types/apis/shoppingCartList'
 import { setCookie } from '@/utils'
-
+import { Base64 } from 'js-base64'
 export const setIsSearching: CaseReducer<State, PayloadAction<State>> = (state, action) => {
     return produce(state, (draft) => {
         draft['isFetch'] = action.payload.isFetch
@@ -15,11 +15,11 @@ export const setIsSearching: CaseReducer<State, PayloadAction<State>> = (state, 
 export const setShoppingCartListCookie: CaseReducer<State, PayloadAction<{ data: any }>> = (state, action) => {
     return produce(state, (draft) => {
         if (typeof action.payload.data == 'string') {
-            draft['shoppingCartListDataCookie'] = JSON.parse(action.payload.data)
+            draft['shoppingCartListDataCookie'] = [...JSON.parse(Base64.decode(action.payload.data))]
         } else {
-            draft['shoppingCartListDataCookie'] = action.payload.data
+            draft['shoppingCartListDataCookie'] = [...action.payload.data]
         }
-        action.payload.data && setCookie('cartList', JSON.stringify(draft['shoppingCartListDataCookie']))
+        action.payload.data && setCookie('cartList', Base64.encode(JSON.stringify(draft['shoppingCartListDataCookie'])))
     })
 }
 
