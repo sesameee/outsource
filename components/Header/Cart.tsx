@@ -3,12 +3,14 @@ import { useShoppingCartList, useShoppingCartModifyHandler } from '@/hooks/Shopp
 import { ShoppingCartListSelectors, UserLoginSelectors } from '@/store'
 import { useSelector } from 'react-redux'
 import Link from 'next/link'
+import { useTranslation } from '@/I18n'
 
 type CartProps = {
     setIsOpenMember: any
 }
 const Cart: React.FC<CartProps> = ({ setIsOpenMember }: CartProps) => {
     useShoppingCartList()
+    const { t } = useTranslation()
     const UserAuth = useSelector(UserLoginSelectors.getUserLoginData)
     const getShoppingCartItemList = useSelector(ShoppingCartListSelectors.getShoppingCartItemList)
     const getShoppingCartListCookie = useSelector(ShoppingCartListSelectors.getShoppingCartListCookie)
@@ -40,19 +42,19 @@ const Cart: React.FC<CartProps> = ({ setIsOpenMember }: CartProps) => {
                     </a>
                 </Link>
             ) : (
-                <a
-                    className="dropdown-toggle"
-                    role="button"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                    data-display="static"
-                    onClick={() => setIsOpenMember(true)}
-                >
-                    <i className="icon-shopping-cart"></i>
-                    {count > 0 && <span className="cart-count">{count}</span>}
-                </a>
-            )}
+                    <a
+                        className="dropdown-toggle"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        data-display="static"
+                        onClick={() => setIsOpenMember(true)}
+                    >
+                        <i className="icon-shopping-cart"></i>
+                        {count > 0 && <span className="cart-count">{count}</span>}
+                    </a>
+                )}
 
             <div className="dropdown-menu dropdown-menu-right">
                 <div className="dropdown-cart-products">
@@ -112,27 +114,27 @@ const Cart: React.FC<CartProps> = ({ setIsOpenMember }: CartProps) => {
                 <div className="dropdown-cart-action">
                     {UserAuth.accessToken ? (
                         <Link href="/cart">
-                            <a className="btn btn-primary">前往購物車</a>
+                            <a className="btn btn-primary">{t('go_to_cart')}</a>
                         </Link>
                     ) : (
-                        <a href="#" className="btn btn-primary" onClick={() => setIsOpenMember(true)}>
-                            前往購物車
-                        </a>
-                    )}
+                            <a href="#" className="btn btn-primary" onClick={() => setIsOpenMember(true)}>
+                                {t('go_to_cart')}
+                            </a>
+                        )}
 
                     {UserAuth.accessToken ? (
                         <Link href="/checkout" prefetch={false}>
                             <a className="btn btn-outline-primary-2">
-                                <span>結帳</span>
+                                <span>{t('checkout')}</span>
                                 <i className="icon-long-arrow-right"></i>
                             </a>
                         </Link>
                     ) : (
-                        <a href="#" className="btn btn-outline-primary-2" onClick={() => setIsOpenMember(true)}>
-                            <span>結帳</span>
-                            <i className="icon-long-arrow-right"></i>
-                        </a>
-                    )}
+                            <a href="#" className="btn btn-outline-primary-2" onClick={() => setIsOpenMember(true)}>
+                                <span>{t('checkout')}</span>
+                                <i className="icon-long-arrow-right"></i>
+                            </a>
+                        )}
                 </div>
             </div>
         </div>

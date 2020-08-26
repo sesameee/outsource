@@ -6,6 +6,7 @@ import { CatalogSelectors } from '@/store'
 import { useSelector } from 'react-redux'
 import { CatalogData } from '@/types/apis/catalog'
 //import { ProductData } from '@/types/apis/common'
+import { useTranslation } from '@/I18n'
 
 type WidgetFrameProps = {
     categoryType: string
@@ -24,6 +25,7 @@ const WidgetFrame: React.FC<WidgetFrameProps> = ({
     setFilterToggle,
 }: WidgetFrameProps) => {
     useCatalog(cid, categoryType)
+    const { t } = useTranslation()
     const catalog: CatalogData = useSelector(CatalogSelectors.getCatalogList)
     const handleToggleSidebar = (value: boolean) => {
         setFilterToggle(value)
@@ -131,8 +133,8 @@ const WidgetFrame: React.FC<WidgetFrameProps> = ({
         <div>
             <ProSidebar breakPoint="md" toggled={filterToggle} onToggle={handleToggleSidebar}>
                 <div className="filter-section filter-top">
-                    <div onClick={() => setFilterToggle(false)}>返回</div>
-                    <div>商品分類</div>
+                    <div onClick={() => setFilterToggle(false)}>{t('return')}</div>
+                    <div>{t('commodity_category')}</div>
                     <div></div>
                 </div>
                 <SidebarContent>{MenuList()}</SidebarContent>

@@ -15,7 +15,7 @@ const UserInfo: React.FC = () => {
     return (
         <form action="#" className="member-from" onSubmit={() => handleSubmit}>
             <div className="form-group">
-                <label htmlFor="name">姓名 *</label>
+                <label htmlFor="name">{t('name')} *</label>
                 <input type="text" className="form-control" id="name" name="name" required />
             </div>
 
@@ -46,27 +46,27 @@ const UserInfo: React.FC = () => {
             </div>
             <div className="form-group">
                 <label className="label" htmlFor="sex">
-                    性別
+                    {t('gender')}
                 </label>
                 <select className="form-control" id="sex" name="sex">
                     <option value="m" defaultChecked={true}>
-                        男
+                        {t('man')}
                     </option>
-                    <option value="f">女</option>
+                    <option value="f">{t('woman')}</option>
                 </select>
             </div>
             <div className="form-group">
-                <label htmlFor="rocId">身份證字號 *</label>
+                <label htmlFor="rocId">{t('id_number')} *</label>
                 <input type="text" className="form-control" id="rocId" name="rocId" required />
             </div>
             <div className="form-group">
-                <label htmlFor="email">電子郵件 *</label>
+                <label htmlFor="email">{t('email')} *</label>
                 <input type="email" className="form-control" id="email" name="email" required />
             </div>
 
             <div className="form-group">
                 <label className="label" htmlFor="address">
-                    地址 *
+                    {t('address')} *
                 </label>
                 <div className="row">
                     <div className="col-sm-6">
@@ -78,7 +78,7 @@ const UserInfo: React.FC = () => {
                                 onChange={(e) => setCity(Number(e.target.value))}
                             >
                                 <option value="" selected={true}>
-                                    請選擇縣市
+                                    {t('please_select_county')}
                                 </option>
                                 {AddressInfo.map((item, index) => {
                                     return (
@@ -95,7 +95,7 @@ const UserInfo: React.FC = () => {
                         <div className="select-custom">
                             <select name="areaCode" id="areaCode" className="form-control">
                                 <option value="" selected={true}>
-                                    請選擇區域
+                                    {t('please_select_zone')}
                                 </option>
                                 {AddressInfo[city] &&
                                     AddressInfo[city].areas.map((item, index) => {
@@ -116,11 +116,11 @@ const UserInfo: React.FC = () => {
 
             <div className="form-footer">
                 <label className="custom-control-label" htmlFor="register-policy">
-                    請填寫完整資料，確保您能完整接收活動通知與優惠資訊
+                    {t('input_full_info_hint_2')}
                 </label>
 
                 <button type="submit" className="btn btn-outline-primary-2 btn-block">
-                    <span>下一步</span>
+                    <span>{t('next_step')}</span>
                 </button>
             </div>
         </form>

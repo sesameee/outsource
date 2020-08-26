@@ -96,12 +96,11 @@ const Footer: React.FC<FooterProps> = ({ t }: FooterProps) => {
             <div className="footer-bottom">
                 <img className="logo" src="/images/breezeonline_logo.png" />
                 <div className="info">
-                    <p>微風股份有限公司 BREEZE COUTURE</p>
+                    <p>{t('breeze_couture')}</p>
                     <p>
-                        台北市松山區復興南路一段39號 No.39, Sec.1, Fuxing S.Rd., Songshan Dist., Taipei City 105,Taiwan
-                        (R.O.C.)
+                        {t('company_address')}
                     </p>
-                    <p>客服專線：02-6600-1832</p>
+                    <p>{t('customer_service_number')}</p>
                 </div>
             </div>
         </footer>

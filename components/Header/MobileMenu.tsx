@@ -4,6 +4,7 @@ import { useChannelList } from '@/hooks/ChannelList'
 import { useSelector } from 'react-redux'
 import { ChannelListSelectors } from '@/store'
 import Link from 'next/link'
+import { useTranslation } from '@/I18n'
 //import { ProductData } from '@/types/apis/common'
 
 type MobileMenuProps = {
@@ -12,6 +13,7 @@ type MobileMenuProps = {
 }
 const MobileMenu: React.FC<MobileMenuProps> = ({ IsOpenMenu, setIsOpenMenu }: MobileMenuProps) => {
     useChannelList()
+    const { t } = useTranslation()
     const channelList = useSelector(ChannelListSelectors.getChannelList)
     const [IsOpenSubMenu, setIsOpenSunMenu] = React.useState(false)
     const [subMenuIndex, setsubMenuIndex] = React.useState(0)
@@ -24,7 +26,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ IsOpenMenu, setIsOpenMenu }: Mo
             <MobileSubMenu IsOpenMenu={IsOpenSubMenu} setIsOpenMenu={setIsOpenSunMenu} subMenuIndex={subMenuIndex} />
             <ProSidebar breakPoint="md" toggled={IsOpenMenu} onToggle={setIsOpenMenu}>
                 <SidebarHeader>
-                    <div className="header">分類總覽</div>
+                    <div className="header">{t('category_overview')}</div>
                 </SidebarHeader>
                 <SidebarContent>
                     <ul>
@@ -38,13 +40,13 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ IsOpenMenu, setIsOpenMenu }: Mo
                     </ul>
                 </SidebarContent>
                 <SidebarFooter>
-                    <div>語言: 中文</div>
+                    <div>{t('language_chinese')}</div>
                     <button
                         type="button"
                         className="btn btn-outline-primary-2 btn-block"
                         onClick={() => setIsOpenMenu(false)}
                     >
-                        <span>返回</span>
+                        <span>{t('return')}</span>
                     </button>
                 </SidebarFooter>
             </ProSidebar>

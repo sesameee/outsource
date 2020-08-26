@@ -3,25 +3,28 @@ import React, { memo } from 'react'
 // import { CategoryData } from '@/types/apis/channelList'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useTranslation } from '@/I18n'
+
 const MemberRoute: React.FC = () => {
+    const { t } = useTranslation()
     const router = useRouter()
     const pageName = (router && router.query && router.query.pageName && router.query.pageName[0]) || ''
     return (
         <ul className="frame-left">
             <li className={`li ${pageName === 'points' ? 'active' : ''}`}>
-                <Link href="/member/points">會員點數</Link>
+                <Link href="/member/points">{t('member_point')}</Link>
             </li>
             <li className={`li ${pageName === 'order' ? 'active' : ''}`}>
-                <Link href="/member/order">線上訂單記錄</Link>
+                <Link href="/member/order">{t('online_order_record')}</Link>
             </li>
             <li className={`li ${pageName === 'wishList' ? 'active' : ''}`}>
-                <Link href="/member/wishList">願望清單</Link>
+                <Link href="/member/wishList">{t('wish_list')}</Link>
             </li>
             <li className={`li ${pageName === 'userInfo' ? 'active' : ''}`}>
-                <Link href="/member/userInfo">會員資料維護</Link>
+                <Link href="/member/userInfo">{t('member_data_maintain')}</Link>
             </li>
             <li className={`li ${pageName === 'passwordModify' ? 'active' : ''}`}>
-                <Link href="/member/passwordModify">密碼修改</Link>
+                <Link href="/member/passwordModify">{t('modify_password')}</Link>
             </li>
         </ul>
     )

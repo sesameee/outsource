@@ -6,6 +6,7 @@ import { ProductData } from '@/types/apis/common'
 import { productList } from '@/types/apis/catalog'
 import Link from 'next/link'
 import { useShoppingCartModifyHandler } from '@/hooks/ShoppingCart'
+import { useTranslation } from '@/I18n'
 
 const SortByType = (type: FilterType, productObj: productList) => {
     type = Number(type)
@@ -29,6 +30,7 @@ type ProductListProps = {
     sortSelect: FilterType
 }
 const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect }: ProductListProps) => {
+    const { t } = useTranslation()
     const productObj = useSelector(CatalogSelectors.getProductList)
     // const SortType = FilterType.PRICE_ASCENDING
     const productList = SortByType(sortSelect, productObj)
@@ -53,7 +55,7 @@ const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect }: 
                                     </Link>
                                     <div className="product-action-vertical">
                                         <a className="btn-product-icon btn-wishlist btn-expandable">
-                                            <span>加入願望清單</span>
+                                            <span>{t('add_to_wish_list')}</span>
                                         </a>
                                     </div>
                                     <div className="product-action">
@@ -75,7 +77,7 @@ const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect }: 
                                                 )
                                             }}
                                         >
-                                            <span>加入購物車</span>
+                                            <span>{t('add_to_cart')}</span>
                                         </a>
                                     </div>
                                 </figure>

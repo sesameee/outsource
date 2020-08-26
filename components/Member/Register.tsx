@@ -29,7 +29,7 @@ const FromFirstStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromPro
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
-                <label htmlFor="name">姓名 *</label>
+                <label htmlFor="name">{t('name')} *</label>
                 <input
                     ref={register({ required: true })}
                     type="text"
@@ -66,7 +66,7 @@ const FromFirstStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromPro
                 </div>
             </div>
             <div className="form-group">
-                <label htmlFor="email">電子郵件* ( 訂單發送位置 )</label>
+                <label htmlFor="email">{t('email_must')}</label>
                 <input
                     ref={register({ required: true })}
                     type="email"
@@ -78,7 +78,7 @@ const FromFirstStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromPro
             </div>
 
             <div className="form-group">
-                <label htmlFor="pwd1">密碼* ( 請輸入 6-12 位英數混合的密碼 )</label>
+                <label htmlFor="pwd1">{t('password_and_rule_must')}</label>
                 <input
                     ref={register({
                         required: true,
@@ -94,7 +94,7 @@ const FromFirstStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromPro
                 />
             </div>
             <div className="form-group">
-                <label htmlFor="pwd2">確認密碼* ( 請輸入 6-12 位英數混合的密碼 )</label>
+                <label htmlFor="pwd2">{t('confirm_password_and_rule_must')}</label>
                 <input
                     ref={register({
                         required: true,
@@ -114,12 +114,12 @@ const FromFirstStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromPro
                 <div className="custom-control custom-checkbox">
                     <input type="checkbox" className="custom-control-input" id="register-policy" required />
                     <label className="custom-control-label" htmlFor="register-policy">
-                        我已詳閱並同意<a href="#">會員條款</a>
+                        {t('read_and_agree')}<a href="#">{t('membership_terms')}</a>
                     </label>
                 </div>
 
                 <button type="submit" className="btn btn-outline-primary-2 btn-block">
-                    <span>下一步</span>
+                    <span>{t('next_step')}</span>
                 </button>
             </div>
         </form>
@@ -127,6 +127,7 @@ const FromFirstStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromPro
 }
 
 const FromSecondStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromProps) => {
+    const { t } = useTranslation()
     const { register, handleSubmit } = useForm<VerifyCodeData>()
     const { HandleVerifyCodeRes, handleVerifyCodeSubmit } = useVerifyCodeHandler()
     const onSubmit = (data: UserRegisterReqData) => {
@@ -136,7 +137,7 @@ const FromSecondStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromPr
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
-                <label htmlFor="code">簡訊驗證碼 *</label>
+                <label htmlFor="code">{t('message_captcha')} *</label>
                 <input
                     type="text"
                     ref={register({ required: true })}
@@ -148,10 +149,10 @@ const FromSecondStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromPr
             </div>
             <div className="form-footer">
                 <label>
-                    若 30 秒內未收到啟用碼 <a onClick={handleSubmit(onSubmit)}>重傳啟用碼</a>
+                    {t('message_cif_not_receive_captcha_hintaptcha')} <a onClick={handleSubmit(onSubmit)}>{t('re_send_captcha')}</a>
                 </label>
                 <button type="submit" className="btn btn-outline-primary-2 btn-block margin-top-more">
-                    <span>送出</span>
+                    <span>{t('submit')}</span>
                 </button>
             </div>
         </form>
@@ -160,7 +161,7 @@ const FromSecondStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromPr
 
 const FromThirdStep: React.FC<RegisterFromProps> = ({ setPropIsOpenFn }: RegisterFromProps) => {
     useAddressInfo()
-    //const { t } = useTranslation()
+    const { t } = useTranslation()
     const { register, handleSubmit } = useForm<RegisterUserInfoReqData>()
     const AddressInfo = useSelector(AddressInfoSelectors.getAddressInfo)
     const [city, setCity] = React.useState(0)
@@ -172,7 +173,7 @@ const FromThirdStep: React.FC<RegisterFromProps> = ({ setPropIsOpenFn }: Registe
     return (
         <form className="from-third-step" onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
-                <label htmlFor="rocId">身份證字號 *</label>
+                <label htmlFor="rocId">{t('id_number')} *</label>
                 <input
                     type="text"
                     ref={register({ required: true })}
@@ -184,18 +185,18 @@ const FromThirdStep: React.FC<RegisterFromProps> = ({ setPropIsOpenFn }: Registe
             </div>
             <div className="form-group">
                 <label className="label" htmlFor="sex">
-                    性別
+                    {t('gender')}
                 </label>
                 <select ref={register} className="form-control" id="sex" name="sex">
                     <option value="m" defaultChecked={true}>
-                        男
+                        {t('man')}
                     </option>
-                    <option value="f">女</option>
+                    <option value="f">{t('woman')}</option>
                 </select>
             </div>
             <div className="form-group">
                 <label className="label" htmlFor="address">
-                    地址 *
+                    {t('address')} *
                 </label>
                 <div className="row">
                     <div className="col-sm-6">
@@ -208,7 +209,7 @@ const FromThirdStep: React.FC<RegisterFromProps> = ({ setPropIsOpenFn }: Registe
                                 onChange={(e) => setCity(Number(e.target.value))}
                             >
                                 <option value="" selected={true}>
-                                    請選擇縣市
+                                    {t('please_select_county')}
                                 </option>
                                 {AddressInfo.map((item, index) => {
                                     return (
@@ -230,7 +231,7 @@ const FromThirdStep: React.FC<RegisterFromProps> = ({ setPropIsOpenFn }: Registe
                                 className="form-control"
                             >
                                 <option value="" selected={true}>
-                                    請選擇區域
+                                    {t('please_select_zone')}
                                 </option>
                                 {AddressInfo[city] &&
                                     AddressInfo[city].areas.map((item, index) => {
@@ -257,11 +258,11 @@ const FromThirdStep: React.FC<RegisterFromProps> = ({ setPropIsOpenFn }: Registe
                 />
             </div>
             <div className="form-footer">
-                <label>小提醒～此頁資訊如未填寫完整，可能會影響您的權益喔</label>
+                <label>{t('input_full_info_hint')}</label>
                 <button type="submit" className="btn btn-outline-primary-2 btn-block margin-top-more">
-                    <span>完成</span>
+                    <span>{t('done')}</span>
                 </button>
-                <a onClick={() => setPropIsOpenFn(false)}>略過並完成註冊</a>
+                <a onClick={() => setPropIsOpenFn(false)}>{t('skip_and_finish_register')}</a>
             </div>
         </form>
     )

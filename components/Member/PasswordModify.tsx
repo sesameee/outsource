@@ -3,10 +3,12 @@ import { withTranslation } from '@/I18n'
 import { ResetPasswordReqData } from '@/types/apis/resetPassword'
 import { useForm } from 'react-hook-form'
 import { useResetPasswordHandler } from '@/hooks/ResetPassword'
+import { useTranslation } from '@/I18n'
 // import { ResetPasswordSelectors } from '@/store'
 // import { useSelector } from 'react-redux'
 
 const PasswordModify: React.FC = (): JSX.Element => {
+    const { t } = useTranslation()
     const { register, handleSubmit } = useForm<ResetPasswordReqData>()
     const { handleResetPasswordSubmit } = useResetPasswordHandler()
     const onSubmit = (data: any) => {
@@ -15,7 +17,7 @@ const PasswordModify: React.FC = (): JSX.Element => {
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="member-from">
             <div className="form-group">
-                <label htmlFor="phone">請輸入手機號碼 ( 接收驗證碼 )</label>
+                <label htmlFor="phone">{t('please_input_phone_number_and_receive_captcha')}</label>
                 <input
                     type="tel"
                     className="form-control"
@@ -27,7 +29,7 @@ const PasswordModify: React.FC = (): JSX.Element => {
             </div>
 
             <div className="form-group">
-                <label htmlFor="pwd1">新密碼 ( 請輸入 6-12 位英數混合的密碼 )</label>
+                <label htmlFor="pwd1">{t('new_password_and_rule')}</label>
                 <input
                     type="password"
                     className="form-control"
@@ -38,7 +40,7 @@ const PasswordModify: React.FC = (): JSX.Element => {
                 />
             </div>
             <div className="form-group">
-                <label htmlFor="pwd2">新密碼確認 ( 請輸入 6-12 位英數混合的密碼 )</label>
+                <label htmlFor="pwd2">{t('confirm_password_and_rule')}</label>
                 <input
                     type="password"
                     className="form-control"
@@ -51,7 +53,7 @@ const PasswordModify: React.FC = (): JSX.Element => {
 
             <div className="form-footer">
                 <button type="submit" className="btn btn-outline-primary-2">
-                    <span>確認修改</span>
+                    <span>{t('confirm_modify')}</span>
                 </button>
             </div>
         </form>

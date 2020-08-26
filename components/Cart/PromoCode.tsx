@@ -2,6 +2,7 @@ import React from 'react'
 import { usePromoCodeHandler } from '@/hooks/PromoCode'
 import { PromoCodeReqData } from '@/types/apis/promoCode'
 import { useForm } from 'react-hook-form'
+import { useTranslation } from '@/I18n'
 // import { ShoppingCartListSelectors } from '@/store'
 // import { useSelector } from 'react-redux'
 // import Link from 'next/link'
@@ -9,6 +10,7 @@ import { useForm } from 'react-hook-form'
 //     setItemHoverIndex: React.Dispatch<React.SetStateAction<null | number>>
 // }
 const Cart: React.FC = () => {
+    const { t } = useTranslation()
     const { register, handleSubmit } = useForm<PromoCodeReqData>()
     const { handlePromoCodeSubmit } = usePromoCodeHandler()
     const onSubmit = (data: PromoCodeReqData) => {
@@ -21,7 +23,7 @@ const Cart: React.FC = () => {
                     type="text"
                     className="form-control"
                     ref={register({ required: true })}
-                    placeholder="輸入折扣碼"
+                    placeholder={t('input_promo_code')}
                     id="promoCode"
                     name="promoCode"
                 />
