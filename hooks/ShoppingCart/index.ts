@@ -62,7 +62,7 @@ export const useShoppingCartModifyHandler = (): any => {
                             data: getCartList.length > 0 ? getCartList : [itemData],
                         }),
                     )
-                } else {
+                } else if (action == 'delete') {
                     if (getCartList.length > 0) {
                         getCartList.splice(itemData, 1)
                     }

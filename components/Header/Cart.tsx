@@ -63,7 +63,9 @@ const Cart: React.FC<CartProps> = ({ setIsOpenMember }: CartProps) => {
                                 <div className="product" key={index}>
                                     <div className="product-cart-details">
                                         <h4 className="product-title">
-                                            <a>{item.productName || item.pName}</a>
+                                            <Link href={`/product/${item.cid}/${item.pid}`}>
+                                                <a>{item.productName || item.pName}</a>
+                                            </Link>
                                         </h4>
 
                                         <span className="cart-product-info">
@@ -72,9 +74,11 @@ const Cart: React.FC<CartProps> = ({ setIsOpenMember }: CartProps) => {
                                     </div>
 
                                     <figure className="product-image-container">
-                                        <a className="product-image">
-                                            <img src={item.imageUrl} alt="product" />
-                                        </a>
+                                        <Link href={`/product/${item.cid}/${item.pid}`}>
+                                            <a className="product-image">
+                                                <img src={item.imageUrl} alt="product" />
+                                            </a>
+                                        </Link>
                                     </figure>
                                     <a
                                         className="btn-remove"

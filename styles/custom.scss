@@ -882,3 +882,10 @@
         height: auto;
     }
 }
+
+.details-filter-row .product-nav-thumbs {
+    .active {
+        border-color: $mainColor;
+        border-width: 1px;
+    }
+}

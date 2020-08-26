@@ -3,7 +3,7 @@ import { useBreezeDaily } from '@/hooks/BreezeDaily'
 import { WishListSelectors } from '@/store'
 import { useSelector } from 'react-redux'
 
-const BreezeDaily: React.FC = () => {
+const WishList: React.FC = () => {
     useBreezeDaily()
     const { data } = useSelector(WishListSelectors.getWishList)
 
@@ -42,4 +42,4 @@ const BreezeDaily: React.FC = () => {
     )
 }
 
-export default memo(BreezeDaily)
+export default memo(WishList)

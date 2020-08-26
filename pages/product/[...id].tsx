@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { withRouter } from 'next/router'
@@ -23,10 +23,20 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
     const query = router.query
     useProductInfo(query)
     const productData = useSelector(ProductInfoSelectors.getProductInfo)
+    const { handleCart } = useShoppingCartModifyHandler()
     const navData: navData[] = []
     const [amount, setAmount] = React.useState(0)
+    const [spec1, setSpec1] = React.useState('')
+    const [spec2, setSpec2] = React.useState('')
+
     const breadCrumbs = productData.breadCrumbs[0]
     const info = productData.info
+    useEffect(() => {
+        if (info && info.length > 0) {
+            setSpec1(info[0].sizeName1)
+            setSpec2(info[0].sizeName2)
+        }
+    }, [info])
     const imgArr = productData.imageUrl
     let path = '/category'
     breadCrumbs &&
@@ -37,6 +47,22 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
                 link: path,
             })
         })
+
+    const handleAddCart = () => {
+        handleCart(
+            'add',
+            [
+                {
+                    cid: productData.cid,
+                    pid: productData.pid,
+                    spec1: spec1,
+                    spec2: spec2,
+                    qty: amount,
+                },
+            ],
+            { ...productData, qty: amount },
+        )
+    }
 
     return (
         <div className="page-wrapper">
@@ -73,8 +99,9 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
                                             <div className="product-nav product-nav-thumbs">
                                                 {info &&
                                                     info.map((item, index) => {
+                                                        const className = spec1 == item.sizeName1 ? 'active' : ''
                                                         return (
-                                                            <a href="#" key={index}>
+                                                            <a href="#" key={index} className={className}>
                                                                 {item.sizeName1}
                                                             </a>
                                                         )
@@ -85,10 +112,15 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
                                         <div className="details-filter-row details-row-size">
                                             <label htmlFor="size">Size:</label>
                                             <div className="select-custom">
-                                                <select name="size" id="size" className="form-control">
-                                                    <option value="#" selected>
-                                                        尺寸:
-                                                    </option>
+                                                <select
+                                                    name="size"
+                                                    id="size"
+                                                    className="form-control"
+                                                    defaultValue={spec2}
+                                                    value={spec2}
+                                                    onChange={(e) => setSpec2(e.target.value)}
+                                                >
+                                                    <option value="#">尺寸:</option>
                                                     {info &&
                                                         info.map((item, index) => {
                                                             return (
@@ -109,7 +141,13 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
                                         </div>
 
                                         <div className="product-details-action">
-                                            <a href="#" className="btn-product btn-cart">
+                                            <a
+                                                href="#"
+                                                onClick={() => {
+                                                    handleAddCart()
+                                                }}
+                                                className="btn-product btn-cart"
+                                            >
                                                 <span>加入購物車</span>
                                             </a>
 
@@ -158,27 +196,23 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
                         </div>
 
                         <div className="col-6 justify-content-end">
-                            <div className="product-price">${productData.price}</div>
+                            <div className="product-price">${productData.price * amount}</div>
                             <div className="product-details-quantity">
-                                <input
-                                    type="number"
-                                    id="sticky-cart-qty"
-                                    className="form-control"
-                                    value="1"
-                                    min="1"
-                                    max="10"
-                                    step="1"
-                                    data-decimals="0"
-                                    required
-                                />
+                                <NumberInput inputName="qty" amount={amount} setAmount={setAmount} />
                             </div>
 
                             <div className="product-details-action">
-                                <a href="#" className="btn-product btn-cart">
-                                    <span>add to cart</span>
+                                <a
+                                    href="#"
+                                    className="btn-product btn-cart"
+                                    onClick={() => {
+                                        handleAddCart()
+                                    }}
+                                >
+                                    <span>加入購物車</span>
                                 </a>
                                 <a href="#" className="btn-product btn-wishlist" title="Wishlist">
-                                    <span>Add to Wishlist</span>
+                                    <span>加入喜愛清單</span>
                                 </a>
                             </div>
                         </div>
@@ -192,6 +226,7 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
 
 import cookies from 'next-cookies'
 import { NextPageContext, NextPage } from 'next'
+import { useShoppingCartModifyHandler } from '@/hooks/ShoppingCart'
 Product.getInitialProps = async (ctx: NextPageContext) => {
     return { token: cookies(ctx).token || '' }
 }
