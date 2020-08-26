@@ -14,8 +14,14 @@ import { WISH_LIST } from '@/services/api/apiConfig'
 export const initEpic: Epic = (action$) =>
     action$.pipe(
         ofType(HYDRATE),
-        switchMap(() => {
-            return of(WishListActions.reset())
+        switchMap((action) => {
+            const wishList = action.payload.wishList
+            return of(
+                WishListActions.reset(),
+                WishListActions.setWishListCookie({
+                    data: wishList.wishListCookie,
+                }),
+            )
         }),
     )
 

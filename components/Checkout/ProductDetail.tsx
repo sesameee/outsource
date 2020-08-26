@@ -14,7 +14,7 @@ const ProductDetail: React.FC = () => {
         <table className="table table-summary">
             <thead>
                 <tr>
-                    <th>{t('commodity_name')}}</th>
+                    <th>{t('commodity_name')}</th>
                     <th>{t('price')}</th>
                 </tr>
             </thead>

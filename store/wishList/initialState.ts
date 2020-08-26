@@ -6,5 +6,6 @@ export const initialState: State = {
     categoryType: '',
     total: 0,
     data: [],
+    wishListCookie: [],
     error: '',
 }

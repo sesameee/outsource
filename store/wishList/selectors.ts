@@ -15,3 +15,7 @@ export const getWishList = createSelector<RootState, WishListState, WishListStat
         return wishListState
     },
 )
+
+export const getWishListCookie = createSelector<RootState, any, any>(wishListState, (wishListState: WishListState) => {
+    return wishListState.wishListCookie
+})

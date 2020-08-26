@@ -14,7 +14,7 @@ import '@/styles/main.scss'
 import '@/styles/custom.scss'
 import { appWithTranslation, i18n } from '../I18n'
 import { getCookie, setCookie } from '@/utils'
-import { UserLoginActions, ShoppingCartListActions } from '@/store'
+import { UserLoginActions, ShoppingCartListActions, WishListActions } from '@/store'
 import { NextPageContext } from 'next'
 import cookies from 'next-cookies'
 
@@ -24,6 +24,7 @@ const cookieServerProgress = (ctx: NextPageContext) => {
     const token = cookies(ctx).token !== undefined ? (cookies(ctx).token as string) : ''
     const accessToken = cookies(ctx).accessToken !== undefined ? (cookies(ctx).accessToken as string) : ''
     const cartList = cookies(ctx).cartList !== undefined ? (cookies(ctx).cartList as string) : ''
+    const wishist = cookies(ctx).wishist !== undefined ? (cookies(ctx).wishist as string) : ''
     const UserLoginData = {
         code: '0000',
         data: {
@@ -34,9 +35,9 @@ const cookieServerProgress = (ctx: NextPageContext) => {
         },
         message: 'cookie',
     }
-    console.log('cartListJJJJ :>> ', cartList)
     accessToken && ctx.store.dispatch(UserLoginActions.fetchUserLoginSuccess({ UserLoginData }))
     cartList && ctx.store.dispatch(ShoppingCartListActions.setShoppingCartListCookie({ data: cartList }))
+    wishist && ctx.store.dispatch(WishListActions.setWishListCookie({ data: wishist }))
 }
 class MyApp extends App {
     static async getInitialProps({ Component, ctx }: AppContext) {

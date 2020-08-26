@@ -1,18 +1,21 @@
 import React, { memo } from 'react'
-import { useBreezeDaily } from '@/hooks/BreezeDaily'
 import { WishListSelectors } from '@/store'
 import { useSelector } from 'react-redux'
 import { useTranslation } from '@/I18n'
+import { useShoppingCartModifyHandler } from '@/hooks/ShoppingCart'
+import { useWishModifyHandler, useWishList } from '@/hooks/Wish'
 
 const WishList: React.FC = () => {
-    useBreezeDaily()
+    useWishList()
     const { t } = useTranslation()
-    const { data } = useSelector(WishListSelectors.getWishList)
+    const data = useSelector(WishListSelectors.getWishListCookie)
+    const { handleCart } = useShoppingCartModifyHandler()
+    const { handleWish } = useWishModifyHandler()
 
     return (
         <tbody>
             {data &&
-                data.map((item, index) => (
+                data.map((item: any, index: number) => (
                     <tr key={index}>
                         <td className="product-col">
                             <div className="product">
@@ -29,12 +32,47 @@ const WishList: React.FC = () => {
                         </td>
                         <td className="price-col">${item.price}</td>
                         <td className="action-col">
-                            <button className="btn btn-block btn-outline-primary-2">
-                                <i className="icon-cart-plus"></i>{t('add_to_cart')}
+                            <button
+                                className="btn btn-block btn-outline-primary-2"
+                                onClick={() => {
+                                    handleCart(
+                                        'add',
+                                        [
+                                            {
+                                                cid: item.cid,
+                                                pid: item.pid,
+                                                spec1: '',
+                                                spec2: '',
+                                                qty: 1,
+                                            },
+                                        ],
+                                        { ...item, qty: 1 },
+                                    )
+                                }}
+                            >
+                                <i className="icon-cart-plus"></i>
+                                {t('add_to_cart')}
                             </button>
                         </td>
                         <td className="remove-col">
-                            <button className="btn-remove">
+                            <button
+                                className="btn-remove"
+                                onClick={() => {
+                                    handleWish(
+                                        'delete',
+                                        [
+                                            {
+                                                cid: item.cid,
+                                                pid: item.pid,
+                                                spec1: '',
+                                                spec2: '',
+                                                qty: 1,
+                                            },
+                                        ],
+                                        index,
+                                    )
+                                }}
+                            >
                                 <i className="icon-close"></i>
                             </button>
                         </td>

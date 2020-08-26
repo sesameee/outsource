@@ -6,9 +6,7 @@ import ChannelList from './ChannelList'
 import HoverItemList from './HoverItemList'
 import Link from 'next/link'
 import Cart from './Cart'
-import { useSelector } from 'react-redux'
-import { WishListSelectors } from '@/store'
-import { useWishList } from '@/hooks/Wish'
+import Wish from './Wish'
 import MobileMenu from './MobileMenu'
 import ErrorAlert from '../commons/ErrorAlert'
 
@@ -18,12 +16,10 @@ type HeaderProps = {
 }
 
 const Header: React.FC<HeaderProps> = ({ isIndex, token }: HeaderProps) => {
-    useWishList()
     const [IsOpenMember, setIsOpenMember] = React.useState(false)
     const [itemHoverIndex, setItemHoverIndex] = React.useState<null | number>(null)
     const [IsOpenMenu, setIsOpenMenu] = React.useState(false)
     const headerClass = isIndex ? 'header header-9' : 'header'
-    const wishList = useSelector(WishListSelectors.getWishList)
     return (
         <header className={headerClass}>
             <MobileMenu IsOpenMenu={IsOpenMenu} setIsOpenMenu={setIsOpenMenu} />
@@ -52,12 +48,7 @@ const Header: React.FC<HeaderProps> = ({ isIndex, token }: HeaderProps) => {
                         <nav className="main-nav">
                             <ChannelList setItemHoverIndex={setItemHoverIndex} />
                         </nav>
-                        <Link href="/wishlist">
-                            <a className="wishlist-link">
-                                <i className="icon-heart-o"></i>
-                                {wishList.total > 0 && <span className="wishlist-count">{wishList.total}</span>}
-                            </a>
-                        </Link>
+                        <Wish />
                         <Cart setIsOpenMember={setIsOpenMember} />
                         {token ? (
                             <Link href="/member/points">

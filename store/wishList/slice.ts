@@ -9,6 +9,7 @@ export const wishListSlice = createSlice({
     name: 'wishList',
     initialState: initialState,
     reducers: {
+        setWishListCookie: reducers.setWishListCookie,
         fetchWishListSuccess: reducers.fetchWishListSuccess,
         fetchWishListFailure: reducers.fetchWishListFailure,
         setIsFetch: reducers.setIsFetching,

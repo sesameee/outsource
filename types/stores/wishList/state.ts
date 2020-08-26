@@ -7,5 +7,6 @@ export type State = {
     categoryType: string
     total: number
     data: ProductData[]
+    wishListCookie: any[]
     error: string
 }

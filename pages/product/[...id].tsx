@@ -14,6 +14,7 @@ import DescTab from '@/components/Product/DescTab'
 import Gallery from '@/components/Product/Gallery'
 import Link from 'next/link'
 import NumberInput from '@/components/commons/NumberInput'
+import { useShoppingCartModifyHandler } from '@/hooks/ShoppingCart'
 
 interface CategoryProps extends WithRouterProps {
     filterProduct: Set<unknown>
@@ -24,8 +25,9 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
     useProductInfo(query)
     const productData = useSelector(ProductInfoSelectors.getProductInfo)
     const { handleCart } = useShoppingCartModifyHandler()
+    const { handleWish } = useWishModifyHandler()
     const navData: navData[] = []
-    const [amount, setAmount] = React.useState(0)
+    const [amount, setAmount] = React.useState(1)
     const [spec1, setSpec1] = React.useState('')
     const [spec2, setSpec2] = React.useState('')
 
@@ -63,6 +65,24 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
             { ...productData, qty: amount },
         )
     }
+
+    const handleAddWish = () => {
+        handleWish(
+            'add',
+            [
+                {
+                    cid: productData.cid,
+                    pid: productData.pid,
+                    spec1: spec1,
+                    spec2: spec2,
+                    qty: amount,
+                },
+            ],
+            { ...productData, qty: amount },
+        )
+    }
+
+    console.log('productData :>> ', productData)
 
     return (
         <div className="page-wrapper">
@@ -136,7 +156,12 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
                                         <div className="details-filter-row details-row-size">
                                             <label htmlFor="qty">數量:</label>
                                             <div className="product-details-quantity">
-                                                <NumberInput inputName="qty" amount={amount} setAmount={setAmount} />
+                                                <NumberInput
+                                                    inputName="qty"
+                                                    amount={amount}
+                                                    setAmount={setAmount}
+                                                    minValue={1}
+                                                />
                                             </div>
                                         </div>
 
@@ -152,7 +177,14 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
                                             </a>
 
                                             <div className="details-action-wrapper">
-                                                <a href="#" className="btn-product btn-wishlist" title="Wishlist">
+                                                <a
+                                                    href="#"
+                                                    onClick={() => {
+                                                        handleAddWish()
+                                                    }}
+                                                    className="btn-product btn-wishlist"
+                                                    title="Wishlist"
+                                                >
                                                     <span>加入喜愛清單</span>
                                                 </a>
                                             </div>
@@ -198,7 +230,7 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
                         <div className="col-6 justify-content-end">
                             <div className="product-price">${productData.price * amount}</div>
                             <div className="product-details-quantity">
-                                <NumberInput inputName="qty" amount={amount} setAmount={setAmount} />
+                                <NumberInput inputName="qty" amount={amount} setAmount={setAmount} minValue={1} />
                             </div>
 
                             <div className="product-details-action">
@@ -211,7 +243,14 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
                                 >
                                     <span>加入購物車</span>
                                 </a>
-                                <a href="#" className="btn-product btn-wishlist" title="Wishlist">
+                                <a
+                                    href="#"
+                                    onClick={() => {
+                                        handleAddWish()
+                                    }}
+                                    className="btn-product btn-wishlist"
+                                    title="Wishlist"
+                                >
                                     <span>加入喜愛清單</span>
                                 </a>
                             </div>
@@ -226,7 +265,8 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
 
 import cookies from 'next-cookies'
 import { NextPageContext, NextPage } from 'next'
-import { useShoppingCartModifyHandler } from '@/hooks/ShoppingCart'
+import { useWishModifyHandler } from '@/hooks/Wish'
+
 Product.getInitialProps = async (ctx: NextPageContext) => {
     return { token: cookies(ctx).token || '' }
 }

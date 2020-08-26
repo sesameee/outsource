@@ -42,19 +42,19 @@ const Cart: React.FC<CartProps> = ({ setIsOpenMember }: CartProps) => {
                     </a>
                 </Link>
             ) : (
-                    <a
-                        className="dropdown-toggle"
-                        role="button"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                        data-display="static"
-                        onClick={() => setIsOpenMember(true)}
-                    >
-                        <i className="icon-shopping-cart"></i>
-                        {count > 0 && <span className="cart-count">{count}</span>}
-                    </a>
-                )}
+                <a
+                    className="dropdown-toggle"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    data-display="static"
+                    onClick={() => setIsOpenMember(true)}
+                >
+                    <i className="icon-shopping-cart"></i>
+                    {count > 0 && <span className="cart-count">{count}</span>}
+                </a>
+            )}
 
             <div className="dropdown-menu dropdown-menu-right">
                 <div className="dropdown-cart-products">
@@ -117,10 +117,10 @@ const Cart: React.FC<CartProps> = ({ setIsOpenMember }: CartProps) => {
                             <a className="btn btn-primary">{t('go_to_cart')}</a>
                         </Link>
                     ) : (
-                            <a href="#" className="btn btn-primary" onClick={() => setIsOpenMember(true)}>
-                                {t('go_to_cart')}
-                            </a>
-                        )}
+                        <a href="#" className="btn btn-primary" onClick={() => setIsOpenMember(true)}>
+                            {t('go_to_cart')}
+                        </a>
+                    )}
 
                     {UserAuth.accessToken ? (
                         <Link href="/checkout" prefetch={false}>
@@ -130,11 +130,11 @@ const Cart: React.FC<CartProps> = ({ setIsOpenMember }: CartProps) => {
                             </a>
                         </Link>
                     ) : (
-                            <a href="#" className="btn btn-outline-primary-2" onClick={() => setIsOpenMember(true)}>
-                                <span>{t('checkout')}</span>
-                                <i className="icon-long-arrow-right"></i>
-                            </a>
-                        )}
+                        <a href="#" className="btn btn-outline-primary-2" onClick={() => setIsOpenMember(true)}>
+                            <span>{t('checkout')}</span>
+                            <i className="icon-long-arrow-right"></i>
+                        </a>
+                    )}
                 </div>
             </div>
         </div>

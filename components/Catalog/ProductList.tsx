@@ -7,6 +7,7 @@ import { productList } from '@/types/apis/catalog'
 import Link from 'next/link'
 import { useShoppingCartModifyHandler } from '@/hooks/ShoppingCart'
 import { useTranslation } from '@/I18n'
+import { useWishModifyHandler } from '@/hooks/Wish'
 
 const SortByType = (type: FilterType, productObj: productList) => {
     type = Number(type)
@@ -35,6 +36,7 @@ const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect }: 
     // const SortType = FilterType.PRICE_ASCENDING
     const productList = SortByType(sortSelect, productObj)
     const { handleCart } = useShoppingCartModifyHandler()
+    const { handleWish } = useWishModifyHandler()
     return (
         <div className="row justify-content-center product-list">
             {productList &&
@@ -54,7 +56,24 @@ const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect }: 
                                         ></div>
                                     </Link>
                                     <div className="product-action-vertical">
-                                        <a className="btn-product-icon btn-wishlist btn-expandable">
+                                        <a
+                                            className="btn-product-icon btn-wishlist btn-expandable"
+                                            onClick={() => {
+                                                handleWish(
+                                                    'add',
+                                                    [
+                                                        {
+                                                            cid: item.cid,
+                                                            pid: item.pid,
+                                                            spec1: '',
+                                                            spec2: '',
+                                                            qty: 1,
+                                                        },
+                                                    ],
+                                                    { ...item, qty: 1 },
+                                                )
+                                            }}
+                                        >
                                             <span>{t('add_to_wish_list')}</span>
                                         </a>
                                     </div>
