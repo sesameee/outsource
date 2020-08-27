@@ -52,7 +52,7 @@ const Member: NextPage<any> = ({ token }: MemberProps): JSX.Element => {
             link: '/',
         },
         {
-            title: '會員專區',
+            title: t('member_page'),
             link: '',
         },
     ]
@@ -62,22 +62,22 @@ const Member: NextPage<any> = ({ token }: MemberProps): JSX.Element => {
     const displayName = (pageName: string) => {
         switch (pageName) {
             case 'points':
-                return '會員點數'
+                return t('member_point')
 
             case 'order':
-                return '線上訂單記錄'
+                return t('online_order_record')
 
             case 'wishList':
-                return '願望清單'
+                return t('wish_list')
 
             case 'userInfo':
-                return '會員資料維護'
+                return t('member_data_maintain')
 
             case 'passwordModify':
-                return '密碼修改'
+                return t('modify_password')
 
             default:
-                return '會員點數'
+                return t('member_point')
         }
     }
 

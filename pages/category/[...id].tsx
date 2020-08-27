@@ -14,6 +14,7 @@ import ProductList from '@/components/Catalog/ProductList'
 import { FilterType } from '@/types/Common'
 import SortSelect from '@/components/Catalog/SortSelect'
 import { NextPage } from 'next'
+import { useTranslation } from '@/I18n'
 
 interface CategoryProps extends WithRouterProps {
     filterProduct: Set<unknown>
@@ -21,6 +22,7 @@ interface CategoryProps extends WithRouterProps {
 }
 
 const Category: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element => {
+    const { t } = useTranslation()
     const query = router.query
     useChannelList()
     let cid = ''
@@ -93,12 +95,12 @@ const Category: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element 
                             <div className="col-lg-9">
                                 <div className="toolbox">
                                     <button className="custom-btn" onClick={() => setFilterToggle(true)}>
-                                        篩選
+                                        {t('filter')}
                                     </button>
 
                                     <div className="toolbox-right">
                                         <div className="toolbox-sort">
-                                            <label htmlFor="sortby">排序:</label>
+                                            <label htmlFor="sortby">{t('order')}:</label>
                                             <SortSelect sortSelect={sortSelect} setsortSelect={setsortSelect} />
                                         </div>
                                     </div>
@@ -115,14 +117,14 @@ const Category: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element 
                             <aside className="col-lg-3 order-lg-first">
                                 <div className="sidebar sidebar-shop">
                                     <div className="widget widget-clean">
-                                        <label>篩選:</label>
+                                        <label>{t('filter')}:</label>
                                         <a
                                             className="sidebar-filter-clear"
                                             onClick={() => {
                                                 setfilterProduct(new Set())
                                             }}
                                         >
-                                            清空
+                                            {t('clear')}
                                         </a>
                                     </div>
                                     <div className="filter-section-pc">

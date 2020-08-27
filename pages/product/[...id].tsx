@@ -15,12 +15,14 @@ import Gallery from '@/components/Product/Gallery'
 import Link from 'next/link'
 import NumberInput from '@/components/commons/NumberInput'
 import { useShoppingCartModifyHandler } from '@/hooks/ShoppingCart'
+import { useTranslation } from '@/I18n'
 
 interface CategoryProps extends WithRouterProps {
     filterProduct: Set<unknown>
     token: string
 }
 const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element => {
+    const { t } = useTranslation()
     const query = router.query
     useProductInfo(query)
     const productData = useSelector(ProductInfoSelectors.getProductInfo)
@@ -105,14 +107,14 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
                                             ) : null}
                                             <div className="product-price">${productData.price}</div>
                                         </div>
-                                        <h4 className="product-id">商品貨號：{productData.pid}</h4>
+                                            <h4 className="product-id">{t('product_id')}：{productData.pid}</h4>
 
                                         <div className="product-content">
                                             <p>{productData.desc}</p>
                                         </div>
 
                                         <div className="details-filter-row details-row-size">
-                                            <label>顏色:</label>
+                                            <label>{t('color')}:</label>
 
                                             <div className="product-nav product-nav-thumbs">
                                                 {info &&
@@ -138,7 +140,7 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
                                                     value={spec2}
                                                     onChange={(e) => setSpec2(e.target.value)}
                                                 >
-                                                    <option value="#">尺寸:</option>
+                                                    <option value="#">{t('size')}:</option>
                                                     {info &&
                                                         info.map((item, index) => {
                                                             return (
@@ -152,7 +154,7 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
                                         </div>
 
                                         <div className="details-filter-row details-row-size">
-                                            <label htmlFor="qty">數量:</label>
+                                            <label htmlFor="qty">{t('amount')}:</label>
                                             <div className="product-details-quantity">
                                                 <NumberInput
                                                     inputName="qty"
@@ -171,7 +173,7 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
                                                 }}
                                                 className="btn-product btn-cart"
                                             >
-                                                <span>加入購物車</span>
+                                                <span>{t('add_to_cart')}</span>
                                             </a>
 
                                             <div className="details-action-wrapper">
@@ -183,7 +185,7 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
                                                     className="btn-product btn-wishlist"
                                                     title="Wishlist"
                                                 >
-                                                    <span>加入喜愛清單</span>
+                                                    <span>{t('add_to_wish_list')}</span>
                                                 </a>
                                             </div>
                                         </div>
@@ -239,7 +241,7 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
                                         handleAddCart()
                                     }}
                                 >
-                                    <span>加入購物車</span>
+                                    <span>{t('add_to_cart')}</span>
                                 </a>
                                 <a
                                     href="#"
@@ -249,7 +251,7 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
                                     className="btn-product btn-wishlist"
                                     title="Wishlist"
                                 >
-                                    <span>加入喜愛清單</span>
+                                    <span>{t('add_to_wish_list')}</span>
                                 </a>
                             </div>
                         </div>
