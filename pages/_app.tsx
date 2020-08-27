@@ -19,6 +19,7 @@ import { NextPageContext } from 'next'
 import cookies from 'next-cookies'
 
 const cookieServerProgress = (ctx: NextPageContext) => {
+    const uuid = cookies(ctx).uuid !== undefined ? (cookies(ctx).uuid as string) : ''
     const memberId = cookies(ctx).memberId !== undefined ? (cookies(ctx).memberId as string) : ''
     const userId = cookies(ctx).userId !== undefined ? (cookies(ctx).userId as string) : ''
     const token = cookies(ctx).token !== undefined ? (cookies(ctx).token as string) : ''
@@ -32,6 +33,7 @@ const cookieServerProgress = (ctx: NextPageContext) => {
             token,
             accessToken,
             userId,
+            uuid,
         },
         message: 'cookie',
     }

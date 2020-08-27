@@ -1,6 +1,6 @@
 import { HYDRATE } from 'next-redux-wrapper'
 import { of } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
+import { mergeMap, switchMap, catchError, takeUntil, retry } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 import { PayloadAction } from '@reduxjs/toolkit'
@@ -9,6 +9,7 @@ import { OrderDetailActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
 import { OrderDetailReqData, OrderDetailRspData } from '@/types/apis/orderDetail'
 import { ORDER_DETAIL } from '@/services/api/apiConfig'
+import { epicSuccessMiddleware, epicAuthFailMiddleware } from '../epicMiddleware'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
@@ -30,11 +31,16 @@ export const fetchOrderDetailEpic: Epic = (action$, state$) =>
                 accessToken: state$.value.userLogin.accessToken,
             }).pipe(
                 mergeMap((res) => {
-                    return of(OrderDetailActions.fetchOrderDetailSuccess(res.data))
+                    return epicSuccessMiddleware(res, OrderDetailActions.fetchOrderDetailSuccess(res.data))
                 }),
-                catchError((error: AxiosError) => {
-                    return of(OrderDetailActions.fetchOrderDetailFailure({ error: error.message }))
+                catchError((error: AxiosError | string) => {
+                    const res = <AxiosError>error
+                    return epicAuthFailMiddleware(
+                        error,
+                        OrderDetailActions.fetchOrderDetailFailure({ error: res.message }),
+                    )
                 }),
+                retry(2),
                 takeUntil(action$.ofType(OrderDetailActions.stopFetchOrderDetail)),
             ),
         ),

@@ -10,7 +10,7 @@ const baseConfig = {
 class HttpService {
     static readonly DEV: string = 'http://localhost:3000/api'
     static readonly BasePath: string = 'http://online-api.breezeonline.com/api/online'
-    public static getBaseUrl = (targetApi: string, basePath: string = HttpService.BasePath): string => {
+    public static getBaseUrl = (targetApi: string, basePath: string = HttpService.DEV): string => {
         // basePath = isDev ? HttpService.DEV : HttpService.BasePath
         return `${basePath}/${targetApi}`
     }

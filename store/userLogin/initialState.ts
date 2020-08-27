@@ -7,4 +7,5 @@ export const initialState: State = {
     accessTokenExpireDate: '',
     userId: '',
     error: '',
+    uuid: '',
 }

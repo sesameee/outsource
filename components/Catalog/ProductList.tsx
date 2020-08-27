@@ -103,7 +103,9 @@ const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect }: 
 
                                 <div className="product-body">
                                     {/* <div className="product-cat">
-                                        <a href="#">Women</a>
+                                        <Link href={`/category/${item.cid}/${item.pid}`}>
+                                            <a href="#">{item.mName}</a>
+                                        </Link>
                                     </div> */}
                                     <h3 className="product-title">
                                         <Link href={`/product/${item.cid}/${item.pid}`}>

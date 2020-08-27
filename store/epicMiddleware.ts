@@ -14,6 +14,7 @@ export const epicSuccessMiddleware = (res: any, fn: any, fn2?: any) => {
     if (res.data.code === '0000') {
         return fn2 ? of(fn, fn2) : of(fn)
     } else if (res.data.code === '8012' || res.data.code === '8013') {
+        console.log('8013 :>> ')
         return throwError(res.data.code)
     } else {
         return of(ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: res.data.message }))
@@ -28,6 +29,7 @@ export const epicSuccessMiddleware = (res: any, fn: any, fn2?: any) => {
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const epicAuthFailMiddleware = (error: AxiosError | string, fn: any) => {
     if (error === '8013') {
+        console.log('epicAuthFailMiddleware :>> ')
         return of({
             type: 'FETCH_GENERATE_ACCESS_TOKEN',
         })

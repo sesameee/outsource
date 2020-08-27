@@ -5,6 +5,7 @@ import { State } from '@/types/stores/userLogin/state'
 import { initialState } from './initialState'
 import { UserLoginRspAllData } from '@/types/apis/userLogin'
 import { setCookie, deleteCookie } from '@/utils'
+import { v4 as uuidv4 } from 'uuid'
 
 export const setIsSearching: CaseReducer<State, PayloadAction<State>> = (state, action) => {
     return produce(state, (draft) => {
@@ -20,6 +21,11 @@ export const fetchUserLoginSuccess: CaseReducer<State, PayloadAction<{ UserLogin
     return produce(state, (draft) => {
         const { memberId, accessToken, accessTokenExpireDate, userId, token } = action.payload.UserLoginData.data
         draft['isFetch'] = false
+        if (draft['memberId'] != memberId && memberId) {
+            const uuid = uuidv4()
+            draft['uuid'] = uuid
+            setCookie('uuid', uuid)
+        }
         memberId && (draft['memberId'] = memberId) && setCookie('memberId', memberId)
         accessToken && (draft['accessToken'] = accessToken) && setCookie('accessToken', accessToken)
         accessTokenExpireDate && (draft['accessTokenExpireDate'] = accessTokenExpireDate)
@@ -30,12 +36,14 @@ export const fetchUserLoginSuccess: CaseReducer<State, PayloadAction<{ UserLogin
 
 export const fetchUserLoginFailure: CaseReducer<State, PayloadAction<{ error: string }>> = (state, action) => {
     return produce(state, (draft) => {
+        console.log('fetchUserLoginFailure SSSS:>> ')
         draft['isFetch'] = false
         draft['error'] = action.payload.error
         deleteCookie('memberId')
         deleteCookie('userId')
         deleteCookie('accessToken')
         deleteCookie('token')
+        deleteCookie('uuid')
     })
 }
 

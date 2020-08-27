@@ -1,6 +1,6 @@
 import { HYDRATE } from 'next-redux-wrapper'
 import { of } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
+import { mergeMap, switchMap, catchError, takeUntil, retry } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 
@@ -9,6 +9,7 @@ import HttpService from '@/services/api/HttpService'
 import { VerifyInvBarCodeRspData, VerifyInvBarCodeReqData } from '@/types/apis/verifyInvBarCode'
 import { VERIFY_INV_BARCODE } from '@/services/api/apiConfig'
 import { PayloadAction } from '@reduxjs/toolkit'
+import { epicSuccessMiddleware, epicAuthFailMiddleware } from '../epicMiddleware'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
@@ -30,11 +31,16 @@ export const fetchVerifyInvBarCodeListEpic: Epic = (action$, state$) =>
                 accessToken: state$.value.userLogin.accessToken,
             }).pipe(
                 mergeMap((res) => {
-                    return of(VerifyInvBarCodeActions.fetchVerifyInvBarCodeSuccess(res.data))
+                    return epicSuccessMiddleware(res, VerifyInvBarCodeActions.fetchVerifyInvBarCodeSuccess(res.data))
                 }),
-                catchError((error: AxiosError) => {
-                    return of(VerifyInvBarCodeActions.fetchVerifyInvBarCodeFailure({ error: error.message }))
+                catchError((error: AxiosError | string) => {
+                    const res = <AxiosError>error
+                    return epicAuthFailMiddleware(
+                        error,
+                        VerifyInvBarCodeActions.fetchVerifyInvBarCodeFailure({ error: res.message }),
+                    )
                 }),
+                retry(2),
                 takeUntil(action$.ofType(VerifyInvBarCodeActions.stopFetchVerifyInvBarCode)),
             ),
         ),

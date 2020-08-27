@@ -82,8 +82,6 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
         )
     }
 
-    console.log('productData :>> ', productData)
-
     return (
         <div className="page-wrapper">
             <Header isIndex={false} token={token} />

@@ -13,15 +13,18 @@ export const useShoppingCartList = (): void => {
     const cartModify = useSelector(ShoppingCartModifySelectors.shoppingCartModify)
     const dispatch = useDispatch()
     const { i18n } = useTranslation()
+    const getUser = useSelector(UserLoginSelectors.getUserLoginData)
     useEffect(() => {
-        dispatch(
-            ShoppingCartListActions.fetchShoppingCartList({
-                memberId: '',
-                shipType: '1',
-                accessToken: '',
-            }),
-        )
-    }, [dispatch, i18n.language, cartModify])
+        if (getUser.accessToken) {
+            dispatch(
+                ShoppingCartListActions.fetchShoppingCartList({
+                    memberId: '',
+                    shipType: '1',
+                    accessToken: '',
+                }),
+            )
+        }
+    }, [dispatch, i18n.language, cartModify, getUser.accessToken])
 }
 
 export const useShoppingCartModify = (): void => {

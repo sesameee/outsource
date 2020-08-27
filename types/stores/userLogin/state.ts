@@ -6,4 +6,5 @@ export type State = {
     accessTokenExpireDate?: string
     userId?: string
     error: string
+    uuid: string
 }

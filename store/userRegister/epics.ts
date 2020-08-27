@@ -1,6 +1,6 @@
 import { HYDRATE } from 'next-redux-wrapper'
 import { of } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
+import { mergeMap, switchMap, catchError, takeUntil, retry } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 import { PayloadAction } from '@reduxjs/toolkit'
@@ -46,6 +46,7 @@ export const fetchUserRegisterEpic: Epic = (action$) =>
                 catchError((error: AxiosError) => {
                     return of(UserRegisterActions.fetchUserRegisterFailure({ error: error.message }))
                 }),
+                retry(2),
                 takeUntil(action$.ofType(UserRegisterActions.stopFetchUserRegister)),
             ),
         ),
