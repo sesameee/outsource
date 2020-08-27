@@ -406,6 +406,12 @@
         background-repeat: no-repeat;
         background-size: cover;
         background-position: 50% 50%;
+        @include for-md {
+            height: 13rem;
+        }
+        @include for-xxs {
+            height: 10rem;
+        }
     }
 }
 
@@ -887,5 +893,7 @@
     .active {
         border-color: $mainColor;
         border-width: 1px;
+        background-color: $mainColor;
+        color: #fff;
     }
 }

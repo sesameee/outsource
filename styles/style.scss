@@ -765,7 +765,7 @@ blockquote.text-white cite span {
     align-items: center;
     text-decoration: none !important;
     line-height: 1;
-    color:$mainFontColor;
+    color: $mainFontColor;
 }
 .cart-dropdown .dropdown-toggle::after,
 .compare-dropdown .dropdown-toggle::after {
@@ -6947,8 +6947,6 @@ p {
 .product-nav-thumbs span {
     display: flex;
     align-items: center;
-    width: 4.4rem;
-    height: 4.4rem;
     border-radius: 0.2rem;
     border: 0.2rem solid #fff;
     margin-right: 0.4rem;
@@ -8567,6 +8565,7 @@ small.form-text {
     font-size: 1.5rem;
     transform: translateY(-51%);
     color: #333;
+    pointer-events: none;
 }
 .select-custom .form-control,
 .select-custom .form-control-sm {

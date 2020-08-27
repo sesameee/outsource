@@ -54,9 +54,7 @@ const Channel: React.FC = () => {
                 return (
                     <div key={index} style={{ width: '28rem' }}>
                         <figure className="product-media">
-                            <Link href={`category/${item?.cid}`}>
-                                <img src={item?.imageUrl} alt="Product image" className="product-image" />
-                            </Link>
+                            <img src={item?.imageUrl} alt="Product image" className="product-image" />
                         </figure>
                         <div className="product-body">
                             <h3 className="product-title text-center">
