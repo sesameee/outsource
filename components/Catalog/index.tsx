@@ -180,7 +180,7 @@ const WidgetFrame: React.FC<WidgetFrameProps> = ({
     return (
         <div>
             <ProSidebar breakPoint="md" toggled={filterToggle} onToggle={handleToggleSidebar}>
-                <div className="filter-section filter-top">
+                <div className="filter-section filter-top main-color">
                     <div onClick={() => setFilterToggle(false)}>{t('return')}</div>
                     <div>{t('commodity_category')}</div>
                     <div></div>

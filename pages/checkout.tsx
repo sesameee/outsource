@@ -362,10 +362,12 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
                                                 ref={register({ required: true })}
                                                 defaultValue=""
                                             >
-                                                <option value="" selected={true}>
+                                                {/* <option value="" selected={true}>
                                                     請選擇發票類型
+                                                </option> */}
+                                                <option value={InvoiceFromType.MemberDriver} selected={true}>
+                                                    會員載具
                                                 </option>
-                                                <option value={InvoiceFromType.MemberDriver}>會員載具</option>
                                                 <option value={InvoiceFromType.PhoneBarcode}>手機條碼 </option>
                                                 <option value={InvoiceFromType.Donate}>捐贈</option>
                                             </select>

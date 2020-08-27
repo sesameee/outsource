@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react'
-import { useShoppingCartList } from '@/hooks/ShoppingCart'
 import { UserLoginSelectors, WishListSelectors } from '@/store'
 import { useSelector } from 'react-redux'
 import Link from 'next/link'
 
 const Wish: React.FC = () => {
-    useShoppingCartList()
     const UserAuth = useSelector(UserLoginSelectors.getUserLoginData)
     const { data } = useSelector(WishListSelectors.getWishList)
     const getShoppingCartListCookie = useSelector(WishListSelectors.getWishListCookie)

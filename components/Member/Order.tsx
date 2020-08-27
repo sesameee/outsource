@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { useOrderDetailHandler } from '@/hooks/OrderDetail'
 import { useTranslation } from '@/I18n'
 import MyModal from '../MyModal'
+import Refund from './Refund'
 
 export interface tabDataVo {
     title: string
@@ -31,42 +32,17 @@ const Order: React.FC = () => {
     }, [OrderList, handelChangeIndex])
 
     const OrderDetail = useSelector(OrderDetailSelectors.orderDetail)
-    const [IsOpenRefund, setIsOpenRefund] = React.useState(true)
-    const Refund = () => {
-        return (
-            <div className="refund">
-                <h4>退貨申請</h4>
-                <div className="listItem">
-                    {t('transaction_id')} : {OrderList[tabIndex]?.transId} ( {t('breeze_online_boutique')} )
-                </div>
-                <div className="listItem">
-                    {t('transaction_date')} : {OrderList[tabIndex]?.txDate}
-                </div>
-                <div className="listItem">
-                    {t('transaction_status')} : {OrderList[tabIndex]?.txStatus}
-                </div>
-                <div className="listItem">
-                    {t('receipt_number')} : {OrderList[tabIndex]?.invoiceNo}
-                </div>
-                <div className="line"></div>
-                <table className="table table-wishlist table-mobile">
-                    <thead>
-                        <tr>
-                            <th>勾選退貨商品</th>
-                            <th>商品名稱</th>
-                            <th>折扣後金額</th>
-                            <th>購買數量</th>
-                            <th>退貨數量</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-        )
-    }
+    const [IsOpenRefund, setIsOpenRefund] = React.useState(false)
 
     return (
         <div className="accordion accordion-rounded" id="accordion-5" style={{ width: '100%' }}>
-            {OrderList && <MyModal content={<Refund />} isOpen={IsOpenRefund} setPropIsOpenFn={setIsOpenRefund} />}
+            {OrderList && (
+                <MyModal
+                    content={<Refund OrderDetail={OrderDetail} OrderList={OrderList} tabIndex={tabIndex} />}
+                    isOpen={IsOpenRefund}
+                    setPropIsOpenFn={setIsOpenRefund}
+                />
+            )}
             {OrderList &&
                 OrderList.map((_item, index) => {
                     return (
@@ -131,41 +107,43 @@ const Order: React.FC = () => {
                                                             <th></th>
                                                         </tr>
                                                     </thead>
-                                                    {_item.orderProducts.map((_pitem, index) => {
-                                                        return (
-                                                            <tr key={index}>
-                                                                <td className="product-col">
-                                                                    <div className="product">
-                                                                        <figure className="product-media">
-                                                                            <a href="#">
-                                                                                <img
-                                                                                    src={_pitem.imageUrl}
-                                                                                    alt="Product image"
-                                                                                />
-                                                                            </a>
-                                                                        </figure>
+                                                    <tbody>
+                                                        {_item.orderProducts.map((_pitem, index) => {
+                                                            return (
+                                                                <tr key={index}>
+                                                                    <td className="product-col">
+                                                                        <div className="product">
+                                                                            <figure className="product-media">
+                                                                                <a href="#">
+                                                                                    <img
+                                                                                        src={_pitem.imageUrl}
+                                                                                        alt="Product image"
+                                                                                    />
+                                                                                </a>
+                                                                            </figure>
 
-                                                                        <h3 className="product-title">
-                                                                            <p>{_item.name}</p>
-                                                                            {_pitem.productName}
-                                                                            <p>{_pitem.spec1}</p>
-                                                                        </h3>
-                                                                    </div>
-                                                                </td>
-                                                                <td className="price-col">${_pitem.price}</td>
-                                                                <td className="quantity-col">{_pitem.qty}</td>
-                                                                <td className="remove-col" rowSpan={2}>
-                                                                    <button
-                                                                        onClick={() => setIsOpenRefund(true)}
-                                                                        type="button"
-                                                                        className="btn btn-outline-primary-2 btn-block"
-                                                                    >
-                                                                        <span>{t('return_commodity')}</span>
-                                                                    </button>
-                                                                </td>
-                                                            </tr>
-                                                        )
-                                                    })}
+                                                                            <h3 className="product-title">
+                                                                                <p>{_item.name}</p>
+                                                                                {_pitem.productName}
+                                                                                <p>{_pitem.spec1}</p>
+                                                                            </h3>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td className="price-col">${_pitem.price}</td>
+                                                                    <td className="quantity-col">{_pitem.qty}</td>
+                                                                    <td className="remove-col" rowSpan={2}>
+                                                                        <button
+                                                                            onClick={() => setIsOpenRefund(true)}
+                                                                            type="button"
+                                                                            className="btn btn-outline-primary-2 btn-block"
+                                                                        >
+                                                                            <span>{t('return_commodity')}</span>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            )
+                                                        })}
+                                                    </tbody>
                                                 </table>
                                                 <div className="listItem">
                                                     {t('shipment_vendor')} : {_item.name}

@@ -1,5 +1,5 @@
-import React, { memo } from 'react'
-import { WishListSelectors } from '@/store'
+import React, { memo, useEffect } from 'react'
+import { WishListSelectors, UserLoginSelectors } from '@/store'
 import { useSelector } from 'react-redux'
 import { useTranslation } from '@/I18n'
 import { useShoppingCartModifyHandler } from '@/hooks/ShoppingCart'
@@ -8,14 +8,23 @@ import { useWishModifyHandler, useWishList } from '@/hooks/Wish'
 const WishList: React.FC = () => {
     useWishList()
     const { t } = useTranslation()
-    const data = useSelector(WishListSelectors.getWishListCookie)
     const { handleCart } = useShoppingCartModifyHandler()
     const { handleWish } = useWishModifyHandler()
-
+    const UserAuth = useSelector(UserLoginSelectors.getUserLoginData)
+    const { data } = useSelector(WishListSelectors.getWishList)
+    const getListCookie = useSelector(WishListSelectors.getWishListCookie)
+    const [WishList, setWishList] = React.useState<any[]>([])
+    useEffect(() => {
+        if (UserAuth.accessToken) {
+            setWishList(data)
+        } else {
+            setWishList(getListCookie)
+        }
+    }, [UserAuth, data, getListCookie, WishList])
     return (
         <tbody>
-            {data &&
-                data.map((item: any, index: number) => (
+            {WishList &&
+                WishList.map((item: any, index: number) => (
                     <tr key={index}>
                         <td className="product-col">
                             <div className="product">

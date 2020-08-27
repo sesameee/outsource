@@ -169,7 +169,10 @@
     }
     .frame-right {
         flex: 1;
-        margin: 0 5rem;
+        margin: 0;
+        @include for-except-xs {
+            margin: 0 5rem;
+        }
         display: flex;
         align-items: center;
         justify-content: center;
@@ -899,6 +902,19 @@
 }
 
 .refund {
-    width: 100rem;
-    padding: 5rem;
+    width: 100%;
+    height: 80vh;
+    overflow: auto;
+    padding: 3rem;
+}
+.center-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.form-box {
+    .tab-content {
+        height: 75vh;
+        overflow: auto;
+    }
 }

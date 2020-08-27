@@ -46,10 +46,12 @@ const NumberInput: React.FC<NumberInputProps> = ({
                 style={{ textAlign: 'center' }}
                 className="form-control "
                 placeholder=""
-                defaultValue={amount}
                 value={amount}
                 min={minValue}
                 max={maxValue}
+                onChange={(e) => {
+                    console.log(e)
+                }}
             />
             <div className="input-group-append">
                 <button
