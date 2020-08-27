@@ -45,7 +45,6 @@ export const fetchGenerateAccessTokenListEpic: Epic = (action$, state$) =>
                         return throwError(res.data.code)
                     } else if (res.data.code === NEED_LOGOUT_ERROR_CODE) {
                         // token 無效登出
-                        window.location.href = '/'
                         return throwError(res.data.code)
                     } else {
                         return of(

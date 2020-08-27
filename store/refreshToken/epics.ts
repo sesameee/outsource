@@ -1,16 +1,17 @@
 import { HYDRATE } from 'next-redux-wrapper'
-import { of } from 'rxjs'
+import { of, throwError } from 'rxjs'
 import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 
-import { RefreshTokenActions } from '@/store'
+import { RefreshTokenActions, UserLoginActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
-import { RefreshTokenRspData } from '@/types/apis/refreshToken'
 import { REFRESH_TOKEN } from '@/services/api/apiConfig'
+import { encodeToken } from '@/utils'
+import { v4 as uuidv4 } from 'uuid'
+import { UserLoginRspAllData } from '@/types/apis/userLogin'
+const NEED_LOGOUT_ERROR_CODE = '8011'
 
-// TODO: do something
-// @see https://github.com/kirill-konshin/next-redux-wrapper#usage
 export const initEpic: Epic = (action$) =>
     action$.pipe(
         ofType(HYDRATE),
@@ -19,20 +20,34 @@ export const initEpic: Epic = (action$) =>
         }),
     )
 
-export const fetchRefreshTokenListEpic: Epic = (action$) =>
+export const fetchRefreshTokenListEpic: Epic = (action$, state$) =>
     action$.pipe(
         ofType(RefreshTokenActions.fetchRefreshToken),
         switchMap(() =>
-            HttpService.PostAsync<null, RefreshTokenRspData>(REFRESH_TOKEN).pipe(
+            HttpService.PostAsync<{ content: string }, UserLoginRspAllData>(REFRESH_TOKEN, {
+                content: encodeToken(
+                    `${state$.value.userLogin.token},${
+                        state$.value.userLogin.uuid
+                    },${new Date().getTime()},${uuidv4()}`,
+                ),
+            }).pipe(
                 mergeMap((res) => {
-                    return of(RefreshTokenActions.fetchRefreshTokenSuccess({ refreshTokenRspData: res.data }))
+                    if (res.data.code === NEED_LOGOUT_ERROR_CODE) {
+                        // token 無效登出
+                        return throwError(res.data.code)
+                    } else {
+                        return of(
+                            UserLoginActions.fetchUserLoginSuccess({
+                                UserLoginData: res.data,
+                            }),
+                        )
+                    }
                 }),
                 catchError((error: AxiosError) => {
-                    return of(RefreshTokenActions.fetchRefreshTokenFailure({ error: error.message }))
+                    return of(UserLoginActions.fetchUserLoginFailure({ error: error.message }))
                 }),
                 takeUntil(action$.ofType(RefreshTokenActions.stopFetchRefreshToken)),
             ),
         ),
     )
-
 export default [initEpic, fetchRefreshTokenListEpic]

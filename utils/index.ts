@@ -136,3 +136,22 @@ export const deleteCookie = (name: string): void => {
     // Set it
     document.cookie = name + '=; expires=' + date.toUTCString() + '; path=/'
 }
+import crypto from 'crypto'
+const SECRET_IV = 'BRZAPPEAccessVec'
+const SECRET_KEY = 'BRZAPPEAccessKey'
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+/**
+ * 加密
+ * @param cipherText string
+ */
+export const encodeToken = (cipherText: string) => {
+    const clearEncoding = 'utf8'
+    const cipherEncoding = 'base64'
+    const cipherChunks = []
+    const cipher = crypto.createCipheriv('aes-128-cbc', SECRET_KEY, SECRET_IV)
+    cipher.setAutoPadding(true)
+    cipherChunks.push(cipher.update(cipherText, clearEncoding, cipherEncoding))
+    cipherChunks.push(cipher.final(cipherEncoding))
+    return cipherChunks.join('')
+}

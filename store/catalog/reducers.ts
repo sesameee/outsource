@@ -28,6 +28,9 @@ export const fetchCatalogSuccess: CaseReducer<State, PayloadAction<{ catalogList
                     const cid = iData[l]?.cid
                     const pid = iData[l]?.pid
                     const id = `c${data.cid}-${iCid}-${cid}-${pid}`
+                    const link = `${data.cid}/${iCid}/${cid}`
+                    tmpData['cName'] = data.categoryList[i]?.cName
+                    tmpData['link'] = link
                     tmpData['_id'] = id
                     productList[id] = tmpData
                 }
@@ -44,6 +47,9 @@ export const fetchCatalogSuccess: CaseReducer<State, PayloadAction<{ catalogList
                         const tmpData = jData[k]
                         const pid = tmpData?.pid
                         const id = `c${iCid}-${jCid}-${kCid}-${pid}`
+                        const link = `${data.cid}/${iCid}/${kCid}`
+                        tmpData['cName'] = iData[j]?.cName
+                        tmpData['link'] = link
                         tmpData['_id'] = id
                         productList[id] = tmpData
                     }

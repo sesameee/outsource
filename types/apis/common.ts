@@ -7,6 +7,7 @@ export interface ProductData {
     listPrice?: string
     imageUrl: string
     _id: string
+    cName: string
     onlineDate: string
 }
 

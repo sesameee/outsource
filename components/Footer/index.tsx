@@ -3,6 +3,7 @@ import { withTranslation } from '@/I18n'
 import { TFunction } from 'next-i18next'
 import Link from 'next/link'
 import MyModal from '../MyModal'
+import { encodeToken } from '@/utils'
 
 type FooterProps = {
     t: TFunction
@@ -10,6 +11,12 @@ type FooterProps = {
 const Footer: React.FC<FooterProps> = ({ t }: FooterProps) => {
     const [IsOpenService, setIsOpenService] = React.useState(false)
     const [IsOpenPrivacy, setIsOpenPrivacy] = React.useState(false)
+    console.log(
+        'encodeToken :>> ',
+        encodeToken(
+            'ThbTYBe/GOvKK3S0IKCAgwoL+Wfyj0/APHpNikOVBraPY6sF41d9S2C5e9N9encs67Dmf/jSB5l9/olBxiCjX4Xi2wJbGw5oJ+LSddfTzQSqesE3KjP5HCxTe+F3wT18uWsDnSbMxCdVmum0Rf7p/oZazEOMpnjWAOYlSJpqBEw=;16f1fddd-51ba-4835-b069-968d8ecd8aba;1598509912623;cd5b5293-6355-45e9-8b42-70e95d5a1adc',
+        ),
+    )
 
     return (
         <footer className="footer">
@@ -97,9 +104,7 @@ const Footer: React.FC<FooterProps> = ({ t }: FooterProps) => {
                 <img className="logo" src="/images/breezeonline_logo.png" />
                 <div className="info">
                     <p>{t('breeze_couture')}</p>
-                    <p>
-                        {t('company_address')}
-                    </p>
+                    <p>{t('company_address')}</p>
                     <p>{t('customer_service_number')}</p>
                 </div>
             </div>
