@@ -19,7 +19,7 @@ const Member: React.FC<MemberProps> = ({ t }: MemberProps): JSX.Element => {
             link: '/',
         },
         {
-            title: '願望清單',
+            title: t('wish_list'),
             link: '',
         },
     ]
@@ -33,7 +33,7 @@ const Member: React.FC<MemberProps> = ({ t }: MemberProps): JSX.Element => {
                 >
                     <div className="container">
                         <h1 className="page-title">
-                            願望清單<span></span>
+                            {t('wish_list')}<span></span>
                         </h1>
                     </div>
                 </div>
@@ -45,8 +45,8 @@ const Member: React.FC<MemberProps> = ({ t }: MemberProps): JSX.Element => {
                             <table className="table table-wishlist table-mobile">
                                 <thead>
                                     <tr>
-                                        <th>商品名稱</th>
-                                        <th>商品售價</th>
+                                        <th>{t('commodity_name')}</th>
+                                        <th>{t('commodity_price_2')}</th>
                                         <th></th>
                                         <th></th>
                                     </tr>

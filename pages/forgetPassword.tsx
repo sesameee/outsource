@@ -15,7 +15,7 @@ type FromFirstStepProps = {
 }
 
 const FromFirstStep: React.FC<FromFirstStepProps> = ({ setStep }: FromFirstStepProps) => {
-    // const { t } = useTranslation()
+    const { t } = useTranslation()
     const { handleForgotPasswordSubmit, HandleForgotPasswordRes } = useForgotPassword()
     const { register, handleSubmit } = useForm<ForgotPasswordReqData>()
     const onSubmit = (data: any) => {
@@ -25,7 +25,7 @@ const FromFirstStep: React.FC<FromFirstStepProps> = ({ setStep }: FromFirstStepP
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
-                <label htmlFor="phone">請輸入手機號碼 ( 接收驗證碼 ) *</label>
+                <label htmlFor="phone">{t('please_input_phone_number_and_receive_captcha')} *</label>
                 <input
                     ref={register({ required: true })}
                     type="tel"
@@ -36,7 +36,7 @@ const FromFirstStep: React.FC<FromFirstStepProps> = ({ setStep }: FromFirstStepP
                 />
             </div>
             <div className="form-group">
-                <label htmlFor="rocId">請輸入身份證字號 *</label>
+                <label htmlFor="rocId">{t('please_input_id_number')} *</label>
                 <input
                     ref={register({ required: true })}
                     type="text"
@@ -48,7 +48,7 @@ const FromFirstStep: React.FC<FromFirstStepProps> = ({ setStep }: FromFirstStepP
             </div>
             <div className="form-footer">
                 <button type="submit" className="btn btn-outline-primary-2 btn-block margin-top-more">
-                    <span>確認</span>
+                    <span>{t('confirm')}</span>
                 </button>
             </div>
         </form>
@@ -56,7 +56,7 @@ const FromFirstStep: React.FC<FromFirstStepProps> = ({ setStep }: FromFirstStepP
 }
 
 const FromSecondStep: React.FC = () => {
-    //const { t } = useTranslation()
+    const { t } = useTranslation()
     const { handleVerifyCodeSubmit } = useVerifyCodeHandler()
     const { register, handleSubmit } = useForm<VerifyCodeData>()
     const onSubmit = (data: any) => {
@@ -66,7 +66,7 @@ const FromSecondStep: React.FC = () => {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
-                <label htmlFor="code">請輸入手機驗證碼 *</label>
+                <label htmlFor="code">{t('please_input_phone_captcha')} *</label>
                 <input
                     ref={register({ required: true })}
                     type="text"
@@ -78,7 +78,7 @@ const FromSecondStep: React.FC = () => {
             </div>
             <div className="form-footer">
                 <button type="submit" className="btn btn-outline-primary-2 btn-block margin-top-more">
-                    <span>確認</span>
+                    <span>{t('confirm')}</span>
                 </button>
             </div>
         </form>
@@ -107,7 +107,7 @@ const ForgetPassword: React.FC = (): JSX.Element => {
             link: '/',
         },
         {
-            title: '忘記密碼',
+            title: t('forget_password_text_only'),
             link: '',
         },
     ]
@@ -121,7 +121,7 @@ const ForgetPassword: React.FC = (): JSX.Element => {
                 >
                     <div className="container">
                         <h1 className="page-title">
-                            忘記密碼<span></span>
+                            {t('forget_password_text_only')}<span></span>
                         </h1>
                     </div>
                 </div>

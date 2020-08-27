@@ -23,7 +23,7 @@ const CheckoutResult: React.FC<WithRouterProps> = ({ router }: WithRouterProps):
             link: '/',
         },
         {
-            title: '付款確認',
+            title: t('confirm_payment'),
             link: '',
         },
     ]
@@ -34,17 +34,17 @@ const CheckoutResult: React.FC<WithRouterProps> = ({ router }: WithRouterProps):
                 return (
                     <div className="result-frame">
                         <img className="icon" src="/images/custom/success.png" />
-                        <h3 className="main-color main-word">付款成功</h3>
-                        <div className="tips">感謝您的購買，很快的您就會收到最適合您的商品嘍！</div>
+                        <h3 className="main-color main-word">{t('payment_succeed')}</h3>
+                        <div className="tips">{t('thanks_for_your_purchase')}</div>
                         <div className="btn-frame">
                             <Link href="/member/order">
                                 <button type="button" className="btn btn-outline-primary-2">
-                                    查看線上交易紀錄
+                                {t('check_online_shopping_record')}
                                 </button>
                             </Link>
                             <Link href="/">
                                 <button type="button" className="btn btn-outline-primary-2">
-                                    回首頁
+                                {t('back_to_homepage')}
                                 </button>
                             </Link>
                         </div>
@@ -54,14 +54,14 @@ const CheckoutResult: React.FC<WithRouterProps> = ({ router }: WithRouterProps):
                 return (
                     <div className="result-frame">
                         <img className="icon" src="/images/custom/fail.png" />
-                        <h3 className="main-color main-word">付款失敗</h3>
-                        <div className="tips">很抱歉，您的付款出現了一些問題，請重新支付！</div>
+                        <h3 className="main-color main-word">{t('payment_failed')}</h3>
+                        <div className="tips">{t('payment_failed_message')}</div>
                         <div className="btn-frame">
                             <button type="button" className="btn btn-outline-primary-2">
-                                重新付款
+                            {t('re_pay')}
                             </button>
                             <button type="button" className="btn btn-outline-primary-2">
-                                回首頁
+                            {t('back_to_homepage')}
                             </button>
                         </div>
                     </div>
@@ -82,7 +82,7 @@ const CheckoutResult: React.FC<WithRouterProps> = ({ router }: WithRouterProps):
                 >
                     <div className="container">
                         <h1 className="page-title">
-                            付款確認<span></span>
+                        {t('confirm_payment')}<span></span>
                         </h1>
                     </div>
                 </div>

@@ -9,18 +9,20 @@ import { useShoppingCartList } from '@/hooks/ShoppingCart'
 import PromoCode from '@/components/Cart/PromoCode'
 import { accAdd, accSubtr } from '@/utils'
 import Link from 'next/link'
+import { useTranslation } from '@/I18n'
 // import { withTranslation, i18n } from '@/I18n'
 type CartProps = {
     token: string
 }
 const Cart: NextPage<any> = ({ token }: CartProps): JSX.Element => {
+    const { t } = useTranslation()
     const navMock = [
         {
-            title: '首頁',
+            title: t('homepage'),
             link: '/',
         },
         {
-            title: '購物車',
+            title: t('shopping_cart'),
             link: '',
         },
     ]
@@ -54,7 +56,7 @@ const Cart: NextPage<any> = ({ token }: CartProps): JSX.Element => {
                 >
                     <div className="container">
                         <h1 className="page-title">
-                            購物車<span></span>
+                            {t('shopping_cart')}<span></span>
                         </h1>
                     </div>
                 </div>
@@ -67,11 +69,11 @@ const Cart: NextPage<any> = ({ token }: CartProps): JSX.Element => {
                                     <table className="table table-cart table-mobile">
                                         <thead>
                                             <tr>
-                                                <th>商品名稱</th>
-                                                <th>商品售價</th>
-                                                <th>數量</th>
-                                                <th>商品總額</th>
-                                                <th>折扣後金額</th>
+                                                <th>{t('commodity_name')}</th>
+                                                <th>{t('commodity_price_2')}</th>
+                                                <th>{t('amount')}</th>
+                                                <th>{t('commodity_amount')}</th>
+                                                <th>{t('after_discount_price')}</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -86,17 +88,17 @@ const Cart: NextPage<any> = ({ token }: CartProps): JSX.Element => {
                                 </div>
                                 <aside className="col-lg-3">
                                     <div className="summary summary-cart">
-                                        <h3 className="summary-title">購物車明細</h3>
+                                        <h3 className="summary-title">{t('cart_detail')}</h3>
 
                                         <table className="table table-summary">
                                             <tbody>
                                                 <tr className="summary-shipping">
-                                                    <td>商品總額:</td>
+                                                    <td>{t('commodity_amount')}:</td>
                                                     <td>${amount}</td>
                                                 </tr>
                                                 {disCountamount != 0 && (
                                                     <tr className="summary-new">
-                                                        <td>折扣碼優惠:</td>
+                                                        <td>{t('promo_code_discount')}:</td>
                                                         <td>- ${disCountamount}</td>
                                                     </tr>
                                                 )}
@@ -111,7 +113,7 @@ const Cart: NextPage<any> = ({ token }: CartProps): JSX.Element => {
                                                     </tr>
                                                 )}
                                                 <tr className="summary-shipping">
-                                                    <td>配送方式:</td>
+                                                    <td>{t('delivery_type_text_only')}:</td>
                                                     <td>&nbsp;</td>
                                                 </tr>
 
@@ -129,7 +131,7 @@ const Cart: NextPage<any> = ({ token }: CartProps): JSX.Element => {
                                                                 className="custom-control-label"
                                                                 htmlFor="free-shipping"
                                                             >
-                                                                一般宅配
+                                                                {t('home_delivery')}
                                                             </label>
                                                         </div>
                                                     </td>
@@ -144,13 +146,13 @@ const Cart: NextPage<any> = ({ token }: CartProps): JSX.Element => {
                                                 </tr> */}
 
                                                 <tr className="summary-total">
-                                                    <td>結帳金額:</td>
+                                                    <td>{t('checkout_price')}:</td>
                                                     <td>${finalAmount}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                         <Link href="/checkout" prefetch={true}>
-                                            <a className="btn btn-outline-primary-2 btn-order btn-block">前往結帳</a>
+                                            <a className="btn btn-outline-primary-2 btn-order btn-block">{t('go_to_checkout')}</a>
                                         </Link>
                                     </div>
 

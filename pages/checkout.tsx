@@ -13,6 +13,7 @@ import cookies from 'next-cookies'
 import { CheckoutReqData } from '@/types/apis/checkout'
 import { useForm } from 'react-hook-form'
 import { useCheckoutHandler } from '@/hooks/Checkout'
+import { useTranslation } from '@/I18n'
 // import { withTranslation, i18n } from '@/I18n'
 enum InvoiceFromType {
     MemberDriver = 1,
@@ -26,6 +27,7 @@ type InvoiceFromProps = {
 }
 
 const InvoiceFrom: React.FC<InvoiceFromProps> = ({ type, register }: InvoiceFromProps) => {
+    const { t } = useTranslation()
     const AddressInfo = useSelector(AddressInfoSelectors.getAddressInfo)
     const [city, setCity] = React.useState(0)
     const { handleVerifyInvBarCodeSubmit, handleReset } = useVerifyInvBarCodeHandler()
@@ -39,7 +41,7 @@ const InvoiceFrom: React.FC<InvoiceFromProps> = ({ type, register }: InvoiceFrom
             return (
                 <>
                     <label htmlFor="invoice_info.carrierCode" className="barcode-label">
-                        請輸入手機條碼 * <span> {barcodeData} </span>
+                        {t('please_input_phone_barcode')} * <span> {barcodeData} </span>
                     </label>
                     <div className="checkout-custom-btn">
                         <input
@@ -55,7 +57,7 @@ const InvoiceFrom: React.FC<InvoiceFromProps> = ({ type, register }: InvoiceFrom
                             required
                         />
                         <button type="button" className="btn btn-outline-primary-2" onClick={() => handleBarcode()}>
-                            檢查
+                            {t('check')}
                         </button>
                     </div>
                 </>
@@ -63,7 +65,7 @@ const InvoiceFrom: React.FC<InvoiceFromProps> = ({ type, register }: InvoiceFrom
         case InvoiceFromType.MemberDriver:
             return (
                 <>
-                    <label htmlFor="invoiceInfo.invoiceName">姓名 *</label>
+                    <label htmlFor="invoiceInfo.invoiceName">{t('name')} *</label>
                     <input
                         ref={register({ required: true })}
                         type="text"
@@ -71,7 +73,7 @@ const InvoiceFrom: React.FC<InvoiceFromProps> = ({ type, register }: InvoiceFrom
                         className="form-control"
                         required
                     />
-                    <label htmlFor="invoiceInfo.carrierCode">電話 *</label>
+                    <label htmlFor="invoiceInfo.carrierCode">{t('phone')} *</label>
                     <input
                         ref={register({ required: true })}
                         type="text"
@@ -89,7 +91,7 @@ const InvoiceFrom: React.FC<InvoiceFromProps> = ({ type, register }: InvoiceFrom
                     />
                     <div className="row">
                         <div className="col-sm-6">
-                            <label htmlFor="invoiceInfo.invoiceCityCode">縣市 *</label>
+                            <label htmlFor="invoiceInfo.invoiceCityCode">{t('county')} *</label>
                             <div className="select-custom">
                                 <select
                                     name="invoiceInfo.invoiceCityCode"
@@ -100,7 +102,7 @@ const InvoiceFrom: React.FC<InvoiceFromProps> = ({ type, register }: InvoiceFrom
                                     ref={register({ required: true })}
                                 >
                                     <option value="" selected={true}>
-                                        請選擇縣市
+                                        {t('please_select_county')}
                                     </option>
                                     {AddressInfo.map((item, index) => {
                                         return (
@@ -114,7 +116,7 @@ const InvoiceFrom: React.FC<InvoiceFromProps> = ({ type, register }: InvoiceFrom
                         </div>
 
                         <div className="col-sm-6">
-                            <label htmlFor="invoiceInfo.invoiceAreaCode">區域 *</label>
+                            <label htmlFor="invoiceInfo.invoiceAreaCode">{t('zone')} *</label>
                             <div className="select-custom">
                                 <select
                                     name="invoiceInfo.invoiceAreaCode"
@@ -124,7 +126,7 @@ const InvoiceFrom: React.FC<InvoiceFromProps> = ({ type, register }: InvoiceFrom
                                     ref={register({ required: true })}
                                 >
                                     <option value="" selected={true}>
-                                        請選擇區域
+                                        {t('please_select_zone')}
                                     </option>
                                     {AddressInfo[city] &&
                                         AddressInfo[city].areas.map((item, index) => {
@@ -139,14 +141,14 @@ const InvoiceFrom: React.FC<InvoiceFromProps> = ({ type, register }: InvoiceFrom
                         </div>
                     </div>
 
-                    <label htmlFor="invoiceInfo.carrierCode">地址 *</label>
+                    <label htmlFor="invoiceInfo.carrierCode">{t('address')} *</label>
                     <input type="text" name="invoiceInfo.carrierCode" className="form-control" required />
                 </>
             )
         case InvoiceFromType.Donate:
             return (
                 <>
-                    <label htmlFor="invoice_info.donateId">捐贈 *</label>
+                    <label htmlFor="invoice_info.donateId">{t('donate')} *</label>
                     <div className="select-custom">
                         <select
                             name="invoice_info.donateId"
@@ -156,11 +158,11 @@ const InvoiceFrom: React.FC<InvoiceFromProps> = ({ type, register }: InvoiceFrom
                             defaultValue=""
                         >
                             <option value="" selected={true}>
-                                請選擇
+                                {t('please_select')}
                             </option>
-                            <option value="321">財團法人中華民國唐氏症基金會</option>
-                            <option value="531">財團法人董氏基金會</option>
-                            <option value="5959">社團法人中華民國視障者家長協會</option>
+                            <option value="321">{t('donate_org_1')}</option>
+                            <option value="531">{t('donate_org_2')}</option>
+                            <option value="5959">{t('donate_org_3')}</option>
                         </select>
                     </div>
                 </>
@@ -174,17 +176,18 @@ type CheckoutProps = {
     token: string
 }
 const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
+    const { t } = useTranslation()
     const navMock = [
         {
-            title: '首頁',
+            title: t('homepage'),
             link: '/',
         },
         {
-            title: '購物車',
+            title: t('shopping_cart'),
             link: '/cart',
         },
         {
-            title: '結帳頁面',
+            title: t('checkout_page'),
             link: '',
         },
     ]
@@ -252,7 +255,8 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
                 >
                     <div className="container">
                         <h1 className="page-title">
-                            付款確認<span></span>
+                            {t('confirm_payment')}
+                            <span></span>
                         </h1>
                     </div>
                 </div>
@@ -263,8 +267,8 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
                             <form onSubmit={handleSubmit(onSubmit)}>
                                 <div className="row">
                                     <div className="col-lg-9">
-                                        <h2 className="checkout-title">配送資訊</h2>
-                                        <label htmlFor="shipInfo.receiveName">姓名 *</label>
+                                        <h2 className="checkout-title">{t('delivery_info')}</h2>
+                                        <label htmlFor="shipInfo.receiveName">{t('name')} *</label>
                                         <input
                                             type="text"
                                             className="form-control"
@@ -273,7 +277,7 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
                                             ref={register({ required: true })}
                                         />
 
-                                        <label htmlFor="shipInfo.receiveMobile">手機號碼 *</label>
+                                        <label htmlFor="shipInfo.receiveMobile">{t('cellphone_number')} *</label>
                                         <input
                                             name="shipInfo.receiveMobile"
                                             type="text"
@@ -282,7 +286,7 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
                                             ref={register({ required: true })}
                                         />
 
-                                        <label htmlFor="shipInfo.receiveEmail">電子郵件 *</label>
+                                        <label htmlFor="shipInfo.receiveEmail">{t('email')} *</label>
                                         <input
                                             name="shipInfo.receiveEmail"
                                             type="text"
@@ -293,7 +297,9 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
 
                                         <div className="row">
                                             <div className="col-sm-6">
-                                                <label htmlFor="shipInfo.receiveAreaCode">收件人縣市 *</label>
+                                                <label htmlFor="shipInfo.receiveAreaCode">
+                                                    {t('receiver_county')} *
+                                                </label>
                                                 <div className="select-custom">
                                                     <select
                                                         ref={register}
@@ -304,7 +310,7 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
                                                         onChange={(e) => setCity(Number(e.target.value))}
                                                     >
                                                         <option value="" selected={true}>
-                                                            請選擇收件人縣市
+                                                            {t('please_select_receiver_county')}
                                                         </option>
                                                         {AddressInfo.map((item, index) => {
                                                             return (
@@ -318,7 +324,7 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
                                             </div>
 
                                             <div className="col-sm-6">
-                                                <label htmlFor="shipInfo.receiveCityCode">收件人區域 *</label>
+                                                <label htmlFor="shipInfo.receiveCityCode">{t('receiver_zone')} *</label>
                                                 <div className="select-custom">
                                                     <select
                                                         ref={register}
@@ -328,7 +334,7 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
                                                         defaultValue=""
                                                     >
                                                         <option value="" selected={true}>
-                                                            請選擇收件人區域
+                                                            {t('please_select_receiver_zone')}
                                                         </option>
                                                         {AddressInfo[city] &&
                                                             AddressInfo[city].areas.map((item, index) => {
@@ -343,7 +349,9 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
                                             </div>
                                         </div>
 
-                                        <label htmlFor="shipInfo.receiveAddress">收件人詳細地址 *</label>
+                                        <label htmlFor="shipInfo.receiveAddress">
+                                            {t('receiver_detail_address')} *
+                                        </label>
                                         <input
                                             ref={register({ required: true })}
                                             type="text"
@@ -352,7 +360,7 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
                                             required
                                         />
 
-                                        <label htmlFor="invoice_type">發票類型 *</label>
+                                        <label htmlFor="invoice_type">{t('receipt_type')} *</label>
                                         <div className="select-custom">
                                             <select
                                                 name="invoice_type"
@@ -363,23 +371,25 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
                                                 defaultValue=""
                                             >
                                                 {/* <option value="" selected={true}>
-                                                    請選擇發票類型
+                                                    {t('please_select_receipt_type')}
                                                 </option> */}
                                                 <option value={InvoiceFromType.MemberDriver} selected={true}>
-                                                    會員載具
+                                                    {t('member_invoice_carrier')}
                                                 </option>
-                                                <option value={InvoiceFromType.PhoneBarcode}>手機條碼 </option>
-                                                <option value={InvoiceFromType.Donate}>捐贈</option>
+                                                <option value={InvoiceFromType.PhoneBarcode}>
+                                                    {t('phone_barcode')}{' '}
+                                                </option>
+                                                <option value={InvoiceFromType.Donate}>{t('donate')}</option>
                                             </select>
                                         </div>
                                         <InvoiceFrom type={invoice} register={register} />
-                                        <label htmlFor="shipInfo.receiveMemo">備註</label>
+                                        <label htmlFor="shipInfo.receiveMemo">{t('remark')}</label>
                                         <textarea
                                             name="shipInfo.receiveMemo"
                                             className="form-control"
                                             cols={30}
                                             rows={4}
-                                            placeholder="如有需要，請填寫訂單備註。"
+                                            placeholder={t('write_remark_if_need')}
                                             ref={register}
                                         ></textarea>
                                         <div className="center">
@@ -391,11 +401,11 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
                                                     required
                                                 />
                                                 <label className="custom-control-label" htmlFor="checkout-diff-address">
-                                                    我已詳閱並同意
+                                                    {t('read_and_agree')}
                                                     <span className="main-color" onClick={() => setOpenBuyNotice(true)}>
-                                                        購物須知
+                                                        {t('shopping_notice')}
                                                     </span>
-                                                    及取消交易/退貨條件及方式
+                                                    {t('and_cancel_or_return_commodity')}
                                                 </label>
                                             </div>
                                         </div>
@@ -403,7 +413,7 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
 
                                     <aside className="col-lg-3">
                                         <div className="summary">
-                                            <h3 className="summary-title">訂單明細</h3>
+                                            <h3 className="summary-title">{t('order_detail')}</h3>
                                             <ProductDetail />
                                             <input
                                                 type="text"
@@ -423,7 +433,7 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
                                                                 aria-expanded="true"
                                                                 aria-controls="collapse-1"
                                                             >
-                                                                信用卡 ( 一次付清 )
+                                                                {t('credit_card_pay_off_once')}
                                                             </a>
                                                         </h2>
                                                     </div>
@@ -435,7 +445,7 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
                                                     >
                                                         <div className="card-body">
                                                             <div className="card-section-1">
-                                                                <label>信用卡卡號</label>
+                                                                <label>{t('credit_number')}</label>
                                                                 <img
                                                                     className="item"
                                                                     src="/images/custom/mastercard.png"
@@ -446,14 +456,14 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
                                                             <div id="card-number" className="tabpay-input"></div>
                                                             <div className="card-section-2">
                                                                 <div className="credit-expires item">
-                                                                    <label>到期日 (月/日)</label>
+                                                                    <label>{t('credit_card_expire_date')}</label>
                                                                     <div
                                                                         id="card-expiration-date"
                                                                         className="tabpay-input"
                                                                     ></div>
                                                                 </div>
                                                                 <div className="item">
-                                                                    <label>末三碼</label>
+                                                                    <label>{t('credit_card_last_three_number')}</label>
                                                                     <div id="card-ccv" className="tabpay-input"></div>
                                                                 </div>
                                                             </div>
@@ -505,8 +515,8 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
                                                 type="submit"
                                                 className="btn btn-outline-primary-2 btn-order btn-block"
                                             >
-                                                <span className="btn-text">送出訂單</span>
-                                                <span className="btn-hover-text">確認送出訂單</span>
+                                                <span className="btn-text">{t('submit_order')}</span>
+                                                <span className="btn-hover-text">{t('confirm_submit_order')}</span>
                                             </button>
                                         </div>
                                     </aside>
