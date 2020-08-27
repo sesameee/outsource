@@ -368,12 +368,12 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
                                                 className="form-control"
                                                 onChange={(e) => setInvoice(Number(e.target.value))}
                                                 ref={register({ required: true })}
-                                                defaultValue=""
+                                                defaultValue={invoice}
                                             >
                                                 {/* <option value="" selected={true}>
                                                     {t('please_select_receipt_type')}
                                                 </option> */}
-                                                <option value={InvoiceFromType.MemberDriver} selected={true}>
+                                                <option value={InvoiceFromType.MemberDriver}>
                                                     {t('member_invoice_carrier')}
                                                 </option>
                                                 <option value={InvoiceFromType.PhoneBarcode}>
