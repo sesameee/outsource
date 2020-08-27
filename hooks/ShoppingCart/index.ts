@@ -10,7 +10,6 @@ import {
 import { useTranslation } from '@/I18n'
 
 export const useShoppingCartList = (): void => {
-    const cartModify = useSelector(ShoppingCartModifySelectors.shoppingCartModify)
     const dispatch = useDispatch()
     const { i18n } = useTranslation()
     const getUser = useSelector(UserLoginSelectors.getUserLoginData)
@@ -24,7 +23,7 @@ export const useShoppingCartList = (): void => {
                 }),
             )
         }
-    }, [dispatch, i18n.language, cartModify, getUser.accessToken])
+    }, [dispatch, i18n.language, getUser.accessToken])
 }
 
 export const useShoppingCartModify = (): void => {

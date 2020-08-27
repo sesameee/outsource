@@ -52,6 +52,9 @@ const PasswordModify: React.FC = (): JSX.Element => {
             </div>
 
             <div className="form-footer">
+                <a href="/forgetPassword" className="forgot-link">
+                    {t('forget_password')}
+                </a>
                 <button type="submit" className="btn btn-outline-primary-2">
                     <span>{t('confirm_modify')}</span>
                 </button>

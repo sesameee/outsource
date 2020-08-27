@@ -1,11 +1,26 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { CatalogActions } from '@/store'
 import { useTranslation } from '@/I18n'
-export const useCatalog = (id: string, categoryType: string): void => {
+export const useCatalog = (cid: string, categoryType: string): void => {
     const { i18n } = useTranslation()
     const dispatch = useDispatch()
+    const [sendParms, setSendParms] = useState({
+        cid: '',
+        categoryType: '',
+    })
     useEffect(() => {
-        dispatch(CatalogActions.fetchCatalog({ cid: id, categoryType }))
-    }, [dispatch, i18n.language, id, categoryType])
+        if (sendParms) {
+            dispatch(CatalogActions.fetchCatalog(sendParms))
+        }
+    }, [dispatch, i18n.language, sendParms])
+
+    useEffect(() => {
+        if (cid && categoryType) {
+            setSendParms({
+                cid,
+                categoryType,
+            })
+        }
+    }, [dispatch, cid, categoryType])
 }

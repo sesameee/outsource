@@ -105,7 +105,11 @@ const Category: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element 
                                 </div>
 
                                 <div className="products mb-3">
-                                    <ProductList filterProduct={filterProduct} sortSelect={sortSelect} />
+                                    <ProductList
+                                        filterProduct={filterProduct}
+                                        sortSelect={sortSelect}
+                                        categoryType={categoryType}
+                                    />
                                 </div>
                             </div>
                             <aside className="col-lg-3 order-lg-first">

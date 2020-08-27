@@ -18,7 +18,6 @@ export const fetchCatalogSuccess: CaseReducer<State, PayloadAction<{ catalogList
         draft['catalogList'] = data
         const categoryType = data.categoryType
         const productList: productList = {}
-
         if (categoryType == 'subCategory') {
             for (let i = 0; i < data.categoryList?.length; i++) {
                 const iData = <any>data.categoryList[i]?.cData
@@ -35,6 +34,30 @@ export const fetchCatalogSuccess: CaseReducer<State, PayloadAction<{ catalogList
                     productList[id] = tmpData
                 }
             }
+        } else if (categoryType == 'channel') {
+            for (let i = 0; i < data.categoryList?.length; i++) {
+                const iData = <any>data.categoryList[i]?.cData
+                const iCid = data.categoryList[i]?.cid
+                for (let j = 0; j < iData?.length; j++) {
+                    const jData = iData[j]?.cData
+                    const jCid = iData[j]?.cid
+                    for (let k = 0; k < jData?.length; k++) {
+                        const kCid = jData[k]?.cid
+                        const kCname = jData[k].cName
+                        const lData = jData[k].cData
+                        for (let l = 0; l < lData?.length; l++) {
+                            const cid = lData[l]?.cid
+                            const id = `c${iCid}-${jCid}-${kCid}-${cid}`
+                            const link = `${data.cid}/${iCid}/${jCid}/${cid}/${kCid}`
+                            const tmpData = lData[l]
+                            tmpData['cName'] = kCname
+                            tmpData['link'] = link
+                            tmpData['_id'] = id
+                            productList[id] = tmpData
+                        }
+                    }
+                }
+            }
         } else {
             for (let i = 0; i < data.categoryList?.length; i++) {
                 const iData = <any>data.categoryList[i]?.cData
@@ -47,7 +70,7 @@ export const fetchCatalogSuccess: CaseReducer<State, PayloadAction<{ catalogList
                         const tmpData = jData[k]
                         const pid = tmpData?.pid
                         const id = `c${iCid}-${jCid}-${kCid}-${pid}`
-                        const link = `${data.cid}/${iCid}/${kCid}`
+                        const link = `${data.cid}/${iCid}/${jCid}/${kCid}`
                         tmpData['cName'] = iData[j]?.cName
                         tmpData['link'] = link
                         tmpData['_id'] = id

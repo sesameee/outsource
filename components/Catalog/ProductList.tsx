@@ -29,11 +29,11 @@ const SortByType = (type: FilterType, productObj: productList) => {
 type ProductListProps = {
     filterProduct: Set<unknown>
     sortSelect: FilterType
+    categoryType: string
 }
-const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect }: ProductListProps) => {
+const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect, categoryType }: ProductListProps) => {
     const { t } = useTranslation()
     const productObj = useSelector(CatalogSelectors.getProductList)
-    // const SortType = FilterType.PRICE_ASCENDING
     const productList = SortByType(sortSelect, productObj)
     const { handleCart } = useShoppingCartModifyHandler()
     const { handleWish } = useWishModifyHandler()
@@ -42,8 +42,7 @@ const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect }: 
             {productList &&
                 productList.length &&
                 productList.map((item: ProductData, index: number) => {
-                    //const findID = item._id.substr(0, item._id.lastIndexOf('-'))
-                    const findID = item._id
+                    const findID = categoryType == 'channel' ? item._id.substr(0, item._id.lastIndexOf('-')) : item._id
                     const showProduct = (filterProduct.size > 0 && filterProduct.has(findID)) || filterProduct.size == 0
                     return showProduct ? (
                         <div className="col-6 col-md-4 col-lg-4" key={index}>
