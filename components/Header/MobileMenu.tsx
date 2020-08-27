@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { ProSidebar, SidebarContent, SidebarHeader, SidebarFooter } from 'react-pro-sidebar'
 import { useChannelList } from '@/hooks/ChannelList'
 import { useSelector } from 'react-redux'
 import { ChannelListSelectors } from '@/store'
 import Link from 'next/link'
-import { useTranslation } from '@/I18n'
+import { useTranslation, i18n } from '@/I18n'
+import { setCookie } from '@/utils'
 //import { ProductData } from '@/types/apis/common'
 
 type MobileMenuProps = {
@@ -21,6 +22,10 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ IsOpenMenu, setIsOpenMenu }: Mo
         setIsOpenSunMenu(true)
         setsubMenuIndex(index)
     }
+    const [lan, setLan] = useState(i18n.language)
+    useEffect(() => {
+        setLan(i18n.language)
+    }, [])
     return (
         <div className="mobile-menu">
             <MobileSubMenu IsOpenMenu={IsOpenSubMenu} setIsOpenMenu={setIsOpenSunMenu} subMenuIndex={subMenuIndex} />
@@ -40,7 +45,35 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ IsOpenMenu, setIsOpenMenu }: Mo
                     </ul>
                 </SidebarContent>
                 <SidebarFooter>
-                    <div>{t('language_chinese')}</div>
+                    <div className="header-dropdown">
+                        <a href="#">{lan == 'tw' ? '中文' : 'English'}</a>
+                        <div className="header-menu">
+                            <ul>
+                                <li>
+                                    <a
+                                        onClick={() => {
+                                            setLan('en')
+                                            i18n.changeLanguage('en')
+                                            setCookie('i18n', 'en')
+                                        }}
+                                    >
+                                        English
+                                    </a>
+                                </li>
+                                <li>
+                                    <a
+                                        onClick={() => {
+                                            setLan('tw')
+                                            i18n.changeLanguage('tw')
+                                            setCookie('i18n', 'tw')
+                                        }}
+                                    >
+                                        中文
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                     <button
                         type="button"
                         className="btn btn-outline-primary-2 btn-block"
