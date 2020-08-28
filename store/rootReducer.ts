@@ -22,6 +22,7 @@ import { orderDetailSlice } from './orderDetail/slice'
 import { refundSlice } from './refund/slice'
 import { refundReasonSlice } from './refundReason/slice'
 import { verifyCodeSlice } from './verifyCode/slice'
+import { resendVerifyCodeSlice } from './resendVerifyCode/slice'
 import { userRegisterSlice } from './userRegister/slice'
 import { registerUserInfoSlice } from './registerUserInfo/slice'
 import { generateAccessTokenSlice } from './generateAccessToken/slice'
@@ -56,6 +57,7 @@ const rootReducer = combineReducers({
     refund: refundSlice.reducer,
     refundReason: refundReasonSlice.reducer,
     verifyCode: verifyCodeSlice.reducer,
+    resendVerifyCode: resendVerifyCodeSlice.reducer,
     userRegister: userRegisterSlice.reducer,
     registerUserInfo: registerUserInfoSlice.reducer,
     generateAccessToken: generateAccessTokenSlice.reducer,

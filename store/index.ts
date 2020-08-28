@@ -21,6 +21,7 @@ import * as OrderDetailSelectors from './orderDetail/selectors'
 import * as RefundSelectors from './refund/selectors'
 import * as RefundReasonSelectors from './refundReason/selectors'
 import * as VerifyCodeSelectors from './verifyCode/selectors'
+import * as ResendVerifyCodeSelectors from './resendVerifyCode/selectors'
 import * as UserRegisterSelectors from './userRegister/selectors'
 import * as RegisterUserInfoSelectors from './registerUserInfo/selectors'
 import * as GenerateAccessTokenSelectors from './generateAccessToken/selectors'
@@ -52,6 +53,7 @@ import { orderDetailSlice, orderDetailCreateActions } from './orderDetail/slice'
 import { refundSlice, refundCreateActions } from './refund/slice'
 import { refundReasonSlice, refundReasonCreateActions } from './refundReason/slice'
 import { verifyCodeSlice, verifyCodeCreateActions } from './verifyCode/slice'
+import { resendVerifyCodeSlice, resendVerifyCodeCreateActions } from './resendVerifyCode/slice'
 import { userRegisterSlice, userRegisterCreateActions } from './userRegister/slice'
 import { registerUserInfoSlice, registerUserInfoCreateActions } from './registerUserInfo/slice'
 import { generateAccessTokenSlice, generateAccessTokenCreateActions } from './generateAccessToken/slice'
@@ -175,6 +177,11 @@ const VerifyCodeActions = {
     ...verifyCodeCreateActions,
 }
 
+const ResendVerifyCodeActions = {
+    ...resendVerifyCodeSlice.actions,
+    ...resendVerifyCodeCreateActions,
+}
+
 const UserRegisterActions = {
     ...userRegisterSlice.actions,
     ...userRegisterCreateActions,
@@ -262,6 +269,8 @@ export {
     RefundReasonSelectors,
     VerifyCodeActions,
     VerifyCodeSelectors,
+    ResendVerifyCodeActions,
+    ResendVerifyCodeSelectors,
     UserRegisterActions,
     UserRegisterSelectors,
     RegisterUserInfoActions,

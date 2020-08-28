@@ -22,6 +22,7 @@ import OrderDetail from './orderDetail/epics'
 import Refund from './refund/epics'
 import RefundReason from './refundReason/epics'
 import VerifyCode from './verifyCode/epics'
+import ResendVerifyCode from './resendVerifyCode/epics'
 import UserRegister from './userRegister/epics'
 import RegisterUserInfo from './registerUserInfo/epics'
 import GenerateAccessToken from './generateAccessToken/epics'
@@ -54,6 +55,7 @@ export const rootEpic = combineEpics(
     ...Refund,
     ...RefundReason,
     ...VerifyCode,
+    ...ResendVerifyCode,
     ...UserRegister,
     ...RegisterUserInfo,
     ...GenerateAccessToken,
