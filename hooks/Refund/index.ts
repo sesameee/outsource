@@ -22,3 +22,16 @@ export const useRefund = (): void => {
         )
     }, [dispatch, i18n.language])
 }
+
+import { useCallback } from 'react'
+import { RefundReqData } from '@/types/apis/refund'
+export const useRefundHandler = (): any => {
+    const dispatch = useDispatch()
+    const handleRefundSubmit = useCallback(
+        (data: RefundReqData) => {
+            dispatch(RefundActions.fetchRefund(data))
+        },
+        [dispatch],
+    )
+    return { handleRefundSubmit }
+}

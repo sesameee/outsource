@@ -3,6 +3,9 @@ import { OrderData } from '@/types/apis/orderList'
 import { OrderDetailData } from '@/types/apis/orderDetail'
 import { useTranslation } from '@/I18n'
 import RefundList from './RefundList'
+import { useForm } from 'react-hook-form'
+import { RefundReqData } from '@/types/apis/refund'
+import { useRefundHandler } from '@/hooks/Refund'
 type RefundProps = {
     OrderList: OrderData[]
     tabIndex: number
@@ -51,6 +54,31 @@ const Refund: React.FC<RefundProps> = ({ OrderList, tabIndex, OrderDetail }: Ref
         })
     }
     List()
+
+    const refundProductList = () => {
+        const list: any[] = []
+        OrderDetail.brandInfos.map((_item) => {
+            _item.orderProducts.map((_pitem) => {
+                if (checkrefundId.has(_pitem.pid)) {
+                    list.push(_pitem)
+                }
+            })
+        })
+        return list
+    }
+    const { handleRefundSubmit } = useRefundHandler()
+    const { register, handleSubmit } = useForm<RefundReqData>()
+    const onSubmit = (data: RefundReqData) => {
+        const refundProduct = refundProductList()
+        if (refundProduct.length > 0) {
+            data = {
+                ...data,
+                refundProductList: refundProduct,
+            }
+        }
+
+        handleRefundSubmit(data)
+    }
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="refund">
@@ -80,23 +108,23 @@ const Refund: React.FC<RefundProps> = ({ OrderList, tabIndex, OrderDetail }: Ref
                     </thead>
                     <tbody>{Arr}</tbody>
                 </table>
-                <label htmlFor="invoice_type">退貨原因 *</label>
+                <label htmlFor="reason">退貨原因 *</label>
                 <div className="select-custom">
                     <select
-                        name="invoice_type"
-                        id="invoice_type"
+                        name="reason"
+                        id="reason"
                         className="form-control"
                         onChange={(e) => setReason(Number(e.target.value))}
                         value={reason}
+                        ref={register({ required: true })}
                     >
-                        <option value={1} selected={true}>
-                            衝動購物
-                        </option>
+                        <option value={1}>衝動購物</option>
                     </select>
                 </div>
-                <label htmlFor="shipInfo.receiveMemo">退貨原因描述 :</label>
+                <label htmlFor="memo">退貨原因描述 :</label>
                 <textarea
-                    name="shipInfo.receiveMemo"
+                    ref={register({ required: true })}
+                    name="memo"
                     className="form-control"
                     cols={30}
                     rows={4}

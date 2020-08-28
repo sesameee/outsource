@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import { useTranslation } from '@/I18n'
+// import { useTranslation } from '@/I18n'
 import { ShoppingCartProductData } from '@/types/apis/common'
 import { BrandInfoData } from '@/types/apis/orderDetail'
 import NumberInput from '../commons/NumberInput'
@@ -20,7 +20,7 @@ const RefundList: React.FC<RefundListProps> = ({
     handleCheckChange,
     handleQtyChange,
 }: RefundListProps) => {
-    const { t } = useTranslation()
+    // const { t } = useTranslation()
     const [qty, setQty] = React.useState(1)
     return (
         <tr key={index}>

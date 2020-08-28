@@ -3,7 +3,6 @@ import { useEffect, useCallback } from 'react'
 import {
     ShoppingCartListActions,
     ShoppingCartModifyActions,
-    ShoppingCartModifySelectors,
     UserLoginSelectors,
     ShoppingCartListSelectors,
 } from '@/store'

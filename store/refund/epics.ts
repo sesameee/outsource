@@ -27,11 +27,6 @@ export const fetchRefundEpic: Epic = (action$, state$) =>
         mergeMap((action: PayloadAction<RefundReqData>) =>
             HttpService.PostAsync<RefundReqData, RefundRspData>(REFUND, {
                 memberId: state$.value.userLogin.memberId,
-                cid: action.payload.cid,
-                pid: action.payload.pid,
-                spec1: action.payload.spec1,
-                spec2: action.payload.spec2,
-                qty: action.payload.qty,
                 reason: action.payload.reason,
                 memo: action.payload.memo,
                 accessToken: state$.value.userLogin.accessToken,
