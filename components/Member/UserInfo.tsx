@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { useTranslation } from '@/I18n'
 import { useForm } from 'react-hook-form'
 import { UserRegisterReqData } from '@/types/apis/userRegister'
+import { useUserRegisterSetupHandler } from '@/hooks/UserSetup'
 
 const UserInfo: React.FC = () => {
     useAddressInfo()
@@ -12,11 +13,15 @@ const UserInfo: React.FC = () => {
     const { register, handleSubmit } = useForm<UserRegisterReqData>()
     const AddressInfo = useSelector(AddressInfoSelectors.getAddressInfo)
     const [city, setCity] = React.useState(0)
+    const { handleRegiterSetupSubmit } = useUserRegisterSetupHandler()
+    const onSubmit = (data: UserRegisterReqData) => {
+        handleRegiterSetupSubmit(data)
+    }
     return (
-        <form action="#" className="member-from" onSubmit={() => handleSubmit}>
+        <form action="#" className="member-from" onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
                 <label htmlFor="name">{t('name')} *</label>
-                <input type="text" className="form-control" id="name" name="name" required />
+                <input type="text"ref={register({ required: true })} className="form-control" id="name" name="name" required />
             </div>
 
             <div className="phone-frame">
@@ -48,7 +53,7 @@ const UserInfo: React.FC = () => {
                 <label className="label" htmlFor="sex">
                     {t('gender')}
                 </label>
-                <select className="form-control" id="sex" name="sex">
+                <select ref={register} className="form-control" id="sex" name="sex">
                     <option value="m" defaultChecked={true}>
                         {t('man')}
                     </option>
@@ -57,11 +62,11 @@ const UserInfo: React.FC = () => {
             </div>
             <div className="form-group">
                 <label htmlFor="rocId">{t('id_number')} *</label>
-                <input type="text" className="form-control" id="rocId" name="rocId" required />
+                <input type="text" ref={register} className="form-control" id="rocId" name="rocId" required />
             </div>
             <div className="form-group">
                 <label htmlFor="email">{t('email')} *</label>
-                <input type="email" className="form-control" id="email" name="email" required />
+                <input type="email" ref={register} className="form-control" id="email" name="email" required />
             </div>
 
             <div className="form-group">
@@ -72,6 +77,7 @@ const UserInfo: React.FC = () => {
                     <div className="col-sm-6">
                         <div className="select-custom">
                             <select
+                                ref={register}
                                 name="cityCode"
                                 id="cityCode"
                                 className="form-control"
@@ -93,7 +99,7 @@ const UserInfo: React.FC = () => {
 
                     <div className="col-sm-6">
                         <div className="select-custom">
-                            <select name="areaCode" id="areaCode" className="form-control">
+                            <select ref={register} name="areaCode" id="areaCode" className="form-control">
                                 <option value="" selected={true}>
                                     {t('please_select_zone')}
                                 </option>
@@ -111,7 +117,7 @@ const UserInfo: React.FC = () => {
                 </div>
             </div>
             <div className="form-group">
-                <input type="text" className="form-control" id="address" name="address" required />
+                <input ref={register({ required: true })} type="text" className="form-control" id="address" name="address" required />
             </div>
 
             <div className="form-footer">
