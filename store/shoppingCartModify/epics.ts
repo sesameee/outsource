@@ -1,11 +1,11 @@
 import { HYDRATE } from 'next-redux-wrapper'
 import { of } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil, retry } from 'rxjs/operators'
+import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 import { PayloadAction } from '@reduxjs/toolkit'
 
-import { ShoppingCartModifyActions } from '@/store'
+import { ShoppingCartModifyActions, ShoppingCartListActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
 import { ShoppingCartModifyReqData, ShoppingCartModifyRspData } from '@/types/apis/shoppingCartModify'
 import { SHOPPING_CART_MODIFY } from '@/services/api/apiConfig'
@@ -29,11 +29,13 @@ export const fetchShoppingCartModifyEpic: Epic = (action$, state$) =>
                 action: action.payload.action,
                 memberId: state$.value.userLogin.memberId,
                 shoppingCartProductList: action.payload.shoppingCartProductList,
+                accessToken: state$.value.userLogin.accessToken,
             }).pipe(
                 mergeMap((res) => {
                     return epicSuccessMiddleware(
                         res,
                         ShoppingCartModifyActions.fetchShoppingCartModifySuccess(res.data),
+                        ShoppingCartListActions.fetchShoppingCartList({ shipType: '1', memberId: '', accessToken: '' }),
                     )
                 }),
                 catchError((error: AxiosError | string) => {
@@ -43,7 +45,6 @@ export const fetchShoppingCartModifyEpic: Epic = (action$, state$) =>
                         ShoppingCartModifyActions.fetchShoppingCartModifyFailure({ error: res.message }),
                     )
                 }),
-                retry(2),
                 takeUntil(action$.ofType(ShoppingCartModifyActions.stopFetchShoppingCartModify)),
             ),
         ),

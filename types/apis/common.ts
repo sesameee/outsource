@@ -1,4 +1,5 @@
 export interface ProductData {
+    shoppingCartItemId: number
     pid: string
     cid: string
     mName?: string

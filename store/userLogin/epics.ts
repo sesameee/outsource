@@ -10,7 +10,8 @@ import HttpService from '@/services/api/HttpService'
 import { UserLoginReqData, UserLoginRspAllData } from '@/types/apis/userLogin'
 import { USER_LOGIN } from '@/services/api/apiConfig'
 import { epicSuccessMiddleware } from '../epicMiddleware'
-
+import { v4 as uuidv4 } from 'uuid'
+import { setCookie } from '@/utils'
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
 export const initEpic: Epic = (action$) =>
@@ -30,15 +31,26 @@ export const initEpic: Epic = (action$) =>
         }),
     )
 
-export const fetchUserLoginEpic: Epic = (action$) =>
-    action$.pipe(
+export const fetchUserLoginEpic: Epic = (action$) => {
+    return action$.pipe(
         ofType(UserLoginActions.fetchUserLogin),
-        mergeMap((action: PayloadAction<UserLoginReqData>) =>
-            HttpService.PostAsync<UserLoginReqData, UserLoginRspAllData>(USER_LOGIN, {
-                phoneCode: action.payload.phoneCode,
-                phone: action.payload.phone,
-                password: action.payload.password,
-            }).pipe(
+        mergeMap((action: PayloadAction<UserLoginReqData>) => {
+            const uuid = uuidv4()
+            setCookie('uuid', uuid)
+            return HttpService.PostAsync<UserLoginReqData, UserLoginRspAllData>(
+                USER_LOGIN,
+                {
+                    phoneCode: action.payload.phoneCode,
+                    phone: action.payload.phone,
+                    password: action.payload.password,
+                },
+                undefined,
+                {
+                    headers: {
+                        uuid: uuid,
+                    },
+                },
+            ).pipe(
                 mergeMap((res) => {
                     return epicSuccessMiddleware(
                         res,
@@ -51,8 +63,9 @@ export const fetchUserLoginEpic: Epic = (action$) =>
                     return of(UserLoginActions.fetchUserLoginFailure({ error: error.message }))
                 }),
                 takeUntil(action$.ofType(UserLoginActions.stopFetchUserLogin)),
-            ),
-        ),
+            )
+        }),
     )
+}
 
 export default [initEpic, fetchUserLoginEpic]

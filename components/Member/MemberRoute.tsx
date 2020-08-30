@@ -26,6 +26,9 @@ const MemberRoute: React.FC = () => {
             <li className={`li ${pageName === 'passwordModify' ? 'active' : ''}`}>
                 <Link href="/member/passwordModify">{t('modify_password')}</Link>
             </li>
+            <li>
+                <a href="#">{t('modify_password')}</a>
+            </li>
         </ul>
     )
 }

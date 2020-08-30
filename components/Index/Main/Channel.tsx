@@ -1,10 +1,11 @@
-import React, { memo } from 'react'
+import React, { memo, useState, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import Link from 'next/link'
 
 import { useChannelList } from '@/hooks/ChannelList'
 import { ChannelListSelectors } from '@/store'
 import { ChannelData } from '@/types/apis/channelList'
+import { useRouter } from 'next/router'
 
 import Slider from 'react-slick'
 const Channel: React.FC = () => {
@@ -48,11 +49,36 @@ const Channel: React.FC = () => {
             },
         ],
     }
+    const [dragging, setDragging] = useState(false)
+
+    const handleBeforeChange = useCallback(() => {
+        console.log('handleBeforeChange')
+        setDragging(true)
+    }, [setDragging])
+
+    const handleAfterChange = useCallback(() => {
+        console.log('handleAfterChange')
+        setDragging(false)
+    }, [setDragging])
+    const router = useRouter()
+    const handleOnItemClick = useCallback(
+        (e, link) => {
+            console.log('handleOnItemClick')
+            router.push(link)
+            if (dragging) e.stopPropagation()
+        },
+        [dragging, router],
+    )
+
     return (
-        <Slider {...settings}>
+        <Slider {...settings} beforeChange={handleBeforeChange} afterChange={handleAfterChange}>
             {channelList.map((item: ChannelData | null, index: number) => {
                 return (
-                    <div key={index} style={{ width: '28rem' }}>
+                    <div
+                        key={index}
+                        style={{ width: '28rem' }}
+                        onClick={(e) => handleOnItemClick(e, `/category/${item?.cid}`)}
+                    >
                         <figure className="product-media">
                             <img src={item?.imageUrl} alt="Product image" className="product-image" />
                         </figure>

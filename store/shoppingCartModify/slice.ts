@@ -4,7 +4,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { initialState } from './initialState'
 import * as reducers from './reducers'
 import * as types from '@/types/stores/shoppingCartModify/actions'
-import { ShoppingCartModifyReqData } from '@/types/apis/shoppingCartModify'
+// import { ShoppingCartModifyReqData } from '@/types/apis/shoppingCartModify'
 
 export const shoppingCartModifySlice = createSlice({
     name: 'shoppingCartModify',
@@ -17,7 +17,7 @@ export const shoppingCartModifySlice = createSlice({
     },
 })
 
-const fetchShoppingCartModify = createAction<ShoppingCartModifyReqData>(types.FETCH_SHOPPINGCARTMODIFY)
+const fetchShoppingCartModify = createAction<any>(types.FETCH_SHOPPINGCARTMODIFY)
 const stopFetchShoppingCartModify = createAction(types.STOP_FETCH_SHOPPINGCARTMODIFY)
 
 export const shoppingCartModifyCreateActions = { fetchShoppingCartModify, stopFetchShoppingCartModify }

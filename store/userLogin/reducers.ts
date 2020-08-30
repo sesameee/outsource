@@ -3,9 +3,7 @@ import { produce } from 'immer'
 
 import { State } from '@/types/stores/userLogin/state'
 import { initialState } from './initialState'
-import { UserLoginRspAllData } from '@/types/apis/userLogin'
 import { setCookie, deleteCookie } from '@/utils'
-import { v4 as uuidv4 } from 'uuid'
 
 export const setIsSearching: CaseReducer<State, PayloadAction<State>> = (state, action) => {
     return produce(state, (draft) => {
@@ -14,18 +12,11 @@ export const setIsSearching: CaseReducer<State, PayloadAction<State>> = (state, 
     })
 }
 
-export const fetchUserLoginSuccess: CaseReducer<State, PayloadAction<{ UserLoginData: UserLoginRspAllData }>> = (
-    state,
-    action,
-) => {
+export const fetchUserLoginSuccess: CaseReducer<State, PayloadAction<{ UserLoginData: any }>> = (state, action) => {
     return produce(state, (draft) => {
-        const { memberId, accessToken, accessTokenExpireDate, userId, token } = action.payload.UserLoginData.data
+        const { memberId, accessToken, accessTokenExpireDate, userId, token, uuid } = action.payload.UserLoginData.data
         draft['isFetch'] = false
-        if (draft['memberId'] != memberId && memberId) {
-            const uuid = uuidv4()
-            draft['uuid'] = uuid
-            setCookie('uuid', uuid)
-        }
+        uuid && (draft['uuid'] = uuid) && setCookie('uuid', uuid)
         memberId && (draft['memberId'] = memberId) && setCookie('memberId', memberId)
         accessToken && (draft['accessToken'] = accessToken) && setCookie('accessToken', accessToken)
         accessTokenExpireDate && (draft['accessTokenExpireDate'] = accessTokenExpireDate)
@@ -44,7 +35,7 @@ export const fetchUserLoginFailure: CaseReducer<State, PayloadAction<{ error: st
         deleteCookie('accessToken')
         deleteCookie('token')
         deleteCookie('uuid')
-        window.location.href = '/'
+        //window.location.href = '/'
     })
 }
 

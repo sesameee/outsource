@@ -107,7 +107,9 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
                                             ) : null}
                                             <div className="product-price">${productData.price}</div>
                                         </div>
-                                            <h4 className="product-id">{t('product_id')}：{productData.pid}</h4>
+                                        <h4 className="product-id">
+                                            {t('product_id')}：{productData.pid}
+                                        </h4>
 
                                         <div className="product-content">
                                             <p>{productData.desc}</p>
@@ -121,7 +123,7 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
                                                     info.map((item, index) => {
                                                         const className = spec1 == item.sizeName1 ? 'active' : ''
                                                         return (
-                                                            <a href="#" key={index} className={className}>
+                                                            <a key={index} className={className}>
                                                                 {item.sizeName1}
                                                             </a>
                                                         )
@@ -167,7 +169,6 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
 
                                         <div className="product-details-action">
                                             <a
-                                                href="#"
                                                 onClick={() => {
                                                     handleAddCart()
                                                 }}

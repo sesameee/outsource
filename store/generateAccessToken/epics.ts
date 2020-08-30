@@ -6,7 +6,7 @@ import { AxiosError } from 'axios'
 
 import { GenerateAccessTokenActions, UserLoginActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
-import { GenerateAccessTokenRspData, GenerateAccessTokenReqData } from '@/types/apis/generateAccessToken'
+import { GenerateAccessTokenReqData } from '@/types/apis/generateAccessToken'
 import { GENERATE_ACCESS_TOKEN } from '@/services/api/apiConfig'
 import * as types from '@/store/actionsType'
 const NEED_GETREFRESH_ERROR_CODE = '8012'
@@ -26,10 +26,10 @@ export const fetchGenerateAccessTokenListEpic: Epic = (action$, state$) =>
     action$.pipe(
         ofType(GenerateAccessTokenActions.fetchGenerateAccessToken),
         switchMap(() =>
-            HttpService.PostAsync<GenerateAccessTokenReqData, GenerateAccessTokenRspData>(
+            HttpService.PostAsync<GenerateAccessTokenReqData, any>(
                 GENERATE_ACCESS_TOKEN,
                 {
-                    token: state$.value.userLogin.accessToken,
+                    token: state$.value.userLogin.token,
                 },
                 undefined,
                 {
@@ -48,8 +48,8 @@ export const fetchGenerateAccessTokenListEpic: Epic = (action$, state$) =>
                         return throwError(res.data.code)
                     } else {
                         return of(
-                            GenerateAccessTokenActions.fetchGenerateAccessTokenSuccess({
-                                generateAccessTokenRspData: res.data,
+                            UserLoginActions.fetchUserLoginSuccess({
+                                UserLoginData: res.data,
                             }),
                         )
                     }

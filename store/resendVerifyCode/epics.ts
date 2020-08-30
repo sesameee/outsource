@@ -3,7 +3,6 @@ import { of } from 'rxjs'
 import { mergeMap, switchMap, catchError, takeUntil, retry } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
-import { PayloadAction } from '@reduxjs/toolkit'
 
 import { ResendVerifyCodeActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
@@ -24,7 +23,7 @@ export const initEpic: Epic = (action$) =>
 export const fetchResendVerifyCodeEpic: Epic = (action$, state$) =>
     action$.pipe(
         ofType(ResendVerifyCodeActions.fetchResendVerifyCode),
-        mergeMap((action: PayloadAction<ResendVerifyCodeReqData>) =>
+        mergeMap(() =>
             HttpService.PostAsync<ResendVerifyCodeReqData, ResendVerifyCodeRspData>(RESET_PASSWORD, {
                 memberId: state$.value.userLogin.memberId,
             }).pipe(
