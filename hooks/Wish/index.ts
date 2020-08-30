@@ -22,7 +22,8 @@ export const useWishModify = (): void => {
             WishModifyActions.fetchWishModify({
                 action: 'add',
                 memberId: '',
-                shoppingCartProductList: [],
+                shoppingWishProductList: [],
+                accessToken: '',
             }),
         )
     }, [dispatch, i18n.language])
@@ -39,7 +40,8 @@ export const useWishModifyHandler = (): any => {
                     WishModifyActions.fetchWishModify({
                         action: action,
                         memberId: '',
-                        shoppingCartProductList: shoppingCartProductList,
+                        shoppingWishProductList: shoppingCartProductList,
+                        accessToken: '',
                     }),
                 )
             } else {

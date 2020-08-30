@@ -1,6 +1,6 @@
 import { HYDRATE } from 'next-redux-wrapper'
 import { of, throwError } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil, retry } from 'rxjs/operators'
+import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 
@@ -63,7 +63,6 @@ export const fetchGenerateAccessTokenListEpic: Epic = (action$, state$) =>
                     const res = <AxiosError>error
                     return of(UserLoginActions.fetchUserLoginFailure({ error: res.message }))
                 }),
-                retry(1),
                 takeUntil(action$.ofType(GenerateAccessTokenActions.stopFetchGenerateAccessToken)),
             ),
         ),

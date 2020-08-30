@@ -9,7 +9,7 @@ import { ShoppingCartModifyActions, ShoppingCartListActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
 import { ShoppingCartModifyReqData, ShoppingCartModifyRspData } from '@/types/apis/shoppingCartModify'
 import { SHOPPING_CART_MODIFY } from '@/services/api/apiConfig'
-import { epicSuccessMiddleware, epicAuthFailMiddleware } from '../epicMiddleware'
+import { epicSuccessMiddleware, epicAuthFailMiddleware, requireValidToken } from '../epicMiddleware'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
@@ -25,27 +25,33 @@ export const fetchShoppingCartModifyEpic: Epic = (action$, state$) =>
     action$.pipe(
         ofType(ShoppingCartModifyActions.fetchShoppingCartModify),
         mergeMap((action: PayloadAction<ShoppingCartModifyReqData>) =>
-            HttpService.PostAsync<ShoppingCartModifyReqData, ShoppingCartModifyRspData>(SHOPPING_CART_MODIFY, {
-                action: action.payload.action,
-                memberId: state$.value.userLogin.memberId,
-                shoppingCartProductList: action.payload.shoppingCartProductList,
-                accessToken: state$.value.userLogin.accessToken,
-            }).pipe(
-                mergeMap((res) => {
-                    return epicSuccessMiddleware(
-                        res,
-                        ShoppingCartModifyActions.fetchShoppingCartModifySuccess(res.data),
-                        ShoppingCartListActions.fetchShoppingCartList({ shipType: '1', memberId: '', accessToken: '' }),
-                    )
-                }),
-                catchError((error: AxiosError | string) => {
-                    const res = <AxiosError>error
-                    return epicAuthFailMiddleware(
-                        error,
-                        ShoppingCartModifyActions.fetchShoppingCartModifyFailure({ error: res.message }),
-                    )
-                }),
-                takeUntil(action$.ofType(ShoppingCartModifyActions.stopFetchShoppingCartModify)),
+            requireValidToken(action$, state$, (accessToken: any) =>
+                HttpService.PostAsync<ShoppingCartModifyReqData, ShoppingCartModifyRspData>(SHOPPING_CART_MODIFY, {
+                    action: action.payload.action,
+                    memberId: state$.value.userLogin.memberId,
+                    shoppingCartProductList: action.payload.shoppingCartProductList,
+                    accessToken: accessToken,
+                }).pipe(
+                    mergeMap((res) => {
+                        return epicSuccessMiddleware(
+                            res,
+                            ShoppingCartModifyActions.fetchShoppingCartModifySuccess(res.data),
+                            ShoppingCartListActions.fetchShoppingCartList({
+                                shipType: '1',
+                                memberId: '',
+                                accessToken: '',
+                            }),
+                        )
+                    }),
+                    catchError((error: AxiosError | string) => {
+                        const res = <AxiosError>error
+                        return epicAuthFailMiddleware(
+                            error,
+                            ShoppingCartModifyActions.fetchShoppingCartModifyFailure({ error: res.message }),
+                        )
+                    }),
+                    takeUntil(action$.ofType(ShoppingCartModifyActions.stopFetchShoppingCartModify)),
+                ),
             ),
         ),
     )

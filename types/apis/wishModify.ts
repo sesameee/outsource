@@ -1,9 +1,10 @@
-import { ShoppingCartProductData, Response } from './common'
+import { WishProductData, Response } from './common'
 
 export interface WishModifyReqData {
     action: string
     memberId: string
-    shoppingCartProductList: ShoppingCartProductData[]
+    shoppingWishProductList: WishProductData[]
+    accessToken: string
 }
 
 export interface WishModifyRspData extends Response {}

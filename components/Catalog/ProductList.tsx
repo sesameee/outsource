@@ -5,7 +5,7 @@ import { FilterType } from '@/types/Common'
 import { ProductData } from '@/types/apis/common'
 import { productList } from '@/types/apis/catalog'
 import Link from 'next/link'
-import { useShoppingCartModifyHandler } from '@/hooks/ShoppingCart'
+// import { useShoppingCartModifyHandler } from '@/hooks/ShoppingCart'
 import { useTranslation } from '@/I18n'
 import { useWishModifyHandler } from '@/hooks/Wish'
 
@@ -35,7 +35,7 @@ const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect, ca
     const { t } = useTranslation()
     const productObj = useSelector(CatalogSelectors.getProductList)
     const productList = SortByType(sortSelect, productObj)
-    const { handleCart } = useShoppingCartModifyHandler()
+    // const { handleCart } = useShoppingCartModifyHandler()
     const { handleWish } = useWishModifyHandler()
     return (
         <div className="row justify-content-center product-list">
@@ -76,7 +76,7 @@ const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect, ca
                                             <span>{t('add_to_wish_list')}</span>
                                         </a>
                                     </div>
-                                    <div className="product-action">
+                                    {/* <div className="product-action">
                                         <a
                                             className="btn-product btn-cart"
                                             onClick={() => {
@@ -97,12 +97,14 @@ const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect, ca
                                         >
                                             <span>{t('add_to_cart')}</span>
                                         </a>
-                                    </div>
+                                    </div> */}
                                 </figure>
 
                                 <div className="product-body">
                                     <div className="product-cat">
-                                        <a href="#">{item.cName}</a>
+                                        <Link href={`/category/${item._categoryType}/${item._cid}`}>
+                                            <a>{item._cName}</a>
+                                        </Link>
                                     </div>
                                     <h3 className="product-title">
                                         <Link href={`/product/${item.cid}/${item.pid}`}>

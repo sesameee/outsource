@@ -20,7 +20,9 @@ const ChannelList: React.FC<ChannelListProps> = ({ setItemHoverIndex }: ChannelL
                         onMouseLeave={() => setItemHoverIndex(null)}
                     >
                         <Link href={`/category/${item.cid}`}>
-                            <a className="sf-with-ul">{item.channelName}</a>
+                            <a className={`sf-with-ul ${item.isMarkColor ? 'highlight-color' : ''} `}>
+                                {item.channelName}
+                            </a>
                         </Link>
                     </li>
                 )

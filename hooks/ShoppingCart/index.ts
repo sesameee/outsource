@@ -73,6 +73,12 @@ export const useShoppingCartModifyHandler = (): any => {
                             data: getCartList,
                         }),
                     )
+                } else {
+                    return dispatch(
+                        ShoppingCartListActions.setShoppingCartListCookie({
+                            data: getCartList,
+                        }),
+                    )
                 }
             }
         },

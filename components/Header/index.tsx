@@ -9,6 +9,8 @@ import Cart from './Cart'
 import Wish from './Wish'
 import MobileMenu from './MobileMenu'
 import ErrorAlert from '../commons/ErrorAlert'
+import { useUserLoginHandler } from '@/hooks/UserLogin'
+import { useWishList } from '@/hooks/Wish'
 
 type HeaderProps = {
     isIndex: boolean
@@ -16,10 +18,13 @@ type HeaderProps = {
 }
 
 const Header: React.FC<HeaderProps> = ({ isIndex, token }: HeaderProps) => {
+    useWishList()
     const [IsOpenMember, setIsOpenMember] = React.useState(false)
     const [itemHoverIndex, setItemHoverIndex] = React.useState<null | number>(null)
     const [IsOpenMenu, setIsOpenMenu] = React.useState(false)
     const headerClass = isIndex ? 'header header-9' : 'header'
+    const { UseAuthHandle } = useUserLoginHandler()
+    UseAuthHandle()
     return (
         <header className={headerClass}>
             <MobileMenu IsOpenMenu={IsOpenMenu} setIsOpenMenu={setIsOpenMenu} />

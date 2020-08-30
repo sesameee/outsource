@@ -9,7 +9,7 @@ import { MemberAddressInfoActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
 import { MemberAddressInfoReqData, MemberAddressInfoRspData } from '@/types/apis/memberAddressInfo'
 import { MEMBER_ADDRESS_INFO } from '@/services/api/apiConfig'
-import { epicSuccessMiddleware } from '../epicMiddleware'
+import { epicSuccessMiddleware, requireValidToken } from '../epicMiddleware'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
@@ -25,18 +25,23 @@ export const fetchMemberAddressInfoEpic: Epic = (action$, state$) =>
     action$.pipe(
         ofType(MemberAddressInfoActions.fetchMemberAddressInfo),
         mergeMap((action: PayloadAction<MemberAddressInfoReqData>) =>
-            HttpService.PostAsync<MemberAddressInfoReqData, MemberAddressInfoRspData>(MEMBER_ADDRESS_INFO, {
-                memberId: state$.value.userLogin.memberId,
-                category: action.payload.category,
-                accessToken: state$.value.userLogin.accessToken,
-            }).pipe(
-                mergeMap((res) => {
-                    return epicSuccessMiddleware(res, MemberAddressInfoActions.fetchMemberAddressInfoSuccess(res.data))
-                }),
-                catchError((error: AxiosError) => {
-                    return of(MemberAddressInfoActions.fetchMemberAddressInfoFailure({ error: error.message }))
-                }),
-                takeUntil(action$.ofType(MemberAddressInfoActions.stopFetchMemberAddressInfo)),
+            requireValidToken(action$, state$, (accessToken: any) =>
+                HttpService.PostAsync<MemberAddressInfoReqData, MemberAddressInfoRspData>(MEMBER_ADDRESS_INFO, {
+                    memberId: state$.value.userLogin.memberId,
+                    category: action.payload.category,
+                    accessToken: accessToken,
+                }).pipe(
+                    mergeMap((res) => {
+                        return epicSuccessMiddleware(
+                            res,
+                            MemberAddressInfoActions.fetchMemberAddressInfoSuccess(res.data),
+                        )
+                    }),
+                    catchError((error: AxiosError) => {
+                        return of(MemberAddressInfoActions.fetchMemberAddressInfoFailure({ error: error.message }))
+                    }),
+                    takeUntil(action$.ofType(MemberAddressInfoActions.stopFetchMemberAddressInfo)),
+                ),
             ),
         ),
     )

@@ -52,20 +52,20 @@ const Channel: React.FC = () => {
     const [dragging, setDragging] = useState(false)
 
     const handleBeforeChange = useCallback(() => {
-        console.log('handleBeforeChange')
         setDragging(true)
     }, [setDragging])
 
     const handleAfterChange = useCallback(() => {
-        console.log('handleAfterChange')
         setDragging(false)
     }, [setDragging])
     const router = useRouter()
     const handleOnItemClick = useCallback(
         (e, link) => {
-            console.log('handleOnItemClick')
-            router.push(link)
-            if (dragging) e.stopPropagation()
+            if (dragging) {
+                e.stopPropagation()
+            } else {
+                router.push(link)
+            }
         },
         [dragging, router],
     )

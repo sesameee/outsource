@@ -45,7 +45,8 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
     let path = '/category'
     breadCrumbs &&
         breadCrumbs.category.map((item: BreadCrumbCategoryData) => {
-            path = `${path}/${item.cid}`
+            console.log('item :>> ', item)
+            path = `${path}/${item.categoryType}/${item.cid}`
             navData.push({
                 title: item.name,
                 link: path,
@@ -99,7 +100,10 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
 
                                 <div className="col-md-6">
                                     <div className="product-details">
-                                        <h2 className="product-subtitle">{productData.mName}</h2>
+                                        <Link href={path}>
+                                            <h2 className="product-subtitle cursor-pointer">{productData.mName}</h2>
+                                        </Link>
+
                                         <h1 className="product-title">{productData.pName}</h1>
                                         <div className="product-number-frame">
                                             {productData.listPrice != productData.price ? (

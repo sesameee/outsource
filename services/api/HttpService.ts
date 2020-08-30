@@ -1,6 +1,7 @@
 import { AxiosObservable } from 'axios-observable/dist/axios-observable.interface'
 import { axios } from './axios'
 import { AxiosRequestConfig } from 'axios'
+import { i18n } from '@/I18n'
 const baseConfig = {
     // headers: {
     //     'Content-Type': 'multipart/form-data',
@@ -30,7 +31,8 @@ class HttpService {
         config?: AxiosRequestConfig,
     ): AxiosObservable<Res> {
         config = { ...baseConfig, ...config }
-        return axios.post(this.getBaseUrl(targetApi, basePath), data, config)
+        const lang = i18n.language == 'tw' ? 'zh_TW' : 'en_US'
+        return axios.post(this.getBaseUrl(targetApi, basePath), { ...data, lang }, config)
     }
     public static PutAsync<Req, Res>(
         targetApi: string,

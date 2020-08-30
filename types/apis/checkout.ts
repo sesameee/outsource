@@ -12,6 +12,7 @@ export interface CheckoutReqData {
     totalAmount: number
     shippingAmount: number
     data: CheckoutProductData[]
+    accessToken: string
 }
 
 export interface InvoiceInfoData {

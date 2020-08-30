@@ -3,10 +3,9 @@ import { WishListSelectors, UserLoginSelectors } from '@/store'
 import { useSelector } from 'react-redux'
 import { useTranslation } from '@/I18n'
 import { useShoppingCartModifyHandler } from '@/hooks/ShoppingCart'
-import { useWishModifyHandler, useWishList } from '@/hooks/Wish'
+import { useWishModifyHandler } from '@/hooks/Wish'
 
 const WishList: React.FC = () => {
-    useWishList()
     const { t } = useTranslation()
     const { handleCart } = useShoppingCartModifyHandler()
     const { handleWish } = useWishModifyHandler()
@@ -71,6 +70,7 @@ const WishList: React.FC = () => {
                                         'delete',
                                         [
                                             {
+                                                shoppingWishItemId: item.shoppingWishItemId,
                                                 cid: item.cid,
                                                 pid: item.pid,
                                                 spec1: '',

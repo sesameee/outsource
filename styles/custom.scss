@@ -8,7 +8,7 @@
 }
 
 .highlight-color {
-    color: $specialColor;
+    color: $specialColor !important;
 }
 
 .footer {
@@ -576,6 +576,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 2rem;
 }
 
 .product-details .product-subtitle {
@@ -918,4 +919,8 @@
         height: 75vh;
         overflow: auto;
     }
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }

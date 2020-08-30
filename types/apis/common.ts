@@ -8,7 +8,10 @@ export interface ProductData {
     listPrice?: string
     imageUrl: string
     _id: string
-    cName: string
+    _cName?: string
+    _link?: string
+    _categoryType?: string
+    _cid?: string
     onlineDate: string
 }
 
@@ -21,6 +24,20 @@ export interface ShoppingCartListData {
 
 export interface ShoppingCartProductData {
     shoppingCartItemId?: number
+    cid: string
+    pid: string
+    price?: number
+    qty?: number
+    productName?: string
+    imageUrl?: string
+    orderMax?: number
+    stock?: number
+    spec1?: string
+    spec2?: string
+}
+
+export interface WishProductData {
+    shoppingWishItemId?: number
     cid: string
     pid: string
     price?: number

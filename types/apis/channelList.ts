@@ -1,5 +1,6 @@
 import { Response } from './common'
 export interface ChannelData {
+    isMarkColor: boolean
     /**
      * @examples ["11","12"]
      */

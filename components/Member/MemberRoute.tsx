@@ -4,11 +4,13 @@ import React, { memo } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from '@/I18n'
+import { useUserLoginHandler } from '@/hooks/UserLogin'
 
 const MemberRoute: React.FC = () => {
     const { t } = useTranslation()
     const router = useRouter()
     const pageName = (router && router.query && router.query.pageName && router.query.pageName[0]) || ''
+    const { handleLogout } = useUserLoginHandler()
     return (
         <ul className="frame-left">
             <li className={`li ${pageName === 'points' ? 'active' : ''}`}>
@@ -26,8 +28,8 @@ const MemberRoute: React.FC = () => {
             <li className={`li ${pageName === 'passwordModify' ? 'active' : ''}`}>
                 <Link href="/member/passwordModify">{t('modify_password')}</Link>
             </li>
-            <li>
-                <a href="#">{t('modify_password')}</a>
+            <li onClick={() => handleLogout()}>
+                <a href="#">登出</a>
             </li>
         </ul>
     )

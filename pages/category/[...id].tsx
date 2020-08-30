@@ -7,7 +7,7 @@ import Nav from '@/components/Nav'
 
 import { useSelector } from 'react-redux'
 import { useChannelList } from '@/hooks/ChannelList'
-import { ChannelListSelectors } from '@/store'
+import { ChannelListSelectors, CatalogSelectors } from '@/store'
 import { ChannelData, CategoryData } from '@/types/apis/channelList'
 import WidgetFrame from '@/components/Catalog'
 import ProductList from '@/components/Catalog/ProductList'
@@ -27,8 +27,10 @@ const Category: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element 
     useChannelList()
     let cid = ''
     let categoryType = ''
+    let isBrand = false
     const channelList = useSelector(ChannelListSelectors.getChannelList)
-    const navData: { title: any; link: string }[] = []
+    const catalog: CatalogData = useSelector(CatalogSelectors.getCatalogList)
+    let navData: { title: any; link: string }[] = []
     const processNav = (id: string, list: CategoryData[] | ChannelData[], path: string, index: number) => {
         index++
         const category = (list as any[]).filter((item: CategoryData | ChannelData) => {
@@ -52,7 +54,23 @@ const Category: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element 
     }
 
     if (Array.isArray(query.id)) {
-        processNav(query.id[0], channelList, '/category', 0)
+        if (!isNaN(Number(query.id[0]))) {
+            processNav(query.id[0], channelList, '/category', 0)
+        } else {
+            isBrand = true
+            categoryType = query.id[0]
+            cid = query.id[1]
+            navData = [
+                {
+                    title: t('homepage'),
+                    link: '/',
+                },
+                {
+                    title: catalog.cName,
+                    link: '',
+                },
+            ]
+        }
     }
 
     const titleArr = [...navData].reverse()
@@ -82,10 +100,17 @@ const Category: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element 
                     style={{ backgroundImage: "url('/images/page-header-bg.jpg')" }}
                 >
                     <div className="container">
-                        <h1 className="page-title">
-                            {title1 && title1.title}
-                            <span>{title2 && title2.title}</span>
-                        </h1>
+                        {isBrand ? (
+                            <h1 className="page-title">
+                                {catalog.cName}
+                                <span></span>
+                            </h1>
+                        ) : (
+                            <h1 className="page-title">
+                                {title1 && title1.title}
+                                <span>{title2 && title2.title}</span>
+                            </h1>
+                        )}
                     </div>
                 </div>
                 <Nav navData={navData}></Nav>
@@ -149,6 +174,7 @@ const Category: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element 
 }
 import cookies from 'next-cookies'
 import { NextPageContext } from 'next'
+import { CatalogData } from '@/types/apis'
 Category.getInitialProps = async (ctx: NextPageContext) => {
     const token = cookies(ctx).token
     const cartList = cookies(ctx).cartList

@@ -6,6 +6,7 @@ import NumberInput from '../commons/NumberInput'
 import { ShoppingCartProductData } from '@/types/apis/common'
 import { State as PromoCodeState } from '@/types/stores/promoCode/state'
 import { accMul } from '@/utils'
+import { useShoppingCartModifyHandler } from '@/hooks/ShoppingCart'
 
 type CartItemProps = {
     sum: any[]
@@ -55,6 +56,7 @@ const ItemDetail: React.FC<ItemDetailProps> = ({
     const isHaveDiscount = promoCodeData && promoCodeData.data.indexOf(detail.pid) != -1
     const discount = isHaveDiscount ? accMul(price, Number(promoCodeData.discountRate)) : 0
 
+    const { handleCart } = useShoppingCartModifyHandler()
     const amountCB = (num: number) => {
         if (sum[index]) {
             const price = (detail?.price && num && detail?.price * num) || 0
@@ -63,6 +65,20 @@ const ItemDetail: React.FC<ItemDetailProps> = ({
                 sum[index] = accMul(price, Number(promoCodeData.discountRate))
             }
             setSum([...sum])
+            handleCart(
+                'modify',
+                [
+                    {
+                        shoppingCartItemId: detail.shoppingCartItemId,
+                        cid: detail.cid,
+                        pid: detail.pid,
+                        spec1: detail.spec1,
+                        spec2: detail.spec2,
+                        qty: num,
+                    },
+                ],
+                { ...detail, qty: num },
+            )
         }
     }
     return (
@@ -98,7 +114,20 @@ const ItemDetail: React.FC<ItemDetailProps> = ({
             <td className="total-col">${price}</td>
             <td className="total-col">{discount ? `$${discount}` : null}</td>
             <td className="remove-col">
-                <button className="btn-remove">
+                <button
+                    className="btn-remove"
+                    onClick={() => {
+                        handleCart(
+                            'delete',
+                            [
+                                {
+                                    shoppingCartItemId: detail.shoppingCartItemId,
+                                },
+                            ],
+                            { ...detail, qty: amount },
+                        )
+                    }}
+                >
                     <i className="icon-close"></i>
                 </button>
             </td>

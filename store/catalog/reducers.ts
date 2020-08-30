@@ -28,8 +28,10 @@ export const fetchCatalogSuccess: CaseReducer<State, PayloadAction<{ catalogList
                     const pid = iData[l]?.pid
                     const id = `c${data.cid}-${iCid}-${cid}-${pid}`
                     const link = `${data.cid}/${iCid}/${cid}`
-                    tmpData['cName'] = data.categoryList[i]?.cName
-                    tmpData['link'] = link
+                    tmpData['_categoryType'] = data.categoryList[i]?.categoryType
+                    tmpData['_cid'] = data.categoryList[i]?.cid
+                    tmpData['_cName'] = data.categoryList[i]?.cName
+                    tmpData['_link'] = link
                     tmpData['_id'] = id
                     productList[id] = tmpData
                 }
@@ -44,14 +46,17 @@ export const fetchCatalogSuccess: CaseReducer<State, PayloadAction<{ catalogList
                     for (let k = 0; k < jData?.length; k++) {
                         const kCid = jData[k]?.cid
                         const kCname = jData[k].cName
+                        const KcategoryType = jData[k].categoryType
                         const lData = jData[k].cData
                         for (let l = 0; l < lData?.length; l++) {
                             const cid = lData[l]?.cid
                             const id = `c${iCid}-${jCid}-${kCid}-${cid}`
                             const link = `${data.cid}/${iCid}/${jCid}/${cid}/${kCid}`
                             const tmpData = lData[l]
-                            tmpData['cName'] = kCname
-                            tmpData['link'] = link
+                            tmpData['_categoryType'] = KcategoryType
+                            tmpData['_cid'] = kCid
+                            tmpData['_cName'] = kCname
+                            tmpData['_link'] = link
                             tmpData['_id'] = id
                             productList[id] = tmpData
                         }
@@ -71,8 +76,10 @@ export const fetchCatalogSuccess: CaseReducer<State, PayloadAction<{ catalogList
                         const pid = tmpData?.pid
                         const id = `c${iCid}-${jCid}-${kCid}-${pid}`
                         const link = `${data.cid}/${iCid}/${jCid}/${kCid}`
-                        tmpData['cName'] = iData[j]?.cName
-                        tmpData['link'] = link
+                        tmpData['_categoryType'] = iData[j]?.categoryType
+                        tmpData['_cid'] = iData[j]?.cid
+                        tmpData['_cName'] = iData[j]?.cName
+                        tmpData['_link'] = link
                         tmpData['_id'] = id
                         productList[id] = tmpData
                     }
