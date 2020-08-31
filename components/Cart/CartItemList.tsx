@@ -66,7 +66,7 @@ const ItemDetail: React.FC<ItemDetailProps> = ({
             }
             setSum([...sum])
             handleCart(
-                'modify',
+                'edit',
                 [
                     {
                         shoppingCartItemId: detail.shoppingCartItemId,

@@ -10,7 +10,7 @@ export const useCatalog = (cid: string, categoryType: string): void => {
         categoryType: '',
     })
     useEffect(() => {
-        if (sendParms) {
+        if (sendParms.cid && sendParms.categoryType) {
             dispatch(CatalogActions.fetchCatalog(sendParms))
         }
     }, [dispatch, i18n.language, sendParms])

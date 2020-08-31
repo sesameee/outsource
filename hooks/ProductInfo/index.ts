@@ -11,7 +11,7 @@ export const useProductInfo = (query: any): void => {
         pid: '',
     })
     useEffect(() => {
-        if (sendParms) {
+        if (sendParms.cid && sendParms.pid) {
             dispatch(ProductInfoActions.fetchProductInfo(sendParms))
         }
     }, [dispatch, sendParms, i18n.language])

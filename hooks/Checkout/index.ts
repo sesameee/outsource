@@ -9,7 +9,6 @@ export const useCheckoutHandler = (): any => {
 
     const handleCheckoutSubmit = useCallback(
         (data: any) => {
-            console.log('data :>> ', data)
             const tappayStatus = window.TPDirect.card.getTappayFieldsStatus()
             // 確認是否可以 getPrime
             if (tappayStatus.canGetPrime === false) {
@@ -23,8 +22,7 @@ export const useCheckoutHandler = (): any => {
                     return
                 }
 
-                const sendData = { ...data, payType: 2, payload: result.card.prime }
-                console.log('sendData :>> ', sendData)
+                const sendData = { ...data, payType: 2, payload: result }
                 dispatch(CheckoutActions.fetchCheckout(sendData))
             })
         },

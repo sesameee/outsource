@@ -225,7 +225,7 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
                 },
             }
         })
-        data = { ...data, totalAmount: finalAmount, data: cartData, shippingAmount: 60 }
+        data = { ...data, totalAmount: finalAmount, data: cartData, shippingAmount: 0 }
         handleCheckoutSubmit(data, router)
     }
 

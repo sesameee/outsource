@@ -17,8 +17,8 @@ export const setupStore = (preloadedState: any) => {
     const store = configureStore({
         reducer: rootReducer,
         preloadedState,
-        devTools: process.env.NODE_ENV !== 'production',
-        middleware: [...onlyDevMiddlewares, epicMiddleware],
+        devTools: false,
+        middleware: [epicMiddleware],
     })
     epicMiddleware.run(rootEpic)
 
@@ -30,4 +30,4 @@ export const makeStore: MakeStore<RootState> = (initialState) => {
     return store
 }
 
-export const wrapper = createWrapper<RootState>(makeStore, { debug: true })
+export const wrapper = createWrapper<RootState>(makeStore, { debug: false })
