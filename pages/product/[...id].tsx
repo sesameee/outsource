@@ -65,7 +65,13 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
                     qty: amount,
                 },
             ],
-            { ...productData, qty: amount },
+            {
+                cid: productData.cid,
+                pid: productData.pid,
+                spec1: spec1,
+                spec2: spec2,
+                qty: amount,
+            },
         )
     }
 
@@ -109,7 +115,13 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
                                             {productData.listPrice != productData.price ? (
                                                 <div className="product-last-price">${productData.listPrice}</div>
                                             ) : null}
-                                            <div className="product-price">${productData.price}</div>
+                                            <div
+                                                className={`product-price ${
+                                                    productData.listPrice != productData.price ? 'highlight-color' : ''
+                                                }`}
+                                            >
+                                                ${productData.price}
+                                            </div>
                                         </div>
                                         <h4 className="product-id">
                                             {t('product_id')}：{productData.pid}
@@ -176,7 +188,7 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
                                                 onClick={() => {
                                                     handleAddCart()
                                                 }}
-                                                className="btn-product btn-cart"
+                                                className="btn-product btn-cart cursor-pointer"
                                             >
                                                 <span>{t('add_to_cart')}</span>
                                             </a>
@@ -244,7 +256,7 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
                             <div className="product-details-action">
                                 <a
                                     href="#"
-                                    className="btn-product btn-cart"
+                                    className="btn-product btn-cart cursor-pointer"
                                     onClick={() => {
                                         handleAddCart()
                                     }}

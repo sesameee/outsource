@@ -5,7 +5,7 @@ import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 import { PayloadAction } from '@reduxjs/toolkit'
 
-import { UserLoginActions } from '@/store'
+import { UserLoginActions, ErrorAlertActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
 import { UserLoginReqData, UserLoginRspAllData } from '@/types/apis/userLogin'
 import { USER_LOGIN } from '@/services/api/apiConfig'
@@ -60,7 +60,10 @@ export const fetchUserLoginEpic: Epic = (action$) => {
                     )
                 }),
                 catchError((error: AxiosError) => {
-                    return of(UserLoginActions.fetchUserLoginFailure({ error: error.message }))
+                    return of(
+                        UserLoginActions.fetchUserLoginFailure({ error: error.message }),
+                        ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: '您已登出' }),
+                    )
                 }),
                 takeUntil(action$.ofType(UserLoginActions.stopFetchUserLogin)),
             )

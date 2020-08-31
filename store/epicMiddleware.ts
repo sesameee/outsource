@@ -33,7 +33,10 @@ export const epicAuthFailMiddleware = (error: AxiosError | string, fn: any) => {
         return of(UserLoginActions.fetchUserLoginFailure({ error: error }))
     } else if (error === '8012') {
         //  登出
-        return of(UserLoginActions.fetchUserLoginFailure({ error: error }))
+        return of(
+            UserLoginActions.fetchUserLoginFailure({ error: error }),
+            ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: '您已登出' }),
+        )
     } else {
         return of(fn)
     }

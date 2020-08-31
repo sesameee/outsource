@@ -39,7 +39,11 @@ export const fetchUserLoginFailure: CaseReducer<State, PayloadAction<{ error: st
         deleteCookie('accessToken')
         deleteCookie('token')
         deleteCookie('uuid')
-        //window.location.href = '/'
+        draft['uuid'] = ''
+        draft['memberId'] = ''
+        draft['accessToken'] = ''
+        draft['userId'] = ''
+        draft['token'] = ''
     })
 }
 

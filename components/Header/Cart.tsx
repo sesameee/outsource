@@ -90,11 +90,7 @@ const Cart: React.FC<CartProps> = ({ setIsOpenMember }: CartProps) => {
                                                 'delete',
                                                 [
                                                     {
-                                                        cid: item.cid,
-                                                        pid: item.pid,
-                                                        spec1: '',
-                                                        spec2: '',
-                                                        qty: 1,
+                                                        shoppingCartItemId: item.shoppingCartItemId,
                                                     },
                                                 ],
                                                 index,

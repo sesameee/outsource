@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from '@/I18n'
 import { useForm } from 'react-hook-form'
 import { UserLoginReqData } from '@/types/apis/userLogin'
 import { useUserLoginHandler } from '@/hooks/UserLogin'
-import { useSelector } from 'react-redux'
-import { UserLoginSelectors } from '@/store'
+import { useSelector, useDispatch } from 'react-redux'
+import { UserLoginSelectors, ShoppingCartListSelectors, ShoppingCartModifyActions } from '@/store'
 import { useRouter } from 'next/router'
+import { useShoppingCartModifyHandler } from '@/hooks/ShoppingCart'
 
 type LoginProps = {
     setPropIsOpenFn: any
@@ -16,13 +17,37 @@ const Login: React.FC<LoginProps> = ({ setPropIsOpenFn }: LoginProps) => {
     const { register, handleSubmit } = useForm<UserLoginReqData>()
     const { handleLoginSubmit } = useUserLoginHandler()
     const success = useSelector(UserLoginSelectors.getUserLoginData)
+    const cartList = useSelector(ShoppingCartListSelectors.getShoppingCartListCookie)
     const router = useRouter()
+    const { handleCart } = useShoppingCartModifyHandler()
+    const [accessToken, setAccessToken] = useState(success.accessToken)
+
     useEffect(() => {
         if (success.accessToken) {
-            router.push('/member/points')
+            setAccessToken(success.accessToken)
+        }
+    }, [success.accessToken, setAccessToken])
+
+    // 登入成功後關閉彈窗和轉址
+    useEffect(() => {
+        if (accessToken != success.accessToken && success.accessToken) {
+            console.log('router.pathname :>> ', router.pathname)
+            // if (router.pathname != '/') {
+            //     router.push('/')
+            // }
             setPropIsOpenFn(false)
         }
-    }, [setPropIsOpenFn, success.accessToken, router])
+    }, [setPropIsOpenFn, success.accessToken, router, accessToken])
+
+    // 登入成功後新增購物車
+    useEffect(() => {
+        if (accessToken != success.accessToken && success.accessToken) {
+            console.log('cartList :>> ', cartList)
+            if (cartList.length > 0) {
+                handleCart('add', cartList, {})
+            }
+        }
+    }, [success.accessToken, cartList, accessToken, handleCart])
 
     const onSubmit = (data: UserLoginReqData) => {
         handleLoginSubmit(data)

@@ -114,7 +114,8 @@ const FromFirstStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromPro
                 <div className="custom-control custom-checkbox">
                     <input type="checkbox" className="custom-control-input" id="register-policy" required />
                     <label className="custom-control-label" htmlFor="register-policy">
-                        {t('read_and_agree')}<a href="#">{t('membership_terms')}</a>
+                        {t('read_and_agree')}
+                        <a href="#">{t('membership_terms')}</a>
                     </label>
                 </div>
 
@@ -149,7 +150,8 @@ const FromSecondStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromPr
             </div>
             <div className="form-footer">
                 <label>
-                    {t('message_cif_not_receive_captcha_hintaptcha')} <a onClick={handleSubmit(onSubmit)}>{t('re_send_captcha')}</a>
+                    {t('if_not_receive_captcha_hint')}
+                    <a onClick={handleSubmit(onSubmit)}>{t('re_send_captcha')}</a>
                 </label>
                 <button type="submit" className="btn btn-outline-primary-2 btn-block margin-top-more">
                     <span>{t('submit')}</span>

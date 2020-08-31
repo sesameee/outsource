@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import { useTranslation } from '@/I18n'
 import { useShoppingCartModifyHandler } from '@/hooks/ShoppingCart'
 import { useWishModifyHandler } from '@/hooks/Wish'
+import Link from 'next/link'
 
 const WishList: React.FC = () => {
     const { t } = useTranslation()
@@ -34,7 +35,9 @@ const WishList: React.FC = () => {
                                 </figure>
 
                                 <h3 className="product-title">
-                                    <a href="#">{item.pName}</a>
+                                    <Link href={`/product/${item.cid}/${item.pid}`} prefetch={false}>
+                                        <a href="#">{item.pName}</a>
+                                    </Link>
                                 </h3>
                             </div>
                         </td>
@@ -54,7 +57,13 @@ const WishList: React.FC = () => {
                                                 qty: 1,
                                             },
                                         ],
-                                        { ...item, qty: 1 },
+                                        {
+                                            cid: item.cid,
+                                            pid: item.pid,
+                                            spec1: '',
+                                            spec2: '',
+                                            qty: 1,
+                                        },
                                     )
                                 }}
                             >

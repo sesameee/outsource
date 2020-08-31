@@ -5,6 +5,7 @@ import {
     ShoppingCartModifyActions,
     UserLoginSelectors,
     ShoppingCartListSelectors,
+    ErrorAlertActions,
 } from '@/store'
 import { useTranslation } from '@/I18n'
 
@@ -46,31 +47,42 @@ export const useShoppingCartModifyHandler = (): any => {
     const handleCart = useCallback(
         (action: string, shoppingCartProductList: [], itemData: any) => {
             if (getUser.accessToken) {
-                return dispatch(
-                    ShoppingCartModifyActions.fetchShoppingCartModify({
-                        action: action,
-                        memberId: '',
-                        shoppingCartProductList: shoppingCartProductList,
-                    }),
+                return (
+                    dispatch(
+                        ShoppingCartModifyActions.fetchShoppingCartModify({
+                            action: action,
+                            memberId: '',
+                            shoppingCartProductList: shoppingCartProductList,
+                        }),
+                    ) &&
+                    dispatch(
+                        ShoppingCartListActions.setShoppingCartListCookie({
+                            data: [],
+                        }),
+                    )
                 )
             } else {
                 if (action == 'add') {
                     if (getCartList.length > 0) {
                         getCartList.push(itemData)
                     }
-                    return dispatch(
-                        ShoppingCartListActions.setShoppingCartListCookie({
-                            data: getCartList.length > 0 ? getCartList : [itemData],
-                        }),
+                    return (
+                        dispatch(
+                            ShoppingCartListActions.setShoppingCartListCookie({
+                                data: getCartList.length > 0 ? getCartList : [itemData],
+                            }),
+                        ) && dispatch(ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: '您已新增至購物車' }))
                     )
                 } else if (action == 'delete') {
                     if (getCartList.length > 0) {
                         getCartList.splice(itemData, 1)
                     }
-                    return dispatch(
-                        ShoppingCartListActions.setShoppingCartListCookie({
-                            data: getCartList,
-                        }),
+                    return (
+                        dispatch(
+                            ShoppingCartListActions.setShoppingCartListCookie({
+                                data: getCartList,
+                            }),
+                        ) && dispatch(ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: '您已刪除' }))
                     )
                 } else {
                     return dispatch(

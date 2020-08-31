@@ -4,7 +4,7 @@ import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 
-import { RefreshTokenActions, UserLoginActions } from '@/store'
+import { RefreshTokenActions, UserLoginActions, ErrorAlertActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
 import { REFRESH_TOKEN } from '@/services/api/apiConfig'
 import { encodeToken } from '@/utils'
@@ -26,9 +26,9 @@ export const fetchRefreshTokenListEpic: Epic = (action$, state$) =>
         switchMap(() =>
             HttpService.PostAsync<{ content: string }, UserLoginRspAllData>(REFRESH_TOKEN, {
                 content: encodeToken(
-                    `${state$.value.userLogin.token},${
+                    `${state$.value.userLogin.token};${
                         state$.value.userLogin.uuid
-                    },${new Date().getTime()},${uuidv4()}`,
+                    };${new Date().getTime()};${uuidv4()}`,
                 ),
             }).pipe(
                 mergeMap((res) => {
@@ -44,7 +44,10 @@ export const fetchRefreshTokenListEpic: Epic = (action$, state$) =>
                     }
                 }),
                 catchError((error: AxiosError) => {
-                    return of(UserLoginActions.fetchUserLoginFailure({ error: error.message }))
+                    return of(
+                        UserLoginActions.fetchUserLoginFailure({ error: error.message }),
+                        ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: '您已登出' }),
+                    )
                 }),
                 takeUntil(action$.ofType(RefreshTokenActions.stopFetchRefreshToken)),
             ),

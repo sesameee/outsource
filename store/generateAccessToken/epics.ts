@@ -4,7 +4,7 @@ import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 
-import { GenerateAccessTokenActions, UserLoginActions } from '@/store'
+import { GenerateAccessTokenActions, UserLoginActions, ErrorAlertActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
 import { GenerateAccessTokenReqData } from '@/types/apis/generateAccessToken'
 import { GENERATE_ACCESS_TOKEN } from '@/services/api/apiConfig'
@@ -61,7 +61,10 @@ export const fetchGenerateAccessTokenListEpic: Epic = (action$, state$) =>
                         })
                     }
                     const res = <AxiosError>error
-                    return of(UserLoginActions.fetchUserLoginFailure({ error: res.message }))
+                    return of(
+                        UserLoginActions.fetchUserLoginFailure({ error: res.message }),
+                        ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: '您已登出' }),
+                    )
                 }),
                 takeUntil(action$.ofType(GenerateAccessTokenActions.stopFetchGenerateAccessToken)),
             ),
