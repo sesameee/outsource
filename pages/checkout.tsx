@@ -8,8 +8,7 @@ import { useShoppingCartList } from '@/hooks/ShoppingCart'
 import { useAddressInfo } from '@/hooks/AddressInfo'
 import { accAdd, accSubtr } from '@/utils'
 import BuyNotice from '@/components/commons/BuyNotice'
-import { NextPage, NextPageContext } from 'next'
-import cookies from 'next-cookies'
+import { NextPage } from 'next'
 import { CheckoutReqData } from '@/types/apis/checkout'
 import { useForm } from 'react-hook-form'
 import { useCheckoutHandler } from '@/hooks/Checkout'
@@ -172,10 +171,7 @@ const InvoiceFrom: React.FC<InvoiceFromProps> = ({ type, register }: InvoiceFrom
     }
 }
 
-type CheckoutProps = {
-    token: string
-}
-const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
+const Checkout: NextPage<any> = (): JSX.Element => {
     const { t } = useTranslation()
     const navMock = [
         {
@@ -247,7 +243,7 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
     return (
         <div className="page-wrapper">
             <BuyNotice openBuyNotice={openBuyNotice} setOpenBuyNotice={setOpenBuyNotice} />
-            <Header isIndex={false} token={token} />
+            <Header isIndex={false} />
             <main className="main">
                 <div
                     className="page-header text-center"
@@ -418,7 +414,7 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
                                             <input
                                                 type="text"
                                                 name="shipInfo.shipType"
-                                                value="delivery"
+                                                value="homeDelivery"
                                                 style={{ display: 'none' }}
                                                 ref={register}
                                             />
@@ -534,8 +530,5 @@ const Checkout: NextPage<any> = ({ token }: CheckoutProps): JSX.Element => {
 import ProductDetail from '@/components/Checkout/ProductDetail'
 import { useVerifyInvBarCodeHandler } from '@/hooks/VerifyInvBarCode'
 import { useRouter } from 'next/router'
-Checkout.getInitialProps = async (ctx: NextPageContext) => {
-    return { token: cookies(ctx).token || '' }
-}
 
 export default Checkout

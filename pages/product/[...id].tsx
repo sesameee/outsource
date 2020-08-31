@@ -16,12 +16,13 @@ import Link from 'next/link'
 import NumberInput from '@/components/commons/NumberInput'
 import { useShoppingCartModifyHandler } from '@/hooks/ShoppingCart'
 import { useTranslation } from '@/I18n'
+import { NextPage } from 'next'
+import { useWishModifyHandler } from '@/hooks/Wish'
 
 interface CategoryProps extends WithRouterProps {
     filterProduct: Set<unknown>
-    token: string
 }
-const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element => {
+const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
     const { t } = useTranslation()
     const query = router.query
     useProductInfo(query)
@@ -86,7 +87,7 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
 
     return (
         <div className="page-wrapper">
-            <Header isIndex={false} token={token} />
+            <Header isIndex={false} />
             <main className="main">
                 <Nav navData={navData}></Nav>
                 <div className="page-content">
@@ -99,7 +100,7 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
 
                                 <div className="col-md-6">
                                     <div className="product-details">
-                                        <Link href={path}>
+                                        <Link href={path} prefetch={false}>
                                             <h2 className="product-subtitle cursor-pointer">{productData.mName}</h2>
                                         </Link>
 
@@ -186,7 +187,7 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
                                                     onClick={() => {
                                                         handleAddWish()
                                                     }}
-                                                    className="btn-product btn-wishlist"
+                                                    className="btn-product btn-wishlist cursor-pointer"
                                                     title="Wishlist"
                                                 >
                                                     <span>{t('add_to_wish_list')}</span>
@@ -200,7 +201,10 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
                                                 {navData.map((item: navData, index) => {
                                                     return (
                                                         <span key={index}>
-                                                            <Link href={item.link}>{item.title}</Link>,
+                                                            <Link href={item.link} prefetch={false}>
+                                                                {item.title}
+                                                            </Link>
+                                                            ,
                                                         </span>
                                                     )
                                                 })}
@@ -267,11 +271,4 @@ const Product: NextPage<any> = ({ token, router }: CategoryProps): JSX.Element =
     )
 }
 
-import cookies from 'next-cookies'
-import { NextPageContext, NextPage } from 'next'
-import { useWishModifyHandler } from '@/hooks/Wish'
-
-Product.getInitialProps = async (ctx: NextPageContext) => {
-    return { token: cookies(ctx).token || '' }
-}
 export default withRouter(Product)

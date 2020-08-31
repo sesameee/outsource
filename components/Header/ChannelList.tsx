@@ -19,7 +19,7 @@ const ChannelList: React.FC<ChannelListProps> = ({ setItemHoverIndex }: ChannelL
                         onMouseOver={() => setItemHoverIndex(index)}
                         onMouseLeave={() => setItemHoverIndex(null)}
                     >
-                        <Link href={`/category/${item.cid}`}>
+                        <Link href={`/category/${item.cid}`} prefetch={false}>
                             <a className={`sf-with-ul ${item.isMarkColor ? 'highlight-color' : ''} `}>
                                 {item.channelName}
                             </a>

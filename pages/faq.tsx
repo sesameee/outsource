@@ -24,10 +24,7 @@ const Member: React.FC<MemberProps> = ({ t }: MemberProps): JSX.Element => {
     const memberList = [
         {
             title: t('member_q_1'),
-            content: [
-                t('member_a_1_1'),
-                t('member_a_1_2'),
-            ],
+            content: [t('member_a_1_1'), t('member_a_1_2')],
         },
         {
             title: t('member_q_2'),
@@ -66,10 +63,7 @@ const Member: React.FC<MemberProps> = ({ t }: MemberProps): JSX.Element => {
         },
         {
             title: t('order_q_3'),
-            content: [
-                t('order_a_3_1'),
-                t('order_a_3_2'),
-            ],
+            content: [t('order_a_3_1'), t('order_a_3_2')],
         },
         {
             title: t('order_q_4'),
@@ -77,19 +71,11 @@ const Member: React.FC<MemberProps> = ({ t }: MemberProps): JSX.Element => {
         },
         {
             title: t('order_q_5'),
-            content: [
-                t('order_a_5_1'),
-                t('order_a_5_2'),
-                t('order_a_5_3'),
-            ],
+            content: [t('order_a_5_1'), t('order_a_5_2'), t('order_a_5_3')],
         },
         {
             title: t('order_q_6'),
-            content: [
-                t('order_a_6_1'),
-                t('order_a_6_2'),
-                t('order_a_6_3'),
-            ],
+            content: [t('order_a_6_1'), t('order_a_6_2'), t('order_a_6_3')],
         },
         {
             title: t('order_q_7'),
@@ -110,7 +96,7 @@ const Member: React.FC<MemberProps> = ({ t }: MemberProps): JSX.Element => {
     ]
     return (
         <div className="page-wrapper">
-            <Header isIndex={false} token="" />
+            <Header isIndex={false} />
             <main className="main">
                 <div
                     className="page-header text-center"
@@ -118,7 +104,8 @@ const Member: React.FC<MemberProps> = ({ t }: MemberProps): JSX.Element => {
                 >
                     <div className="container">
                         <h1 className="page-title">
-                            {t('q_n_a')}<span></span>
+                            {t('q_n_a')}
+                            <span></span>
                         </h1>
                     </div>
                 </div>

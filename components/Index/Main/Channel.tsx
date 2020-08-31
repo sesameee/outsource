@@ -84,7 +84,9 @@ const Channel: React.FC = () => {
                         </figure>
                         <div className="product-body">
                             <h3 className="product-title text-center">
-                                <Link href={`category/${item?.cid}`}>{item?.channelName}</Link>
+                                <Link href={`category/${item?.cid}`} prefetch={false}>
+                                    {item?.channelName}
+                                </Link>
                             </h3>
                         </div>
                     </div>

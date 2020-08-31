@@ -25,7 +25,7 @@ const Member: React.FC<MemberProps> = ({ t }: MemberProps): JSX.Element => {
     ]
     return (
         <div className="page-wrapper">
-            <Header isIndex={false} token="" />
+            <Header isIndex={false} />
             <main className="main">
                 <div
                     className="page-header text-center"
@@ -33,7 +33,8 @@ const Member: React.FC<MemberProps> = ({ t }: MemberProps): JSX.Element => {
                 >
                     <div className="container">
                         <h1 className="page-title">
-                            {t('wish_list')}<span></span>
+                            {t('wish_list')}
+                            <span></span>
                         </h1>
                     </div>
                 </div>

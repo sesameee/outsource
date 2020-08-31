@@ -31,7 +31,7 @@ class HttpService {
         config?: AxiosRequestConfig,
     ): AxiosObservable<Res> {
         config = { ...baseConfig, ...config }
-        const lang = i18n.language == 'tw' ? 'zh_TW' : 'en_US'
+        const lang = i18n.language == 'tw' ? 'zh_TW' : 'en'
         return axios.post(this.getBaseUrl(targetApi, basePath), { ...data, lang }, config)
     }
     public static PutAsync<Req, Res>(

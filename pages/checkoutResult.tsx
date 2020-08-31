@@ -37,14 +37,14 @@ const CheckoutResult: React.FC<WithRouterProps> = ({ router }: WithRouterProps):
                         <h3 className="main-color main-word">{t('payment_succeed')}</h3>
                         <div className="tips">{t('thanks_for_your_purchase')}</div>
                         <div className="btn-frame">
-                            <Link href="/member/order">
+                            <Link href="/member/order" prefetch={false}>
                                 <button type="button" className="btn btn-outline-primary-2">
-                                {t('check_online_shopping_record')}
+                                    {t('check_online_shopping_record')}
                                 </button>
                             </Link>
                             <Link href="/">
                                 <button type="button" className="btn btn-outline-primary-2">
-                                {t('back_to_homepage')}
+                                    {t('back_to_homepage')}
                                 </button>
                             </Link>
                         </div>
@@ -58,10 +58,10 @@ const CheckoutResult: React.FC<WithRouterProps> = ({ router }: WithRouterProps):
                         <div className="tips">{t('payment_failed_message')}</div>
                         <div className="btn-frame">
                             <button type="button" className="btn btn-outline-primary-2">
-                            {t('re_pay')}
+                                {t('re_pay')}
                             </button>
                             <button type="button" className="btn btn-outline-primary-2">
-                            {t('back_to_homepage')}
+                                {t('back_to_homepage')}
                             </button>
                         </div>
                     </div>
@@ -74,7 +74,7 @@ const CheckoutResult: React.FC<WithRouterProps> = ({ router }: WithRouterProps):
 
     return (
         <div className="page-wrapper">
-            <Header isIndex={false} token="" />
+            <Header isIndex={false} />
             <main className="main">
                 <div
                     className="page-header text-center"
@@ -82,7 +82,8 @@ const CheckoutResult: React.FC<WithRouterProps> = ({ router }: WithRouterProps):
                 >
                     <div className="container">
                         <h1 className="page-title">
-                        {t('confirm_payment')}<span></span>
+                            {t('confirm_payment')}
+                            <span></span>
                         </h1>
                     </div>
                 </div>

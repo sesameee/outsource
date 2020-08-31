@@ -11,19 +11,21 @@ import MobileMenu from './MobileMenu'
 import ErrorAlert from '../commons/ErrorAlert'
 import { useUserLoginHandler } from '@/hooks/UserLogin'
 import { useWishList } from '@/hooks/Wish'
+import { useSelector } from 'react-redux'
+import { UserLoginSelectors } from '@/store'
 
 type HeaderProps = {
     isIndex: boolean
-    token: string
 }
 
-const Header: React.FC<HeaderProps> = ({ isIndex, token }: HeaderProps) => {
+const Header: React.FC<HeaderProps> = ({ isIndex }: HeaderProps) => {
     useWishList()
     const [IsOpenMember, setIsOpenMember] = React.useState(false)
     const [itemHoverIndex, setItemHoverIndex] = React.useState<null | number>(null)
     const [IsOpenMenu, setIsOpenMenu] = React.useState(false)
     const headerClass = isIndex ? 'header header-9' : 'header'
     const { UseAuthHandle } = useUserLoginHandler()
+    const getUser = useSelector(UserLoginSelectors.getUserLoginData)
     UseAuthHandle()
     return (
         <header className={headerClass}>
@@ -55,8 +57,8 @@ const Header: React.FC<HeaderProps> = ({ isIndex, token }: HeaderProps) => {
                         </nav>
                         <Wish />
                         <Cart setIsOpenMember={setIsOpenMember} />
-                        {token ? (
-                            <Link href="/member/points">
+                        {getUser.accessToken ? (
+                            <Link href="/member/points" prefetch={false}>
                                 <a className="wishlist-link">
                                     <i className="icon-user"></i>
                                 </a>

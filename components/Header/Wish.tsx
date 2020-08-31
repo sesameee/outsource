@@ -18,7 +18,7 @@ const Wish: React.FC = () => {
     }, [UserAuth, data, getShoppingCartListCookie, WishList])
     return (
         <>
-            <Link href={UserAuth.accessToken ? '/member/wishList' : '/wishlist'}>
+            <Link href={UserAuth.accessToken ? '/member/wishList' : '/wishlist'} prefetch={false}>
                 <a className="wishlist-link">
                     <i className="icon-heart-o"></i>
                     {count > 0 && <span className="wishlist-count">{count}</span>}

@@ -31,10 +31,14 @@ const Recommend: React.FC<RecommendProps> = ({ t }: RecommendProps) => {
                         >
                             <div className="banner-content banner-content-center">
                                 <h3 className="banner-title text-white">
-                                    {item1 ? <Link href={`category/${item1?.cid}`}>{item1?.desc}</Link> : null}
+                                    {item1 ? (
+                                        <Link href={`category/${item1?.cid}`} prefetch={false}>
+                                            {item1?.desc}
+                                        </Link>
+                                    ) : null}
                                 </h3>
                                 {item1 ? (
-                                    <Link href={`category/${item1?.cid}`}>
+                                    <Link href={`category/${item1?.cid}`} prefetch={false}>
                                         <a className="btn btn-outline-white banner-link">Discover Now</a>
                                     </Link>
                                 ) : null}
@@ -53,10 +57,14 @@ const Recommend: React.FC<RecommendProps> = ({ t }: RecommendProps) => {
                         >
                             <div className="banner-content banner-content-center">
                                 <h3 className="banner-title text-white">
-                                    {item2 ? <Link href={`category/${item2?.cid}`}>{item2?.desc}</Link> : null}
+                                    {item2 ? (
+                                        <Link href={`category/${item2?.cid}`} prefetch={false}>
+                                            {item2?.desc}
+                                        </Link>
+                                    ) : null}
                                 </h3>
                                 {item2 ? (
-                                    <Link href={`category/${item2?.cid}`}>
+                                    <Link href={`category/${item2?.cid}`} prefetch={false}>
                                         <a className="btn btn-outline-white banner-link">Discover Now</a>
                                     </Link>
                                 ) : null}
@@ -72,10 +80,14 @@ const Recommend: React.FC<RecommendProps> = ({ t }: RecommendProps) => {
                         >
                             <div className="banner-content banner-content-center">
                                 <h3 className="banner-title text-white">
-                                    {item3 ? <Link href={`category/${item3?.cid}`}>{item3?.desc}</Link> : null}
+                                    {item3 ? (
+                                        <Link href={`category/${item3?.cid}`} prefetch={false}>
+                                            {item3?.desc}
+                                        </Link>
+                                    ) : null}
                                 </h3>
                                 {item3 ? (
-                                    <Link href={`category/${item3?.cid}`}>
+                                    <Link href={`category/${item3?.cid}`} prefetch={false}>
                                         <a className="btn btn-outline-white banner-link">Discover Now</a>
                                     </Link>
                                 ) : null}
@@ -96,10 +108,14 @@ const Recommend: React.FC<RecommendProps> = ({ t }: RecommendProps) => {
                         >
                             <div className="banner-content banner-content-center">
                                 <h3 className="banner-title text-white">
-                                    {item4 ? <Link href={`category/${item4?.cid}`}>{item4?.desc}</Link> : null}
+                                    {item4 ? (
+                                        <Link href={`category/${item4?.cid}`} prefetch={false}>
+                                            {item4?.desc}
+                                        </Link>
+                                    ) : null}
                                 </h3>
                                 {item4 ? (
-                                    <Link href={`category/${item4?.cid}`}>
+                                    <Link href={`category/${item4?.cid}`} prefetch={false}>
                                         <a className="btn btn-outline-white banner-link">Discover Now</a>
                                     </Link>
                                 ) : null}

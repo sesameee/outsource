@@ -113,7 +113,7 @@ const ForgetPassword: React.FC = (): JSX.Element => {
     ]
     return (
         <div className="page-wrapper">
-            <Header isIndex={false} token={''} />
+            <Header isIndex={false} />
             <main className="main">
                 <div
                     className="page-header text-center"
@@ -121,7 +121,8 @@ const ForgetPassword: React.FC = (): JSX.Element => {
                 >
                     <div className="container">
                         <h1 className="page-title">
-                            {t('forget_password_text_only')}<span></span>
+                            {t('forget_password_text_only')}
+                            <span></span>
                         </h1>
                     </div>
                 </div>

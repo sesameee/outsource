@@ -10,11 +10,10 @@ import PromoCode from '@/components/Cart/PromoCode'
 import { accAdd, accSubtr } from '@/utils'
 import Link from 'next/link'
 import { useTranslation } from '@/I18n'
+import { NextPage } from 'next'
 // import { withTranslation, i18n } from '@/I18n'
-type CartProps = {
-    token: string
-}
-const Cart: NextPage<any> = ({ token }: CartProps): JSX.Element => {
+
+const Cart: NextPage<any> = (): JSX.Element => {
     const { t } = useTranslation()
     const navMock = [
         {
@@ -48,7 +47,7 @@ const Cart: NextPage<any> = ({ token }: CartProps): JSX.Element => {
     }, [sum, priceArr, discountArr])
     return (
         <div className="page-wrapper">
-            <Header isIndex={false} token={token} />
+            <Header isIndex={false} />
             <main className="main">
                 <div
                     className="page-header text-center"
@@ -56,7 +55,8 @@ const Cart: NextPage<any> = ({ token }: CartProps): JSX.Element => {
                 >
                     <div className="container">
                         <h1 className="page-title">
-                            {t('shopping_cart')}<span></span>
+                            {t('shopping_cart')}
+                            <span></span>
                         </h1>
                     </div>
                 </div>
@@ -152,7 +152,9 @@ const Cart: NextPage<any> = ({ token }: CartProps): JSX.Element => {
                                             </tbody>
                                         </table>
                                         <Link href="/checkout" prefetch={true}>
-                                            <a className="btn btn-outline-primary-2 btn-order btn-block">{t('go_to_checkout')}</a>
+                                            <a className="btn btn-outline-primary-2 btn-order btn-block">
+                                                {t('go_to_checkout')}
+                                            </a>
                                         </Link>
                                     </div>
 
@@ -169,12 +171,6 @@ const Cart: NextPage<any> = ({ token }: CartProps): JSX.Element => {
             <Footer />
         </div>
     )
-}
-
-import cookies from 'next-cookies'
-import { NextPage, NextPageContext } from 'next'
-Cart.getInitialProps = async (ctx: NextPageContext) => {
-    return { token: cookies(ctx).token || '' }
 }
 
 export default Cart

@@ -5,7 +5,7 @@ import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 import { PayloadAction } from '@reduxjs/toolkit'
 
-import { WishModifyActions } from '@/store'
+import { WishModifyActions, WishListActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
 import { WishModifyReqData, WishModifyRspData } from '@/types/apis/wishModify'
 import { WISH_MODIFY } from '@/services/api/apiConfig'
@@ -33,7 +33,11 @@ export const fetchWishModifyEpic: Epic = (action$, state$) =>
                     accessToken: accessToken,
                 }).pipe(
                     mergeMap((res) => {
-                        return epicSuccessMiddleware(res, WishModifyActions.fetchWishModifySuccess(res.data))
+                        return epicSuccessMiddleware(
+                            res,
+                            WishModifyActions.fetchWishModifySuccess(res.data),
+                            WishListActions.fetchWishList(),
+                        )
                     }),
                     catchError((error: AxiosError | string) => {
                         const res = <AxiosError>error

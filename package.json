@@ -4,7 +4,7 @@
     "scripts": {
         "dev": "node dist/server.js",
         "build": "next build",
-        "start": "NODE_ENV=production node dist/server.js",
+        "start": "NODE_ENV=production node --max-old-space-size=8048 dist/server.js",
         "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
         "build_server": "webpack --mode=development",
         "build_server_p": "webpack --mode=production",

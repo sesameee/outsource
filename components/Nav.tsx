@@ -16,7 +16,13 @@ const Nav: React.FC<NavProps> = ({ navData }: NavProps) => {
                         const liClass = isLastIndex ? 'breadcrumb-item active' : 'breadcrumb-item'
                         return (
                             <li className={liClass} key={index}>
-                                {item.link ? <Link href={item.link}>{item.title}</Link> : item.title}
+                                {item.link ? (
+                                    <Link href={item.link} prefetch={false}>
+                                        {item.title}
+                                    </Link>
+                                ) : (
+                                    item.title
+                                )}
                             </li>
                         )
                     })}

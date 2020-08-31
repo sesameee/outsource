@@ -65,7 +65,7 @@ const Cart: React.FC<CartProps> = ({ setIsOpenMember }: CartProps) => {
                                 <div className="product" key={index}>
                                     <div className="product-cart-details">
                                         <h4 className="product-title">
-                                            <Link href={`/product/${item.cid}/${item.pid}`}>
+                                            <Link href={`/product/${item.cid}/${item.pid}`} prefetch={false}>
                                                 <a>{item.productName || item.pName}</a>
                                             </Link>
                                         </h4>
@@ -76,7 +76,7 @@ const Cart: React.FC<CartProps> = ({ setIsOpenMember }: CartProps) => {
                                     </div>
 
                                     <figure className="product-image-container">
-                                        <Link href={`/product/${item.cid}/${item.pid}`}>
+                                        <Link href={`/product/${item.cid}/${item.pid}`} prefetch={false}>
                                             <a className="product-image">
                                                 <img src={item.imageUrl} alt="product" />
                                             </a>
@@ -123,7 +123,7 @@ const Cart: React.FC<CartProps> = ({ setIsOpenMember }: CartProps) => {
                     )}
 
                     {UserAuth.accessToken ? (
-                        <Link href="/checkout" prefetch={false}>
+                        <Link href="/checkout">
                             <a className="btn btn-outline-primary-2">
                                 <span>{t('checkout')}</span>
                                 <i className="icon-long-arrow-right"></i>

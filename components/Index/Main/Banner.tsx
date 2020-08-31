@@ -39,7 +39,7 @@ const Banner: React.FC = () => {
                     <div className="product product-4" key={index}>
                         <figure className="product-media">
                             {item?.contentType == '1' ? (
-                                <Link href={`category/${item.categoryType}`}>
+                                <Link href={`category/${item.categoryType}`} prefetch={false}>
                                     <img src={item?.sourceUrl} alt="Product image" className="product-image" />
                                 </Link>
                             ) : (
@@ -51,7 +51,9 @@ const Banner: React.FC = () => {
                         <div className="product-body">
                             <h3 className="product-title text-center">
                                 {item?.contentType == '1' ? (
-                                    <Link href={`category/${item.categoryType}`}>{item?.desc}</Link>
+                                    <Link href={`category/${item.categoryType}`} prefetch={false}>
+                                        {item?.desc}
+                                    </Link>
                                 ) : (
                                     <a href={item?.linkUrl} target="blank">
                                         {item?.desc}

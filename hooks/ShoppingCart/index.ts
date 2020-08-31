@@ -45,7 +45,6 @@ export const useShoppingCartModifyHandler = (): any => {
     const getCartList = useSelector(ShoppingCartListSelectors.getShoppingCartListCookie)
     const handleCart = useCallback(
         (action: string, shoppingCartProductList: [], itemData: any) => {
-            console.log('shoppingCartProductList :>> ', shoppingCartProductList)
             if (getUser.accessToken) {
                 return dispatch(
                     ShoppingCartModifyActions.fetchShoppingCartModify({

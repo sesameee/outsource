@@ -22,7 +22,7 @@ const Member: React.FC<MemberProps> = ({ t }: MemberProps): JSX.Element => {
 
     return (
         <div className="page-wrapper">
-            <Header isIndex={false} token="" />
+            <Header isIndex={false} />
             <main className="main">
                 <div
                     className="page-header text-center"
@@ -30,7 +30,8 @@ const Member: React.FC<MemberProps> = ({ t }: MemberProps): JSX.Element => {
                 >
                     <div className="container">
                         <h1 className="page-title">
-                            {t('about_breeze')}<span></span>
+                            {t('about_breeze')}
+                            <span></span>
                         </h1>
                     </div>
                 </div>
@@ -39,9 +40,7 @@ const Member: React.FC<MemberProps> = ({ t }: MemberProps): JSX.Element => {
                 <div className="container about">
                     <img src="/images/custom/about.jpg" />
                     <h2 className="title text-left mb-3">{t('about_breeze')}</h2>
-                    <p style={{ marginBottom: '4rem' }}>
-                        {t('mission_statement')}
-                    </p>
+                    <p style={{ marginBottom: '4rem' }}>{t('mission_statement')}</p>
                 </div>
             </main>
             <Footer />

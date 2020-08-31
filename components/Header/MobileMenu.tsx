@@ -37,7 +37,11 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ IsOpenMenu, setIsOpenMenu }: Mo
                     <ul>
                         {channelList.map((item, index) => {
                             return (
-                                <li key={index} className="menu-li" onClick={() => handelSubMenu(index)}>
+                                <li
+                                    key={index}
+                                    className={`menu-li ${item.isMarkColor ? 'highlight-color' : ''}`}
+                                    onClick={() => handelSubMenu(index)}
+                                >
                                     {item.channelName} <i className="demo-icon icon-angle-right"></i>
                                 </li>
                             )
@@ -128,7 +132,10 @@ const MobileSubMenu: React.FC<MobileSubMenuProps> = ({
                                                 </a>
                                             ) : (
                                                 <div className="no-arrow">
-                                                    <Link href={`/category/${subList.cid}/${item.cid}`}>
+                                                    <Link
+                                                        href={`/category/${subList.cid}/${item.cid}`}
+                                                        prefetch={false}
+                                                    >
                                                         {item.cName}
                                                     </Link>
                                                 </div>
@@ -146,6 +153,7 @@ const MobileSubMenu: React.FC<MobileSubMenuProps> = ({
                                                         return (
                                                             <li key={index}>
                                                                 <Link
+                                                                    prefetch={false}
                                                                     href={`/category/${subList.cid}/${item.cid}/${subItem.cid}`}
                                                                 >
                                                                     {subItem.cName}

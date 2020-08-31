@@ -9,7 +9,7 @@ type ItemListProps = {
 const ItemList: React.FC<ItemListProps> = ({ cName, cId = '01' }: ItemListProps) => {
     return (
         <li className="megamenu-container">
-            <Link href={`/category/${cId}`}>
+            <Link href={`/category/${cId}`} prefetch={false}>
                 <a className="sf-with-ul">{cName}</a>
             </Link>
         </li>

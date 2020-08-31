@@ -48,7 +48,7 @@ const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect, ca
                         <div className="col-6 col-md-4 col-lg-4" key={index}>
                             <div className="product product-7 text-center">
                                 <figure className="product-media">
-                                    <Link href={`/product/${item.cid}/${item.pid}`}>
+                                    <Link href={`/product/${item.cid}/${item.pid}`} prefetch={false}>
                                         <div
                                             className="product-item-img"
                                             style={{ backgroundImage: `url(${item.imageUrl})` }}
@@ -102,12 +102,12 @@ const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect, ca
 
                                 <div className="product-body">
                                     <div className="product-cat">
-                                        <Link href={`/category/${item._categoryType}/${item._cid}`}>
+                                        <Link href={`/category/${item._categoryType}/${item._cid}`} prefetch={false}>
                                             <a>{item._cName}</a>
                                         </Link>
                                     </div>
                                     <h3 className="product-title">
-                                        <Link href={`/product/${item.cid}/${item.pid}`}>
+                                        <Link href={`/product/${item.cid}/${item.pid}`} prefetch={false}>
                                             <a>{item.pName}</a>
                                         </Link>
                                     </h3>

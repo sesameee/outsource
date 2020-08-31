@@ -11,14 +11,16 @@ const ItemSubList: React.FC<ItemSubListProps> = ({ cName, cData, cPId, cId }: It
     return (
         <div className="sub-item">
             <div className="menu-col">
-                <Link href={`/category/${cPId}/${cId}`}>
+                <Link href={`/category/${cPId}/${cId}`} prefetch={false}>
                     <div className="menu-title">{cName}</div>
                 </Link>
                 <ul>
                     {cData.map((item, index) => {
                         return (
                             <li key={index}>
-                                <Link href={`/category/${cPId}/${cId}/${item.cid}`}>{item.cName}</Link>
+                                <Link href={`/category/${cPId}/${cId}/${item.cid}`} prefetch={false}>
+                                    {item.cName}
+                                </Link>
                             </li>
                         )
                     })}

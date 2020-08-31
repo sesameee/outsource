@@ -8,7 +8,7 @@ import { navData } from '@/types/components/nav'
 import { useTranslation } from '@/I18n'
 import MemberRoute from '@/components/Member/MemberRoute'
 import { useRouter } from 'next/router'
-import { NextPageContext, NextPage } from 'next'
+import { NextPage } from 'next'
 import PasswordModify from '@/components/Member/PasswordModify'
 import Points from '@/components/Member/Points'
 import Order from '@/components/Member/Order'
@@ -40,11 +40,8 @@ const SidePageFrom: React.FC<SidePageFromProps> = ({ pageName }: SidePageFromPro
             return <PasswordModify />
     }
 }
-type MemberProps = {
-    token: string
-}
 
-const Member: NextPage<any> = ({ token }: MemberProps): JSX.Element => {
+const Member: NextPage<any> = (): JSX.Element => {
     const { t } = useTranslation()
     const navList: navData[] = [
         {
@@ -83,7 +80,7 @@ const Member: NextPage<any> = ({ token }: MemberProps): JSX.Element => {
 
     return (
         <div className="page-wrapper">
-            <Header isIndex={false} token={token} />
+            <Header isIndex={false} />
             <main className="main">
                 <div
                     className="page-header text-center"
@@ -109,11 +106,6 @@ const Member: NextPage<any> = ({ token }: MemberProps): JSX.Element => {
             <Footer />
         </div>
     )
-}
-
-import cookies from 'next-cookies'
-Member.getInitialProps = async (ctx: NextPageContext) => {
-    return { token: cookies(ctx).token || '' }
 }
 
 export default Member
