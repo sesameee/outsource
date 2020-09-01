@@ -2,13 +2,11 @@ import React, { memo, useEffect } from 'react'
 import { WishListSelectors, UserLoginSelectors } from '@/store'
 import { useSelector } from 'react-redux'
 import { useTranslation } from '@/I18n'
-import { useShoppingCartModifyHandler } from '@/hooks/ShoppingCart'
 import { useWishModifyHandler } from '@/hooks/Wish'
 import Link from 'next/link'
 
 const WishList: React.FC = () => {
     const { t } = useTranslation()
-    const { handleCart } = useShoppingCartModifyHandler()
     const { handleWish } = useWishModifyHandler()
     const UserAuth = useSelector(UserLoginSelectors.getUserLoginData)
     const { data } = useSelector(WishListSelectors.getWishList)

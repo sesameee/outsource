@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useTranslation } from '@/I18n'
 import { useForm } from 'react-hook-form'
 import { UserLoginReqData } from '@/types/apis/userLogin'
 import { useUserLoginHandler } from '@/hooks/UserLogin'
-import { useSelector } from 'react-redux'
-import { UserLoginSelectors, ShoppingCartListSelectors } from '@/store'
-import { useRouter } from 'next/router'
-import { useShoppingCartModifyHandler } from '@/hooks/ShoppingCart'
 
 type LoginProps = {
     setPropIsOpenFn: any
