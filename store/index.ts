@@ -30,6 +30,7 @@ import * as ForgotPasswordSelectors from './forgotPassword/selectors'
 import * as ResetPasswordSelectors from './resetPassword/selectors'
 import * as UserSetupSelectors from './userSetup/selectors'
 import * as UserPointsSelectors from './userPoints/selectors'
+import * as LoginDialogSelectors from './loginDialog/selectors'
 import { googleBookSlice, googleCreateActions } from './googleBooks/slice'
 import { bannerSlice, bannerCreateActions } from './banner/slice'
 import { catalogSlice, catalogCreateActions } from './catalog/slice'
@@ -38,6 +39,7 @@ import { breezeDailySlice, breezeDailyCreateActions } from './breezeDaily/slice'
 import { userLoginSlice, userLoginCreateActions } from './userLogin/slice'
 import { productInfoSlice, productInfoCreateActions } from './productInfo/slice'
 import { errorAlertSlice } from './errorAlert/slice'
+import { loginDialogSlice } from './loginDialog/slice'
 import { wishListSlice, wishListCreateActions } from './wishList/slice'
 import { shoppingCartListSlice, shoppingCartListCreateActions } from './shoppingCartList/slice'
 import { shoppingCartModifySlice, shoppingCartModifyCreateActions } from './shoppingCartModify/slice'
@@ -100,6 +102,10 @@ const ProductInfoActions = {
 
 const ErrorAlertActions = {
     ...errorAlertSlice.actions,
+}
+
+const LoginDialogActions = {
+    ...loginDialogSlice.actions,
 }
 
 const WishListActions = {
@@ -239,6 +245,8 @@ export {
     ProductInfoSelectors,
     ErrorAlertActions,
     ErrorAlertSelectors,
+    LoginDialogActions,
+    LoginDialogSelectors,
     WishListActions,
     WishListSelectors,
     ShoppingCartListActions,

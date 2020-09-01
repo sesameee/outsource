@@ -54,7 +54,6 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
         })
 
     const handleAddCart = () => {
-        console.log('productData :>> ', productData)
         handleCart(
             'add',
             [

@@ -13,6 +13,7 @@ import { useUserLoginHandler } from '@/hooks/UserLogin'
 import { useWishList } from '@/hooks/Wish'
 import { useSelector } from 'react-redux'
 import { UserLoginSelectors } from '@/store'
+import { UseLoginDialog } from '@/hooks/LoginDialog'
 
 type HeaderProps = {
     isIndex: boolean
@@ -20,7 +21,7 @@ type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = ({ isIndex }: HeaderProps) => {
     useWishList()
-    const [IsOpenMember, setIsOpenMember] = React.useState(false)
+    const { IsOpenMember, setIsOpenMember } = UseLoginDialog()
     const [itemHoverIndex, setItemHoverIndex] = React.useState<null | number>(null)
     const [IsOpenMenu, setIsOpenMenu] = React.useState(false)
     const headerClass = isIndex ? 'header header-9' : 'header'

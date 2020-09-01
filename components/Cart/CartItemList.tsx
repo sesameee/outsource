@@ -1,6 +1,6 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect } from 'react'
 
-import { ShoppingCartListSelectors, PromoCodeSelectors } from '@/store'
+import { ShoppingCartListSelectors, PromoCodeSelectors, UserLoginSelectors } from '@/store'
 import { useSelector } from 'react-redux'
 import NumberInput from '../commons/NumberInput'
 import { ShoppingCartProductData } from '@/types/apis/common'
@@ -13,12 +13,24 @@ type CartItemProps = {
     setSum: any
 }
 const CartItemList: React.FC<CartItemProps> = ({ sum, setSum }: CartItemProps) => {
-    const shoppingCartListData = useSelector(ShoppingCartListSelectors.getShoppingCartItemList)
+    const UserAuth = useSelector(UserLoginSelectors.getUserLoginData)
+    const getShoppingCartItemList = useSelector(ShoppingCartListSelectors.getShoppingCartItemList)
+    const getShoppingCartListCookie = useSelector(ShoppingCartListSelectors.getShoppingCartListCookie)
+    const [CartList, setCartList] = React.useState<any[]>([])
+
+    useEffect(() => {
+        if (UserAuth.accessToken) {
+            setCartList(getShoppingCartItemList)
+        } else {
+            setCartList(getShoppingCartListCookie)
+        }
+    }, [UserAuth, getShoppingCartItemList, getShoppingCartListCookie, CartList])
+
     const promoCodeData = useSelector(PromoCodeSelectors.promoCode)
     return (
         <tbody>
-            {shoppingCartListData &&
-                shoppingCartListData.map((item, index) => {
+            {CartList &&
+                CartList.map((item, index) => {
                     return (
                         <ItemDetail
                             key={index}

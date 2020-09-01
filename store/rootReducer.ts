@@ -7,6 +7,7 @@ import { channelListSlice } from '@/store/channelList/slice'
 import { userLoginSlice } from './userLogin/slice'
 import { productInfoSlice } from './productInfo/slice'
 import { errorAlertSlice } from './errorAlert/slice'
+import { loginDialogSlice } from './loginDialog/slice'
 import { wishListSlice } from './wishList/slice'
 import { shoppingCartListSlice } from './shoppingCartList/slice'
 import { shoppingCartModifySlice } from './shoppingCartModify/slice'
@@ -66,6 +67,7 @@ const rootReducer = combineReducers({
     resetPassword: resetPasswordSlice.reducer,
     userSetup: userSetupSlice.reducer,
     userPoints: userPointsSlice.reducer,
+    loginDialog: loginDialogSlice.reducer,
 })
 
 export default rootReducer

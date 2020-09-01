@@ -3,7 +3,7 @@ import Header from '@/components/Header'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import CartItemList from '@/components/Cart/CartItemList'
-import { ShoppingCartListSelectors, PromoCodeSelectors } from '@/store'
+import { ShoppingCartListSelectors, PromoCodeSelectors, UserLoginSelectors } from '@/store'
 import { useSelector } from 'react-redux'
 import { useShoppingCartList } from '@/hooks/ShoppingCart'
 import PromoCode from '@/components/Cart/PromoCode'
@@ -11,6 +11,7 @@ import { accAdd, accSubtr } from '@/utils'
 import Link from 'next/link'
 import { useTranslation } from '@/I18n'
 import { NextPage } from 'next'
+import { UseLoginDialog } from '@/hooks/LoginDialog'
 // import { withTranslation, i18n } from '@/I18n'
 
 const Cart: NextPage<any> = (): JSX.Element => {
@@ -45,6 +46,8 @@ const Cart: NextPage<any> = (): JSX.Element => {
             setDisCountamount(disNum)
         }
     }, [sum, priceArr, discountArr])
+    const getUser = useSelector(UserLoginSelectors.getUserLoginData)
+    const { setIsOpenMember } = UseLoginDialog()
     return (
         <div className="page-wrapper">
             <Header isIndex={false} />
@@ -151,11 +154,20 @@ const Cart: NextPage<any> = (): JSX.Element => {
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <Link href="/checkout" prefetch={true}>
-                                            <a className="btn btn-outline-primary-2 btn-order btn-block">
+                                        {!getUser.accessToken ? (
+                                            <a
+                                                onClick={() => setIsOpenMember(true)}
+                                                className="btn btn-outline-primary-2 btn-order btn-block"
+                                            >
                                                 {t('go_to_checkout')}
                                             </a>
-                                        </Link>
+                                        ) : (
+                                            <Link href="/checkout">
+                                                <a className="btn btn-outline-primary-2 btn-order btn-block">
+                                                    {t('go_to_checkout')}
+                                                </a>
+                                            </Link>
+                                        )}
                                     </div>
 
                                     {/* <a href="category.html" className="btn btn-outline-dark-2 btn-block mb-3">

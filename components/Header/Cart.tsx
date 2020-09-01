@@ -31,21 +31,7 @@ const Cart: React.FC<CartProps> = ({ setIsOpenMember }: CartProps) => {
     }, [UserAuth, getShoppingCartItemList, getShoppingCartListCookie, CartList])
     return (
         <div className="dropdown cart-dropdown">
-            {UserAuth.accessToken ? (
-                <Link href="/cart">
-                    <a
-                        className="dropdown-toggle"
-                        role="button"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                        data-display="static"
-                    >
-                        <i className="icon-shopping-cart"></i>
-                        {count > 0 && <span className="cart-count">{count}</span>}
-                    </a>
-                </Link>
-            ) : (
+            <Link href="/cart">
                 <a
                     className="dropdown-toggle"
                     role="button"
@@ -53,12 +39,11 @@ const Cart: React.FC<CartProps> = ({ setIsOpenMember }: CartProps) => {
                     aria-haspopup="true"
                     aria-expanded="false"
                     data-display="static"
-                    onClick={() => setIsOpenMember(true)}
                 >
                     <i className="icon-shopping-cart"></i>
                     {count > 0 && <span className="cart-count">{count}</span>}
                 </a>
-            )}
+            </Link>
 
             <div className="dropdown-menu dropdown-menu-right">
                 <div className="dropdown-cart-products">
@@ -112,15 +97,9 @@ const Cart: React.FC<CartProps> = ({ setIsOpenMember }: CartProps) => {
                     <span className="cart-total-price">${total}</span>
                 </div>
                 <div className="dropdown-cart-action">
-                    {UserAuth.accessToken ? (
-                        <Link href="/cart">
-                            <a className="btn btn-primary">{t('go_to_cart')}</a>
-                        </Link>
-                    ) : (
-                        <a href="#" className="btn btn-primary" onClick={() => setIsOpenMember(true)}>
-                            {t('go_to_cart')}
-                        </a>
-                    )}
+                    <Link href="/cart">
+                        <a className="btn btn-primary">{t('go_to_cart')}</a>
+                    </Link>
 
                     {UserAuth.accessToken ? (
                         <Link href="/checkout">

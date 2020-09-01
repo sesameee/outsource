@@ -28,12 +28,9 @@ export const useUserLoginHandler = (): any => {
             token: getUser.token,
         })
         useEffect(() => {
-            console.log('parms.accessToken :>> ', parms.accessToken)
-            console.log('getUser.accessToken :>> ', getUser.accessToken)
             const isNoToken = getUser.accessToken == ''
             if (parms.accessToken != getUser.accessToken) {
                 if (getUser.accessToken == '' && getUser.token == '') {
-                    console.log('router.pathname :>> ', router.pathname)
                     router.push('/')
                 }
                 setParms({
@@ -41,7 +38,6 @@ export const useUserLoginHandler = (): any => {
                     token: getUser.token,
                 })
             } else {
-                console.log('router.pathnameA :>> ', router.pathname)
                 if (router.pathname.indexOf('member') != -1 && isNoToken) {
                     router.push('/')
                 }
@@ -77,7 +73,16 @@ export const useUserLoginHandler = (): any => {
         useEffect(() => {
             if (accessToken != success.accessToken && success.accessToken) {
                 if (cartList.length > 0) {
-                    handleCart('add', cartList, {})
+                    const newList = cartList.map((item) => {
+                        return {
+                            cid: item.cid,
+                            pid: item.pid,
+                            spec1: item.spec1,
+                            spec2: item.spec2,
+                            qty: item.qty,
+                        }
+                    })
+                    handleCart('add', newList, {})
                 }
             }
         }, [success.accessToken, cartList, accessToken, handleCart])
@@ -86,7 +91,16 @@ export const useUserLoginHandler = (): any => {
         useEffect(() => {
             if (accessToken != success.accessToken && success.accessToken) {
                 if (wishList.length > 0) {
-                    handleWish('add', wishList, {})
+                    const newList = wishList.map((item: any) => {
+                        return {
+                            cid: item.cid,
+                            pid: item.pid,
+                            spec1: item.spec1,
+                            spec2: item.spec2,
+                            qty: item.qty,
+                        }
+                    })
+                    handleWish('add', newList, {})
                 }
             }
         }, [success.accessToken, wishList, accessToken, handleWish])
