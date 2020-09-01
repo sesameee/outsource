@@ -2,7 +2,7 @@
     "name": "with-redux-observable",
     "version": "1.0.0",
     "scripts": {
-        "dev": "node dist/server.js",
+        "dev": "node dev/server.js",
         "build": "next build",
         "start": "NODE_ENV=production node --max-old-space-size=8048 dist/server.js",
         "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
