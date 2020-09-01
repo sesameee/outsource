@@ -54,6 +54,7 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
         })
 
     const handleAddCart = () => {
+        console.log('productData :>> ', productData)
         handleCart(
             'add',
             [
@@ -66,8 +67,7 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
                 },
             ],
             {
-                cid: productData.cid,
-                pid: productData.pid,
+                ...productData,
                 spec1: spec1,
                 spec2: spec2,
                 qty: amount,

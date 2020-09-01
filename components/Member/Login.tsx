@@ -15,43 +15,11 @@ type LoginProps = {
 const Login: React.FC<LoginProps> = ({ setPropIsOpenFn }: LoginProps) => {
     const { t } = useTranslation()
     const { register, handleSubmit } = useForm<UserLoginReqData>()
-    const { handleLoginSubmit } = useUserLoginHandler()
-    const success = useSelector(UserLoginSelectors.getUserLoginData)
-    const cartList = useSelector(ShoppingCartListSelectors.getShoppingCartListCookie)
-    const router = useRouter()
-    const { handleCart } = useShoppingCartModifyHandler()
-    const [accessToken, setAccessToken] = useState(success.accessToken)
-
-    useEffect(() => {
-        if (success.accessToken) {
-            setAccessToken(success.accessToken)
-        }
-    }, [success.accessToken, setAccessToken])
-
-    // 登入成功後關閉彈窗和轉址
-    useEffect(() => {
-        if (accessToken != success.accessToken && success.accessToken) {
-            console.log('router.pathname :>> ', router.pathname)
-            // if (router.pathname != '/') {
-            //     router.push('/')
-            // }
-            setPropIsOpenFn(false)
-        }
-    }, [setPropIsOpenFn, success.accessToken, router, accessToken])
-
-    // 登入成功後新增購物車
-    useEffect(() => {
-        if (accessToken != success.accessToken && success.accessToken) {
-            console.log('cartList :>> ', cartList)
-            if (cartList.length > 0) {
-                handleCart('add', cartList, {})
-            }
-        }
-    }, [success.accessToken, cartList, accessToken, handleCart])
-
+    const { handleLoginSubmit, UseLoginSuccess } = useUserLoginHandler()
     const onSubmit = (data: UserLoginReqData) => {
         handleLoginSubmit(data)
     }
+    UseLoginSuccess(setPropIsOpenFn)
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="login-form">
             <div className="desc">{t('login_desc_01')}</div>

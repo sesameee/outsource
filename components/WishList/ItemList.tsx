@@ -43,33 +43,12 @@ const WishList: React.FC = () => {
                         </td>
                         <td className="price-col">${item.price}</td>
                         <td className="action-col">
-                            <button
-                                className="btn btn-block btn-outline-primary-2"
-                                onClick={() => {
-                                    handleCart(
-                                        'add',
-                                        [
-                                            {
-                                                cid: item.cid,
-                                                pid: item.pid,
-                                                spec1: '',
-                                                spec2: '',
-                                                qty: 1,
-                                            },
-                                        ],
-                                        {
-                                            cid: item.cid,
-                                            pid: item.pid,
-                                            spec1: '',
-                                            spec2: '',
-                                            qty: 1,
-                                        },
-                                    )
-                                }}
-                            >
-                                <i className="icon-cart-plus"></i>
-                                {t('add_to_cart')}
-                            </button>
+                            <Link href={`/product/${item.cid}/${item.pid}`} prefetch={false}>
+                                <button className="btn btn-block btn-outline-primary-2">
+                                    <i className="icon-cart-plus"></i>
+                                    {t('add_to_cart')}
+                                </button>
+                            </Link>
                         </td>
                         <td className="remove-col">
                             <button

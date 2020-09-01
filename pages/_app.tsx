@@ -25,7 +25,7 @@ const cookieServerProgress = (ctx: NextPageContext) => {
     const token = cookies(ctx).token !== undefined ? (cookies(ctx).token as string) : ''
     const accessToken = cookies(ctx).accessToken !== undefined ? (cookies(ctx).accessToken as string) : ''
     const cartList = cookies(ctx).cartList !== undefined ? (cookies(ctx).cartList as string) : ''
-    const wishist = cookies(ctx).wishist !== undefined ? (cookies(ctx).wishist as string) : ''
+    const wishList = cookies(ctx).wishList !== undefined ? (cookies(ctx).wishList as string) : ''
     const UserLoginData = {
         code: '0000',
         data: {
@@ -39,7 +39,7 @@ const cookieServerProgress = (ctx: NextPageContext) => {
     }
     accessToken && ctx.store.dispatch(UserLoginActions.fetchUserLoginSuccess({ UserLoginData }))
     cartList && ctx.store.dispatch(ShoppingCartListActions.setShoppingCartListCookie({ data: cartList }))
-    wishist && ctx.store.dispatch(WishListActions.setWishListCookie({ data: wishist }))
+    wishList && ctx.store.dispatch(WishListActions.setWishListCookie({ data: wishList }))
 }
 class MyApp extends App {
     static async getInitialProps({ Component, ctx }: AppContext) {

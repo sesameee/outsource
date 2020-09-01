@@ -1,6 +1,6 @@
 import { useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { WishListActions, WishModifyActions, UserLoginSelectors, WishListSelectors } from '@/store'
+import { WishListActions, WishModifyActions, UserLoginSelectors, WishListSelectors, ErrorAlertActions } from '@/store'
 import { useTranslation } from '@/I18n'
 
 export const useWishList = (): void => {
@@ -36,32 +36,54 @@ export const useWishModifyHandler = (): any => {
     const handleWish = useCallback(
         (action: string, shoppingCartProductList: [], itemData: any) => {
             if (getUser.accessToken) {
-                return dispatch(
-                    WishModifyActions.fetchWishModify({
-                        action: action,
-                        memberId: '',
-                        shoppingWishProductList: shoppingCartProductList,
-                        accessToken: '',
-                    }),
+                return (
+                    dispatch(
+                        WishModifyActions.fetchWishModify({
+                            action: action,
+                            memberId: '',
+                            shoppingWishProductList: shoppingCartProductList,
+                            accessToken: '',
+                        }),
+                    ) &&
+                    dispatch(
+                        WishListActions.setWishListCookie({
+                            data: [],
+                        }),
+                    )
                 )
             } else {
                 if (action == 'add') {
+                    let newWish = getWishList
                     if (getWishList.length > 0) {
-                        getWishList.push(itemData)
+                        let isAdd = false
+                        newWish = getWishList.map((item: any) => {
+                            if (item.cid == itemData.cid && item.pid == itemData.pid) {
+                                isAdd = true
+                                return { ...item, qty: item.qty + itemData.qty }
+                            }
+                            return item
+                        })
+                        if (!isAdd) {
+                            newWish.push(itemData)
+                        }
                     }
-                    return dispatch(
-                        WishListActions.setWishListCookie({
-                            data: getWishList.length > 0 ? getWishList : [itemData],
-                        }),
+                    return (
+                        dispatch(
+                            WishListActions.setWishListCookie({
+                                data: newWish.length > 0 ? newWish : [itemData],
+                            }),
+                        ) && dispatch(ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: '您已新增至願望清單' }))
                     )
                 } else if (action == 'delete') {
                     if (getWishList.length > 0) {
                         getWishList.splice(itemData, 1)
                     }
-                    return dispatch(
-                        WishListActions.setWishListCookie({
-                            data: getWishList,
-                        }),
+                    return (
+                        dispatch(
+                            WishListActions.setWishListCookie({
+                                data: getWishList,
+                            }),
+                        ) && dispatch(ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: '您已刪除' }))
                     )
                 }
             }

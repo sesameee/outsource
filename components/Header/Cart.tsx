@@ -16,7 +16,11 @@ const Cart: React.FC<CartProps> = ({ setIsOpenMember }: CartProps) => {
     const getShoppingCartListCookie = useSelector(ShoppingCartListSelectors.getShoppingCartListCookie)
     let total = 0
     const [CartList, setCartList] = React.useState<any[]>([])
-    const count = CartList && CartList.length
+    const count =
+        CartList &&
+        CartList.reduce((accumulator, currentItem) => {
+            return accumulator + currentItem.qty
+        }, 0)
     const { handleCart } = useShoppingCartModifyHandler()
     useEffect(() => {
         if (UserAuth.accessToken) {

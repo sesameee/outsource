@@ -9,6 +9,7 @@ const Wish: React.FC = () => {
     const getShoppingCartListCookie = useSelector(WishListSelectors.getWishListCookie)
     const [WishList, setWishList] = React.useState<any[]>([])
     const count = WishList && WishList.length
+
     useEffect(() => {
         if (UserAuth.accessToken) {
             setWishList(data)

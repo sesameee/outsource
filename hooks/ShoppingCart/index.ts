@@ -63,13 +63,24 @@ export const useShoppingCartModifyHandler = (): any => {
                 )
             } else {
                 if (action == 'add') {
+                    let newCart = getCartList
                     if (getCartList.length > 0) {
-                        getCartList.push(itemData)
+                        let isAdd = false
+                        newCart = getCartList.map((item) => {
+                            if (item.cid == itemData.cid && item.pid == itemData.pid) {
+                                isAdd = true
+                                return { ...item, qty: item.qty + itemData.qty }
+                            }
+                            return item
+                        })
+                        if (!isAdd) {
+                            newCart.push(itemData)
+                        }
                     }
                     return (
                         dispatch(
                             ShoppingCartListActions.setShoppingCartListCookie({
-                                data: getCartList.length > 0 ? getCartList : [itemData],
+                                data: newCart.length > 0 ? newCart : [itemData],
                             }),
                         ) && dispatch(ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: '您已新增至購物車' }))
                     )
