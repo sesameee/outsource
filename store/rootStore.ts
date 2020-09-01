@@ -21,7 +21,6 @@ export const setupStore = (preloadedState: any) => {
         middleware: [epicMiddleware],
     })
     epicMiddleware.run(rootEpic)
-
     return store
 }
 
