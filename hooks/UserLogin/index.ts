@@ -38,7 +38,7 @@ export const useUserLoginHandler = (): any => {
                     token: getUser.token,
                 })
             } else {
-                if (router.pathname.indexOf('member') != -1 && isNoToken) {
+                if ((router.pathname.indexOf('member') != -1 || router.pathname == '/checkout') && isNoToken) {
                     router.push('/')
                 }
             }

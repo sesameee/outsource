@@ -43,104 +43,109 @@ export const useCheckoutHandler = (): any => {
     const [isSet, setIsSet] = useState(false)
     const useSetupTabPay = (handleGoogleSubmit: any): void => {
         useEffect(() => {
-            if (typeof window !== 'undefined' && !isSet) {
-                setIsSet(true)
-                window.TPDirect.setupSDK(TAP_PAY_ID, TAP_PAY_CODE, 'sandbox')
+            if (isSet) {
+                return
+            }
+            if (typeof window !== 'undefined') {
+                if (window.TPDirect) {
+                    setIsSet(true)
+                    window.TPDirect.setupSDK(TAP_PAY_ID, TAP_PAY_CODE, 'sandbox')
 
-                const fields = {
-                    number: {
-                        // css selector
-                        element: '#card-number',
-                        placeholder: '**** **** **** ****',
-                    },
-                    expirationDate: {
-                        // DOM object
-                        element: document.getElementById('card-expiration-date'),
-                        placeholder: 'MM / YY',
-                    },
-                    ccv: {
-                        element: '#card-ccv',
-                        placeholder: 'ccv',
-                    },
-                }
-                window.TPDirect.card.setup({
-                    // Display ccv field
-
-                    fields: fields,
-                    styles: {
-                        // Style all elements
-                        input: {
-                            color: 'black',
+                    const fields = {
+                        number: {
+                            // css selector
+                            element: '#card-number',
+                            placeholder: '**** **** **** ****',
                         },
-                        // Styling ccv field
-                        'input.ccv': {
-                            // 'font-size': '16px'
+                        expirationDate: {
+                            // DOM object
+                            element: document.getElementById('card-expiration-date'),
+                            placeholder: 'MM / YY',
                         },
-                        // Styling expiration-date field
-                        'input.expiration-date': {
-                            // 'font-size': '16px'
+                        ccv: {
+                            element: '#card-ccv',
+                            placeholder: 'ccv',
                         },
-                        // Styling card-number field
-                        'input.card-number': {
-                            'font-size': '0.7rem',
-                            'line-height': '42px',
-                        },
-                        // style focus state
-                        ':focus': {
-                            // 'color': 'black'
-                        },
-                        // style valid state
-                        '.valid': {
-                            color: 'green',
-                        },
-                        // style invalid state
-                        '.invalid': {
-                            color: 'red',
-                        },
-                    },
-                })
-
-                const googlePaySetting = {
-                    googleMerchantId: 'Come from google portal',
-                    tappayGoogleMerchantId: 'Come from tappay portal',
-                    allowedCardAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
-                    merchantName: 'TapPay Test!',
-                    emailRequired: true, // optional
-                    shippingAddressRequired: true, // optional,
-                    billingAddressRequired: true, // optional
-                    billingAddressFormat: 'MIN', // FULL, MIN
-
-                    allowPrepaidCards: true,
-                    allowedCountryCodes: ['TW'],
-
-                    phoneNumberRequired: true, // optional
-                }
-                window.TPDirect.googlePay.setupGooglePay(googlePaySetting)
-
-                const paymentRequest = {
-                    allowedNetworks: ['AMEX', 'JCB', 'MASTERCARD', 'VISA'],
-                    price: '123', // optional
-                    currency: 'TWD', // optional
-                }
-                window.TPDirect.googlePay.setupPaymentRequest(paymentRequest, function (err: any, result: any) {
-                    if (err) {
-                        alert(`Google Pay Error: ${err}`)
                     }
-                    if (result.canUseGooglePay) {
-                        window.TPDirect.googlePay.setupGooglePayButton({
-                            el: '#google-container',
-                            color: 'black',
-                            type: 'long',
-                            getPrimeCallback: (cbErr: any, prime: any) => {
-                                if (cbErr) {
-                                    alert(`Google Pay Error: ${cbErr}`)
-                                    return
-                                }
-                                handleGoogleSubmit(prime)
+                    window.TPDirect.card.setup({
+                        // Display ccv field
+
+                        fields: fields,
+                        styles: {
+                            // Style all elements
+                            input: {
+                                color: 'black',
                             },
-                        })
+                            // Styling ccv field
+                            'input.ccv': {
+                                // 'font-size': '16px'
+                            },
+                            // Styling expiration-date field
+                            'input.expiration-date': {
+                                // 'font-size': '16px'
+                            },
+                            // Styling card-number field
+                            'input.card-number': {
+                                'font-size': '0.7rem',
+                                'line-height': '42px',
+                            },
+                            // style focus state
+                            ':focus': {
+                                // 'color': 'black'
+                            },
+                            // style valid state
+                            '.valid': {
+                                color: 'green',
+                            },
+                            // style invalid state
+                            '.invalid': {
+                                color: 'red',
+                            },
+                        },
+                    })
+
+                    const googlePaySetting = {
+                        googleMerchantId: 'Come from google portal',
+                        tappayGoogleMerchantId: 'Come from tappay portal',
+                        allowedCardAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
+                        merchantName: 'TapPay Test!',
+                        emailRequired: true, // optional
+                        shippingAddressRequired: true, // optional,
+                        billingAddressRequired: true, // optional
+                        billingAddressFormat: 'MIN', // FULL, MIN
+
+                        allowPrepaidCards: true,
+                        allowedCountryCodes: ['TW'],
+
+                        phoneNumberRequired: true, // optional
                     }
-                })
+                    window.TPDirect.googlePay.setupGooglePay(googlePaySetting)
+
+                    const paymentRequest = {
+                        allowedNetworks: ['AMEX', 'JCB', 'MASTERCARD', 'VISA'],
+                        price: '123', // optional
+                        currency: 'TWD', // optional
+                    }
+                    window.TPDirect.googlePay.setupPaymentRequest(paymentRequest, function (err: any, result: any) {
+                        if (err) {
+                            alert(`Google Pay Error:  ${JSON.stringify(err)}`)
+                        }
+                        if (result.canUseGooglePay) {
+                            window.TPDirect.googlePay.setupGooglePayButton({
+                                el: '#google-container',
+                                color: 'black',
+                                type: 'long',
+                                getPrimeCallback: (cbErr: any, prime: any) => {
+                                    if (cbErr) {
+                                        alert(`Google Pay Error: ${JSON.stringify(cbErr)}`)
+                                        return
+                                    }
+                                    handleGoogleSubmit(prime)
+                                },
+                            })
+                        }
+                    })
+                }
             }
         }, [handleGoogleSubmit])
     }
