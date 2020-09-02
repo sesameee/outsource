@@ -26,7 +26,7 @@ export const fetchCatalogSuccess: CaseReducer<State, PayloadAction<{ catalogList
                     const tmpData = iData[l]
                     const cid = iData[l]?.cid
                     const pid = iData[l]?.pid
-                    const id = `c${data.cid}-${iCid}-${cid}-${pid}`
+                    const id = `c${data.cid}-${iCid}-${pid}`
                     const link = `${data.cid}/${iCid}/${cid}`
                     tmpData['_categoryType'] = data.categoryList[i]?.categoryType
                     tmpData['_cid'] = data.categoryList[i]?.cid
@@ -72,9 +72,9 @@ export const fetchCatalogSuccess: CaseReducer<State, PayloadAction<{ catalogList
                     const jCid = iData[j]?.cid
                     for (let k = 0; k < jData?.length; k++) {
                         const kCid = jData[k]?.cid
+                        const pid = jData[k]?.pid
                         const tmpData = jData[k]
-                        const pid = tmpData?.pid
-                        const id = `c${iCid}-${jCid}-${kCid}-${pid}`
+                        const id = `c${iCid}-${jCid}-${pid}`
                         const link = `${data.cid}/${iCid}/${jCid}/${kCid}`
                         tmpData['_categoryType'] = iData[j]?.categoryType
                         tmpData['_cid'] = iData[j]?.cid

@@ -31,7 +31,7 @@ type ProductListProps = {
     sortSelect: FilterType
     categoryType: string
 }
-const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect, categoryType }: ProductListProps) => {
+const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect }: ProductListProps) => {
     const { t } = useTranslation()
     const productObj = useSelector(CatalogSelectors.getProductList)
     const productList = SortByType(sortSelect, productObj)
@@ -42,7 +42,7 @@ const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect, ca
             {productList &&
                 productList.length &&
                 productList.map((item: ProductData, index: number) => {
-                    const findID = categoryType == 'channel' ? item._id.substr(0, item._id.lastIndexOf('-')) : item._id
+                    const findID = item._id.substr(0, item._id.lastIndexOf('-'))
                     const showProduct = (filterProduct.size > 0 && filterProduct.has(findID)) || filterProduct.size == 0
                     return showProduct ? (
                         <div className="col-6 col-md-4 col-lg-4" key={index}>
