@@ -34,15 +34,15 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
     const [spec1, setSpec1] = React.useState('')
     const [spec2, setSpec2] = React.useState('')
 
-    const breadCrumbs = productData.breadCrumbs[0]
-    const info = productData.info
+    const breadCrumbs = productData && productData.breadCrumbs && productData.breadCrumbs[0]
+    const info = productData && productData.info
     useEffect(() => {
         if (info && info.length > 0) {
             setSpec1(info[0].sizeName1)
             setSpec2(info[0].sizeName2)
         }
     }, [info])
-    const imgArr = productData.imageUrl
+    const imgArr = productData && productData.imageUrl
     let path = '/category'
     breadCrumbs &&
         breadCrumbs.category.map((item: BreadCrumbCategoryData) => {
@@ -93,190 +93,197 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
     return (
         <div className="page-wrapper">
             <Header isIndex={false} />
+
             <main className="main">
                 <Nav navData={navData}></Nav>
                 <div className="page-content">
-                    <div className="container">
-                        <div className="product-details-top">
-                            <div className="row">
-                                <div className="col-md-6">
-                                    <Gallery />
-                                </div>
+                    {productData && (
+                        <div className="container">
+                            <div className="product-details-top">
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <Gallery />
+                                    </div>
 
-                                <div className="col-md-6">
-                                    <div className="product-details">
-                                        <Link href={path} prefetch={false}>
-                                            <h2 className="product-subtitle cursor-pointer">{productData.mName}</h2>
-                                        </Link>
+                                    <div className="col-md-6">
+                                        <div className="product-details">
+                                            <Link href={path} prefetch={false}>
+                                                <h2 className="product-subtitle cursor-pointer">{productData.mName}</h2>
+                                            </Link>
 
-                                        <h1 className="product-title">{productData.pName}</h1>
-                                        <div className="product-number-frame">
-                                            {productData.listPrice != productData.price ? (
-                                                <div className="product-last-price">${productData.listPrice}</div>
-                                            ) : null}
-                                            <div
-                                                className={`product-price ${
-                                                    productData.listPrice != productData.price ? 'highlight-color' : ''
-                                                }`}
-                                            >
-                                                ${productData.price}
-                                            </div>
-                                        </div>
-                                        <h4 className="product-id">
-                                            {t('product_id')}：{productData.pid}
-                                        </h4>
-
-                                        <div className="product-content">
-                                            <p>{productData.desc}</p>
-                                        </div>
-
-                                        <div className="details-filter-row details-row-size">
-                                            <label>{t('color')}:</label>
-
-                                            <div className="product-nav product-nav-thumbs">
-                                                {info &&
-                                                    info.map((item, index) => {
-                                                        const className = spec1 == item.sizeName1 ? 'active' : ''
-                                                        return (
-                                                            <a key={index} className={className}>
-                                                                {item.sizeName1}
-                                                            </a>
-                                                        )
-                                                    })}
-                                            </div>
-                                        </div>
-
-                                        <div className="details-filter-row details-row-size">
-                                            <label htmlFor="size">Size:</label>
-                                            <div className="select-custom">
-                                                <select
-                                                    name="size"
-                                                    id="size"
-                                                    className="form-control"
-                                                    defaultValue={spec2}
-                                                    value={spec2}
-                                                    onChange={(e) => setSpec2(e.target.value)}
+                                            <h1 className="product-title">{productData.pName}</h1>
+                                            <div className="product-number-frame">
+                                                {productData.listPrice != productData.price ? (
+                                                    <div className="product-last-price">${productData.listPrice}</div>
+                                                ) : null}
+                                                <div
+                                                    className={`product-price ${
+                                                        productData.listPrice != productData.price
+                                                            ? 'highlight-color'
+                                                            : ''
+                                                    }`}
                                                 >
-                                                    <option value="#">{t('size')}:</option>
+                                                    ${productData.price}
+                                                </div>
+                                            </div>
+                                            <h4 className="product-id">
+                                                {t('product_id')}：{productData.pid}
+                                            </h4>
+
+                                            <div className="product-content">
+                                                <p>{productData.desc}</p>
+                                            </div>
+
+                                            <div className="details-filter-row details-row-size">
+                                                <label>{t('color')}:</label>
+
+                                                <div className="product-nav product-nav-thumbs">
                                                     {info &&
                                                         info.map((item, index) => {
+                                                            const className = spec1 == item.sizeName1 ? 'active' : ''
                                                             return (
-                                                                <option key={index} value={item.sizeName2}>
-                                                                    {item.sizeName2}
-                                                                </option>
+                                                                <a key={index} className={className}>
+                                                                    {item.sizeName1}
+                                                                </a>
                                                             )
                                                         })}
-                                                </select>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div className="details-filter-row details-row-size">
-                                            <label htmlFor="qty">{t('amount')}:</label>
-                                            <div className="product-details-quantity">
-                                                <NumberInput
-                                                    inputName="qty"
-                                                    amount={amount}
-                                                    setAmount={setAmount}
-                                                    minValue={1}
-                                                />
+                                            <div className="details-filter-row details-row-size">
+                                                <label htmlFor="size">Size:</label>
+                                                <div className="select-custom">
+                                                    <select
+                                                        name="size"
+                                                        id="size"
+                                                        className="form-control"
+                                                        defaultValue={spec2}
+                                                        value={spec2}
+                                                        onChange={(e) => setSpec2(e.target.value)}
+                                                    >
+                                                        <option value="#">{t('size')}:</option>
+                                                        {info &&
+                                                            info.map((item, index) => {
+                                                                return (
+                                                                    <option key={index} value={item.sizeName2}>
+                                                                        {item.sizeName2}
+                                                                    </option>
+                                                                )
+                                                            })}
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div className="product-details-action">
-                                            <a
-                                                onClick={() => {
-                                                    handleAddCart()
-                                                }}
-                                                className="btn-product btn-cart cursor-pointer"
-                                            >
-                                                <span>{t('add_to_cart')}</span>
-                                            </a>
+                                            <div className="details-filter-row details-row-size">
+                                                <label htmlFor="qty">{t('amount')}:</label>
+                                                <div className="product-details-quantity">
+                                                    <NumberInput
+                                                        inputName="qty"
+                                                        amount={amount}
+                                                        setAmount={setAmount}
+                                                        minValue={1}
+                                                    />
+                                                </div>
+                                            </div>
 
-                                            <div className="details-action-wrapper">
+                                            <div className="product-details-action">
                                                 <a
-                                                    href="#"
                                                     onClick={() => {
-                                                        handleAddWish()
+                                                        handleAddCart()
                                                     }}
-                                                    className="btn-product btn-wishlist cursor-pointer"
-                                                    title="Wishlist"
+                                                    className="btn-product btn-cart cursor-pointer"
                                                 >
-                                                    <span>{t('add_to_wish_list')}</span>
+                                                    <span>{t('add_to_cart')}</span>
                                                 </a>
-                                            </div>
-                                        </div>
 
-                                        <div className="product-details-footer">
-                                            <div className="product-cat">
-                                                <span>Category:</span>
-                                                {navData.map((item: navData, index) => {
-                                                    return (
-                                                        <span key={index}>
-                                                            <Link href={item.link} prefetch={false}>
-                                                                {item.title}
-                                                            </Link>
-                                                            ,
-                                                        </span>
-                                                    )
-                                                })}
+                                                <div className="details-action-wrapper">
+                                                    <a
+                                                        href="#"
+                                                        onClick={() => {
+                                                            handleAddWish()
+                                                        }}
+                                                        className="btn-product btn-wishlist cursor-pointer"
+                                                        title="Wishlist"
+                                                    >
+                                                        <span>{t('add_to_wish_list')}</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <div className="product-details-footer">
+                                                <div className="product-cat">
+                                                    <span>Category:</span>
+                                                    {navData.map((item: navData, index) => {
+                                                        return (
+                                                            <span key={index}>
+                                                                <Link href={item.link} prefetch={false}>
+                                                                    {item.title}
+                                                                </Link>
+                                                                ,
+                                                            </span>
+                                                        )
+                                                    })}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <DescTab />
                         </div>
-                        <DescTab />
-                    </div>
+                    )}
                 </div>
             </main>
 
-            <div className="sticky-bar">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-6">
-                            <figure className="product-media">
-                                {imgArr && imgArr[0] && (
-                                    <a>
-                                        <img src={imgArr[0]} alt="Product image" />
-                                    </a>
-                                )}
-                            </figure>
-                            <h4 className="product-title">
-                                <a>{productData.pName}</a>
-                            </h4>
-                        </div>
-
-                        <div className="col-6 justify-content-end">
-                            <div className="product-price">${productData.price * amount}</div>
-                            <div className="product-details-quantity">
-                                <NumberInput inputName="qty" amount={amount} setAmount={setAmount} minValue={1} />
+            {productData && (
+                <div className="sticky-bar">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-6">
+                                <figure className="product-media">
+                                    {imgArr && imgArr[0] && (
+                                        <a>
+                                            <img src={imgArr[0]} alt="Product image" />
+                                        </a>
+                                    )}
+                                </figure>
+                                <h4 className="product-title">
+                                    <a>{productData.pName}</a>
+                                </h4>
                             </div>
 
-                            <div className="product-details-action">
-                                <a
-                                    href="#"
-                                    className="btn-product btn-cart cursor-pointer"
-                                    onClick={() => {
-                                        handleAddCart()
-                                    }}
-                                >
-                                    <span>{t('add_to_cart')}</span>
-                                </a>
-                                <a
-                                    href="#"
-                                    onClick={() => {
-                                        handleAddWish()
-                                    }}
-                                    className="btn-product btn-wishlist"
-                                    title="Wishlist"
-                                >
-                                    <span>{t('add_to_wish_list')}</span>
-                                </a>
+                            <div className="col-6 justify-content-end">
+                                <div className="product-price">${productData.price * amount}</div>
+                                <div className="product-details-quantity">
+                                    <NumberInput inputName="qty" amount={amount} setAmount={setAmount} minValue={1} />
+                                </div>
+
+                                <div className="product-details-action">
+                                    <a
+                                        href="#"
+                                        className="btn-product btn-cart cursor-pointer"
+                                        onClick={() => {
+                                            handleAddCart()
+                                        }}
+                                    >
+                                        <span>{t('add_to_cart')}</span>
+                                    </a>
+                                    <a
+                                        href="#"
+                                        onClick={() => {
+                                            handleAddWish()
+                                        }}
+                                        className="btn-product btn-wishlist"
+                                        title="Wishlist"
+                                    >
+                                        <span>{t('add_to_wish_list')}</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            )}
             <Footer />
         </div>
     )

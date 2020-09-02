@@ -9,7 +9,7 @@ import { CheckoutActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
 import { CheckoutReqData, CheckoutRspData } from '@/types/apis/checkout'
 import { CHECKOUT } from '@/services/api/apiConfig'
-import { epicSuccessMiddleware, requireValidToken } from '../epicMiddleware'
+import { epicSuccessMiddleware, requireValidToken, epicAuthFailMiddleware } from '../epicMiddleware'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
@@ -43,8 +43,12 @@ export const fetchCheckoutEpic: Epic = (action$, state$) =>
                     mergeMap((res) => {
                         return epicSuccessMiddleware(res, CheckoutActions.fetchCheckoutSuccess(res.data))
                     }),
-                    catchError((error: AxiosError) => {
-                        return of(CheckoutActions.fetchCheckoutFailure({ error: error.message }))
+                    catchError((error: AxiosError | string) => {
+                        const res = <AxiosError>error
+                        return epicAuthFailMiddleware(
+                            error,
+                            CheckoutActions.fetchCheckoutFailure({ error: res.message }),
+                        )
                     }),
                     takeUntil(action$.ofType(CheckoutActions.stopFetchCheckout)),
                 ),
