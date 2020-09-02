@@ -88,7 +88,8 @@ const WidgetFrame: React.FC<WidgetFrameProps> = ({
                             <SubMenu title={item.cName} defaultOpen={true}>
                                 {item.cData &&
                                     item.cData.map((catItem: any, subindex) => {
-                                        return (
+                                        const countcatItem = (catItem.cData && catItem.cData.length) || 0
+                                        return countcatItem > 0 ? (
                                             <Menu key={`subMenu${subindex}`} className="sub-menu">
                                                 <SubMenu title={catItem.cName}>
                                                     {catItem.cData &&
@@ -121,7 +122,7 @@ const WidgetFrame: React.FC<WidgetFrameProps> = ({
                                                         })}
                                                 </SubMenu>
                                             </Menu>
-                                        )
+                                        ) : null
                                     })}
                             </SubMenu>
                         </Menu>
@@ -137,37 +138,40 @@ const WidgetFrame: React.FC<WidgetFrameProps> = ({
                             <SubMenu title={item.cName} defaultOpen={true}>
                                 {item.cData &&
                                     item.cData.map((catItem: any, subindex) => {
+                                        const countcatItem = (catItem.cData && catItem.cData.length) || 0
                                         return (
-                                            <Menu key={`subMenu${subindex}`} className="sub-menu">
-                                                <SubMenu title={catItem.cName}>
-                                                    {catItem.cData &&
-                                                        catItem.cData.map((lastItem: any, cindex: number) => {
-                                                            const id = `c${item.cid}-${catItem.cid}-${lastItem.cid}-${lastItem.pid}`
-                                                            return (
-                                                                <MenuItem key={`menu${cindex}`}>
-                                                                    <div className="filter-item">
-                                                                        <div className="custom-control custom-checkbox">
-                                                                            <input
-                                                                                type="checkbox"
-                                                                                className="custom-control-input"
-                                                                                id={id}
-                                                                                checked={filterProduct.has(id)}
-                                                                                onChange={handleChange}
-                                                                            />
-                                                                            <label
-                                                                                className="custom-control-label"
-                                                                                htmlFor={id}
-                                                                            >
-                                                                                {lastItem.pName}
-                                                                            </label>
+                                            countcatItem && (
+                                                <Menu key={`subMenu${subindex}`} className="sub-menu">
+                                                    <SubMenu title={catItem.cName}>
+                                                        {catItem.cData &&
+                                                            catItem.cData.map((lastItem: any, cindex: number) => {
+                                                                const id = `c${item.cid}-${catItem.cid}-${lastItem.cid}-${lastItem.pid}`
+                                                                return (
+                                                                    <MenuItem key={`menu${cindex}`}>
+                                                                        <div className="filter-item">
+                                                                            <div className="custom-control custom-checkbox">
+                                                                                <input
+                                                                                    type="checkbox"
+                                                                                    className="custom-control-input"
+                                                                                    id={id}
+                                                                                    checked={filterProduct.has(id)}
+                                                                                    onChange={handleChange}
+                                                                                />
+                                                                                <label
+                                                                                    className="custom-control-label"
+                                                                                    htmlFor={id}
+                                                                                >
+                                                                                    {lastItem.pName}
+                                                                                </label>
+                                                                            </div>
+                                                                            {/* <span className="item-count">{lastItem.total}</span> */}
                                                                         </div>
-                                                                        {/* <span className="item-count">{lastItem.total}</span> */}
-                                                                    </div>
-                                                                </MenuItem>
-                                                            )
-                                                        })}
-                                                </SubMenu>
-                                            </Menu>
+                                                                    </MenuItem>
+                                                                )
+                                                            })}
+                                                    </SubMenu>
+                                                </Menu>
+                                            )
                                         )
                                     })}
                             </SubMenu>

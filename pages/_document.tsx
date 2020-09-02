@@ -39,7 +39,8 @@ class MyDocument extends Document {
                     </noscript>
                     <Main />
                     <NextScript />
-                    <script src="https://js.tappaysdk.com/tpdirect/v5.2.0"></script>
+                    <script src="https://js.tappaysdk.com/tpdirect/v5.4.0"></script>
+                    <script src="https://pay.google.com/gp/p/js/pay.js"></script>
                 </body>
             </Html>
         )

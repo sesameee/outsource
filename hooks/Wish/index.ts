@@ -53,10 +53,10 @@ export const useWishModifyHandler = (): any => {
                 )
             } else {
                 if (action == 'add') {
-                    let newWish = getWishList
+                    const newWish = getWishList
                     if (getWishList.length > 0) {
                         let isAdd = false
-                        newWish = getWishList.map((item: any) => {
+                        getWishList.map((item: any) => {
                             if (item.cid == itemData.cid && item.pid == itemData.pid) {
                                 isAdd = true
                                 return { ...item, qty: item.qty + itemData.qty }
@@ -65,15 +65,20 @@ export const useWishModifyHandler = (): any => {
                         })
                         if (!isAdd) {
                             newWish.push(itemData)
+                            dispatch(
+                                WishListActions.setWishListCookie({
+                                    data: newWish.length > 0 ? newWish : [itemData],
+                                }),
+                            ) &&
+                                dispatch(
+                                    ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: '您已新增至願望清單' }),
+                                )
+                        } else {
+                            dispatch(
+                                ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: '此單品已存在在願望清單' }),
+                            )
                         }
                     }
-                    return (
-                        dispatch(
-                            WishListActions.setWishListCookie({
-                                data: newWish.length > 0 ? newWish : [itemData],
-                            }),
-                        ) && dispatch(ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: '您已新增至願望清單' }))
-                    )
                 } else if (action == 'delete') {
                     if (getWishList.length > 0) {
                         getWishList.splice(itemData, 1)

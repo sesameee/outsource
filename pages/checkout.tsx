@@ -199,15 +199,20 @@ const Checkout: NextPage<any> = (): JSX.Element => {
     const finalAmount = promoData.name ? accSubtr(amount, disCountamount) : amount
     const AddressInfo = useSelector(AddressInfoSelectors.getAddressInfo)
     const [invoice, setInvoice] = React.useState(InvoiceFromType.PhoneBarcode)
-
     const [city, setCity] = React.useState(0)
     const [openBuyNotice, setOpenBuyNotice] = React.useState(false)
-
-    const { register, handleSubmit } = useForm<CheckoutReqData>()
-    const { handleCheckoutSubmit, useSetupTabPay, HandleCheckoutRes } = useCheckoutHandler()
+    const [isApplePay, setIsApplePay] = React.useState(false)
+    const { register, handleSubmit, getValues } = useForm<CheckoutReqData>()
+    const {
+        handleCheckoutSubmit,
+        useSetupTabPay,
+        HandleCheckoutRes,
+        HandleSetupTabPayApplePay,
+        handleGoogleCheckoutSubmit,
+    } = useCheckoutHandler()
     const router = useRouter()
-    const onSubmit = (data: any) => {
-        const cartData = cartArr.map((item) => {
+    const cartData =
+        cartArr.map((item) => {
             const amount = (item?.qty || 0) * (item?.price || 0) || 0
             return {
                 pid: item.pid,
@@ -220,9 +225,30 @@ const Checkout: NextPage<any> = (): JSX.Element => {
                     amount: amount,
                 },
             }
-        })
+        }) || []
+    const onSubmit = (data: any) => {
         data = { ...data, totalAmount: finalAmount, data: cartData, shippingAmount: 0 }
+        if (isApplePay) {
+            HandleSetupTabPayApplePay(data)
+            return
+        }
+        setIsApplePay(false)
         handleCheckoutSubmit(data, router)
+    }
+
+    const handleGoogleSubmit = (prime: any) => {
+        if (prime) {
+            const send = getValues(['shipInfo', 'invoiceType', 'invoiceInfo'])
+            const newsend = {
+                ...send,
+                totalAmount: finalAmount,
+                data: cartData,
+                shippingAmount: 0,
+                payType: 2,
+                payload: prime,
+            }
+            handleGoogleCheckoutSubmit(newsend)
+        }
     }
 
     useEffect(() => {
@@ -237,7 +263,7 @@ const Checkout: NextPage<any> = (): JSX.Element => {
             setDisCountamount(disNum)
         }
     }, [sum, priceArr, discountArr])
-    useSetupTabPay()
+    useSetupTabPay(handleGoogleSubmit)
     HandleCheckoutRes(router)
 
     return (
@@ -469,40 +495,45 @@ const Checkout: NextPage<any> = (): JSX.Element => {
                                                 <div className="card">
                                                     <div className="card-header" id="heading-1">
                                                         <h2 className="card-title">
-                                                            <a
-                                                                role="button"
-                                                                data-toggle="collapse"
-                                                                href="#collapse-2"
-                                                                aria-expanded="false"
-                                                                aria-controls="collapse-2"
-                                                                className="collapsed card-select"
-                                                            >
-                                                                <img
-                                                                    className="card-icon"
-                                                                    src="/images/custom/googlepay.png"
-                                                                />
-                                                                <span>Google pay</span>
-                                                            </a>
+                                                            <div id="google-container">
+                                                                <a
+                                                                    role="button"
+                                                                    data-toggle="collapse"
+                                                                    href="#collapse-2"
+                                                                    aria-expanded="false"
+                                                                    aria-controls="collapse-2"
+                                                                    className="collapsed card-select"
+                                                                >
+                                                                    <img
+                                                                        className="card-icon"
+                                                                        src="/images/custom/googlepay.png"
+                                                                    />
+                                                                    <span>Google pay</span>
+                                                                </a>
+                                                            </div>
                                                         </h2>
                                                     </div>
                                                 </div>
                                                 <div className="card">
                                                     <div className="card-header" id="heading-1">
                                                         <h2 className="card-title">
-                                                            <a
-                                                                role="button"
-                                                                data-toggle="collapse"
-                                                                href="#collapse-2"
-                                                                aria-expanded="false"
-                                                                aria-controls="collapse-2"
-                                                                className="collapsed card-select"
-                                                            >
-                                                                <img
-                                                                    className="card-icon"
-                                                                    src="/images/custom/applepay.png"
-                                                                />
-                                                                <span>Apple Pay</span>
-                                                            </a>
+                                                            <button type="submit" className="submit_hide">
+                                                                <a
+                                                                    onClick={() => setIsApplePay(true)}
+                                                                    role="button"
+                                                                    href="#applePay"
+                                                                    data-toggle="collapse"
+                                                                    aria-expanded="false"
+                                                                    aria-controls="collapse-2"
+                                                                    className="collapsed card-select"
+                                                                >
+                                                                    <img
+                                                                        className="card-icon"
+                                                                        src="/images/custom/applepay.png"
+                                                                    />
+                                                                    <span>Apple Pay</span>
+                                                                </a>
+                                                            </button>
                                                         </h2>
                                                     </div>
                                                 </div>
