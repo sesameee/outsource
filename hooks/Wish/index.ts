@@ -54,31 +54,27 @@ export const useWishModifyHandler = (): any => {
             } else {
                 if (action == 'add') {
                     const newWish = getWishList
+                    let isAdd = false
                     if (getWishList.length > 0) {
-                        let isAdd = false
                         getWishList.map((item: any) => {
                             if (item.cid == itemData.cid && item.pid == itemData.pid) {
                                 isAdd = true
-                                return { ...item, qty: item.qty + itemData.qty }
                             }
-                            return item
                         })
-                        if (!isAdd) {
-                            newWish.push(itemData)
-                            dispatch(
-                                WishListActions.setWishListCookie({
-                                    data: newWish.length > 0 ? newWish : [itemData],
-                                }),
-                            ) &&
-                                dispatch(
-                                    ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: '您已新增至願望清單' }),
-                                )
-                        } else {
-                            dispatch(
-                                ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: '此單品已存在在願望清單' }),
-                            )
-                        }
                     }
+                    if (isAdd) {
+                        return dispatch(
+                            ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: '此單品已存在在願望清單' }),
+                        )
+                    }
+                    newWish.push(itemData)
+                    return (
+                        dispatch(
+                            WishListActions.setWishListCookie({
+                                data: newWish.length > 0 ? newWish : [itemData],
+                            }),
+                        ) && dispatch(ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: '您已新增至願望清單' }))
+                    )
                 } else if (action == 'delete') {
                     if (getWishList.length > 0) {
                         getWishList.splice(itemData, 1)
