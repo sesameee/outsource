@@ -67,7 +67,12 @@ export const useShoppingCartModifyHandler = (): any => {
                     if (getCartList.length > 0) {
                         let isAdd = false
                         newCart = getCartList.map((item) => {
-                            if (item.cid == itemData.cid && item.pid == itemData.pid) {
+                            if (
+                                item.cid == itemData.cid &&
+                                item.pid == itemData.pid &&
+                                item.spec1 == itemData.spec1 &&
+                                item.spec2 == itemData.spec2
+                            ) {
                                 isAdd = true
                                 return { ...item, qty: item.qty + itemData.qty }
                             }

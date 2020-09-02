@@ -106,7 +106,10 @@ const ItemDetail: React.FC<ItemDetailProps> = ({
                     <h3 className="product-title">
                         <p>{name}</p>
                         {detail?.productName}
-                        <p>{detail.spec1}</p>
+                        <p>
+                            <span style={{ paddingRight: '10px' }}>{detail.spec1}</span>
+                            <span>{detail.spec2}</span>
+                        </p>
                     </h3>
                 </div>
             </td>
