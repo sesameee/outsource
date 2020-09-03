@@ -3,6 +3,7 @@ export const initialState: State = {
     isFetch: false,
     data: {
         memberId: '',
+        success: false,
     },
     error: '',
 }

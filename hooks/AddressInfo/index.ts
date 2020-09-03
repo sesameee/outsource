@@ -8,5 +8,8 @@ export const useAddressInfo = (): void => {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(AddressInfoActions.fetchAddressInfo())
+        return function cleanup() {
+            dispatch(AddressInfoActions.stopFetchAddressInfo())
+        }
     }, [dispatch, i18n.language])
 }

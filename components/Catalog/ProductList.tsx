@@ -30,8 +30,15 @@ type ProductListProps = {
     filterProduct: Set<unknown>
     sortSelect: FilterType
     categoryType: string
+    isBrand: boolean
+    brandName: string
 }
-const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect }: ProductListProps) => {
+const ProductList: React.FC<ProductListProps> = ({
+    filterProduct,
+    sortSelect,
+    isBrand,
+    brandName,
+}: ProductListProps) => {
     const { t } = useTranslation()
     const productObj = useSelector(CatalogSelectors.getProductList)
     const productList = SortByType(sortSelect, productObj)
@@ -102,9 +109,16 @@ const ProductList: React.FC<ProductListProps> = ({ filterProduct, sortSelect }: 
 
                                 <div className="product-body">
                                     <div className="product-cat">
-                                        <Link href={`/category/${item._categoryType}/${item._cid}`} prefetch={false}>
-                                            <a>{item._cName}</a>
-                                        </Link>
+                                        {isBrand ? (
+                                            <a>{brandName}</a>
+                                        ) : (
+                                            <Link
+                                                href={`/category/${item._categoryType}/${item._cid}`}
+                                                prefetch={false}
+                                            >
+                                                <a>{item._cName}</a>
+                                            </Link>
+                                        )}
                                     </div>
                                     <h3 className="product-title">
                                         <Link href={`/product/${item.cid}/${item.pid}`} prefetch={false}>

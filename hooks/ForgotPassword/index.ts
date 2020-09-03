@@ -15,8 +15,7 @@ export const useForgotPassword = (): any => {
     const HandleForgotPasswordRes = (setStep: any): void => {
         const res = useSelector(ForgotPasswordSelectors.forgotPassword)
         useEffect(() => {
-            console.log('res.data.memberId :>> ', res.data.memberId)
-            if (res.data.memberId != '') {
+            if (res.data.success) {
                 setStep(2)
             }
         }, [setStep, res])

@@ -10,6 +10,7 @@ import { VerifyCodeData } from '@/types/apis/verifyCode'
 import { RegisterUserInfoReqData } from '@/types/apis/registerUserInfo'
 import { useUserRegisterSetupHandler } from '@/hooks/UserSetup'
 import { useVerifyCodeHandler } from '@/hooks/VerifyCode'
+import { useResendVerifyCodeHandler } from '@/hooks/ResendVerifyCode'
 
 type RegisterProps = {
     setPropIsOpenFn: any
@@ -131,6 +132,8 @@ const FromSecondStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromPr
     const { t } = useTranslation()
     const { register, handleSubmit } = useForm<VerifyCodeData>()
     const { HandleVerifyCodeRes, handleVerifyCodeSubmit } = useVerifyCodeHandler()
+    const { handleResendVerifyCodeSubmit } = useResendVerifyCodeHandler()
+
     const onSubmit = (data: UserRegisterReqData) => {
         handleVerifyCodeSubmit(data)
     }
@@ -151,7 +154,7 @@ const FromSecondStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromPr
             <div className="form-footer">
                 <label>
                     {t('if_not_receive_captcha_hint')}
-                    <a onClick={handleSubmit(onSubmit)}>{t('re_send_captcha')}</a>
+                    <a onClick={handleResendVerifyCodeSubmit()}>{t('re_send_captcha')}</a>
                 </label>
                 <button type="submit" className="btn btn-outline-primary-2 btn-block margin-top-more">
                     <span>{t('submit')}</span>

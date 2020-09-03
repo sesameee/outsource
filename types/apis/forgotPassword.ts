@@ -7,6 +7,7 @@ export interface ForgotPasswordReqData {
 
 export interface ForgotPasswordData {
     memberId: string
+    success: boolean
 }
 
 export interface ForgotPasswordRspData extends Response {

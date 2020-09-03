@@ -8,6 +8,9 @@ export const useBanner = (): void => {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(BannerActions.fetchBanner({ isRecommend: 0 }))
+        return function cleanup() {
+            dispatch(BannerActions.stopFetchBanner())
+        }
     }, [dispatch, i18n.language])
 }
 
@@ -16,5 +19,8 @@ export const useRecommend = (): void => {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(BannerActions.fetchBanner({ isRecommend: 1 }))
+        return function cleanup() {
+            dispatch(BannerActions.stopFetchBanner())
+        }
     }, [dispatch, i18n.language])
 }

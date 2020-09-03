@@ -29,12 +29,12 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
     const productData = useSelector(ProductInfoSelectors.getProductInfo)
     const { handleCart } = useShoppingCartModifyHandler()
     const { handleWish } = useWishModifyHandler()
-    const navData: navData[] = []
+    const navDatas: navData[] = []
     const [amount, setAmount] = React.useState(1)
     const [spec1, setSpec1] = React.useState('')
     const [spec2, setSpec2] = React.useState('')
 
-    const breadCrumbs = productData && productData.breadCrumbs && productData.breadCrumbs[0]
+    const breadCrumbs = productData && productData.breadCrumbs && productData.breadCrumbs
     const info = productData && productData.info
     useEffect(() => {
         if (info && info.length > 0) {
@@ -43,15 +43,15 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
         }
     }, [info])
     const imgArr = productData && productData.imageUrl
-    let path = '/category'
-    breadCrumbs &&
-        breadCrumbs.category.map((item: BreadCrumbCategoryData) => {
-            path = `${path}/${item.categoryType}/${item.cid}`
-            navData.push({
+    breadCrumbs.map((bitem) => {
+        bitem.category.map((item: BreadCrumbCategoryData) => {
+            const path = `/category/${item.categoryType}/${item.cid}`
+            navDatas.push({
                 title: item.name,
                 link: path,
             })
         })
+    })
 
     const handleAddCart = () => {
         handleCart(
@@ -90,12 +90,21 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
         )
     }
 
+    let mLink = ''
+    if (navDatas && productData) {
+        navDatas.map((item) => {
+            if (productData.mName.indexOf(item.title) != -1) {
+                mLink = item.link
+            }
+        })
+    }
+
     return (
         <div className="page-wrapper">
             <Header isIndex={false} />
 
             <main className="main">
-                <Nav navData={navData}></Nav>
+                <Nav navData={navDatas}></Nav>
                 <div className="page-content">
                     {productData && (
                         <div className="container">
@@ -107,7 +116,7 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
 
                                     <div className="col-md-6">
                                         <div className="product-details">
-                                            <Link href={path} prefetch={false}>
+                                            <Link href={mLink} prefetch={false}>
                                                 <h2 className="product-subtitle cursor-pointer">{productData.mName}</h2>
                                             </Link>
 
@@ -213,7 +222,7 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
                                             <div className="product-details-footer">
                                                 <div className="product-cat">
                                                     <span>Category:</span>
-                                                    {navData.map((item: navData, index) => {
+                                                    {navDatas.map((item: navData, index) => {
                                                         return (
                                                             <span key={index}>
                                                                 <Link href={item.link} prefetch={false}>

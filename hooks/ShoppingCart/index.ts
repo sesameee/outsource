@@ -64,6 +64,16 @@ export const useShoppingCartModifyHandler = (): any => {
             } else {
                 if (action == 'add') {
                     let newCart = getCartList
+                    const sendData = {
+                        cid: itemData.cid,
+                        pid: itemData.pid,
+                        spec1: itemData.spec1,
+                        spec2: itemData.spec2,
+                        qty: itemData.qty,
+                        imageUrl: itemData.imageUrl,
+                        price: itemData.price,
+                        pName: itemData.pName,
+                    }
                     if (getCartList.length > 0) {
                         let isAdd = false
                         newCart = getCartList.map((item) => {
@@ -71,21 +81,31 @@ export const useShoppingCartModifyHandler = (): any => {
                                 item.cid == itemData.cid &&
                                 item.pid == itemData.pid &&
                                 item.spec1 == itemData.spec1 &&
-                                item.spec2 == itemData.spec2
+                                item.spec2 == itemData.spec2 &&
+                                item.productName == itemData.productName
                             ) {
                                 isAdd = true
-                                return { ...item, qty: item.qty + itemData.qty }
+                                return {
+                                    cid: item.cid,
+                                    pid: item.pid,
+                                    spec1: item.spec1,
+                                    spec2: item.spec2,
+                                    qty: item.qty + itemData.qty,
+                                    imageUrl: item.imageUrl,
+                                    price: item.price,
+                                    pName: item.pName,
+                                }
                             }
                             return item
                         })
                         if (!isAdd) {
-                            newCart.push(itemData)
+                            newCart.push(sendData)
                         }
                     }
                     return (
                         dispatch(
                             ShoppingCartListActions.setShoppingCartListCookie({
-                                data: newCart.length > 0 ? newCart : [itemData],
+                                data: newCart.length > 0 ? newCart : [sendData],
                             }),
                         ) && dispatch(ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: '您已新增至購物車' }))
                     )

@@ -135,6 +135,8 @@ const Category: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
                                         filterProduct={filterProduct}
                                         sortSelect={sortSelect}
                                         categoryType={categoryType}
+                                        isBrand={isBrand}
+                                        brandName={catalog.cName}
                                     />
                                 </div>
                             </div>

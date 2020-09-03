@@ -23,6 +23,7 @@ export interface ShoppingCartListData {
 }
 
 export interface ShoppingCartProductData {
+    pName?: string
     shoppingCartItemId?: number
     cid: string
     pid: string

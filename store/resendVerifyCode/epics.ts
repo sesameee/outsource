@@ -8,7 +8,7 @@ import { ResendVerifyCodeActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
 import { ResendVerifyCodeReqData, ResendVerifyCodeRspData } from '@/types/apis/resendVerifyCode'
 import { RESET_PASSWORD } from '@/services/api/apiConfig'
-import { epicSuccessMiddleware } from '../epicMiddleware'
+import { epicSuccessMiddleware, epicAuthFailMiddleware, requireValidToken } from '../epicMiddleware'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
@@ -24,16 +24,25 @@ export const fetchResendVerifyCodeEpic: Epic = (action$, state$) =>
     action$.pipe(
         ofType(ResendVerifyCodeActions.fetchResendVerifyCode),
         mergeMap(() =>
-            HttpService.PostAsync<ResendVerifyCodeReqData, ResendVerifyCodeRspData>(RESET_PASSWORD, {
-                memberId: state$.value.userLogin.memberId,
-            }).pipe(
-                mergeMap((res) => {
-                    return epicSuccessMiddleware(res, ResendVerifyCodeActions.fetchResendVerifyCodeSuccess(res.data))
-                }),
-                catchError((error: AxiosError) => {
-                    return of(ResendVerifyCodeActions.fetchResendVerifyCodeFailure({ error: error.message }))
-                }),
-                takeUntil(action$.ofType(ResendVerifyCodeActions.stopFetchResendVerifyCode)),
+            requireValidToken(action$, state$, () =>
+                HttpService.PostAsync<ResendVerifyCodeReqData, ResendVerifyCodeRspData>(RESET_PASSWORD, {
+                    memberId: state$.value.userLogin.memberId,
+                }).pipe(
+                    mergeMap((res) => {
+                        return epicSuccessMiddleware(
+                            res,
+                            ResendVerifyCodeActions.fetchResendVerifyCodeSuccess(res.data),
+                        )
+                    }),
+                    catchError((error: AxiosError) => {
+                        const res = <AxiosError>error
+                        return epicAuthFailMiddleware(
+                            error,
+                            ResendVerifyCodeActions.fetchResendVerifyCodeFailure({ error: res.message }),
+                        )
+                    }),
+                    takeUntil(action$.ofType(ResendVerifyCodeActions.stopFetchResendVerifyCode)),
+                ),
             ),
         ),
     )

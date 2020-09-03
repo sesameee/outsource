@@ -110,7 +110,7 @@ const MobileSubMenu: React.FC<MobileSubMenuProps> = ({
             <ProSidebar breakPoint="md" toggled={IsOpenMenu} onToggle={setIsOpenMenu}>
                 <SidebarHeader>
                     <div onClick={() => setIsOpenMenu(false)}>
-                        <i className="demo-icon icon-angle-left"></i>
+                        <i className="demo-icon icon-angle-left" style={{ margin: '0 1rem' }}></i>
                         {subList?.channelName}
                     </div>
                 </SidebarHeader>
@@ -126,9 +126,16 @@ const MobileSubMenu: React.FC<MobileSubMenuProps> = ({
                                                     role="button"
                                                     data-toggle="collapse"
                                                     className={tabIndex == index ? '' : 'collapsed'}
-                                                    onClick={() => setTabIndex(index)}
+                                                    onClick={() =>
+                                                        tabIndex == index ? setTabIndex(-1) : setTabIndex(index)
+                                                    }
                                                 >
-                                                    {item.cName}
+                                                    <Link
+                                                        href={`/category/${subList.cid}/${item.cid}`}
+                                                        prefetch={false}
+                                                    >
+                                                        <span>{item.cName}</span>
+                                                    </Link>
                                                 </a>
                                             ) : (
                                                 <div className="no-arrow">
