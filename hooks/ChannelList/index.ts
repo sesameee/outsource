@@ -8,5 +8,8 @@ export const useChannelList = (): void => {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(ChannelListActions.fetchChannelList())
+        return function cleanup() {
+            dispatch(ChannelListActions.stopFetchChannelList())
+        }
     }, [dispatch, i18n.language])
 }

@@ -13,6 +13,9 @@ export const useCatalog = (cid: string, categoryType: string): void => {
         if (sendParms.cid && sendParms.categoryType) {
             dispatch(CatalogActions.fetchCatalog(sendParms))
         }
+        return function cleanup() {
+            dispatch(CatalogActions.stopFetchCatalog())
+        }
     }, [dispatch, i18n.language, sendParms])
 
     useEffect(() => {

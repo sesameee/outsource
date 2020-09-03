@@ -7,5 +7,8 @@ export const useBreezeDaily = (): void => {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(BreezeDailyActions.fetchBreezeDailyList())
+        return function cleanup() {
+            dispatch(BreezeDailyActions.stopFetchBreezeDailyList())
+        }
     }, [dispatch, i18n.language])
 }

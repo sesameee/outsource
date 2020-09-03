@@ -56,9 +56,9 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
                 setSubSpecList(info[spec1]['subSpecList'])
             }
         }
-    }, [spec1, spec2, info])
-    const spec1Name = info && info[spec1].name
-    const spec2Name = subSpecList && subSpecList[spec2].name
+    }, [spec1, info])
+    const spec1Name = info && info[spec1] && info[spec1].name
+    const spec2Name = subSpecList && subSpecList[spec2] && subSpecList[spec2].name
 
     const handleAddCart = () => {
         handleCart(
