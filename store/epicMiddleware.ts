@@ -3,6 +3,7 @@ import { ErrorAlertActions, UserLoginActions } from '.'
 import { AxiosError } from 'axios'
 import { ofType } from 'redux-observable'
 import { take, mergeMap, startWith } from 'rxjs/operators'
+import { i18n } from '@/I18n'
 
 /**
  * API success handle
@@ -34,7 +35,7 @@ export const epicAuthFailMiddleware = (error: AxiosError | string, fn: any) => {
         //  登出
         return of(
             UserLoginActions.fetchUserLoginFailure({ error: error }),
-            ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: '您已登出' }),
+            ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: i18n.t('logout') }),
         )
     } else {
         return of(fn)

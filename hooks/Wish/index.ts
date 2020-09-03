@@ -33,6 +33,15 @@ export const useWishModifyHandler = (): any => {
     const dispatch = useDispatch()
     const getUser = useSelector(UserLoginSelectors.getUserLoginData)
     const getWishList = useSelector(WishListSelectors.getWishListCookie)
+    const { t } = useTranslation()
+    const wishTips1 = t('wishTips1')
+    const wishTips2 = t('wishTips2')
+    const isDelete = t('isDelete')
+    const tips = {
+        wishTips1,
+        wishTips2,
+        isDelete,
+    }
     const handleWish = useCallback(
         (action: string, shoppingCartProductList: [], itemData: any) => {
             if (getUser.accessToken) {
@@ -63,9 +72,7 @@ export const useWishModifyHandler = (): any => {
                         })
                     }
                     if (isAdd) {
-                        return dispatch(
-                            ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: '此單品已存在在願望清單' }),
-                        )
+                        return dispatch(ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: tips.wishTips1 }))
                     }
                     newWish.push(itemData)
                     return (
@@ -73,7 +80,7 @@ export const useWishModifyHandler = (): any => {
                             WishListActions.setWishListCookie({
                                 data: newWish.length > 0 ? newWish : [itemData],
                             }),
-                        ) && dispatch(ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: '您已新增至願望清單' }))
+                        ) && dispatch(ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: tips.wishTips2 }))
                     )
                 } else if (action == 'delete') {
                     if (getWishList.length > 0) {
@@ -84,12 +91,12 @@ export const useWishModifyHandler = (): any => {
                             WishListActions.setWishListCookie({
                                 data: getWishList,
                             }),
-                        ) && dispatch(ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: '您已刪除' }))
+                        ) && dispatch(ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: tips.isDelete }))
                     )
                 }
             }
         },
-        [dispatch, getUser, getWishList],
+        [dispatch, getUser.accessToken, getWishList, tips],
     )
     return { handleWish }
 }

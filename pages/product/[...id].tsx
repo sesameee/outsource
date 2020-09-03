@@ -31,17 +31,14 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
     const { handleWish } = useWishModifyHandler()
     const navDatas: navData[] = []
     const [amount, setAmount] = React.useState(1)
-    const [spec1, setSpec1] = React.useState('')
-    const [spec2, setSpec2] = React.useState('')
+    const [spec1, setSpec1] = React.useState(0)
+    const [spec2, setSpec2] = React.useState(0)
+
+    const [subSpecList, setSubSpecList] = React.useState([{ name: '', orderMax: 0, productTypeId: 0, stock: 0 }])
 
     const breadCrumbs = productData && productData.breadCrumbs && productData.breadCrumbs
-    const info = productData && productData.info
-    useEffect(() => {
-        if (info && info.length > 0) {
-            setSpec1(info[0].sizeName1)
-            setSpec2(info[0].sizeName2)
-        }
-    }, [info])
+    const info = productData && productData.specInfos
+
     const imgArr = productData && productData.imageUrl
     breadCrumbs.map((bitem) => {
         bitem.category.map((item: BreadCrumbCategoryData) => {
@@ -53,6 +50,16 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
         })
     })
 
+    useEffect(() => {
+        if (info && info.length) {
+            if (info[spec1]['subSpecList']) {
+                setSubSpecList(info[spec1]['subSpecList'])
+            }
+        }
+    }, [spec1, spec2, info])
+    const spec1Name = info && info[spec1].name
+    const spec2Name = subSpecList && subSpecList[spec2].name
+
     const handleAddCart = () => {
         handleCart(
             'add',
@@ -60,15 +67,15 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
                 {
                     cid: productData.cid,
                     pid: productData.pid,
-                    spec1: spec1,
-                    spec2: spec2,
+                    spec1: spec1Name,
+                    spec2: spec2Name,
                     qty: amount,
                 },
             ],
             {
                 ...productData,
-                spec1: spec1,
-                spec2: spec2,
+                spec1: spec1Name,
+                spec2: spec2Name,
                 qty: amount,
             },
         )
@@ -81,8 +88,8 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
                 {
                     cid: productData.cid,
                     pid: productData.pid,
-                    spec1: spec1,
-                    spec2: spec2,
+                    spec1: spec1Name,
+                    spec2: spec2Name,
                     qty: amount,
                 },
             ],
@@ -148,11 +155,15 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
 
                                                 <div className="product-nav product-nav-thumbs">
                                                     {info &&
-                                                        info.map((item, index) => {
-                                                            const className = spec1 == item.sizeName1 ? 'active' : ''
+                                                        info.map((item: any, index: number) => {
+                                                            const className = spec1 == index ? 'active' : ''
                                                             return (
-                                                                <a key={index} className={className}>
-                                                                    {item.sizeName1}
+                                                                <a
+                                                                    key={index}
+                                                                    className={className}
+                                                                    onClick={() => setSpec1(index)}
+                                                                >
+                                                                    {item.name}
                                                                 </a>
                                                             )
                                                         })}
@@ -166,16 +177,14 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
                                                         name="size"
                                                         id="size"
                                                         className="form-control"
-                                                        defaultValue={spec2}
                                                         value={spec2}
-                                                        onChange={(e) => setSpec2(e.target.value)}
+                                                        onChange={(e) => setSpec2(Number(e.target.value))}
                                                     >
-                                                        <option value="#">{t('size')}:</option>
-                                                        {info &&
-                                                            info.map((item, index) => {
+                                                        {subSpecList &&
+                                                            subSpecList.map((item: any, index: number) => {
                                                                 return (
-                                                                    <option key={index} value={item.sizeName2}>
-                                                                        {item.sizeName2}
+                                                                    <option key={index} value={index}>
+                                                                        {item.name}
                                                                     </option>
                                                                 )
                                                             })}
@@ -191,6 +200,7 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
                                                         amount={amount}
                                                         setAmount={setAmount}
                                                         minValue={1}
+                                                        maxValue={subSpecList[spec2].orderMax}
                                                     />
                                                 </div>
                                             </div>
@@ -264,7 +274,13 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
                             <div className="col-6 justify-content-end">
                                 <div className="product-price">${productData.price * amount}</div>
                                 <div className="product-details-quantity">
-                                    <NumberInput inputName="qty" amount={amount} setAmount={setAmount} minValue={1} />
+                                    <NumberInput
+                                        inputName="qty"
+                                        amount={amount}
+                                        setAmount={setAmount}
+                                        minValue={1}
+                                        maxValue={subSpecList[spec2].orderMax}
+                                    />
                                 </div>
 
                                 <div className="product-details-action">

@@ -21,7 +21,14 @@ const UserInfo: React.FC = () => {
         <form action="#" className="member-from" onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
                 <label htmlFor="name">{t('name')} *</label>
-                <input type="text"ref={register({ required: true })} className="form-control" id="name" name="name" required />
+                <input
+                    type="text"
+                    ref={register({ required: true })}
+                    className="form-control"
+                    id="name"
+                    name="name"
+                    required
+                />
             </div>
 
             <div className="phone-frame">
@@ -117,7 +124,14 @@ const UserInfo: React.FC = () => {
                 </div>
             </div>
             <div className="form-group">
-                <input ref={register({ required: true })} type="text" className="form-control" id="address" name="address" required />
+                <input
+                    ref={register({ required: true })}
+                    type="text"
+                    className="form-control"
+                    id="address"
+                    name="address"
+                    required
+                />
             </div>
 
             <div className="form-footer">

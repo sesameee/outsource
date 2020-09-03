@@ -11,6 +11,7 @@ import { UserLoginReqData } from '@/types/apis/userLogin'
 import { useRouter } from 'next/router'
 import { useShoppingCartModifyHandler } from '../ShoppingCart'
 import { useWishModifyHandler } from '../Wish'
+import { useTranslation } from '@/I18n'
 export const useUserLoginHandler = (): any => {
     const dispatch = useDispatch()
     const handleLoginSubmit = useCallback(
@@ -59,15 +60,17 @@ export const useUserLoginHandler = (): any => {
         }, [success.accessToken, setAccessToken])
 
         // 登入成功後關閉彈窗和轉址
+        const { t } = useTranslation()
+        const youAreLogin = t('youAreLogin')
         useEffect(() => {
             if (accessToken != success.accessToken && success.accessToken) {
                 if (router.pathname != '/') {
                     router.push('/')
                 }
                 setPropIsOpenFn(false)
-                dispatch(ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: '您已登入' }))
+                dispatch(ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: youAreLogin }))
             }
-        }, [setPropIsOpenFn, success.accessToken, router, accessToken])
+        }, [setPropIsOpenFn, success.accessToken, router, accessToken, youAreLogin])
 
         // 登入成功後新增購物車
         useEffect(() => {
@@ -105,10 +108,11 @@ export const useUserLoginHandler = (): any => {
             }
         }, [success.accessToken, wishList, accessToken, handleWish])
     }
-
+    const { t } = useTranslation()
+    const youAreLogout = t('youAreLogout')
     const handleLogout = useCallback(() => {
         dispatch(UserLoginActions.fetchUserLoginFailure({ error: '' }))
-        dispatch(ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: '您已登出' }))
-    }, [dispatch])
+        dispatch(ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: youAreLogout }))
+    }, [dispatch, youAreLogout])
     return { handleLoginSubmit, handleLogout, UseAuthHandle, UseLoginSuccess }
 }

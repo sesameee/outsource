@@ -99,16 +99,16 @@ const Refund: React.FC<RefundProps> = ({ OrderList, tabIndex, OrderDetail }: Ref
                 <table className="table table-wishlist table-mobile">
                     <thead>
                         <tr>
-                            <th>勾選退貨商品</th>
-                            <th style={{ width: 380 }}>商品名稱</th>
-                            <th>折扣後金額</th>
-                            <th>購買數量</th>
-                            <th>退貨數量</th>
+                            <th>{t('tick_return_commodity')}</th>
+                            <th style={{ width: 380 }}>{t('commodity_name')}</th>
+                            <th>{t('after_discount_price')}</th>
+                            <th>{t('buy_amount')}</th>
+                            <th>{t('return_amount')}</th>
                         </tr>
                     </thead>
                     <tbody>{Arr}</tbody>
                 </table>
-                <label htmlFor="reason">退貨原因 *</label>
+                <label htmlFor="reason">{t('return_reason')} *</label>
                 <div className="select-custom">
                     <select
                         name="reason"
@@ -121,7 +121,7 @@ const Refund: React.FC<RefundProps> = ({ OrderList, tabIndex, OrderDetail }: Ref
                         <option value={1}>衝動購物</option>
                     </select>
                 </div>
-                <label htmlFor="memo">退貨原因描述 :</label>
+                <label htmlFor="memo">{t('return_reason_desc')} :</label>
                 <textarea
                     ref={register({ required: true })}
                     name="memo"
@@ -136,8 +136,8 @@ const Refund: React.FC<RefundProps> = ({ OrderList, tabIndex, OrderDetail }: Ref
                         className="btn btn-outline-primary-2 btn-order btn-block"
                         style={{ width: '3rem' }}
                     >
-                        <span className="btn-text">確認送出</span>
-                        <span className="btn-hover-text">確認送出</span>
+                        <span className="btn-text">{t('confirm_submit')}</span>
+                        <span className="btn-hover-text">{t('confirm_submit')}</span>
                     </button>
                 </div>
             </div>

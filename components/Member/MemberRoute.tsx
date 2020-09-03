@@ -39,7 +39,7 @@ const MemberRoute: React.FC = () => {
                 </Link>
             </li>
             <li onClick={() => handleLogout()}>
-                <a href="#">登出</a>
+                <a href="#"> {t('logout')}</a>
             </li>
         </ul>
     )

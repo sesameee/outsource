@@ -10,6 +10,7 @@ import { REFRESH_TOKEN } from '@/services/api/apiConfig'
 import { encodeToken } from '@/utils'
 import { v4 as uuidv4 } from 'uuid'
 import { UserLoginRspAllData } from '@/types/apis/userLogin'
+import { i18n } from '@/I18n'
 const NEED_LOGOUT_ERROR_CODE = '8011'
 
 export const initEpic: Epic = (action$) =>
@@ -46,7 +47,7 @@ export const fetchRefreshTokenListEpic: Epic = (action$, state$) =>
                 catchError((error: AxiosError) => {
                     return of(
                         UserLoginActions.fetchUserLoginFailure({ error: error.message }),
-                        ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: '您已登出' }),
+                        ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: i18n.t('logout') }),
                     )
                 }),
                 takeUntil(action$.ofType(RefreshTokenActions.stopFetchRefreshToken)),

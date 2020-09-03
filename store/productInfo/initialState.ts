@@ -18,6 +18,7 @@ export const initialState: State = {
         desc3: '',
         info: [],
         breadCrumbs: [],
+        specInfos: [],
     },
     error: '',
 }

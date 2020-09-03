@@ -6,6 +6,7 @@ import { ChannelListSelectors } from '@/store'
 import Link from 'next/link'
 import { useTranslation, i18n } from '@/I18n'
 import { setCookie } from '@/utils'
+import { useRouter } from 'next/router'
 //import { ProductData } from '@/types/apis/common'
 
 type MobileMenuProps = {
@@ -15,6 +16,7 @@ type MobileMenuProps = {
 const MobileMenu: React.FC<MobileMenuProps> = ({ IsOpenMenu, setIsOpenMenu }: MobileMenuProps) => {
     useChannelList()
     const { t } = useTranslation()
+
     const channelList = useSelector(ChannelListSelectors.getChannelList)
     const [IsOpenSubMenu, setIsOpenSunMenu] = React.useState(false)
     const [subMenuIndex, setsubMenuIndex] = React.useState(0)
@@ -22,6 +24,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ IsOpenMenu, setIsOpenMenu }: Mo
         setIsOpenSunMenu(true)
         setsubMenuIndex(index)
     }
+    const router = useRouter()
     const [lan, setLan] = useState(i18n.language)
     useEffect(() => {
         setLan(i18n.language)
@@ -37,12 +40,9 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ IsOpenMenu, setIsOpenMenu }: Mo
                     <ul>
                         {channelList.map((item, index) => {
                             return (
-                                <li
-                                    key={index}
-                                    className={`menu-li ${item.isMarkColor ? 'highlight-color' : ''}`}
-                                    onClick={() => handelSubMenu(index)}
-                                >
-                                    {item.channelName} <i className="demo-icon icon-angle-right"></i>
+                                <li key={index} className={`menu-li ${item.isMarkColor ? 'highlight-color' : ''}`}>
+                                    <span onClick={() => router.push(`/category/${item.cid}`)}>{item.channelName}</span>
+                                    <i className="demo-icon icon-angle-right" onClick={() => handelSubMenu(index)}></i>
                                 </li>
                             )
                         })}

@@ -12,6 +12,7 @@ import { USER_LOGIN } from '@/services/api/apiConfig'
 import { epicSuccessMiddleware } from '../epicMiddleware'
 import { v4 as uuidv4 } from 'uuid'
 import { setCookie } from '@/utils'
+import { i18n } from '@/I18n'
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
 export const initEpic: Epic = (action$) =>
@@ -62,7 +63,7 @@ export const fetchUserLoginEpic: Epic = (action$) => {
                 catchError((error: AxiosError) => {
                     return of(
                         UserLoginActions.fetchUserLoginFailure({ error: error.message }),
-                        ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: '您已登出' }),
+                        ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: i18n.t('logout') }),
                     )
                 }),
                 takeUntil(action$.ofType(UserLoginActions.stopFetchUserLogin)),

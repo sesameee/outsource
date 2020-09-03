@@ -11,6 +11,7 @@ import { GENERATE_ACCESS_TOKEN } from '@/services/api/apiConfig'
 import * as types from '@/store/actionsType'
 const NEED_GETREFRESH_ERROR_CODE = '8012'
 const NEED_LOGOUT_ERROR_CODE = '8011'
+import { i18n } from '@/I18n'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
@@ -63,7 +64,7 @@ export const fetchGenerateAccessTokenListEpic: Epic = (action$, state$) =>
                     const res = <AxiosError>error
                     return of(
                         UserLoginActions.fetchUserLoginFailure({ error: res.message }),
-                        ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: '您已登出' }),
+                        ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: i18n.t('logout') }),
                     )
                 }),
                 takeUntil(action$.ofType(GenerateAccessTokenActions.stopFetchGenerateAccessToken)),

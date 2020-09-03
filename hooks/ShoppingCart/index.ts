@@ -42,6 +42,7 @@ export const useShoppingCartModify = (): void => {
 
 export const useShoppingCartModifyHandler = (): any => {
     const dispatch = useDispatch()
+    const { t } = useTranslation()
     const getUser = useSelector(UserLoginSelectors.getUserLoginData)
     const getCartList = useSelector(ShoppingCartListSelectors.getShoppingCartListCookie)
     const handleCart = useCallback(
@@ -109,7 +110,7 @@ export const useShoppingCartModifyHandler = (): any => {
                             ShoppingCartListActions.setShoppingCartListCookie({
                                 data: newCart.length > 0 ? newCart : [sendData],
                             }),
-                        ) && dispatch(ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: '您已新增至購物車' }))
+                        ) && dispatch(ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: t('addedCart') }))
                     )
                 } else if (action == 'delete') {
                     if (getCartList.length > 0) {
@@ -120,7 +121,7 @@ export const useShoppingCartModifyHandler = (): any => {
                             ShoppingCartListActions.setShoppingCartListCookie({
                                 data: getCartList,
                             }),
-                        ) && dispatch(ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: '您已刪除' }))
+                        ) && dispatch(ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: t('isDelete') }))
                     )
                 } else {
                     return dispatch(
@@ -131,7 +132,7 @@ export const useShoppingCartModifyHandler = (): any => {
                 }
             }
         },
-        [dispatch, getUser, getCartList],
+        [dispatch, getUser, getCartList, t],
     )
     return { handleCart }
 }
