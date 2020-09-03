@@ -31,7 +31,6 @@ const RefundList: React.FC<RefundListProps> = ({
                         value={item.pid}
                         onChange={handleCheckChange}
                         onClick={(e) => {
-                            console.log('object :>> ')
                             handleCheckChange(e)
                         }}
                     />

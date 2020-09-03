@@ -129,6 +129,9 @@ const Cart: NextPage<any> = (): JSX.Element => {
                                                                 name="shipping"
                                                                 className="custom-control-input"
                                                                 checked={true}
+                                                                onChange={() => {
+                                                                    return true
+                                                                }}
                                                             />
                                                             <label
                                                                 className="custom-control-label"

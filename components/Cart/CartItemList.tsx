@@ -39,7 +39,7 @@ const CartItemList: React.FC<CartItemProps> = ({ sum, setSum }: CartItemProps) =
                             sum={sum}
                             setSum={setSum}
                             index={index}
-                            name={item._name}
+                            name={item._name || item.mName}
                         />
                     )
                 })}

@@ -7,7 +7,7 @@ import { AxiosError } from 'axios'
 import { ResendVerifyCodeActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
 import { ResendVerifyCodeReqData, ResendVerifyCodeRspData } from '@/types/apis/resendVerifyCode'
-import { RESET_PASSWORD } from '@/services/api/apiConfig'
+import { RESEND_VERIFY_CODE } from '@/services/api/apiConfig'
 import { epicSuccessMiddleware, epicAuthFailMiddleware, requireValidToken } from '../epicMiddleware'
 
 // TODO: do something
@@ -25,7 +25,7 @@ export const fetchResendVerifyCodeEpic: Epic = (action$, state$) =>
         ofType(ResendVerifyCodeActions.fetchResendVerifyCode),
         mergeMap(() =>
             requireValidToken(action$, state$, () =>
-                HttpService.PostAsync<ResendVerifyCodeReqData, ResendVerifyCodeRspData>(RESET_PASSWORD, {
+                HttpService.PostAsync<ResendVerifyCodeReqData, ResendVerifyCodeRspData>(RESEND_VERIFY_CODE, {
                     memberId: state$.value.userLogin.memberId,
                 }).pipe(
                     mergeMap((res) => {

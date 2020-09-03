@@ -154,7 +154,7 @@ const FromSecondStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromPr
             <div className="form-footer">
                 <label>
                     {t('if_not_receive_captcha_hint')}
-                    <a onClick={handleResendVerifyCodeSubmit()}>{t('re_send_captcha')}</a>
+                    <a onClick={() => handleResendVerifyCodeSubmit()}>{t('re_send_captcha')}</a>
                 </label>
                 <button type="submit" className="btn btn-outline-primary-2 btn-block margin-top-more">
                     <span>{t('submit')}</span>

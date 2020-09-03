@@ -15,7 +15,7 @@ const PasswordModify: React.FC = (): JSX.Element => {
         handleResetPasswordSubmit({ ...data, type: 2 })
     }
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="member-from">
+        <form onSubmit={handleSubmit(onSubmit)} className="member-from" name="ResetPassword">
             <div className="form-group">
                 <label htmlFor="phone">{t('please_input_phone_number_and_receive_captcha')}</label>
                 <input

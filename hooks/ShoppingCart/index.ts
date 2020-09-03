@@ -70,9 +70,10 @@ export const useShoppingCartModifyHandler = (): any => {
                         spec1: itemData.spec1,
                         spec2: itemData.spec2,
                         qty: itemData.qty,
-                        imageUrl: itemData.imageUrl,
+                        imageUrl: itemData.imageUrl && itemData.imageUrl[0],
                         price: itemData.price,
                         pName: itemData.pName,
+                        mName: itemData.mName,
                     }
                     if (getCartList.length > 0) {
                         let isAdd = false
@@ -91,9 +92,10 @@ export const useShoppingCartModifyHandler = (): any => {
                                     spec1: item.spec1,
                                     spec2: item.spec2,
                                     qty: item.qty + itemData.qty,
-                                    imageUrl: item.imageUrl,
+                                    imageUrl: item.imageUrl && item.imageUrl[0],
                                     price: item.price,
                                     pName: item.pName,
+                                    mName: itemData.mName,
                                 }
                             }
                             return item
