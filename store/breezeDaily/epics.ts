@@ -1,6 +1,6 @@
 import { HYDRATE } from 'next-redux-wrapper'
 import { of } from 'rxjs'
-import { switchMap, catchError, takeUntil } from 'rxjs/operators'
+import { switchMap, catchError, takeUntil, mergeMap } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 
@@ -24,7 +24,7 @@ export const fetchBreezeDailyListEpic: Epic = (action$) =>
         ofType(BreezeDailyActions.fetchBreezeDailyList),
         switchMap(() =>
             HttpService.PostAsync<null, BreezeDailyDataList>(BREEZE_DAILY_LIST).pipe(
-                switchMap((res) => {
+                mergeMap((res) => {
                     return of(BreezeDailyActions.fetchBreezeDailyListSuccess({ breezeDaily: res.data }))
                 }),
                 catchError((error: AxiosError) => {

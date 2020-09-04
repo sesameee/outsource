@@ -1,6 +1,6 @@
 import { HYDRATE } from 'next-redux-wrapper'
 import { of } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil, take } from 'rxjs/operators'
+import { mergeMap, concatMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 import { PayloadAction } from '@reduxjs/toolkit'
@@ -23,7 +23,7 @@ export const initEpic: Epic = (action$) =>
 export const fetchBannerEpic: Epic = (action$) =>
     action$.pipe(
         ofType(BannerActions.fetchBanner),
-        mergeMap((action: PayloadAction<{ isRecommend: number }>) =>
+        concatMap((action: PayloadAction<{ isRecommend: number }>) =>
             HttpService.PostAsync<{ isRecommend: number }, BannerList>(BANNER, {
                 isRecommend: action.payload.isRecommend,
             }).pipe(
@@ -41,7 +41,6 @@ export const fetchBannerEpic: Epic = (action$) =>
                 takeUntil(action$.ofType(BannerActions.stopFetchBanner)),
             ),
         ),
-        take(2),
     )
 
 export default [initEpic, fetchBannerEpic]

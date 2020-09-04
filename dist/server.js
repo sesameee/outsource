@@ -101,7 +101,10 @@
             const e = o()()
             await v.initPromise,
                 e.use(s()(v)),
-                e.get('*', (e, t) => w(e, t)),
+                e.get('*', (e, t) => {
+                    console.log('e :>> ', e.originalUrl)
+                    return w(e, t)
+                }),
                 await e.listen(h),
                 console.log('> Ready on http://localhost:' + h)
         })()
