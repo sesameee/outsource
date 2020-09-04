@@ -96,11 +96,11 @@
 }
 .intro-slider-container,
 .intro-slide {
-    height: 100vh;
+    // height: 100vh;
     background-color: #4f5356;
 }
 .intro-slide {
-    display: flex;
+    display: flex !important;
     align-items: center;
     background-size: cover;
     background-position: center center;
@@ -121,7 +121,6 @@
     margin-bottom: 1rem;
 }
 .intro-content {
-    padding-top: 2rem;
 }
 .intro-content .btn {
     border-color: $mainColor;

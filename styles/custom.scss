@@ -204,7 +204,6 @@
     justify-content: center;
     .video {
         width: 100vw;
-        height: 100vh;
         position: fixed;
         top: 0;
         left: 0;
@@ -335,7 +334,7 @@
 .recommend {
     .banner {
         background-repeat: no-repeat;
-        background-size: cover;
+        background-size: contain;
         background-position: 50% 50%;
         display: flex;
         &:hover {
@@ -957,4 +956,8 @@
     .gpay-button.long {
         width: 100%;
     }
+}
+
+.ReactModal__Content {
+    -webkit-overflow-scrolling: initial !important;
 }
