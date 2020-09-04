@@ -23,7 +23,7 @@ export const initEpic: Epic = (action$) =>
 export const fetchUserPointsEpic: Epic = (action$, state$) =>
     action$.pipe(
         ofType(UserPointsActions.fetchUserPoints),
-        mergeMap(() =>
+        switchMap(() =>
             requireValidToken(action$, state$, (accessToken: any) =>
                 HttpService.PostAsync<UserPointsReqData, UserPointsRspData>(USER_POINTS, {
                     memberId: state$.value.userLogin.memberId,

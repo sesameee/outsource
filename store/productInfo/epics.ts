@@ -23,7 +23,7 @@ export const initEpic: Epic = (action$) =>
 export const fetchProductInfoEpic: Epic = (action$) =>
     action$.pipe(
         ofType(ProductInfoActions.fetchProductInfo),
-        mergeMap((action: PayloadAction<ProductInfoReqData>) =>
+        switchMap((action: PayloadAction<ProductInfoReqData>) =>
             HttpService.PostAsync<ProductInfoReqData, ProductInfoRspData>(PRODUCT_INFO, {
                 cid: action.payload.cid,
                 pid: action.payload.pid,

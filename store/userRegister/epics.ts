@@ -25,7 +25,7 @@ export const initEpic: Epic = (action$) =>
 export const fetchUserRegisterEpic: Epic = (action$) =>
     action$.pipe(
         ofType(UserRegisterActions.fetchUserRegister),
-        mergeMap((action: PayloadAction<UserRegisterReqData>) =>
+        switchMap((action: PayloadAction<UserRegisterReqData>) =>
             HttpService.PostAsync<UserRegisterReqData, UserLoginRspAllData>(USER_REGISTER, {
                 name: action.payload.name,
                 phoneCode: action.payload.phoneCode,

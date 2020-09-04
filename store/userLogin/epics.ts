@@ -35,7 +35,7 @@ export const initEpic: Epic = (action$) =>
 export const fetchUserLoginEpic: Epic = (action$) => {
     return action$.pipe(
         ofType(UserLoginActions.fetchUserLogin),
-        mergeMap((action: PayloadAction<UserLoginReqData>) => {
+        switchMap((action: PayloadAction<UserLoginReqData>) => {
             const uuid = uuidv4()
             setCookie('uuid', uuid)
             return HttpService.PostAsync<UserLoginReqData, UserLoginRspAllData>(

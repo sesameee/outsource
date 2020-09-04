@@ -1,6 +1,6 @@
 import { HYDRATE } from 'next-redux-wrapper'
 import { of } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
+import { mergeMap, switchMap, catchError, takeUntil, take } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 import { PayloadAction } from '@reduxjs/toolkit'
@@ -41,6 +41,7 @@ export const fetchBannerEpic: Epic = (action$) =>
                 takeUntil(action$.ofType(BannerActions.stopFetchBanner)),
             ),
         ),
+        take(2),
     )
 
 export default [initEpic, fetchBannerEpic]

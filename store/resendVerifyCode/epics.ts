@@ -23,7 +23,7 @@ export const initEpic: Epic = (action$) =>
 export const fetchResendVerifyCodeEpic: Epic = (action$, state$) =>
     action$.pipe(
         ofType(ResendVerifyCodeActions.fetchResendVerifyCode),
-        mergeMap(() =>
+        switchMap(() =>
             requireValidToken(action$, state$, () =>
                 HttpService.PostAsync<ResendVerifyCodeReqData, ResendVerifyCodeRspData>(RESEND_VERIFY_CODE, {
                     memberId: state$.value.userLogin.memberId,

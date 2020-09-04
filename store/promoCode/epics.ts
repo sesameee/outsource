@@ -24,7 +24,7 @@ export const initEpic: Epic = (action$) =>
 export const fetchPromoCodeEpic: Epic = (action$, state$) =>
     action$.pipe(
         ofType(PromoCodeActions.fetchPromoCode),
-        mergeMap((action: PayloadAction<PromoCodeReqData>) =>
+        switchMap((action: PayloadAction<PromoCodeReqData>) =>
             requireValidToken(action$, state$, (accessToken: any) =>
                 HttpService.PostAsync<PromoCodeReqData, PromoCodeRspData>(PROMO_CODE, {
                     promoCode: action.payload.promoCode,

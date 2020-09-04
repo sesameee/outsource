@@ -32,7 +32,7 @@ const TopBanner: React.FC = () => {
         infinite: true,
         slidesToShow: 1,
         slidesToScroll: 1,
-        autoplay: false,
+        autoplay: true,
         speed: 500,
         cssEase: 'linear',
         nextArrow: <NextArrow />,
@@ -89,14 +89,11 @@ const TopBanner: React.FC = () => {
                 )
             case 'youtube':
                 return (
-                    <div className="intro-content no-padding">
-                        <iframe
-                            className="video"
-                            src={item?.sourceUrl}
-                            allow="autoplay"
-                            style={{ border: 'none', height: height }}
-                        ></iframe>
-                        <div className="textFrame">
+                    <div
+                        className="intro-content no-padding text-center"
+                        style={{ position: 'relative', height: height }}
+                    >
+                        <div className="textFrame" style={{ position: 'absolute' }}>
                             <h3 className="intro-subtitle text-white">{item?.desc}</h3>
                             <h1 className="intro-title text-white">{item?.desc}</h1>
                             <a href={item?.linkUrl} target="blank" className="btn btn-outline-white">
@@ -104,6 +101,12 @@ const TopBanner: React.FC = () => {
                                 <i className="icon-long-arrow-right"></i>
                             </a>
                         </div>
+                        <iframe
+                            className="video"
+                            src={item?.sourceUrl}
+                            allow="autoplay"
+                            style={{ border: 'none', height: height }}
+                        ></iframe>
                     </div>
                 )
             default:

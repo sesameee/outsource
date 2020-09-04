@@ -24,7 +24,7 @@ export const initEpic: Epic = (action$) =>
 export const fetchCheckoutEpic: Epic = (action$, state$) =>
     action$.pipe(
         ofType(CheckoutActions.fetchCheckout),
-        mergeMap((action: PayloadAction<CheckoutReqData>) =>
+        switchMap((action: PayloadAction<CheckoutReqData>) =>
             requireValidToken(action$, state$, (accessToken: any) =>
                 HttpService.PostAsync<CheckoutReqData, CheckoutRspData>(CHECKOUT, {
                     memberId: state$.value.userLogin.memberId,

@@ -24,7 +24,7 @@ export const initEpic: Epic = (action$) =>
 export const fetchOrderListEpic: Epic = (action$, state$) =>
     action$.pipe(
         ofType(OrderListActions.fetchOrderList),
-        mergeMap((action: PayloadAction<OrderListReqData>) =>
+        switchMap((action: PayloadAction<OrderListReqData>) =>
             requireValidToken(action$, state$, (accessToken: any) =>
                 HttpService.PostAsync<OrderListReqData, OrderListRspData>(ORDER_LIST, {
                     memberId: state$.value.userLogin.memberId,

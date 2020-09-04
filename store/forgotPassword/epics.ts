@@ -24,7 +24,7 @@ export const initEpic: Epic = (action$) =>
 export const fetchForgotPasswordEpic: Epic = (action$) =>
     action$.pipe(
         ofType(ForgotPasswordActions.fetchForgotPassword),
-        mergeMap((action: PayloadAction<ForgotPasswordReqData>) =>
+        switchMap((action: PayloadAction<ForgotPasswordReqData>) =>
             HttpService.PostAsync<ForgotPasswordReqData, ForgotPasswordRspData>(FORGOT_PASSWORD, {
                 phone: action.payload.phone,
                 rocId: action.payload.rocId,

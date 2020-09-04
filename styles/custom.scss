@@ -334,7 +334,7 @@
 .recommend {
     .banner {
         background-repeat: no-repeat;
-        background-size: contain;
+        background-size: cover;
         background-position: 50% 50%;
         display: flex;
         &:hover {

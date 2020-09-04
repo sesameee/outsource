@@ -24,7 +24,7 @@ export const initEpic: Epic = (action$) =>
 export const fetchRefundEpic: Epic = (action$, state$) =>
     action$.pipe(
         ofType(RefundActions.fetchRefund),
-        mergeMap((action: PayloadAction<RefundReqData>) =>
+        switchMap((action: PayloadAction<RefundReqData>) =>
             requireValidToken(action$, state$, (accessToken: any) =>
                 HttpService.PostAsync<RefundReqData, RefundRspData>(REFUND, {
                     memberId: state$.value.userLogin.memberId,

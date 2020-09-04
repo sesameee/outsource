@@ -24,7 +24,7 @@ export const initEpic: Epic = (action$) =>
 export const fetchShoppingCartModifyEpic: Epic = (action$, state$) =>
     action$.pipe(
         ofType(ShoppingCartModifyActions.fetchShoppingCartModify),
-        mergeMap((action: PayloadAction<ShoppingCartModifyReqData>) =>
+        switchMap((action: PayloadAction<ShoppingCartModifyReqData>) =>
             requireValidToken(action$, state$, (accessToken: any) =>
                 HttpService.PostAsync<ShoppingCartModifyReqData, ShoppingCartModifyRspData>(SHOPPING_CART_MODIFY, {
                     action: action.payload.action,

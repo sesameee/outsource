@@ -24,7 +24,7 @@ export const initEpic: Epic = (action$) =>
 export const fetchMemberAddressInfoEpic: Epic = (action$, state$) =>
     action$.pipe(
         ofType(MemberAddressInfoActions.fetchMemberAddressInfo),
-        mergeMap((action: PayloadAction<MemberAddressInfoReqData>) =>
+        switchMap((action: PayloadAction<MemberAddressInfoReqData>) =>
             requireValidToken(action$, state$, (accessToken: any) =>
                 HttpService.PostAsync<MemberAddressInfoReqData, MemberAddressInfoRspData>(MEMBER_ADDRESS_INFO, {
                     memberId: state$.value.userLogin.memberId,

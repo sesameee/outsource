@@ -24,7 +24,7 @@ export const initEpic: Epic = (action$) =>
 export const fetchRegisterUserInfoEpic: Epic = (action$, state$) =>
     action$.pipe(
         ofType(RegisterUserInfoActions.fetchRegisterUserInfo),
-        mergeMap((action: PayloadAction<RegisterUserInfoReqData>) =>
+        switchMap((action: PayloadAction<RegisterUserInfoReqData>) =>
             requireValidToken(action$, state$, (accessToken: any) =>
                 HttpService.PostAsync<RegisterUserInfoReqData, RegisterUserInfoRspData>(REGISTER_USER_INFO, {
                     memberId: state$.value.userLogin.memberId,

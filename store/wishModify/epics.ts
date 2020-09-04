@@ -24,7 +24,7 @@ export const initEpic: Epic = (action$) =>
 export const fetchWishModifyEpic: Epic = (action$, state$) =>
     action$.pipe(
         ofType(WishModifyActions.fetchWishModify),
-        mergeMap((action: PayloadAction<WishModifyReqData>) =>
+        switchMap((action: PayloadAction<WishModifyReqData>) =>
             requireValidToken(action$, state$, (accessToken: any) =>
                 HttpService.PostAsync<WishModifyReqData, WishModifyRspData>(WISH_MODIFY, {
                     action: action.payload.action,

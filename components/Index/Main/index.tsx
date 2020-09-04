@@ -12,7 +12,7 @@ type MainProps = {
 const Main: React.FC<MainProps> = ({ t }: MainProps) => {
     return (
         <main className="main">
-            <div className="intro-slider-container mb-3 mb-lg-5">
+            <div className="intro-slider-container mb-4 mb-lg-5">
                 <TopBanner />
             </div>
             <Recommend />
