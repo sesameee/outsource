@@ -134,7 +134,11 @@ const Recommend: React.FC<RecommendProps> = ({ t }: RecommendProps) => {
                     } else {
                         return (
                             <Link key={index} href={`category/${item.cid}`} prefetch={false}>
-                                <img src={item.sourceUrl} width="100%" style={{ margin: '1rem 0' }} />
+                                <img
+                                    src={item.sourceUrl}
+                                    width="100%"
+                                    style={{ margin: '1rem 0', height: index == 3 ? '150px' : 'auto' }}
+                                />
                             </Link>
                         )
                     }

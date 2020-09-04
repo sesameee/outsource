@@ -41,21 +41,25 @@ const TopBanner: React.FC = () => {
 
     const elementRef = useRef<HTMLDivElement>(null)
     const [height, setHeight] = useState(0)
+    const [width, setWidth] = useState(0)
     useEffect(() => {
         if (elementRef) {
-            const ele = (elementRef && elementRef?.current && elementRef.current.clientHeight) || 0
-            setHeight(ele)
+            const h = (elementRef && elementRef?.current && elementRef.current.clientHeight) || 0
+            const w = (elementRef && elementRef?.current && elementRef.current.clientWidth) || 0
+            setHeight(h)
+            setWidth(w)
         }
     }, [bannerList])
     const BannerItem = (item: BannerData) => {
         switch (item.contentType) {
             case 'image':
                 return (
-                    <div className="intro-content text-center" style={{ position: 'relative' }}>
-                        <a href={item?.linkUrl} target="blank">
-                            <img src={item?.sourceUrl} width="100%" />
-                        </a>
-                    </div>
+                    <a href={item?.linkUrl} target="blank">
+                        <div
+                            className="intro-content text-center"
+                            style={{ backgroundImage: `url(${item?.sourceUrl})`, height: `${0.56 * 1.5 * width}px` }}
+                        ></div>
+                    </a>
                 )
             case 'video':
                 return (
