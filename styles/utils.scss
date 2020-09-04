@@ -27,6 +27,12 @@
     }
 }
 
+@mixin for-ll {
+    @media (max-width: 1200px) {
+        @content;
+    }
+}
+
 @mixin for-except-xs {
     @media (min-width: 768px) {
         @content;

@@ -486,6 +486,20 @@
     }
 }
 
+.pc-show {
+    display: none;
+    @include for-except-xs {
+        display: block;
+    }
+}
+
+.pc-hide {
+    display: block;
+    @include for-except-xs {
+        display: none;
+    }
+}
+
 .intro-slide .intro-content {
     height: 100%;
     width: 100vw;
