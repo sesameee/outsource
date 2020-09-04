@@ -52,16 +52,9 @@ const TopBanner: React.FC = () => {
             case 'image':
                 return (
                     <div className="intro-content text-center" style={{ position: 'relative' }}>
-                        <div style={{ position: 'absolute' }}>
-                            <h3 className="intro-subtitle text-white">{item?.desc}</h3>
-                            <h1 className="intro-title text-white">{item?.desc}</h1>
-
-                            <a href={item?.linkUrl} target="blank" className="btn btn-outline-white">
-                                <span>DISCOVER MORE</span>
-                                <i className="icon-long-arrow-right"></i>
-                            </a>
-                        </div>
-                        <img src={item?.sourceUrl} width="100%" />
+                        <a href={item?.linkUrl} target="blank">
+                            <img src={item?.sourceUrl} width="100%" />
+                        </a>
                     </div>
                 )
             case 'video':
@@ -77,14 +70,6 @@ const TopBanner: React.FC = () => {
                         >
                             <source src={item?.sourceUrl} type="video/mp4" />
                         </video>
-                        <div className="textFrame">
-                            <h3 className="intro-subtitle text-white">{item?.desc}</h3>
-                            <h1 className="intro-title text-white">{item?.desc}</h1>
-                            <a href={item?.linkUrl} target="blank" className="btn btn-outline-white">
-                                <span>DISCOVER MORE</span>
-                                <i className="icon-long-arrow-right"></i>
-                            </a>
-                        </div>
                     </div>
                 )
             case 'youtube':
@@ -93,14 +78,6 @@ const TopBanner: React.FC = () => {
                         className="intro-content no-padding text-center"
                         style={{ position: 'relative', height: height }}
                     >
-                        <div className="textFrame" style={{ position: 'absolute' }}>
-                            <h3 className="intro-subtitle text-white">{item?.desc}</h3>
-                            <h1 className="intro-title text-white">{item?.desc}</h1>
-                            <a href={item?.linkUrl} target="blank" className="btn btn-outline-white">
-                                <span>DISCOVER MORE</span>
-                                <i className="icon-long-arrow-right"></i>
-                            </a>
-                        </div>
                         <iframe
                             className="video"
                             src={item?.sourceUrl}
