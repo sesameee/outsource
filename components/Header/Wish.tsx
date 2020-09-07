@@ -16,7 +16,7 @@ const Wish: React.FC = () => {
         } else {
             setWishList(getShoppingCartListCookie)
         }
-    }, [UserAuth, data, getShoppingCartListCookie, WishList])
+    }, [UserAuth, data, getShoppingCartListCookie])
     return (
         <>
             <Link href={UserAuth.accessToken ? '/member/wishList' : '/wishlist'} prefetch={false}>

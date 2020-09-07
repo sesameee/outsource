@@ -93,7 +93,7 @@ const InvoiceFrom: React.FC<InvoiceFromProps> = ({ type, register }: InvoiceFrom
                             <label htmlFor="invoiceInfo.invoiceCityCode">{t('county')} *</label>
                             <div className="select-custom">
                                 <select
-                                    name="invoiceInfo.invoiceCityCode"
+                                    name="invoiceInfo.invoiceCityCode_set"
                                     id="invoiceCityCode"
                                     className="form-control"
                                     onChange={(e) => setCity(Number(e.target.value))}
@@ -111,6 +111,13 @@ const InvoiceFrom: React.FC<InvoiceFromProps> = ({ type, register }: InvoiceFrom
                                         )
                                     })}
                                 </select>
+                                <input
+                                    type="text"
+                                    name="invoiceInfo.invoiceCityCode"
+                                    ref={register}
+                                    value={AddressInfo[city] && AddressInfo[city].cityCode}
+                                    style={{ display: 'none' }}
+                                />
                             </div>
                         </div>
 
@@ -130,7 +137,7 @@ const InvoiceFrom: React.FC<InvoiceFromProps> = ({ type, register }: InvoiceFrom
                                     {AddressInfo[city] &&
                                         AddressInfo[city].areas.map((item, index) => {
                                             return (
-                                                <option key={`a${index}`} value={item.zipCode}>
+                                                <option key={`a${index}`} value={item.areaCode}>
                                                     {item.areaName}
                                                 </option>
                                             )
@@ -172,6 +179,7 @@ const InvoiceFrom: React.FC<InvoiceFromProps> = ({ type, register }: InvoiceFrom
 }
 
 const Checkout: NextPage<any> = (): JSX.Element => {
+    useBackBtnDetect()
     const { t } = useTranslation()
     const navMock = [
         {
@@ -228,6 +236,7 @@ const Checkout: NextPage<any> = (): JSX.Element => {
         }) || []
     const onSubmit = (data: any) => {
         data = { ...data, totalAmount: finalAmount, data: cartData, shippingAmount: 0 }
+        data.shipInfo.receiveCityCode = AddressInfo[city].cityCode
         if (isApplePay) {
             HandleSetupTabPayApplePay(data)
             return
@@ -305,7 +314,7 @@ const Checkout: NextPage<any> = (): JSX.Element => {
                                             type="text"
                                             className="form-control"
                                             required
-                                            ref={register({ required: true })}
+                                            ref={register({ required: true, maxLength: 10, minLength: 10 })}
                                         />
 
                                         <label htmlFor="shipInfo.receiveEmail">{t('email')} *</label>
@@ -319,14 +328,14 @@ const Checkout: NextPage<any> = (): JSX.Element => {
 
                                         <div className="row">
                                             <div className="col-sm-6">
-                                                <label htmlFor="shipInfo.receiveAreaCode">
+                                                <label htmlFor="shipInfo.receiveCityCode">
                                                     {t('receiver_county')} *
                                                 </label>
                                                 <div className="select-custom">
                                                     <select
                                                         ref={register}
-                                                        name="shipInfo.receiveAreaCode"
-                                                        id="receiveAreaCode"
+                                                        name="shipInfo.receiveCityCode"
+                                                        id="receiveCityCode"
                                                         className="form-control"
                                                         defaultValue=""
                                                         onChange={(e) => setCity(Number(e.target.value))}
@@ -346,12 +355,12 @@ const Checkout: NextPage<any> = (): JSX.Element => {
                                             </div>
 
                                             <div className="col-sm-6">
-                                                <label htmlFor="shipInfo.receiveCityCode">{t('receiver_zone')} *</label>
+                                                <label htmlFor="shipInfo.receiveAreaCode">{t('receiver_zone')} *</label>
                                                 <div className="select-custom">
                                                     <select
                                                         ref={register}
-                                                        name="shipInfo.receiveCityCode"
-                                                        id="receiveCityCode"
+                                                        name="shipInfo.receiveAreaCode"
+                                                        id="receiveAreaCode"
                                                         className="form-control"
                                                         defaultValue=""
                                                     >
@@ -561,5 +570,6 @@ const Checkout: NextPage<any> = (): JSX.Element => {
 import ProductDetail from '@/components/Checkout/ProductDetail'
 import { useVerifyInvBarCodeHandler } from '@/hooks/VerifyInvBarCode'
 import { useRouter } from 'next/router'
+import { useBackBtnDetect } from '@/hooks/BackBtnDetect'
 
 export default Checkout

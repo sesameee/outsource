@@ -28,7 +28,7 @@ const Cart: React.FC<CartProps> = ({ setIsOpenMember }: CartProps) => {
         } else {
             setCartList(getShoppingCartListCookie)
         }
-    }, [UserAuth, getShoppingCartItemList, getShoppingCartListCookie, CartList])
+    }, [UserAuth, getShoppingCartItemList, getShoppingCartListCookie])
     return (
         <div className="dropdown cart-dropdown">
             <Link href="/cart">

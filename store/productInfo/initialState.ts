@@ -2,6 +2,8 @@ import { State } from 'types/stores/productInfo/state'
 export const initialState: State = {
     isFetch: false,
     productInfoData: {
+        specName1: '',
+        specName2: '',
         pid: '',
         cid: '',
         mid: '',

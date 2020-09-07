@@ -16,11 +16,13 @@ import SortSelect from '@/components/Catalog/SortSelect'
 import { NextPage } from 'next'
 import { useTranslation } from '@/I18n'
 import { CatalogData } from '@/types/apis'
+import { useBackBtnDetect } from '@/hooks/BackBtnDetect'
 interface CategoryProps extends WithRouterProps {
     filterProduct: Set<unknown>
 }
 
 const Category: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
+    useBackBtnDetect()
     const { t } = useTranslation()
     const query = router.query
     useChannelList()

@@ -36,7 +36,7 @@ export const fetchCatalogSuccess: CaseReducer<State, PayloadAction<{ catalogList
                     productList[id] = tmpData
                 }
             }
-        } else if (categoryType == 'channel') {
+        } else if (categoryType == 'channel' || categoryType == 'brand') {
             for (let i = 0; i < data.categoryList?.length; i++) {
                 const iData = <any>data.categoryList[i]?.cData
                 const iCid = data.categoryList[i]?.cid

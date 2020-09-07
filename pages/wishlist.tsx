@@ -8,6 +8,7 @@ import { navData } from '@/types/components/nav'
 import { TFunction } from 'next-i18next'
 import { withTranslation } from '@/I18n'
 import ItemList from '@/components/WishList/ItemList'
+import { useBackBtnDetect } from '@/hooks/BackBtnDetect'
 // import { withTranslation, i18n } from '@/I18n'
 type MemberProps = {
     t: TFunction
@@ -23,6 +24,7 @@ const Member: React.FC<MemberProps> = ({ t }: MemberProps): JSX.Element => {
             link: '',
         },
     ]
+    useBackBtnDetect()
     return (
         <div className="page-wrapper">
             <Header isIndex={false} />

@@ -14,6 +14,7 @@ import Points from '@/components/Member/Points'
 import Order from '@/components/Member/Order'
 import WishList from '@/components/Member/WishList'
 import UserInfo from '@/components/Member/UserInfo'
+import { useBackBtnDetect } from '@/hooks/BackBtnDetect'
 
 type SidePageFromProps = {
     pageName: string
@@ -42,6 +43,7 @@ const SidePageFrom: React.FC<SidePageFromProps> = ({ pageName }: SidePageFromPro
 }
 
 const Member: NextPage<any> = (): JSX.Element => {
+    useBackBtnDetect()
     const { t } = useTranslation()
     const navList: navData[] = [
         {
