@@ -74,7 +74,7 @@ const WidgetFrame: React.FC<WidgetFrameProps> = ({
                     </SubMenu>
                 </Menu>
             )
-        } else if (catalog.categoryType == 'channel') {
+        } else if (catalog.categoryType == 'channel' || catalog.categoryType == 'brand') {
             return catalog.categoryList.map((item: CatalogData, index) => {
                 const count = (item.cData && item.cData.length) || 0
                 return count > 0 ? (

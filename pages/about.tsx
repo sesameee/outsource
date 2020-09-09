@@ -5,10 +5,12 @@ import Nav from '@/components/Nav'
 import { navData } from '@/types/components/nav'
 import { TFunction } from 'next-i18next'
 import { withTranslation } from '@/I18n'
+import { useBackBtnDetect } from '@/hooks/BackBtnDetect'
 type MemberProps = {
     t: TFunction
 }
 const Member: React.FC<MemberProps> = ({ t }: MemberProps): JSX.Element => {
+    useBackBtnDetect()
     const navList: navData[] = [
         {
             title: t('homepage'),

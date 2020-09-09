@@ -4,6 +4,8 @@ export interface ProductInfoReqData {
 }
 
 export interface ProductInfoData {
+    specName1: string
+    specName2: string
     specInfos: any
     pid: string
     cid: string

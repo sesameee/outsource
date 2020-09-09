@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form'
 import { ForgotPasswordReqData } from '@/types/apis/forgotPassword'
 import { VerifyCodeData } from '@/types/apis/verifyCode'
 import { useVerifyCodeHandler } from '@/hooks/VerifyCode'
+import { useBackBtnDetect } from '@/hooks/BackBtnDetect'
 
 type FromFirstStepProps = {
     setStep: any
@@ -22,6 +23,7 @@ const FromFirstStep: React.FC<FromFirstStepProps> = ({ setStep }: FromFirstStepP
         handleForgotPasswordSubmit({ ...data, type: 2 })
     }
     HandleForgotPasswordRes(setStep)
+    useBackBtnDetect()
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">

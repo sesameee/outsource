@@ -253,5 +253,6 @@
     "youAreLogin": "login success",
     "youAreLogout": "logout",
     "wishTips1": "existed",
-    "wishTips2": "You have been added to the wish list"
+    "wishTips2": "You have been added to the wish list",
+    "credit_number": "credit number"
 }

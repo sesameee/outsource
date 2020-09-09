@@ -3,11 +3,11 @@ import React from 'react'
 import Header from '@/components/Header'
 import Main from '@/components/Index/Main'
 import Footer from '@/components/Footer'
-import { i18n } from '@/I18n'
 import { NextPage } from 'next'
+import { useBackBtnDetect } from '@/hooks/BackBtnDetect'
 
 const TopPage: NextPage<any> = (): JSX.Element => {
-    i18n.changeLanguage('tw')
+    useBackBtnDetect()
     return (
         <div className="page-wrapper">
             <Header isIndex={true} />

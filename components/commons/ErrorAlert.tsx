@@ -10,7 +10,7 @@ const ErrorAlert: React.FC = () => {
     const [isOpen, setisOpen] = React.useState(data.isOpen)
     useEffect(() => {
         setisOpen(data.isOpen)
-    }, [data, data.isOpen, setisOpen])
+    }, [data.isOpen])
     const dispatch = useDispatch()
     const closeModal = () =>
         dispatch(

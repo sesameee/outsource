@@ -29,7 +29,7 @@ const Order: React.FC = () => {
         if (OrderList.length > 0) {
             handelChangeIndex(0)
         }
-    }, [OrderList, handelChangeIndex])
+    }, [OrderList.length, handelChangeIndex])
 
     const OrderDetail = useSelector(OrderDetailSelectors.orderDetail)
     const [IsOpenRefund, setIsOpenRefund] = React.useState(false)

@@ -7,6 +7,7 @@ import { ShoppingCartProductData } from '@/types/apis/common'
 import { State as PromoCodeState } from '@/types/stores/promoCode/state'
 import { accMul } from '@/utils'
 import { useShoppingCartModifyHandler } from '@/hooks/ShoppingCart'
+import { useTranslation } from '@/I18n'
 
 type CartItemProps = {
     sum: any[]
@@ -24,7 +25,7 @@ const CartItemList: React.FC<CartItemProps> = ({ sum, setSum }: CartItemProps) =
         } else {
             setCartList(getShoppingCartListCookie)
         }
-    }, [UserAuth, getShoppingCartItemList, getShoppingCartListCookie, CartList])
+    }, [UserAuth, getShoppingCartItemList, getShoppingCartListCookie])
 
     const promoCodeData = useSelector(PromoCodeSelectors.promoCode)
     return (
@@ -63,6 +64,7 @@ const ItemDetail: React.FC<ItemDetailProps> = ({
     setSum,
     promoCodeData,
 }: ItemDetailProps) => {
+    const { t } = useTranslation()
     const [amount, setAmount] = React.useState(detail?.qty || 0)
     const price = (detail?.price && amount && detail?.price * amount) || 0
     const isHaveDiscount = promoCodeData && promoCodeData.data.indexOf(detail.pid) != -1
@@ -113,7 +115,9 @@ const ItemDetail: React.FC<ItemDetailProps> = ({
                     </h3>
                 </div>
             </td>
-            <td className="price-col">${detail?.price}</td>
+            <td className="price-col">
+                <p className="pc-hide">{t('commodity_price_2')}</p>${detail?.price}
+            </td>
             <td className="quantity-col">
                 <div className="cart-product-quantity">
                     <NumberInput
@@ -126,8 +130,16 @@ const ItemDetail: React.FC<ItemDetailProps> = ({
                     />
                 </div>
             </td>
-            <td className="total-col">${price}</td>
-            <td className="total-col">{discount ? `$${discount}` : null}</td>
+            <td className="total-col">
+                <p className="pc-hide">{t('commodity_amount')}</p>${price}
+            </td>
+            <td className="total-col">
+                {discount ? (
+                    <div>
+                        <p className="pc-hide">{t('commodity_amount')}</p>${discount}
+                    </div>
+                ) : null}
+            </td>
             <td className="remove-col">
                 <button
                     className="btn-remove"

@@ -3,18 +3,22 @@ import { usePromoCodeHandler } from '@/hooks/PromoCode'
 import { PromoCodeReqData } from '@/types/apis/promoCode'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from '@/I18n'
-// import { ShoppingCartListSelectors } from '@/store'
-// import { useSelector } from 'react-redux'
-// import Link from 'next/link'
-// type CartProps = {
-//     setItemHoverIndex: React.Dispatch<React.SetStateAction<null | number>>
-// }
+import { UserLoginSelectors } from '@/store'
+import { useSelector } from 'react-redux'
+import { UseLoginDialog } from '@/hooks/LoginDialog'
+
 const Cart: React.FC = () => {
     const { t } = useTranslation()
     const { register, handleSubmit } = useForm<PromoCodeReqData>()
     const { handlePromoCodeSubmit } = usePromoCodeHandler()
+    const getUser = useSelector(UserLoginSelectors.getUserLoginData)
+    const { setIsOpenMember } = UseLoginDialog()
     const onSubmit = (data: PromoCodeReqData) => {
-        handlePromoCodeSubmit(data.promoCode)
+        if (getUser.accessToken) {
+            handlePromoCodeSubmit(data.promoCode)
+        } else {
+            setIsOpenMember(true)
+        }
     }
     return (
         <form onSubmit={handleSubmit(onSubmit)}>

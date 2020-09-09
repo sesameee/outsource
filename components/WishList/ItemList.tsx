@@ -18,7 +18,7 @@ const WishList: React.FC = () => {
         } else {
             setWishList(getListCookie)
         }
-    }, [UserAuth, data, getListCookie, WishList])
+    }, [UserAuth, data, getListCookie])
     return (
         <tbody>
             {WishList &&

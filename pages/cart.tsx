@@ -12,9 +12,11 @@ import Link from 'next/link'
 import { useTranslation } from '@/I18n'
 import { NextPage } from 'next'
 import { UseLoginDialog } from '@/hooks/LoginDialog'
+import { useBackBtnDetect } from '@/hooks/BackBtnDetect'
 // import { withTranslation, i18n } from '@/I18n'
 
 const Cart: NextPage<any> = (): JSX.Element => {
+    useBackBtnDetect()
     const { t } = useTranslation()
     const navMock = [
         {

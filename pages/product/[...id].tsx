@@ -18,11 +18,13 @@ import { useShoppingCartModifyHandler } from '@/hooks/ShoppingCart'
 import { useTranslation } from '@/I18n'
 import { NextPage } from 'next'
 import { useWishModifyHandler } from '@/hooks/Wish'
+import { useBackBtnDetect } from '@/hooks/BackBtnDetect'
 
 interface CategoryProps extends WithRouterProps {
     filterProduct: Set<unknown>
 }
 const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
+    useBackBtnDetect()
     const { t } = useTranslation()
     const query = router.query
     useProductInfo(query)
@@ -38,6 +40,8 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
 
     const breadCrumbs = productData && productData.breadCrumbs && productData.breadCrumbs
     const info = productData && productData.specInfos
+    const specName1 = (productData && productData.specName1) || ''
+    const specName2 = (productData && productData.specName2) || ''
 
     const imgArr = productData && productData.imageUrl
     breadCrumbs.map((bitem) => {
@@ -107,6 +111,33 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
         })
     }
 
+    const Spec2Select = () => {
+        if (subSpecList && subSpecList[spec2] && subSpecList[spec2].name) {
+            return (
+                <div className="details-filter-row details-row-size">
+                    <label htmlFor="size">{specName2}:</label>
+                    <div className="select-custom">
+                        <select
+                            name="size"
+                            id="size"
+                            className="form-control"
+                            value={spec2}
+                            onChange={(e) => setSpec2(Number(e.target.value))}
+                        >
+                            {subSpecList.map((item: any, index: number) => {
+                                return (
+                                    <option key={index} value={index}>
+                                        {item.name}
+                                    </option>
+                                )
+                            })}
+                        </select>
+                    </div>
+                </div>
+            )
+        }
+    }
+
     return (
         <div className="page-wrapper">
             <Header isIndex={false} />
@@ -152,7 +183,7 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
                                             </div>
 
                                             <div className="details-filter-row details-row-size">
-                                                <label>{t('color')}:</label>
+                                                <label>{specName1}:</label>
 
                                                 <div className="product-nav product-nav-thumbs">
                                                     {info &&
@@ -170,28 +201,7 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
                                                         })}
                                                 </div>
                                             </div>
-
-                                            <div className="details-filter-row details-row-size">
-                                                <label htmlFor="size">Size:</label>
-                                                <div className="select-custom">
-                                                    <select
-                                                        name="size"
-                                                        id="size"
-                                                        className="form-control"
-                                                        value={spec2}
-                                                        onChange={(e) => setSpec2(Number(e.target.value))}
-                                                    >
-                                                        {subSpecList &&
-                                                            subSpecList.map((item: any, index: number) => {
-                                                                return (
-                                                                    <option key={index} value={index}>
-                                                                        {item.name}
-                                                                    </option>
-                                                                )
-                                                            })}
-                                                    </select>
-                                                </div>
-                                            </div>
+                                            {Spec2Select()}
 
                                             <div className="details-filter-row details-row-size">
                                                 <label htmlFor="qty">{t('amount')}:</label>
