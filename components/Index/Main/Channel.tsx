@@ -43,8 +43,8 @@ const Channel: React.FC = () => {
             {
                 breakpoint: 480,
                 settings: {
-                    slidesToScroll: 3,
-                    slidesToShow: 3,
+                    slidesToScroll: 2,
+                    slidesToShow: 2,
                 },
             },
         ],

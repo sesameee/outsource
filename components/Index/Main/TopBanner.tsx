@@ -4,6 +4,7 @@ import { BannerSelectors } from '@/store'
 import { useSelector } from 'react-redux'
 import { BannerData } from '@/types/apis/banner'
 import Slider, { CustomArrowProps } from 'react-slick'
+import { useWindowSize } from '@/hooks/Utils'
 // import Link from 'next/link'
 
 const PrevArrow: React.FC<CustomArrowProps> = ({ className, style, onClick }: CustomArrowProps) => {
@@ -42,6 +43,7 @@ const TopBanner: React.FC = () => {
     const elementRef = useRef<HTMLDivElement>(null)
     const [height, setHeight] = useState(0)
     const [width, setWidth] = useState(0)
+    const windowSize = useWindowSize()
     useEffect(() => {
         if (elementRef) {
             const h = (elementRef && elementRef?.current && elementRef.current.clientHeight) || 0
@@ -49,7 +51,10 @@ const TopBanner: React.FC = () => {
             setHeight(h)
             setWidth(w)
         }
-    }, [bannerList])
+    }, [bannerList, windowSize])
+    const bannerHeight = () => {
+        return width > 1200 ? 0.56 * 1 * width : 0.56 * 1.5 * width
+    }
     const BannerItem = (item: BannerData) => {
         switch (item.contentType) {
             case 'image':
@@ -57,7 +62,7 @@ const TopBanner: React.FC = () => {
                     <a href={item?.linkUrl} target="blank">
                         <div
                             className="intro-content text-center"
-                            style={{ backgroundImage: `url(${item?.sourceUrl})`, height: `${0.56 * 1.5 * width}px` }}
+                            style={{ backgroundImage: `url(${item?.sourceUrl})`, height: `${bannerHeight()}px` }}
                         ></div>
                     </a>
                 )
@@ -70,7 +75,7 @@ const TopBanner: React.FC = () => {
                             loop
                             playsInline
                             className="video"
-                            style={{ objectFit: 'cover', height: height }}
+                            style={{ objectFit: 'cover', height: bannerHeight() }}
                         >
                             <source src={item?.sourceUrl} type="video/mp4" />
                         </video>
@@ -80,13 +85,13 @@ const TopBanner: React.FC = () => {
                 return (
                     <div
                         className="intro-content no-padding text-center"
-                        style={{ position: 'relative', height: height }}
+                        style={{ position: 'relative', height: bannerHeight() }}
                     >
                         <iframe
                             className="video"
                             src={item?.sourceUrl}
                             allow="autoplay"
-                            style={{ border: 'none', height: height }}
+                            style={{ border: 'none', height: bannerHeight() }}
                         ></iframe>
                     </div>
                 )
