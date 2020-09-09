@@ -41,14 +41,11 @@ const TopBanner: React.FC = () => {
     }
 
     const elementRef = useRef<HTMLDivElement>(null)
-    const [height, setHeight] = useState(0)
     const [width, setWidth] = useState(0)
     const windowSize = useWindowSize()
     useEffect(() => {
         if (elementRef) {
-            const h = (elementRef && elementRef?.current && elementRef.current.clientHeight) || 0
             const w = (elementRef && elementRef?.current && elementRef.current.clientWidth) || 0
-            setHeight(h)
             setWidth(w)
         }
     }, [bannerList, windowSize])

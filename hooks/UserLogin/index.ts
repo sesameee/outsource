@@ -12,6 +12,7 @@ import { useRouter } from 'next/router'
 import { useShoppingCartModifyHandler } from '../ShoppingCart'
 import { useWishModifyHandler } from '../Wish'
 import { useTranslation } from '@/I18n'
+import { UseLoginDialog } from '../LoginDialog'
 export const useUserLoginHandler = (): any => {
     const dispatch = useDispatch()
     const handleLoginSubmit = useCallback(
@@ -62,15 +63,16 @@ export const useUserLoginHandler = (): any => {
         // 登入成功後關閉彈窗和轉址
         const { t } = useTranslation()
         const youAreLogin = t('youAreLogin')
+        const { IsOpenMember } = UseLoginDialog()
         useEffect(() => {
-            if (accessToken != success.accessToken && success.accessToken) {
+            if (accessToken != success.accessToken && success.accessToken && !IsOpenMember) {
                 if (router.pathname != '/') {
                     router.push('/')
                 }
                 setPropIsOpenFn(false)
                 dispatch(ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: youAreLogin }))
             }
-        }, [setPropIsOpenFn, success.accessToken, router, accessToken, youAreLogin])
+        }, [setPropIsOpenFn, success.accessToken, router, accessToken, youAreLogin, IsOpenMember])
 
         // 登入成功後新增購物車
         useEffect(() => {

@@ -8,6 +8,7 @@ export interface UserRegisterReqData {
     pwd1: string
     pwd2: string
     registerFrom: string
+    rocId: string
 }
 
 export interface UserRegisterData {

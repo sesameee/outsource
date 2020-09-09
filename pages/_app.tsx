@@ -17,6 +17,7 @@ import { getCookie, setCookie } from '@/utils'
 import { UserLoginActions, ShoppingCartListActions, WishListActions } from '@/store'
 import { NextPageContext } from 'next'
 import cookies from 'next-cookies'
+import httpServiceModel from '@/services/api/HttpService'
 
 const cookieServerProgress = (ctx: NextPageContext) => {
     const uuid = cookies(ctx).uuid !== undefined ? (cookies(ctx).uuid as string) : ''
@@ -44,13 +45,20 @@ const cookieServerProgress = (ctx: NextPageContext) => {
 class MyApp extends App {
     static async getInitialProps({ Component, ctx }: AppContext) {
         const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {}
+        const protocol = ctx.req?.headers?.referer?.split('://')[0]
+        protocol && (httpServiceModel.protocal = protocol)
         cookieServerProgress(ctx)
-        return { pageProps }
+        return {
+            pageProps,
+        }
     }
     componentDidMount() {
         if (getCookie('i18n') == null) {
             setCookie('i18n', 'tw')
             i18n.changeLanguage('tw')
+        }
+        if (location.protocol !== `${httpServiceModel.protocal}:`) {
+            httpServiceModel.protocal = location.protocol.replace(':', '')
         }
     }
     render() {

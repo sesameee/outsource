@@ -45,7 +45,7 @@ const ProductList: React.FC<ProductListProps> = ({
     // const { handleCart } = useShoppingCartModifyHandler()
     const { handleWish } = useWishModifyHandler()
     return (
-        <div className="row justify-content-center product-list">
+        <div className="row justify-content-start product-list">
             {productList &&
                 productList.length &&
                 productList.map((item: ProductData, index: number) => {

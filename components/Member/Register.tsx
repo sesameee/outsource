@@ -11,6 +11,7 @@ import { RegisterUserInfoReqData } from '@/types/apis/registerUserInfo'
 import { useUserRegisterSetupHandler } from '@/hooks/UserSetup'
 import { useVerifyCodeHandler } from '@/hooks/VerifyCode'
 import { useResendVerifyCodeHandler } from '@/hooks/ResendVerifyCode'
+import MyModal from '../MyModal'
 
 type RegisterProps = {
     setPropIsOpenFn: any
@@ -20,13 +21,17 @@ type RegisterFromProps = {
     setPropIsOpenFn?: any
 }
 const FromFirstStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromProps) => {
-    const { t } = useTranslation()
+    const { t, i18n } = useTranslation()
     const { register, handleSubmit } = useForm<UserRegisterReqData>()
     const { handleRegiterSubmit, HandleUserRegisterRes } = useUserRegisterHandler()
     const onSubmit = (data: UserRegisterReqData) => {
         handleRegiterSubmit(data)
     }
     HandleUserRegisterRes(setStep)
+    const [IsOpenMemberHtml, setIsOpenMemberHtml] = React.useState(false)
+    const getHtml = () => {
+        return `/html/member_${i18n.language}.html`
+    }
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
@@ -37,6 +42,17 @@ const FromFirstStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromPro
                     className="form-control"
                     id="name"
                     name="name"
+                    required
+                />
+            </div>
+            <div className="form-group">
+                <label htmlFor="rocId">{t('id_number')} *</label>
+                <input
+                    type="text"
+                    ref={register({ required: true })}
+                    className="form-control"
+                    id="rocId"
+                    name="rocId"
                     required
                 />
             </div>
@@ -110,13 +126,24 @@ const FromFirstStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromPro
                     required
                 />
             </div>
-
+            <MyModal
+                content={
+                    <iframe
+                        style={{ width: '80vw', height: '80vh', padding: '3rem', border: 'none' }}
+                        src={getHtml()}
+                    ></iframe>
+                }
+                isOpen={IsOpenMemberHtml}
+                setPropIsOpenFn={setIsOpenMemberHtml}
+            />
             <div className="form-footer">
                 <div className="custom-control custom-checkbox">
                     <input type="checkbox" className="custom-control-input" id="register-policy" required />
                     <label className="custom-control-label" htmlFor="register-policy">
                         {t('read_and_agree')}
-                        <a href="#">{t('membership_terms')}</a>
+                        <a href="#" onClick={() => setIsOpenMemberHtml(true)}>
+                            {t('membership_terms')}
+                        </a>
                     </label>
                 </div>
 
@@ -177,17 +204,6 @@ const FromThirdStep: React.FC<RegisterFromProps> = ({ setPropIsOpenFn }: Registe
     HandleUserRegisterSetupRes(setPropIsOpenFn)
     return (
         <form className="from-third-step" onSubmit={handleSubmit(onSubmit)}>
-            <div className="form-group">
-                <label htmlFor="rocId">{t('id_number')} *</label>
-                <input
-                    type="text"
-                    ref={register({ required: true })}
-                    className="form-control"
-                    id="rocId"
-                    name="rocId"
-                    required
-                />
-            </div>
             <div className="form-group">
                 <label className="label" htmlFor="sex">
                     {t('gender')}

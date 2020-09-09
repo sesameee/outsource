@@ -34,6 +34,7 @@ export const fetchUserRegisterEpic: Epic = (action$) =>
                 pwd1: action.payload.pwd1,
                 pwd2: action.payload.pwd2,
                 registerFrom: action.payload.registerFrom,
+                rocId: action.payload.rocId,
             }).pipe(
                 mergeMap((res) => {
                     return epicSuccessMiddleware(
