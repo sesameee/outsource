@@ -63,16 +63,15 @@ export const useUserLoginHandler = (): any => {
         // 登入成功後關閉彈窗和轉址
         const { t } = useTranslation()
         const youAreLogin = t('youAreLogin')
-        const { IsOpenMember } = UseLoginDialog()
         useEffect(() => {
-            if (accessToken != success.accessToken && success.accessToken && !IsOpenMember) {
+            if (accessToken != success.accessToken && success.accessToken && success.isLogin) {
                 if (router.pathname != '/') {
                     router.push('/')
                 }
                 setPropIsOpenFn(false)
                 dispatch(ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: youAreLogin }))
             }
-        }, [setPropIsOpenFn, success.accessToken, router, accessToken, youAreLogin, IsOpenMember])
+        }, [setPropIsOpenFn, success, router, accessToken, youAreLogin])
 
         // 登入成功後新增購物車
         useEffect(() => {

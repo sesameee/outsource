@@ -57,6 +57,7 @@ export const fetchUserLoginEpic: Epic = (action$) => {
                         res,
                         UserLoginActions.fetchUserLoginSuccess({
                             UserLoginData: res.data,
+                            isLogin: true,
                         }),
                     )
                 }),

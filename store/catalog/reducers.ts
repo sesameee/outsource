@@ -18,6 +18,7 @@ export const fetchCatalogSuccess: CaseReducer<State, PayloadAction<{ catalogList
         draft['catalogList'] = data
         const categoryType = data.categoryType
         const productList: productList = {}
+        console.log('categoryType :>> ', categoryType)
         if (categoryType == 'subCategory') {
             for (let i = 0; i < data.categoryList?.length; i++) {
                 const iData = <any>data.categoryList[i]?.cData
@@ -49,9 +50,9 @@ export const fetchCatalogSuccess: CaseReducer<State, PayloadAction<{ catalogList
                         const KcategoryType = jData[k].categoryType
                         const lData = jData[k].cData
                         for (let l = 0; l < lData?.length; l++) {
-                            const cid = lData[l]?.cid
-                            const id = `c${iCid}-${jCid}-${kCid}-${cid}`
-                            const link = `${data.cid}/${iCid}/${jCid}/${cid}/${kCid}`
+                            const pid = lData[l]?.pid
+                            const id = `c${iCid}-${jCid}-${kCid}-${pid}`
+                            const link = `${data.cid}/${iCid}/${jCid}/${pid}/${kCid}`
                             const tmpData = lData[l]
                             tmpData['_categoryType'] = KcategoryType
                             tmpData['_cid'] = kCid
@@ -73,6 +74,7 @@ export const fetchCatalogSuccess: CaseReducer<State, PayloadAction<{ catalogList
                     for (let k = 0; k < jData?.length; k++) {
                         const kCid = jData[k]?.cid
                         const pid = jData[k]?.pid
+                        console.log('pid :>> ', pid)
                         const tmpData = jData[k]
                         const id = `c${iCid}-${jCid}-${pid}`
                         const link = `${data.cid}/${iCid}/${jCid}/${kCid}`

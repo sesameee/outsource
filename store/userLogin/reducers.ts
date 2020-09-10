@@ -9,14 +9,19 @@ export const setIsSearching: CaseReducer<State, PayloadAction<State>> = (state, 
     return produce(state, (draft) => {
         draft['isFetch'] = action.payload.isFetch
         draft['error'] = ''
+        draft['isLogin'] = false
     })
 }
 
-export const fetchUserLoginSuccess: CaseReducer<State, PayloadAction<{ UserLoginData: any }>> = (state, action) => {
+export const fetchUserLoginSuccess: CaseReducer<State, PayloadAction<{ UserLoginData: any; isLogin?: boolean }>> = (
+    state,
+    action,
+) => {
     return produce(state, (draft) => {
         const { memberId, accessToken, accessTokenExpireDate, userId, token, uuid } = action.payload.UserLoginData.data
         draft['isFetch'] = false
         draft['error'] = ''
+        action.payload.isLogin && (draft['isLogin'] = action.payload.isLogin)
         uuid && (draft['uuid'] = uuid) && setCookie('uuid', uuid)
         memberId && (draft['memberId'] = memberId) && setCookie('memberId', memberId)
         accessToken && (draft['accessToken'] = accessToken) && setCookie('accessToken', accessToken)
@@ -28,8 +33,8 @@ export const fetchUserLoginSuccess: CaseReducer<State, PayloadAction<{ UserLogin
 
 export const fetchUserLoginFailure: CaseReducer<State, PayloadAction<{ error: string }>> = (state, action) => {
     return produce(state, (draft) => {
-        console.log('fetchUserLoginFailure SSSS:>> ')
         draft['isFetch'] = false
+        draft['isLogin'] = false
         draft['error'] = action.payload.error
         if (action.payload.error == '8013') {
             return
