@@ -12,7 +12,6 @@ import { useRouter } from 'next/router'
 import { useShoppingCartModifyHandler } from '../ShoppingCart'
 import { useWishModifyHandler } from '../Wish'
 import { useTranslation } from '@/I18n'
-import { UseLoginDialog } from '../LoginDialog'
 export const useUserLoginHandler = (): any => {
     const dispatch = useDispatch()
     const handleLoginSubmit = useCallback(
