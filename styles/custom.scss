@@ -333,6 +333,7 @@
 }
 .recommend {
     .banner {
+        cursor: pointer;
         background-repeat: no-repeat;
         background-size: cover;
         background-position: 50% 50%;
@@ -927,7 +928,7 @@
 }
 .form-box {
     .tab-content {
-        height: 75vh;
+        height: 60vh;
         overflow: auto;
     }
 }

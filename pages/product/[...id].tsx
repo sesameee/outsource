@@ -98,7 +98,14 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
                     qty: amount,
                 },
             ],
-            { ...productData, qty: amount },
+            {
+                cid: productData.cid,
+                pid: productData.pid,
+                qty: amount,
+                pName: productData.pName,
+                imageUrl: imgArr && imgArr[0],
+                price: productData.price,
+            },
         )
     }
 

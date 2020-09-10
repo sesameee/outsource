@@ -481,6 +481,7 @@ const Checkout: NextPage<any> = (): JSX.Element => {
                                                                     className="item"
                                                                     src="/images/custom/mastercard.png"
                                                                 />
+                                                                <img className="item" src="/images/custom/visa.png" />
                                                                 <img className="item" src="/images/custom/jcb.png" />
                                                                 <img className="item" src="/images/custom/amex.png" />
                                                             </div>

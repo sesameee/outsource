@@ -10495,13 +10495,13 @@ button:focus {
 .product-gallery-item:before {
     opacity: 0;
     visibility: hidden;
-    border: 0.1rem solid $mainColor;
 }
 .product-gallery-item:after {
     visibility: visible;
     opacity: 1;
     background-color: rgba(255, 255, 255, 0.4);
 }
+
 .product-gallery-item.active:before {
     visibility: visible;
     opacity: 1;
@@ -10511,6 +10511,10 @@ button:focus {
     opacity: 0;
     visibility: hidden;
 }
+.product-gallery-item.active img {
+    border: 0.1rem solid $mainColor;
+}
+
 .product-gallery-vertical .row {
     margin-left: 0;
     margin-right: 0;
@@ -12879,7 +12883,7 @@ button:focus {
     margin-left: auto;
     margin-right: auto;
     background-color: #fff;
-    padding: 4.2rem 2rem 4.4rem;
+    padding: 2.2rem 2rem 1.4rem;
     box-shadow: 0 3px 16px rgba(51, 51, 51, 0.1);
 }
 .form-box .btn {
