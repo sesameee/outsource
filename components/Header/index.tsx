@@ -46,11 +46,9 @@ const Header: React.FC<HeaderProps> = ({ isIndex }: HeaderProps) => {
                             <span className="sr-only">Toggle mobile menu</span>
                             <i className="icon-bars"></i>
                         </button>
-                        <Link href="/">
-                            <a className="logo">
-                                <img src="/images/breezeonline_logo.png" alt="Molla Logo" width="140" height="25" />
-                            </a>
-                        </Link>
+                        <a className="logo" href="/">
+                            <img src="/images/breezeonline_logo.png" alt="Molla Logo" width="140" height="25" />
+                        </a>
                     </div>
                     <div className="header-right">
                         <nav className="main-nav">

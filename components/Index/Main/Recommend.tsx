@@ -87,14 +87,11 @@ const Recommend: React.FC<RecommendProps> = ({ t }: RecommendProps) => {
                                 </div>
                             </Link>
                         ) : null}
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-md-12">
+
                         {item4 ? (
                             <Link href={`category/${item4?.cid}`} prefetch={false}>
                                 <div
-                                    className="banner banner-display banner-link-anim banner-title-hidden banner-4"
+                                    className="banner banner-display banner-link-anim banner-3"
                                     style={{
                                         backgroundImage: `url(${item4?.sourceUrl})`,
                                     }}
