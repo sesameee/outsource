@@ -11,9 +11,10 @@ export const setIsSearching: CaseReducer<State, PayloadAction<State>> = (state, 
     })
 }
 
-export const fetchResetPasswordSuccess: CaseReducer<State, PayloadAction<ResetPasswordRspData>> = (state) => {
+export const fetchResetPasswordSuccess: CaseReducer<State, PayloadAction<ResetPasswordRspData>> = (state, action) => {
     return produce(state, (draft) => {
         draft['isFetch'] = false
+        draft['success'] = action.payload.code === '0000'
     })
 }
 

@@ -18,10 +18,11 @@ type PasswordModifyFromProps = {
 const FromFirstStep: React.FC<PasswordModifyFromProps> = ({ setStep }: PasswordModifyFromProps): JSX.Element => {
     const { t } = useTranslation()
     const { register, handleSubmit } = useForm<ResetPasswordReqData>()
-    const { handleResendVerifyCodeSubmit } = useResendVerifyCodeHandler()
+    const { handleResendVerifyCodeSubmit, HandleResendVerifyCodeRes } = useResendVerifyCodeHandler()
     const onSubmit = (data: any) => {
-        handleResendVerifyCodeSubmit({ ...data, type: 2 })
+        handleResendVerifyCodeSubmit({ ...data, action: 'reset' })
     }
+    HandleResendVerifyCodeRes(setStep)
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="member-from" name="ResetPassword">
             <div className="phone-frame">
@@ -107,6 +108,7 @@ const FromThirdStep: React.FC<PasswordModifyFromProps> = ({ setStep }: PasswordM
     const onSubmit = (data: any) => {
         handleResetPasswordSubmit({ ...data, type: 2 })
     }
+    console.log('setStep :>> ', setStep)
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">

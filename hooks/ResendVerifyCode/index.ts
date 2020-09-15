@@ -1,6 +1,6 @@
-import { useDispatch } from 'react-redux'
-import { ResendVerifyCodeActions } from '@/store'
-import { useCallback } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { ResendVerifyCodeActions, ResendVerifyCodeSelectors } from '@/store'
+import { useCallback, useEffect } from 'react'
 import { ResendVerifyCodeReqData } from '@/types/apis/resendVerifyCode'
 
 export const useResendVerifyCodeHandler = (): any => {
@@ -11,8 +11,18 @@ export const useResendVerifyCodeHandler = (): any => {
         },
         [dispatch],
     )
+
+    const HandleResendVerifyCodeRes = (setStep: any): void => {
+        const Res = useSelector(ResendVerifyCodeSelectors.resendVerifyCode)
+        const success = Res && Res.success
+        useEffect(() => {
+            if (success) {
+                setStep(2)
+            }
+        }, [setStep, success])
+    }
     const handleReset = useCallback(() => {
         dispatch(ResendVerifyCodeActions.reset())
     }, [dispatch])
-    return { handleResendVerifyCodeSubmit, handleReset }
+    return { handleResendVerifyCodeSubmit, handleReset, HandleResendVerifyCodeRes }
 }

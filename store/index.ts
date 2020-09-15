@@ -1,4 +1,3 @@
-import * as GoogleBooksSelectors from './googleBooks/selectors'
 import * as BannerSelectors from './banner/selectors'
 import * as CatalogSelectors from './catalog/selectors'
 import * as ChannelListSelectors from './channelList/selectors'
@@ -31,7 +30,6 @@ import * as ResetPasswordSelectors from './resetPassword/selectors'
 import * as UserSetupSelectors from './userSetup/selectors'
 import * as UserPointsSelectors from './userPoints/selectors'
 import * as LoginDialogSelectors from './loginDialog/selectors'
-import { googleBookSlice, googleCreateActions } from './googleBooks/slice'
 import { bannerSlice, bannerCreateActions } from './banner/slice'
 import { catalogSlice, catalogCreateActions } from './catalog/slice'
 import { channelListSlice, channelListCreateActions } from './channelList/slice'
@@ -64,11 +62,6 @@ import { forgotPasswordSlice, forgotPasswordCreateActions } from './forgotPasswo
 import { resetPasswordSlice, resetPasswordCreateActions } from './resetPassword/slice'
 import { userSetupSlice, userSetupCreateActions } from './userSetup/slice'
 import { userPointsSlice, userPointsCreateActions } from './userPoints/slice'
-
-const GoogleBooksActions = {
-    ...googleBookSlice.actions,
-    ...googleCreateActions,
-}
 
 const BannerActions = {
     ...bannerSlice.actions,
@@ -229,8 +222,6 @@ const UserPointsActions = {
 }
 
 export {
-    GoogleBooksSelectors,
-    GoogleBooksActions,
     BannerSelectors,
     BannerActions,
     ChannelListSelectors,

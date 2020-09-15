@@ -1,6 +1,6 @@
-import { useDispatch } from 'react-redux'
-import { ResetPasswordActions } from '@/store'
-import { useCallback } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { ResetPasswordActions, ResetPasswordSelectors } from '@/store'
+import { useCallback, useEffect } from 'react'
 export const useResetPasswordHandler = (): any => {
     const dispatch = useDispatch()
     const handleResetPasswordSubmit = useCallback(
@@ -13,5 +13,15 @@ export const useResetPasswordHandler = (): any => {
         },
         [dispatch],
     )
-    return { handleResetPasswordSubmit }
+
+    const HandleResetPasswordRes = (setStep: any): void => {
+        const Res = useSelector(ResetPasswordSelectors.resetPassword)
+        const success = Res && Res.success
+        useEffect(() => {
+            if (success) {
+                setStep(1)
+            }
+        }, [setStep, success])
+    }
+    return { handleResetPasswordSubmit, HandleResetPasswordRes }
 }

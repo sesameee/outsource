@@ -8,12 +8,17 @@ import { ResendVerifyCodeRspData } from '@/types/apis/resendVerifyCode'
 export const setIsSearching: CaseReducer<State, PayloadAction<State>> = (state, action) => {
     return produce(state, (draft) => {
         draft['isFetch'] = action.payload.isFetch
+        draft['success'] = false
     })
 }
 
-export const fetchResendVerifyCodeSuccess: CaseReducer<State, PayloadAction<ResendVerifyCodeRspData>> = (state) => {
+export const fetchResendVerifyCodeSuccess: CaseReducer<State, PayloadAction<ResendVerifyCodeRspData>> = (
+    state,
+    action,
+) => {
     return produce(state, (draft) => {
         draft['isFetch'] = false
+        draft['success'] = action.payload.code === '0000'
     })
 }
 
