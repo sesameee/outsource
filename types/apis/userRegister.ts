@@ -8,7 +8,8 @@ export interface UserRegisterReqData {
     pwd1: string
     pwd2: string
     registerFrom: string
-    rocId: string
+    taiwanId: string
+    isTaiwan: number
 }
 
 export interface UserRegisterData {

@@ -46,16 +46,25 @@ const FromFirstStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromPro
                 />
             </div>
             <div className="form-group">
-                <label htmlFor="rocId">{t('id_number')} *</label>
+                <label htmlFor="taiwanId">{t('id_number')} *</label>
                 <input
                     type="text"
                     ref={register({ required: true })}
                     className="form-control"
-                    id="rocId"
-                    name="rocId"
+                    id="taiwanId"
+                    name="taiwanId"
                     required
                 />
             </div>
+            <input
+                type="text"
+                ref={register}
+                className="form-control"
+                id="isTaiwan"
+                name="isTaiwan"
+                value={1}
+                style={{ display: 'none' }}
+            />
 
             <div className="phone-frame">
                 <div className="form-group phoneCode">
