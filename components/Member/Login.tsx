@@ -3,19 +3,60 @@ import { useTranslation } from '@/I18n'
 import { useForm } from 'react-hook-form'
 import { UserLoginReqData } from '@/types/apis/userLogin'
 import { useUserLoginHandler } from '@/hooks/UserLogin'
+import { UserRegisterReqData } from '@/types/apis/userRegister'
+import { useResendVerifyCodeHandler } from '@/hooks/ResendVerifyCode'
+import { useVerifyCodeHandler } from '@/hooks/VerifyCode'
+import { VerifyCodeData } from '@/types/apis/verifyCode'
 
 type LoginProps = {
     setPropIsOpenFn: any
+    setStep: any
 }
 
-const Login: React.FC<LoginProps> = ({ setPropIsOpenFn }: LoginProps) => {
+const FromSecondStep: React.FC<LoginProps> = ({ setStep, setPropIsOpenFn }: LoginProps) => {
+    const { t } = useTranslation()
+    const { register, handleSubmit } = useForm<VerifyCodeData>()
+    const { handleVerifyCodeSubmit } = useVerifyCodeHandler()
+    const { UseLoginSuccess } = useUserLoginHandler()
+    const { handleResendVerifyCodeSubmit } = useResendVerifyCodeHandler()
+    const onSubmit = (data: UserRegisterReqData) => {
+        handleVerifyCodeSubmit(data)
+    }
+    UseLoginSuccess(setPropIsOpenFn, setStep)
+    return (
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="form-group">
+                <label htmlFor="code">{t('message_captcha')} *</label>
+                <input
+                    type="text"
+                    ref={register({ required: true })}
+                    className="form-control"
+                    id="code"
+                    name="code"
+                    required
+                />
+            </div>
+            <div className="form-footer">
+                <label>
+                    {t('if_not_receive_captcha_hint')}
+                    <a onClick={() => handleResendVerifyCodeSubmit()}>{t('re_send_captcha')}</a>
+                </label>
+                <button type="submit" className="btn btn-outline-primary-2 btn-block margin-top-more">
+                    <span>{t('submit')}</span>
+                </button>
+            </div>
+        </form>
+    )
+}
+
+const FromFirstStep: React.FC<LoginProps> = ({ setPropIsOpenFn, setStep }: LoginProps) => {
     const { t } = useTranslation()
     const { register, handleSubmit } = useForm<UserLoginReqData>()
     const { handleLoginSubmit, UseLoginSuccess } = useUserLoginHandler()
     const onSubmit = (data: UserLoginReqData) => {
         handleLoginSubmit(data)
     }
-    UseLoginSuccess(setPropIsOpenFn)
+    UseLoginSuccess(setPropIsOpenFn, setStep)
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="login-form">
             <div className="desc">{t('login_desc_01')}</div>
@@ -72,6 +113,20 @@ const Login: React.FC<LoginProps> = ({ setPropIsOpenFn }: LoginProps) => {
             </div>
         </form>
     )
+}
+
+const Login: React.FC<LoginProps> = ({ setPropIsOpenFn }: LoginProps) => {
+    const [step, setStep] = React.useState(1)
+    switch (step) {
+        case 1:
+            return <FromFirstStep setStep={setStep} setPropIsOpenFn={setPropIsOpenFn} />
+
+        case 2:
+            return <FromSecondStep setStep={setStep} setPropIsOpenFn={setPropIsOpenFn} />
+
+        default:
+            return <FromFirstStep setStep={setStep} setPropIsOpenFn={setPropIsOpenFn} />
+    }
 }
 
 export default Login

@@ -45,7 +45,7 @@ export const useUserLoginHandler = (): any => {
             }
         }, [getUser.accessToken, getUser.token, parms, router])
     }
-    const UseLoginSuccess = (setPropIsOpenFn: any): void => {
+    const UseLoginSuccess = (setPropIsOpenFn: any, setStep: any): void => {
         const success = useSelector(UserLoginSelectors.getUserLoginData)
         const cartList = useSelector(ShoppingCartListSelectors.getShoppingCartListCookie)
         const wishList = useSelector(WishListSelectors.getWishListCookie)
@@ -67,10 +67,18 @@ export const useUserLoginHandler = (): any => {
                 if (router.pathname != '/') {
                     router.push('/')
                 }
-                setPropIsOpenFn(false)
+                setPropIsOpenFn && setPropIsOpenFn(false)
                 dispatch(ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: youAreLogin }))
             }
         }, [setPropIsOpenFn, success, router, accessToken, youAreLogin])
+
+        // 登入失敗走手機驗證流程
+        useEffect(() => {
+            console.log('success.error :>> ', success.error)
+            if (success.error == '3004') {
+                setStep(2)
+            }
+        }, [success, setStep])
 
         // 登入成功後新增購物車
         useEffect(() => {

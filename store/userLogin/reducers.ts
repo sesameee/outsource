@@ -19,8 +19,13 @@ export const fetchUserLoginSuccess: CaseReducer<State, PayloadAction<{ UserLogin
 ) => {
     return produce(state, (draft) => {
         const { memberId, accessToken, accessTokenExpireDate, userId, token, uuid } = action.payload.UserLoginData.data
+        const { code } = action.payload.UserLoginData
         draft['isFetch'] = false
         draft['error'] = ''
+        //帳號未開通
+        if (code === '3004') {
+            draft['error'] = code
+        }
         action.payload.isLogin && (draft['isLogin'] = action.payload.isLogin)
         uuid && (draft['uuid'] = uuid) && setCookie('uuid', uuid)
         memberId && (draft['memberId'] = memberId) && setCookie('memberId', memberId)

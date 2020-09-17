@@ -35,6 +35,7 @@ export const fetchVerifyCodeListEpic: Epic = (action$, state$) =>
                         VerifyCodeActions.fetchVerifyCodeSuccess(res.data),
                         UserLoginActions.fetchUserLoginSuccess({
                             UserLoginData: res.data,
+                            isLogin: true,
                         }),
                     )
                 }),

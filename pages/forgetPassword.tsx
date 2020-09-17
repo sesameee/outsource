@@ -10,6 +10,7 @@ import { ForgotPasswordReqData } from '@/types/apis/forgotPassword'
 import { VerifyCodeData } from '@/types/apis/verifyCode'
 import { useVerifyCodeHandler } from '@/hooks/VerifyCode'
 import { useBackBtnDetect } from '@/hooks/BackBtnDetect'
+import { useUserLoginHandler } from '@/hooks/UserLogin'
 
 type FromFirstStepProps = {
     setStep: any
@@ -64,6 +65,8 @@ const FromSecondStep: React.FC = () => {
     const onSubmit = (data: any) => {
         handleVerifyCodeSubmit(data)
     }
+    const { UseLoginSuccess } = useUserLoginHandler()
+    UseLoginSuccess()
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>

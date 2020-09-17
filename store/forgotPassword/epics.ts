@@ -5,7 +5,7 @@ import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 import { PayloadAction } from '@reduxjs/toolkit'
 
-import { ForgotPasswordActions } from '@/store'
+import { ForgotPasswordActions, UserLoginActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
 import { ForgotPasswordReqData, ForgotPasswordRspData } from '@/types/apis/forgotPassword'
 import { FORGOT_PASSWORD } from '@/services/api/apiConfig'
@@ -30,7 +30,13 @@ export const fetchForgotPasswordEpic: Epic = (action$) =>
                 rocId: action.payload.rocId,
             }).pipe(
                 mergeMap((res) => {
-                    return epicSuccessMiddleware(res, ForgotPasswordActions.fetchForgotPasswordSuccess(res.data))
+                    return epicSuccessMiddleware(
+                        res,
+                        ForgotPasswordActions.fetchForgotPasswordSuccess(res.data),
+                        UserLoginActions.fetchUserLoginSuccess({
+                            UserLoginData: res.data,
+                        }),
+                    )
                 }),
                 catchError((error: AxiosError) => {
                     return of(ForgotPasswordActions.fetchForgotPasswordFailure({ error: error.message }))
