@@ -44,15 +44,18 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
     const specName2 = (productData && productData.specName2) || ''
 
     const imgArr = productData && productData.imageUrl
-    breadCrumbs.map((bitem) => {
-        bitem.category.map((item: BreadCrumbCategoryData) => {
-            const path = `/category/${item.categoryType}/${item.cid}`
-            navDatas.push({
-                title: item.name,
-                link: path,
+
+    if (breadCrumbs) {
+        breadCrumbs.map((bitem) => {
+            bitem.category.map((item: BreadCrumbCategoryData) => {
+                const path = `/category/${item.categoryType}/${item.cid}`
+                navDatas.push({
+                    title: item.name,
+                    link: path,
+                })
             })
         })
-    })
+    }
 
     useEffect(() => {
         if (info && info.length) {

@@ -6,7 +6,7 @@ const DescNotice: React.FC = () => {
     const productData = useSelector(ProductInfoSelectors.getProductInfo)
     return (
         <div className="product-desc-content">
-            <p>{productData.desc3}</p>
+            <p dangerouslySetInnerHTML={{ __html: productData.desc3 }} />
         </div>
     )
 }

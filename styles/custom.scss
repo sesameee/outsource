@@ -906,6 +906,12 @@
 }
 
 .details-filter-row .product-nav-thumbs {
+    a {
+        border-color: $mainColor;
+        border-width: 1px;
+        padding: 0.5rem;
+    }
+
     .active {
         padding: 0.5rem;
         border-color: $mainColor;

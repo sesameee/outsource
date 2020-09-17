@@ -6,8 +6,8 @@ const DescProduct: React.FC = () => {
     const productData = useSelector(ProductInfoSelectors.getProductInfo)
     return (
         <div className="product-desc-content">
-            <p>{productData.desc1}</p>
-            <p>{productData.desc2}</p>
+            <p dangerouslySetInnerHTML={{ __html: productData.desc1 }} />
+            <p dangerouslySetInnerHTML={{ __html: productData.desc2 }} />
         </div>
     )
 }
