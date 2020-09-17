@@ -13,7 +13,7 @@ const MemberTab: React.FC<MemberTabProps> = ({ setPropIsOpenFn }: MemberTabProps
     const TabData: tabDataVo[] = [
         {
             title: t('login'),
-            content: <Login setPropIsOpenFn={setPropIsOpenFn} />,
+            content: <Login setPropIsOpenFn={setPropIsOpenFn} setStep={null} />,
         },
         {
             title: t('register'),
