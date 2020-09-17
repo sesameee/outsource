@@ -26,10 +26,9 @@ export const fetchRefundReasonEpic: Epic = (action$) =>
         switchMap(() =>
             HttpService.PostAsync<null, RefundReasonRspData>(REFUND_REASON).pipe(
                 mergeMap((res) => {
-                    return epicSuccessMiddleware(
-                        res,
+                    return epicSuccessMiddleware(res, [
                         RefundReasonActions.fetchRefundReasonSuccess({ refundReasonRspData: res.data }),
-                    )
+                    ])
                 }),
                 catchError((error: AxiosError) => {
                     return of(RefundReasonActions.fetchRefundReasonFailure({ error: error.message }))

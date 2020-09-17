@@ -30,7 +30,7 @@ export const fetchUserPointsEpic: Epic = (action$, state$) =>
                     accessToken: accessToken,
                 }).pipe(
                     mergeMap((res) => {
-                        return epicSuccessMiddleware(res, UserPointsActions.fetchUserPointsSuccess(res.data))
+                        return epicSuccessMiddleware(res, [UserPointsActions.fetchUserPointsSuccess(res.data)])
                     }),
                     catchError((error: AxiosError | string) => {
                         const res = <AxiosError>error

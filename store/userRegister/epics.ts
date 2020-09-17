@@ -38,12 +38,11 @@ export const fetchUserRegisterEpic: Epic = (action$) =>
                 taiwanId: action.payload.taiwanId,
             }).pipe(
                 mergeMap((res) => {
-                    return epicSuccessMiddleware(
-                        res,
+                    return epicSuccessMiddleware(res, [
                         UserLoginActions.fetchUserLoginSuccess({
                             UserLoginData: res.data,
                         }),
-                    )
+                    ])
                 }),
                 catchError((error: AxiosError) => {
                     return of(UserRegisterActions.fetchUserRegisterFailure({ error: error.message }))

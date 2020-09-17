@@ -20,8 +20,12 @@ export const useResetPasswordHandler = (): any => {
         useEffect(() => {
             if (success) {
                 setStep(1)
+                handleReset()
             }
         }, [setStep, success])
     }
+    const handleReset = useCallback(() => {
+        dispatch(ResetPasswordActions.reset())
+    }, [dispatch])
     return { handleResetPasswordSubmit, HandleResetPasswordRes }
 }

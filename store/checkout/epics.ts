@@ -41,7 +41,7 @@ export const fetchCheckoutEpic: Epic = (action$, state$) =>
                     accessToken: accessToken,
                 }).pipe(
                     mergeMap((res) => {
-                        return epicSuccessMiddleware(res, CheckoutActions.fetchCheckoutSuccess(res.data))
+                        return epicSuccessMiddleware(res, [CheckoutActions.fetchCheckoutSuccess(res.data)])
                     }),
                     catchError((error: AxiosError | string) => {
                         const res = <AxiosError>error

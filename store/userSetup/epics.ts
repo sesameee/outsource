@@ -37,8 +37,10 @@ export const fetchUserSetupEpic: Epic = (action$, state$) =>
                     mergeMap((res) => {
                         return epicSuccessMiddleware(
                             res,
-                            UserSetupActions.fetchUserSetupSuccess(res.data),
-                            UserDataActions.fetchUserData({ memberId: '', accessToken: '' }),
+                            [
+                                UserSetupActions.fetchUserSetupSuccess(res.data),
+                                UserDataActions.fetchUserData({ memberId: '', accessToken: '' }),
+                            ],
                             true,
                         )
                     }),

@@ -26,10 +26,9 @@ export const fetchDonateInvoiceListEpic: Epic = (action$) =>
         switchMap(() =>
             HttpService.PostAsync<null, DonateInvoiceRspData>(DONATE_INVOICE).pipe(
                 mergeMap((res) => {
-                    return epicSuccessMiddleware(
-                        res,
+                    return epicSuccessMiddleware(res, [
                         DonateInvoiceActions.fetchDonateInvoiceSuccess({ donateInvoice: res.data }),
-                    )
+                    ])
                 }),
                 catchError((error: AxiosError) => {
                     return of(DonateInvoiceActions.fetchDonateInvoiceFailure({ error: error.message }))

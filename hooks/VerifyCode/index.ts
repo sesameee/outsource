@@ -17,6 +17,7 @@ export const useVerifyCodeHandler = (): any => {
         useEffect(() => {
             if (accessToken != '') {
                 setStep(3)
+                handleReset()
             }
         }, [setStep, accessToken])
     }

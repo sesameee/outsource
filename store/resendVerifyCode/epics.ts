@@ -30,10 +30,9 @@ export const fetchResendVerifyCodeEpic: Epic = (action$, state$) =>
                     memberId: state$.value.userLogin.memberId,
                 }).pipe(
                     mergeMap((res) => {
-                        return epicSuccessMiddleware(
-                            res,
+                        return epicSuccessMiddleware(res, [
                             ResendVerifyCodeActions.fetchResendVerifyCodeSuccess(res.data),
-                        )
+                        ])
                     }),
                     catchError((error: AxiosError) => {
                         const res = <AxiosError>error

@@ -18,6 +18,7 @@ export const useResendVerifyCodeHandler = (): any => {
         useEffect(() => {
             if (success) {
                 setStep(2)
+                handleReset()
             }
         }, [setStep, success])
     }

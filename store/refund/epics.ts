@@ -33,7 +33,7 @@ export const fetchRefundEpic: Epic = (action$, state$) =>
                     accessToken: accessToken,
                 }).pipe(
                     mergeMap((res) => {
-                        return epicSuccessMiddleware(res, RefundActions.fetchRefundSuccess(res.data))
+                        return epicSuccessMiddleware(res, [RefundActions.fetchRefundSuccess(res.data)])
                     }),
                     catchError((error: AxiosError | string) => {
                         const res = <AxiosError>error

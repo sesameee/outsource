@@ -36,7 +36,7 @@ export const fetchWishListListEpic: Epic = (action$, state$) =>
                     accessToken: accessToken,
                 }).pipe(
                     mergeMap((res) => {
-                        return epicSuccessMiddleware(res, WishListActions.fetchWishListSuccess(res.data))
+                        return epicSuccessMiddleware(res, [WishListActions.fetchWishListSuccess(res.data)])
                     }),
                     catchError((error: AxiosError | string) => {
                         const res = <AxiosError>error

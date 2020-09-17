@@ -33,7 +33,7 @@ export const fetchPromoCodeEpic: Epic = (action$, state$) =>
                     accessToken: accessToken,
                 }).pipe(
                     mergeMap((res) => {
-                        return epicSuccessMiddleware(res, PromoCodeActions.fetchPromoCodeSuccess(res.data))
+                        return epicSuccessMiddleware(res, [PromoCodeActions.fetchPromoCodeSuccess(res.data)])
                     }),
                     catchError((error: AxiosError | string) => {
                         const res = <AxiosError>error

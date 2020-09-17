@@ -35,12 +35,14 @@ export const fetchShoppingCartModifyEpic: Epic = (action$, state$) =>
                     mergeMap((res) => {
                         return epicSuccessMiddleware(
                             res,
-                            ShoppingCartModifyActions.fetchShoppingCartModifySuccess(res.data),
-                            ShoppingCartListActions.fetchShoppingCartList({
-                                shipType: '1',
-                                memberId: '',
-                                accessToken: '',
-                            }),
+                            [
+                                ShoppingCartModifyActions.fetchShoppingCartModifySuccess(res.data),
+                                ShoppingCartListActions.fetchShoppingCartList({
+                                    shipType: '1',
+                                    memberId: '',
+                                    accessToken: '',
+                                }),
+                            ],
                             true,
                         )
                     }),

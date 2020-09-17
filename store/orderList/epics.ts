@@ -33,7 +33,7 @@ export const fetchOrderListEpic: Epic = (action$, state$) =>
                     accessToken: accessToken,
                 }).pipe(
                     mergeMap((res) => {
-                        return epicSuccessMiddleware(res, OrderListActions.fetchOrderListSuccess(res.data))
+                        return epicSuccessMiddleware(res, [OrderListActions.fetchOrderListSuccess(res.data)])
                     }),
                     catchError((error: AxiosError | string) => {
                         const res = <AxiosError>error

@@ -30,14 +30,13 @@ export const fetchVerifyCodeListEpic: Epic = (action$, state$) =>
                 code: action.payload.code,
             }).pipe(
                 mergeMap((res) => {
-                    return epicSuccessMiddleware(
-                        res,
+                    return epicSuccessMiddleware(res, [
                         VerifyCodeActions.fetchVerifyCodeSuccess(res.data),
                         UserLoginActions.fetchUserLoginSuccess({
                             UserLoginData: res.data,
                             isLogin: true,
                         }),
-                    )
+                    ])
                 }),
                 catchError((error: AxiosError) => {
                     return of(VerifyCodeActions.fetchVerifyCodeFailure({ error: error.message }))

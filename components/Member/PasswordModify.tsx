@@ -104,11 +104,12 @@ const FromSecondStep: React.FC<PasswordModifyFromProps> = ({ setStep }: Password
 const FromThirdStep: React.FC<PasswordModifyFromProps> = ({ setStep }: PasswordModifyFromProps) => {
     const { t } = useTranslation()
     const { register, handleSubmit } = useForm<ResetPasswordReqData>()
-    const { handleResetPasswordSubmit } = useResetPasswordHandler()
+    const { handleResetPasswordSubmit, HandleResetPasswordRes } = useResetPasswordHandler()
     const onSubmit = (data: any) => {
         handleResetPasswordSubmit({ ...data, type: 2 })
     }
-    console.log('setStep :>> ', setStep)
+    HandleResetPasswordRes(setStep)
+
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">

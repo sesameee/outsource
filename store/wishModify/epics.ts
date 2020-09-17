@@ -35,8 +35,7 @@ export const fetchWishModifyEpic: Epic = (action$, state$) =>
                     mergeMap((res) => {
                         return epicSuccessMiddleware(
                             res,
-                            WishModifyActions.fetchWishModifySuccess(res.data),
-                            WishListActions.fetchWishList(),
+                            [WishModifyActions.fetchWishModifySuccess(res.data), WishListActions.fetchWishList()],
                             true,
                         )
                     }),

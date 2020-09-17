@@ -30,13 +30,12 @@ export const fetchForgotPasswordEpic: Epic = (action$) =>
                 rocId: action.payload.rocId,
             }).pipe(
                 mergeMap((res) => {
-                    return epicSuccessMiddleware(
-                        res,
+                    return epicSuccessMiddleware(res, [
                         ForgotPasswordActions.fetchForgotPasswordSuccess(res.data),
                         UserLoginActions.fetchUserLoginSuccess({
                             UserLoginData: res.data,
                         }),
-                    )
+                    ])
                 }),
                 catchError((error: AxiosError) => {
                     return of(ForgotPasswordActions.fetchForgotPasswordFailure({ error: error.message }))

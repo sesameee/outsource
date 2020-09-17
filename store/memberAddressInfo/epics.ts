@@ -32,10 +32,9 @@ export const fetchMemberAddressInfoEpic: Epic = (action$, state$) =>
                     accessToken: accessToken,
                 }).pipe(
                     mergeMap((res) => {
-                        return epicSuccessMiddleware(
-                            res,
+                        return epicSuccessMiddleware(res, [
                             MemberAddressInfoActions.fetchMemberAddressInfoSuccess(res.data),
-                        )
+                        ])
                     }),
                     catchError((error: AxiosError) => {
                         return of(MemberAddressInfoActions.fetchMemberAddressInfoFailure({ error: error.message }))

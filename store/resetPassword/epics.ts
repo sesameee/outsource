@@ -33,7 +33,7 @@ export const fetchResetPasswordEpic: Epic = (action$, state$) =>
                 type: action.payload.type,
             }).pipe(
                 mergeMap((res) => {
-                    return epicSuccessMiddleware(res, ResetPasswordActions.fetchResetPasswordSuccess(res.data))
+                    return epicSuccessMiddleware(res, [ResetPasswordActions.fetchResetPasswordSuccess(res.data)], true)
                 }),
                 catchError((error: AxiosError) => {
                     return of(ResetPasswordActions.fetchResetPasswordFailure({ error: error.message }))

@@ -39,10 +39,9 @@ export const fetchShoppingCartListEpic: Epic = (action$, state$) =>
                     accessToken: accessToken,
                 }).pipe(
                     mergeMap((res) => {
-                        return epicSuccessMiddleware(
-                            res,
+                        return epicSuccessMiddleware(res, [
                             ShoppingCartListActions.fetchShoppingCartListSuccess({ data: res.data }),
-                        )
+                        ])
                     }),
                     catchError((error: AxiosError | string) => {
                         const res = <AxiosError>error

@@ -55,13 +55,12 @@ export const fetchUserLoginEpic: Epic = (action$) => {
                 mergeMap((res) => {
                     if (res.data.code !== '3004') {
                         console.log('res.data.code  :>> ', res.data.code)
-                        return epicSuccessMiddleware(
-                            res,
+                        return epicSuccessMiddleware(res, [
                             UserLoginActions.fetchUserLoginSuccess({
                                 UserLoginData: res.data,
                                 isLogin: true,
                             }),
-                        )
+                        ])
                     }
                     return of(UserLoginActions.fetchUserLoginSuccess({ UserLoginData: res.data }))
                 }),

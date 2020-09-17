@@ -11,9 +11,9 @@ import { i18n } from '@/I18n'
  * @param fn epic action
  */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const epicSuccessMiddleware = (res: any, fn: any, fn2?: any, successAlert?: boolean) => {
+export const epicSuccessMiddleware = (res: any, fn: any[], successAlert?: boolean) => {
     if (res.data.code === '0000') {
-        const fnArr = fn2 ? [fn, fn2] : [fn]
+        const fnArr = fn
         return successAlert
             ? of(...fnArr, ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: res.data.message }))
             : of(...fnArr)
