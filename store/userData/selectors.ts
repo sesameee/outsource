@@ -9,7 +9,7 @@ export const userDataState = (state: RootState): UserDataState => state.userData
 //     return userDataState.shoppingCartListList.totalItems
 // })
 
-export const userData = createSelector<RootState, UserDataState, UserDataState['data']>(
+export const getUserData = createSelector<RootState, UserDataState, UserDataState['data']>(
     userDataState,
     (userDataState: UserDataState) => {
         return userDataState.data

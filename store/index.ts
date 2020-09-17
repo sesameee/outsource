@@ -30,6 +30,7 @@ import * as ResetPasswordSelectors from './resetPassword/selectors'
 import * as UserSetupSelectors from './userSetup/selectors'
 import * as UserPointsSelectors from './userPoints/selectors'
 import * as LoginDialogSelectors from './loginDialog/selectors'
+import * as UserDataSelectors from './userData/selectors'
 import { bannerSlice, bannerCreateActions } from './banner/slice'
 import { catalogSlice, catalogCreateActions } from './catalog/slice'
 import { channelListSlice, channelListCreateActions } from './channelList/slice'
@@ -62,6 +63,7 @@ import { forgotPasswordSlice, forgotPasswordCreateActions } from './forgotPasswo
 import { resetPasswordSlice, resetPasswordCreateActions } from './resetPassword/slice'
 import { userSetupSlice, userSetupCreateActions } from './userSetup/slice'
 import { userPointsSlice, userPointsCreateActions } from './userPoints/slice'
+import { userDataSlice, userDataCreateActions } from './userData/slice'
 
 const BannerActions = {
     ...bannerSlice.actions,
@@ -221,6 +223,11 @@ const UserPointsActions = {
     ...userPointsCreateActions,
 }
 
+const UserDataActions = {
+    ...userDataSlice.actions,
+    ...userDataCreateActions,
+}
+
 export {
     BannerSelectors,
     BannerActions,
@@ -286,4 +293,6 @@ export {
     UserSetupSelectors,
     UserPointsActions,
     UserPointsSelectors,
+    UserDataActions,
+    UserDataSelectors,
 }

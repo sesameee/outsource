@@ -31,6 +31,7 @@ import { forgotPasswordSlice } from './forgotPassword/slice'
 import { resetPasswordSlice } from './resetPassword/slice'
 import { userSetupSlice } from './userSetup/slice'
 import { userPointsSlice } from './userPoints/slice'
+import { userDataSlice } from './userData/slice'
 import { RootState } from '@/types/stores/root'
 
 const rootReducer = combineReducers({
@@ -66,6 +67,7 @@ const rootReducer = combineReducers({
     userSetup: userSetupSlice.reducer,
     userPoints: userPointsSlice.reducer,
     loginDialog: loginDialogSlice.reducer,
+    userData: userDataSlice.reducer,
 })
 
 export default rootReducer

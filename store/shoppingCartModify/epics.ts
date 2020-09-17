@@ -41,6 +41,7 @@ export const fetchShoppingCartModifyEpic: Epic = (action$, state$) =>
                                 memberId: '',
                                 accessToken: '',
                             }),
+                            true,
                         )
                     }),
                     catchError((error: AxiosError | string) => {

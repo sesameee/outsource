@@ -37,6 +37,7 @@ export const fetchWishModifyEpic: Epic = (action$, state$) =>
                             res,
                             WishModifyActions.fetchWishModifySuccess(res.data),
                             WishListActions.fetchWishList(),
+                            true,
                         )
                     }),
                     catchError((error: AxiosError | string) => {

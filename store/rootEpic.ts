@@ -30,6 +30,7 @@ import ForgotPassword from './forgotPassword/epics'
 import ResetPassword from './resetPassword/epics'
 import UserSetup from './userSetup/epics'
 import UserPoints from './userPoints/epics'
+import UserData from './userData/epics'
 
 export const rootEpic = combineEpics(
     ...BannerEpics,
@@ -62,6 +63,7 @@ export const rootEpic = combineEpics(
     ...ResetPassword,
     ...UserSetup,
     ...UserPoints,
+    ...UserData,
 )
 
 const epicMiddleware = createEpicMiddleware()

@@ -6,6 +6,7 @@ export interface userDataReqData {
 }
 
 export interface userDataData {
+    address_string: string
     email: string
     phone_code: string
     phone: string

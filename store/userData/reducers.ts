@@ -3,7 +3,7 @@ import { produce } from 'immer'
 
 import { State } from '@/types/stores/userData/state'
 import { initialState } from './initialState'
-import { UserDataRspData } from '@/types/apis/userData'
+import { userDataRspData } from '@/types/apis/userData'
 
 export const setIsSearching: CaseReducer<State, PayloadAction<State>> = (state, action) => {
     return produce(state, (draft) => {
@@ -11,7 +11,7 @@ export const setIsSearching: CaseReducer<State, PayloadAction<State>> = (state, 
     })
 }
 
-export const fetchUserDataSuccess: CaseReducer<State, PayloadAction<UserDataRspData>> = (state, action) => {
+export const fetchUserDataSuccess: CaseReducer<State, PayloadAction<userDataRspData>> = (state, action) => {
     return produce(state, (draft) => {
         draft['isFetch'] = false
         draft['data'] = action.payload.data

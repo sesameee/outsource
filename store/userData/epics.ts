@@ -3,13 +3,12 @@ import { of } from 'rxjs'
 import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
-import { PayloadAction } from '@reduxjs/toolkit'
 
-import { MemberAddressInfoActions } from '@/store'
+import { UserDataActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
 import { userDataReqData, userDataRspData } from '@/types/apis/userData'
 import { USER_DATA } from '@/services/api/apiConfig'
-import { epicSuccessMiddleware, requireValidToken } from '../epicMiddleware'
+import { epicSuccessMiddleware, requireValidToken, epicAuthFailMiddleware } from '../epicMiddleware'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
@@ -17,32 +16,33 @@ export const initEpic: Epic = (action$) =>
     action$.pipe(
         ofType(HYDRATE),
         switchMap(() => {
-            return of(MemberAddressInfoActions.reset())
+            return of(UserDataActions.reset())
         }),
     )
 
-export const fetchMemberAddressInfoEpic: Epic = (action$, state$) =>
+export const fetchUserDataEpic: Epic = (action$, state$) =>
     action$.pipe(
-        ofType(MemberAddressInfoActions.fetchMemberAddressInfo),
-        switchMap((action: PayloadAction<MemberAddressInfoReqData>) =>
+        ofType(UserDataActions.fetchUserData),
+        switchMap(() =>
             requireValidToken(action$, state$, (accessToken: any) =>
-                HttpService.PostAsync<MemberAddressInfoReqData, MemberAddressInfoRspData>(USER_DATA, {
+                HttpService.PostAsync<userDataReqData, userDataRspData>(USER_DATA, {
                     memberId: state$.value.userLogin.memberId,
                     accessToken: accessToken,
                 }).pipe(
                     mergeMap((res) => {
-                        return epicSuccessMiddleware(
-                            res,
-                            MemberAddressInfoActions.fetchMemberAddressInfoSuccess(res.data),
-                        )
+                        return epicSuccessMiddleware(res, UserDataActions.fetchUserDataSuccess(res.data))
                     }),
                     catchError((error: AxiosError) => {
-                        return of(MemberAddressInfoActions.fetchMemberAddressInfoFailure({ error: error.message }))
+                        const res = <AxiosError>error
+                        return epicAuthFailMiddleware(
+                            error,
+                            UserDataActions.fetchUserDataFailure({ error: res.message }),
+                        )
                     }),
-                    takeUntil(action$.ofType(MemberAddressInfoActions.stopFetchMemberAddressInfo)),
+                    takeUntil(action$.ofType(UserDataActions.stopFetchUserData)),
                 ),
             ),
         ),
     )
 
-export default [initEpic, fetchMemberAddressInfoEpic]
+export default [initEpic, fetchUserDataEpic]

@@ -5,11 +5,11 @@ import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 import { PayloadAction } from '@reduxjs/toolkit'
 
-import { UserSetupActions } from '@/store'
+import { UserSetupActions, UserDataActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
 import { UserSetupReqData, UserSetupRspData } from '@/types/apis/userSetup'
 import { USER_SETUP } from '@/services/api/apiConfig'
-import { epicAuthFailMiddleware, requireValidToken } from '../epicMiddleware'
+import { epicAuthFailMiddleware, requireValidToken, epicSuccessMiddleware } from '../epicMiddleware'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
@@ -35,7 +35,12 @@ export const fetchUserSetupEpic: Epic = (action$, state$) =>
                     accessToken: accessToken,
                 }).pipe(
                     mergeMap((res) => {
-                        return of(UserSetupActions.fetchUserSetupSuccess(res.data))
+                        return epicSuccessMiddleware(
+                            res,
+                            UserSetupActions.fetchUserSetupSuccess(res.data),
+                            UserDataActions.fetchUserData({ memberId: '', accessToken: '' }),
+                            true,
+                        )
                     }),
                     catchError((error: AxiosError | string) => {
                         const res = <AxiosError>error
