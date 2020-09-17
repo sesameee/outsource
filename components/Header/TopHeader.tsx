@@ -4,16 +4,22 @@ import { setCookie } from '@/utils'
 
 const TopHeader: React.FC = () => {
     const [lan, setLan] = useState(i18n.language)
+    const [text, setText] = useState('')
     useEffect(() => {
         setLan(i18n.language)
-    }, [])
+        if (lan == 'tw') {
+            return setText('中文')
+        } else {
+            return setText('English')
+        }
+    }, [lan])
 
     return (
         <div className="header-top">
             <div className="container">
                 <div className="header-left">
                     <div className="header-dropdown">
-                        <a href="#">{lan == 'tw' ? '中文' : 'English'}</a>
+                        <a href="#">{text}</a>
                         <div className="header-menu">
                             <ul>
                                 <li>

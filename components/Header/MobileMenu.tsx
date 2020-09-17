@@ -26,9 +26,16 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ IsOpenMenu, setIsOpenMenu }: Mo
     }
     const router = useRouter()
     const [lan, setLan] = useState(i18n.language)
+    const [text, setText] = useState('')
     useEffect(() => {
         setLan(i18n.language)
-    }, [])
+        if (lan == 'tw') {
+            return setText('中文')
+        } else {
+            return setText('English')
+        }
+    }, [lan])
+
     return (
         <div className="mobile-menu">
             <MobileSubMenu IsOpenMenu={IsOpenSubMenu} setIsOpenMenu={setIsOpenSunMenu} subMenuIndex={subMenuIndex} />
@@ -50,7 +57,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ IsOpenMenu, setIsOpenMenu }: Mo
                 </SidebarContent>
                 <SidebarFooter>
                     <div className="header-dropdown">
-                        <a href="#">{lan == 'tw' ? '中文' : 'English'}</a>
+                        <a href="#">{text}</a>
                         <div className="header-menu">
                             <ul>
                                 <li>
