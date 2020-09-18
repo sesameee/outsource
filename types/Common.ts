@@ -10,3 +10,7 @@ export enum FilterType {
 export interface TPDirect extends Window {
     TPDirect: any
 }
+
+export interface Opera extends Window {
+    opera: any
+}

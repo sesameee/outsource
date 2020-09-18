@@ -11,6 +11,7 @@ import { UserRegisterReqData } from '@/types/apis/userRegister'
 import { USER_REGISTER } from '@/services/api/apiConfig'
 import { UserLoginRspAllData } from '@/types/apis/userLogin'
 import { epicSuccessMiddleware } from '../epicMiddleware'
+import { mobileCheck } from '@/utils'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
@@ -33,9 +34,9 @@ export const fetchUserRegisterEpic: Epic = (action$) =>
                 email: action.payload.email,
                 pwd1: action.payload.pwd1,
                 pwd2: action.payload.pwd2,
-                registerFrom: action.payload.registerFrom,
                 isTaiwan: action.payload.isTaiwan,
                 taiwanId: action.payload.taiwanId,
+                registerFrom: mobileCheck() ? 'ec-mobile' : 'ec-web',
             }).pipe(
                 mergeMap((res) => {
                     return epicSuccessMiddleware(res, [
