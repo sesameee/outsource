@@ -17,6 +17,7 @@ const Channel: React.FC = () => {
         speed: 500,
         slidesToScroll: 3,
         slidesToShow: 4,
+        pauseOnHover: true,
         responsive: [
             {
                 breakpoint: 1200,
@@ -58,6 +59,7 @@ const Channel: React.FC = () => {
     const handleAfterChange = useCallback(() => {
         setDragging(false)
     }, [setDragging])
+
     const router = useRouter()
     const handleOnItemClick = useCallback(
         (e, link) => {
@@ -71,20 +73,20 @@ const Channel: React.FC = () => {
     )
 
     return (
-        <Slider {...settings} beforeChange={handleBeforeChange} afterChange={handleAfterChange}>
+        <Slider {...settings} swipeEvent={handleBeforeChange} afterChange={handleAfterChange}>
             {channelList.map((item: ChannelData | null, index: number) => {
                 return (
                     <div
                         key={index}
                         style={{ width: '28rem' }}
-                        onClick={(e) => handleOnItemClick(e, `/category/${item?.cid}`)}
+                        onClick={(e) => handleOnItemClick(e, `/category/${item?.categoryType}/${item?.cid}`)}
                     >
                         <figure className="product-media">
                             <img src={item?.imageUrl} alt="Product image" className="product-image" />
                         </figure>
                         <div className="product-body">
                             <h3 className="product-title text-center">
-                                <Link href={`category/${item?.cid}`} prefetch={false}>
+                                <Link href={`category/${item?.categoryType}/${item?.cid}`} prefetch={false}>
                                     {item?.channelName}
                                 </Link>
                             </h3>

@@ -6,6 +6,7 @@ import { BannerSelectors } from '@/store'
 import { TFunction } from 'next-i18next'
 import { withTranslation } from '@/I18n'
 import Link from 'next/link'
+import { BannerData } from '@/types/apis/banner'
 
 type RecommendProps = {
     t: TFunction
@@ -14,6 +15,10 @@ const Recommend: React.FC<RecommendProps> = ({ t }: RecommendProps) => {
     useRecommend()
     const list = useSelector(BannerSelectors.getRecommendList)
     const [item1, item2, item3, item4] = list
+    const getLink = (item: BannerData) => {
+        const { linkType, linkUrl, categoryType, cid } = item
+        return linkType == 1 ? linkUrl : `/category/${categoryType}/${cid}`
+    }
 
     return (
         <div className="container recommend">
@@ -25,7 +30,7 @@ const Recommend: React.FC<RecommendProps> = ({ t }: RecommendProps) => {
                 <div className="row">
                     {item1 ? (
                         <div className="col-md-6">
-                            <Link href={`category/${item1?.cid}`} prefetch={false}>
+                            <Link href={getLink(item1)} prefetch={false}>
                                 <div
                                     className="banner banner-display banner-link-anim banner-title-hidden banner-1"
                                     style={{
@@ -35,7 +40,7 @@ const Recommend: React.FC<RecommendProps> = ({ t }: RecommendProps) => {
                                     <div className="banner-content banner-content-center">
                                         <h3 className="banner-title text-white">
                                             {item1 ? (
-                                                <Link href={`category/${item1?.cid}`} prefetch={false}>
+                                                <Link href={getLink(item1)} prefetch={false}>
                                                     {item1?.desc}
                                                 </Link>
                                             ) : null}
@@ -48,7 +53,7 @@ const Recommend: React.FC<RecommendProps> = ({ t }: RecommendProps) => {
 
                     <div className="col-md-6">
                         {item2 ? (
-                            <Link href={`category/${item2?.cid}`} prefetch={false}>
+                            <Link href={getLink(item2)} prefetch={false}>
                                 <div
                                     className="banner banner-display banner-link-anim banner-title-hidden banner-2"
                                     style={{
@@ -58,7 +63,7 @@ const Recommend: React.FC<RecommendProps> = ({ t }: RecommendProps) => {
                                     <div className="banner-content banner-content-center">
                                         <h3 className="banner-title text-white">
                                             {item2 ? (
-                                                <Link href={`category/${item2?.cid}`} prefetch={false}>
+                                                <Link href={getLink(item2)} prefetch={false}>
                                                     {item2?.desc}
                                                 </Link>
                                             ) : null}
@@ -68,7 +73,7 @@ const Recommend: React.FC<RecommendProps> = ({ t }: RecommendProps) => {
                             </Link>
                         ) : null}
                         {item3 ? (
-                            <Link href={`category/${item3?.cid}`} prefetch={false}>
+                            <Link href={getLink(item3)} prefetch={false}>
                                 <div
                                     className="banner banner-display banner-link-anim banner-3"
                                     style={{
@@ -78,7 +83,7 @@ const Recommend: React.FC<RecommendProps> = ({ t }: RecommendProps) => {
                                     <div className="banner-content banner-content-center">
                                         <h3 className="banner-title text-white">
                                             {item3 ? (
-                                                <Link href={`category/${item3?.cid}`} prefetch={false}>
+                                                <Link href={getLink(item3)} prefetch={false}>
                                                     {item3?.desc}
                                                 </Link>
                                             ) : null}
@@ -89,7 +94,7 @@ const Recommend: React.FC<RecommendProps> = ({ t }: RecommendProps) => {
                         ) : null}
 
                         {item4 ? (
-                            <Link href={`category/${item4?.cid}`} prefetch={false}>
+                            <Link href={getLink(item4)} prefetch={false}>
                                 <div
                                     className="banner banner-display banner-link-anim banner-3"
                                     style={{
@@ -99,7 +104,7 @@ const Recommend: React.FC<RecommendProps> = ({ t }: RecommendProps) => {
                                     <div className="banner-content banner-content-center">
                                         <h3 className="banner-title text-white">
                                             {item4 ? (
-                                                <Link href={`category/${item4?.cid}`} prefetch={false}>
+                                                <Link href={getLink(item4)} prefetch={false}>
                                                     {item4?.desc}
                                                 </Link>
                                             ) : null}
@@ -118,7 +123,7 @@ const Recommend: React.FC<RecommendProps> = ({ t }: RecommendProps) => {
                         return null
                     } else {
                         return (
-                            <Link key={index} href={`category/${item.cid}`} prefetch={false}>
+                            <Link key={index} href={getLink(item)} prefetch={false}>
                                 <img
                                     src={item.sourceUrl}
                                     width="100%"
