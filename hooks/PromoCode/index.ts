@@ -1,9 +1,9 @@
 import { useEffect, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
-import { PromoCodeActions, ShoppingCartListSelectors } from '@/store'
+import { PromoCodeActions, ShoppingCartListActions } from '@/store'
 import { useTranslation } from '@/I18n'
-import { PromoCodeReqData } from '@/types/apis/promoCode'
-import { useSelector } from 'react-redux'
+import { ShoppingCartListReqData } from '@/types/apis/shoppingCartList'
+import { setCookie } from '@/utils'
 
 export const usePromoCode = (): void => {
     const { i18n } = useTranslation()
@@ -21,19 +21,19 @@ export const usePromoCode = (): void => {
 }
 
 export const usePromoCodeHandler = (): any => {
-    const pid = useSelector(ShoppingCartListSelectors.getShoppingCartPidList)
     const dispatch = useDispatch()
     const handlePromoCodeSubmit = useCallback(
         (promoCode: string) => {
-            const data: PromoCodeReqData = {
+            setCookie('promoCode', promoCode)
+            const data: ShoppingCartListReqData = {
                 promoCode,
                 memberId: '',
-                pid: pid,
                 accessToken: '',
+                shipType: '1',
             }
-            dispatch(PromoCodeActions.fetchPromoCode(data))
+            dispatch(ShoppingCartListActions.fetchShoppingCartList(data))
         },
-        [dispatch, pid],
+        [dispatch],
     )
     return { handlePromoCodeSubmit }
 }

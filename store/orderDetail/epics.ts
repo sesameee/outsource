@@ -36,10 +36,9 @@ export const fetchOrderDetailEpic: Epic = (action$, state$) =>
                     }),
                     catchError((error: AxiosError | string) => {
                         const res = <AxiosError>error
-                        return epicAuthFailMiddleware(
-                            error,
+                        return epicAuthFailMiddleware(error, [
                             OrderDetailActions.fetchOrderDetailFailure({ error: res.message }),
-                        )
+                        ])
                     }),
                     takeUntil(action$.ofType(OrderDetailActions.stopFetchOrderDetail)),
                 ),

@@ -40,10 +40,9 @@ export const fetchWishListListEpic: Epic = (action$, state$) =>
                     }),
                     catchError((error: AxiosError | string) => {
                         const res = <AxiosError>error
-                        return epicAuthFailMiddleware(
-                            error,
+                        return epicAuthFailMiddleware(error, [
                             WishListActions.fetchWishListFailure({ error: res.message }),
-                        )
+                        ])
                     }),
                     takeUntil(action$.ofType(WishListActions.stopFetchWishList)),
                 ),

@@ -33,7 +33,7 @@ const TopBanner: React.FC = () => {
         infinite: true,
         slidesToShow: 1,
         slidesToScroll: 1,
-        autoplay: true,
+        autoplay: false,
         speed: 500,
         cssEase: 'linear',
         nextArrow: <NextArrow />,
@@ -53,10 +53,11 @@ const TopBanner: React.FC = () => {
         return width > 1200 ? 0.56 * 1 * width : 0.56 * 1.5 * width
     }
     const BannerItem = (item: BannerData) => {
+        const link = item.linkType == 1 ? item?.linkUrl : `/category/${item.categoryType}/${item.cid}`
         switch (item.contentType) {
             case 'image':
                 return (
-                    <a href={item?.linkUrl} target="blank">
+                    <a href={link} target="blank">
                         <div
                             className="intro-content text-center"
                             style={{ backgroundImage: `url(${item?.sourceUrl})`, height: `${bannerHeight()}px` }}

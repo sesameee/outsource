@@ -34,10 +34,9 @@ export const fetchUserPointsEpic: Epic = (action$, state$) =>
                     }),
                     catchError((error: AxiosError | string) => {
                         const res = <AxiosError>error
-                        return epicAuthFailMiddleware(
-                            error,
+                        return epicAuthFailMiddleware(error, [
                             UserPointsActions.fetchUserPointsFailure({ error: res.message }),
-                        )
+                        ])
                     }),
                     takeUntil(action$.ofType(UserPointsActions.stopFetchUserPoints)),
                 ),

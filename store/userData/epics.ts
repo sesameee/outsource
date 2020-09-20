@@ -34,10 +34,9 @@ export const fetchUserDataEpic: Epic = (action$, state$) =>
                     }),
                     catchError((error: AxiosError) => {
                         const res = <AxiosError>error
-                        return epicAuthFailMiddleware(
-                            error,
+                        return epicAuthFailMiddleware(error, [
                             UserDataActions.fetchUserDataFailure({ error: res.message }),
-                        )
+                        ])
                     }),
                     takeUntil(action$.ofType(UserDataActions.stopFetchUserData)),
                 ),

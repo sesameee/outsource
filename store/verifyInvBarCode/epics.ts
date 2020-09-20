@@ -38,10 +38,9 @@ export const fetchVerifyInvBarCodeListEpic: Epic = (action$, state$) =>
                     }),
                     catchError((error: AxiosError | string) => {
                         const res = <AxiosError>error
-                        return epicAuthFailMiddleware(
-                            error,
+                        return epicAuthFailMiddleware(error, [
                             VerifyInvBarCodeActions.fetchVerifyInvBarCodeFailure({ error: res.message }),
-                        )
+                        ])
                     }),
                     takeUntil(action$.ofType(VerifyInvBarCodeActions.stopFetchVerifyInvBarCode)),
                 ),

@@ -37,7 +37,7 @@ export const fetchRefundEpic: Epic = (action$, state$) =>
                     }),
                     catchError((error: AxiosError | string) => {
                         const res = <AxiosError>error
-                        return epicAuthFailMiddleware(error, RefundActions.fetchRefundFailure({ error: res.message }))
+                        return epicAuthFailMiddleware(error, [RefundActions.fetchRefundFailure({ error: res.message })])
                     }),
                     takeUntil(action$.ofType(RefundActions.stopFetchRefund)),
                 ),

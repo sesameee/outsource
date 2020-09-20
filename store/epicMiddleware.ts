@@ -31,7 +31,7 @@ export const epicSuccessMiddleware = (res: any, fn: any[], successAlert?: boolea
  * @param fn epic action
  */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const epicAuthFailMiddleware = (error: AxiosError | string, fn: any) => {
+export const epicAuthFailMiddleware = (error: AxiosError | string, fn: any[]) => {
     if (error === '8013') {
         return of(UserLoginActions.fetchUserLoginFailure({ error: error }))
     } else if (error === '8012') {
@@ -41,7 +41,7 @@ export const epicAuthFailMiddleware = (error: AxiosError | string, fn: any) => {
             ErrorAlertActions.toggleErrorAlert({ isOpen: true, error: i18n.t('logout') }),
         )
     } else {
-        return of(fn)
+        return of(...fn)
     }
 }
 

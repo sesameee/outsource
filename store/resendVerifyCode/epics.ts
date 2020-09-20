@@ -36,10 +36,9 @@ export const fetchResendVerifyCodeEpic: Epic = (action$, state$) =>
                     }),
                     catchError((error: AxiosError) => {
                         const res = <AxiosError>error
-                        return epicAuthFailMiddleware(
-                            error,
+                        return epicAuthFailMiddleware(error, [
                             ResendVerifyCodeActions.fetchResendVerifyCodeFailure({ error: res.message }),
-                        )
+                        ])
                     }),
                     takeUntil(action$.ofType(ResendVerifyCodeActions.stopFetchResendVerifyCode)),
                 ),

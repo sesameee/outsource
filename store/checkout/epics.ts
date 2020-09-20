@@ -45,10 +45,9 @@ export const fetchCheckoutEpic: Epic = (action$, state$) =>
                     }),
                     catchError((error: AxiosError | string) => {
                         const res = <AxiosError>error
-                        return epicAuthFailMiddleware(
-                            error,
+                        return epicAuthFailMiddleware(error, [
                             CheckoutActions.fetchCheckoutFailure({ error: res.message }),
-                        )
+                        ])
                     }),
                     takeUntil(action$.ofType(CheckoutActions.stopFetchCheckout)),
                 ),

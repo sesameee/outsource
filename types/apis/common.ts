@@ -23,6 +23,7 @@ export interface ShoppingCartListData {
 }
 
 export interface ShoppingCartProductData {
+    discountAmount: any
     pName?: string
     shoppingCartItemId?: number
     cid: string

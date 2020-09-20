@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import NumberInput from '../commons/NumberInput'
 import { ShoppingCartProductData } from '@/types/apis/common'
 import { State as PromoCodeState } from '@/types/stores/promoCode/state'
-import { accMul } from '@/utils'
+import { accMul, toThousandFilter } from '@/utils'
 import { useShoppingCartModifyHandler } from '@/hooks/ShoppingCart'
 import { useTranslation } from '@/I18n'
 
@@ -68,7 +68,7 @@ const ItemDetail: React.FC<ItemDetailProps> = ({
     const [amount, setAmount] = React.useState(detail?.qty || 0)
     const price = (detail?.price && amount && detail?.price * amount) || 0
     const isHaveDiscount = promoCodeData && promoCodeData.data.indexOf(detail.pid) != -1
-    const discount = isHaveDiscount ? accMul(price, Number(promoCodeData.discountRate)) : 0
+    const discount = detail?.discountAmount
 
     const { handleCart } = useShoppingCartModifyHandler()
     const amountCB = (num: number) => {
@@ -116,7 +116,7 @@ const ItemDetail: React.FC<ItemDetailProps> = ({
                 </div>
             </td>
             <td className="price-col">
-                <p className="pc-hide">{t('commodity_price_2')}</p>${detail?.price}
+                <p className="pc-hide">{t('commodity_price_2')}</p>${toThousandFilter(detail?.price)}
             </td>
             <td className="quantity-col">
                 <div className="cart-product-quantity">
@@ -131,12 +131,12 @@ const ItemDetail: React.FC<ItemDetailProps> = ({
                 </div>
             </td>
             <td className="total-col">
-                <p className="pc-hide">{t('commodity_amount')}</p>${price}
+                <p className="pc-hide">{t('commodity_amount')}</p>${toThousandFilter(price)}
             </td>
             <td className="total-col">
                 {discount ? (
                     <div>
-                        <p className="pc-hide">{t('commodity_amount')}</p>${discount}
+                        <p className="pc-hide">{t('commodity_amount')}</p>${toThousandFilter(discount)}
                     </div>
                 ) : null}
             </td>

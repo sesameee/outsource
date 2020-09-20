@@ -37,10 +37,9 @@ export const fetchOrderListEpic: Epic = (action$, state$) =>
                     }),
                     catchError((error: AxiosError | string) => {
                         const res = <AxiosError>error
-                        return epicAuthFailMiddleware(
-                            error,
+                        return epicAuthFailMiddleware(error, [
                             OrderListActions.fetchOrderListFailure({ error: res.message }),
-                        )
+                        ])
                     }),
                     takeUntil(action$.ofType(OrderListActions.stopFetchOrderList)),
                 ),

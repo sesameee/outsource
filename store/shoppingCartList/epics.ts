@@ -34,8 +34,8 @@ export const fetchShoppingCartListEpic: Epic = (action$, state$) =>
         switchMap((action: PayloadAction<ShoppingCartListReqData>) =>
             requireValidToken(action$, state$, (accessToken: any) =>
                 HttpService.PostAsync<ShoppingCartListReqData, ShoppingCartListRspData>(SHOPPING_CART_LIST, {
+                    ...action.payload,
                     memberId: state$.value.userLogin.memberId,
-                    shipType: action.payload.shipType,
                     accessToken: accessToken,
                 }).pipe(
                     mergeMap((res) => {
@@ -45,10 +45,9 @@ export const fetchShoppingCartListEpic: Epic = (action$, state$) =>
                     }),
                     catchError((error: AxiosError | string) => {
                         const res = <AxiosError>error
-                        return epicAuthFailMiddleware(
-                            error,
+                        return epicAuthFailMiddleware(error, [
                             ShoppingCartListActions.fetchShoppingCartListFailure({ error: res.message }),
-                        )
+                        ])
                     }),
                     takeUntil(action$.ofType(ShoppingCartListActions.stopFetchShoppingCartList)),
                 ),

@@ -46,10 +46,9 @@ export const fetchUserSetupEpic: Epic = (action$, state$) =>
                     }),
                     catchError((error: AxiosError | string) => {
                         const res = <AxiosError>error
-                        return epicAuthFailMiddleware(
-                            error,
+                        return epicAuthFailMiddleware(error, [
                             UserSetupActions.fetchUserSetupFailure({ error: res.message }),
-                        )
+                        ])
                     }),
                     takeUntil(action$.ofType(UserSetupActions.stopFetchUserSetup)),
                 ),

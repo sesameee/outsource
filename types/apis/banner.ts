@@ -1,6 +1,7 @@
 import { Response } from './common'
 
 export interface BannerData {
+    linkType: number
     /**
      * @examples [0,1,2,3]
      */

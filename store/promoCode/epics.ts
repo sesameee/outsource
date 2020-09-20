@@ -37,10 +37,9 @@ export const fetchPromoCodeEpic: Epic = (action$, state$) =>
                     }),
                     catchError((error: AxiosError | string) => {
                         const res = <AxiosError>error
-                        return epicAuthFailMiddleware(
-                            error,
+                        return epicAuthFailMiddleware(error, [
                             PromoCodeActions.fetchPromoCodeFailure({ error: res.message }),
-                        )
+                        ])
                     }),
                     takeUntil(action$.ofType(PromoCodeActions.stopFetchPromoCode)),
                 ),

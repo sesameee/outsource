@@ -42,10 +42,9 @@ export const fetchRegisterUserInfoEpic: Epic = (action$, state$) =>
                     }),
                     catchError((error: AxiosError | string) => {
                         const res = <AxiosError>error
-                        return epicAuthFailMiddleware(
-                            error,
+                        return epicAuthFailMiddleware(error, [
                             RegisterUserInfoActions.fetchRegisterUserInfoFailure({ error: res.message }),
-                        )
+                        ])
                     }),
                     takeUntil(action$.ofType(RegisterUserInfoActions.stopFetchRegisterUserInfo)),
                 ),
