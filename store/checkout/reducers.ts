@@ -11,12 +11,10 @@ export const setIsSearching: CaseReducer<State, PayloadAction<State>> = (state, 
     })
 }
 
-export const fetchCheckoutSuccess: CaseReducer<State, PayloadAction<CheckoutRspData>> = (
-    state,
-    action,
-) => {
+export const fetchCheckoutSuccess: CaseReducer<State, PayloadAction<CheckoutRspData>> = (state, action) => {
     return produce(state, (draft) => {
         draft['isFetch'] = false
+        draft['data'] = action.payload.data
         draft['message'] = action.payload.message
     })
 }

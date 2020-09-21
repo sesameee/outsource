@@ -40,4 +40,6 @@ export interface PayInfoData {
     amount: number
 }
 
-export interface CheckoutRspData extends Response {}
+export interface CheckoutRspData extends Response {
+    data: { isRedirect: boolean; paymentUrl: string }
+}

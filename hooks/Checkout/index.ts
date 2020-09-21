@@ -229,11 +229,11 @@ export const useCheckoutHandler = (): any => {
     const HandleCheckoutRes = (router: any): void => {
         const checkoutRes = useSelector(CheckoutSelectors.checkout)
         useEffect(() => {
-            if (checkoutRes.message) {
-                if (checkoutRes.message == '成功') {
-                    router.push('/checkoutResult?type=1')
+            if (checkoutRes.message == '成功') {
+                if (checkoutRes.data.paymentUrl) {
+                    window.location.href = checkoutRes.data.paymentUrl
                 } else {
-                    router.push('/checkoutResult?type=2')
+                    router.push('/checkoutResult?type=1')
                 }
             }
         }, [checkoutRes, router])

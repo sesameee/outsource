@@ -9,10 +9,9 @@ export const checkoutState = (state: RootState): CheckoutState => state.checkout
 //     return checkoutState.shoppingCartListList.totalItems
 // })
 
-export const checkout = createSelector<
-    RootState,
-    CheckoutState,
-    CheckoutState
->(checkoutState, (checkoutState: CheckoutState) => {
-    return checkoutState
-})
+export const checkout = createSelector<RootState, CheckoutState, CheckoutState>(
+    checkoutState,
+    (checkoutState: CheckoutState) => {
+        return checkoutState
+    },
+)
