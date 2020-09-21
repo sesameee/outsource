@@ -56,10 +56,7 @@ const ProductList: React.FC<ProductListProps> = ({
                             <div className="product product-7 text-center">
                                 <figure className="product-media">
                                     <Link href={`/product/${item.cid}/${item.pid}`} prefetch={false}>
-                                        <div
-                                            className="product-item-img"
-                                            style={{ backgroundImage: `url(${item.imageUrl})` }}
-                                        ></div>
+                                        <img src={item.imageUrl} width="100%" height="auto" />
                                     </Link>
                                     <div className="product-action-vertical">
                                         <a

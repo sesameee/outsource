@@ -402,16 +402,10 @@
 .product-list {
     .product-item-img {
         width: 100%;
-        height: 237px;
+        height: 266.98px;
         background-repeat: no-repeat;
         background-size: cover;
         background-position: 50% 50%;
-        @include for-md {
-            height: 16rem;
-        }
-        @include for-xxs {
-            height: 10rem;
-        }
     }
 }
 
