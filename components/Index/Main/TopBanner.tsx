@@ -69,7 +69,6 @@ const TopBanner: React.FC = () => {
                     <div className="intro-content no-padding" style={{}}>
                         <video
                             autoPlay
-                            muted
                             loop
                             playsInline
                             className="video"
@@ -102,7 +101,11 @@ const TopBanner: React.FC = () => {
         <Slider {...settings} className="intro-slider">
             {bannerList.map((item: BannerData | null, index: number) => {
                 return (
-                    <div key={index} className="intro-slide" ref={elementRef}>
+                    <div
+                        key={index}
+                        className={`intro-slide ${item?.contentType != 'image' ? 'intro-flex' : ''}`}
+                        ref={elementRef}
+                    >
                         {item && BannerItem(item)}
                     </div>
                 )

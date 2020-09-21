@@ -9,7 +9,7 @@ import { useBackBtnDetect } from '@/hooks/BackBtnDetect'
 const TopPage: NextPage<any> = (): JSX.Element => {
     useBackBtnDetect()
     return (
-        <div className="page-wrapper">
+        <div className="page-wrapper" style={{ overflowY: 'hidden' }}>
             <Header isIndex={true} />
             <Main />
             <Footer />

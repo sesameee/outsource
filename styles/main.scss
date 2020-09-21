@@ -97,17 +97,17 @@
 .intro-slider-container,
 .intro-slide {
     // height: 100vh;
-    background-color: #4f5356;
+    background-color: transparent;
 }
 .intro-slide {
-    display: flex !important;
+    display: flex;
     align-items: center;
     background-size: cover;
     background-position: center center;
     justify-content: center;
 }
 .intro-slide .intro-content {
-    position: static;
+    position: relative;
     left: auto;
     top: auto;
     transform: translateY(0);

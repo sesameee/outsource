@@ -197,6 +197,10 @@
     text-align: center;
 }
 
+.intro-flex {
+    display: flex !important;
+}
+
 .intro-slide .intro-content {
     display: flex;
     flex-direction: column;
