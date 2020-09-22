@@ -72,6 +72,7 @@ const TopBanner: React.FC = () => {
                             loop
                             playsInline
                             muted
+                            controls
                             className="video"
                             style={{ objectFit: 'cover', height: bannerHeight() }}
                         >
