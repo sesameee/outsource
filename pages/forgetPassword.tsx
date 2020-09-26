@@ -7,7 +7,7 @@ import { useTranslation } from '@/I18n'
 import { useForgotPassword } from '@/hooks/ForgotPassword'
 import { useForm } from 'react-hook-form'
 import { ForgotPasswordReqData } from '@/types/apis/forgotPassword'
-import { VerifyCodeData } from '@/types/apis/verifyCode'
+import { VerifyCodeData, VerifyCodeReqData } from '@/types/apis/verifyCode'
 import { useVerifyCodeHandler } from '@/hooks/VerifyCode'
 import { useBackBtnDetect } from '@/hooks/BackBtnDetect'
 import { useUserLoginHandler } from '@/hooks/UserLogin'
@@ -62,7 +62,8 @@ const FromSecondStep: React.FC = () => {
     const { t } = useTranslation()
     const { handleVerifyCodeSubmit } = useVerifyCodeHandler()
     const { register, handleSubmit } = useForm<VerifyCodeData>()
-    const onSubmit = (data: any) => {
+    const onSubmit = (data: VerifyCodeReqData) => {
+        data.isLogin = false
         handleVerifyCodeSubmit(data)
     }
     const { UseLoginSuccess } = useUserLoginHandler()

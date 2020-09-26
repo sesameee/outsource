@@ -36,6 +36,11 @@ const UserInfo: React.FC = () => {
             setAreas(areasData)
         }
     }, [userInfoData, AddressInfo, city])
+
+    const getCanModifyParams = (param: string) => {
+        const isFind = userInfoData.canModifyParams.find((item) => item == param)
+        return !!isFind
+    }
     return (
         <form action="#" className="member-from" onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
@@ -105,16 +110,28 @@ const UserInfo: React.FC = () => {
             </div>
             <div className="form-group">
                 <label htmlFor="rocId">{t('id_number')} *</label>
-                <input
-                    type="text"
-                    ref={register}
-                    className="form-control"
-                    id="taiwan_id"
-                    name="taiwan_id"
-                    value={userInfoData.taiwan_id}
-                    required
-                    readOnly
-                />
+                {getCanModifyParams('taiwan_id') ? (
+                    <input
+                        type="text"
+                        ref={register}
+                        className="form-control"
+                        id="taiwan_id"
+                        name="taiwan_id"
+                        defaultValue={userInfoData.taiwan_id}
+                        required
+                    />
+                ) : (
+                    <input
+                        type="text"
+                        ref={register}
+                        className="form-control"
+                        id="taiwan_id"
+                        name="taiwan_id"
+                        value={userInfoData.taiwan_id}
+                        required
+                        readOnly
+                    />
+                )}
             </div>
             <div className="form-group">
                 <label htmlFor="email">{t('email')} *</label>

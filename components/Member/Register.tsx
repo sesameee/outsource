@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form'
 import { UserRegisterReqData } from '@/types/apis/userRegister'
 import { useTranslation } from '@/I18n'
 import { useUserRegisterHandler } from '@/hooks/UserRegister'
-import { VerifyCodeData } from '@/types/apis/verifyCode'
+import { VerifyCodeData, VerifyCodeReqData } from '@/types/apis/verifyCode'
 import { RegisterUserInfoReqData } from '@/types/apis/registerUserInfo'
 import { useUserRegisterSetupHandler } from '@/hooks/UserSetup'
 import { useVerifyCodeHandler } from '@/hooks/VerifyCode'
@@ -170,7 +170,8 @@ const FromSecondStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromPr
     const { HandleVerifyCodeRes, handleVerifyCodeSubmit } = useVerifyCodeHandler()
     const { handleResendVerifyCodeSubmit } = useResendVerifyCodeHandler()
 
-    const onSubmit = (data: UserRegisterReqData) => {
+    const onSubmit = (data: VerifyCodeReqData) => {
+        data.isLogin = false
         handleVerifyCodeSubmit(data)
     }
     HandleVerifyCodeRes(setStep)

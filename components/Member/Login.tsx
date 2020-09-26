@@ -3,10 +3,9 @@ import { useTranslation } from '@/I18n'
 import { useForm } from 'react-hook-form'
 import { UserLoginReqData } from '@/types/apis/userLogin'
 import { useUserLoginHandler } from '@/hooks/UserLogin'
-import { UserRegisterReqData } from '@/types/apis/userRegister'
 import { useResendVerifyCodeHandler } from '@/hooks/ResendVerifyCode'
 import { useVerifyCodeHandler } from '@/hooks/VerifyCode'
-import { VerifyCodeData } from '@/types/apis/verifyCode'
+import { VerifyCodeData, VerifyCodeReqData } from '@/types/apis/verifyCode'
 
 type LoginProps = {
     setPropIsOpenFn: any
@@ -19,7 +18,8 @@ const FromSecondStep: React.FC<LoginProps> = ({ setStep, setPropIsOpenFn }: Logi
     const { handleVerifyCodeSubmit } = useVerifyCodeHandler()
     const { UseLoginSuccess } = useUserLoginHandler()
     const { handleResendVerifyCodeSubmit } = useResendVerifyCodeHandler()
-    const onSubmit = (data: UserRegisterReqData) => {
+    const onSubmit = (data: VerifyCodeReqData) => {
+        data.isLogin = true
         handleVerifyCodeSubmit(data)
     }
     UseLoginSuccess(setPropIsOpenFn, setStep)

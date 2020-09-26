@@ -25,7 +25,7 @@ export const fetchVerifyCodeListEpic: Epic = (action$, state$) =>
     action$.pipe(
         ofType(VerifyCodeActions.fetchVerifyCode),
         switchMap((action: PayloadAction<VerifyCodeReqData>) =>
-            HttpService.PostAsync<VerifyCodeReqData, any>(VERIFY_CODE, {
+            HttpService.PostAsync<any, any>(VERIFY_CODE, {
                 memberId: state$.value.userLogin.memberId,
                 code: action.payload.code,
             }).pipe(
@@ -34,7 +34,7 @@ export const fetchVerifyCodeListEpic: Epic = (action$, state$) =>
                         VerifyCodeActions.fetchVerifyCodeSuccess(res.data),
                         UserLoginActions.fetchUserLoginSuccess({
                             UserLoginData: res.data,
-                            isLogin: true,
+                            isLogin: action.payload.isLogin,
                         }),
                     ])
                 }),

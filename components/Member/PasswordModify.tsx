@@ -4,10 +4,9 @@ import { ResetPasswordReqData } from '@/types/apis/resetPassword'
 import { useForm } from 'react-hook-form'
 import { useResetPasswordHandler } from '@/hooks/ResetPassword'
 import { useTranslation } from '@/I18n'
-import { VerifyCodeData } from '@/types/apis/verifyCode'
+import { VerifyCodeData, VerifyCodeReqData } from '@/types/apis/verifyCode'
 import { useVerifyCodeHandler } from '@/hooks/VerifyCode'
 import { useResendVerifyCodeHandler } from '@/hooks/ResendVerifyCode'
-import { UserRegisterReqData } from '@/types/apis/userRegister'
 // import { ResetPasswordSelectors } from '@/store'
 // import { useSelector } from 'react-redux'
 
@@ -75,7 +74,8 @@ const FromSecondStep: React.FC<PasswordModifyFromProps> = ({ setStep }: Password
     const { t } = useTranslation()
     const { register, handleSubmit } = useForm<VerifyCodeData>()
     const { HandleVerifyCodeRes, handleVerifyCodeSubmit } = useVerifyCodeHandler()
-    const onSubmit = (data: UserRegisterReqData) => {
+    const onSubmit = (data: VerifyCodeReqData) => {
+        data.isLogin = false
         handleVerifyCodeSubmit(data)
     }
     HandleVerifyCodeRes(setStep)

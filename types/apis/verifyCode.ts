@@ -1,6 +1,7 @@
 import { Response } from './common'
 
 export interface VerifyCodeReqData {
+    isLogin: boolean
     memberId: string
     code: string
 }
