@@ -3,8 +3,8 @@ import { createSelector } from '@reduxjs/toolkit'
 import { RootState } from '@/types/stores/root'
 import { State as ShoppingCartListState } from '@/types/stores/shoppingCartList/state'
 import { ShoppingCartProductData, ShoppingCartListData, ShoppingCartProductDataTrans } from '@/types/apis/common'
-import { promoCode } from '@/store/promoCode/selectors'
-import { accMul, accDiv } from '@/utils'
+import { getUserLoginData } from '@/store/userLogin/selectors'
+import { accSubtr } from '@/utils'
 export const shoppingCartListState = (state: RootState): ShoppingCartListState => state.shoppingCartList
 
 // export const getTotalItems = createSelector<RootState, ShoppingCartListState, number>(shoppingCartListState, (shoppingCartListState: ShoppingCartListState) => {
@@ -19,6 +19,13 @@ export const getShoppingCartListCookie = createSelector<
     return shoppingCartListState.shoppingCartListDataCookie
 })
 
+export const getPromoCode = createSelector<RootState, ShoppingCartListState, ShoppingCartListState['promoCode']>(
+    shoppingCartListState,
+    (shoppingCartListState: ShoppingCartListState) => {
+        return shoppingCartListState.promoCode
+    },
+)
+
 export const getShoppingCartList = createSelector<
     RootState,
     ShoppingCartListState,
@@ -27,6 +34,13 @@ export const getShoppingCartList = createSelector<
     return shoppingCartListState.shoppingCartListData
 })
 
+export const getShoppingCookieCartList = createSelector<
+    RootState,
+    ShoppingCartListState,
+    ShoppingCartListState['shoppingCartListDataCookie']
+>(shoppingCartListState, (shoppingCartListState: ShoppingCartListState) => {
+    return shoppingCartListState.shoppingCartListDataCookie
+})
 export const getShoppingCartItemList = createSelector(getShoppingCartList, (list) => {
     const itemList: ShoppingCartProductDataTrans[] = []
     list &&
@@ -44,20 +58,25 @@ export const getShoppingCartItemList = createSelector(getShoppingCartList, (list
     return itemList
 })
 
-export const getShoppingCartPriceList = createSelector(getShoppingCartItemList, (list) => {
-    return list.map((item: ShoppingCartProductDataTrans) => {
-        return (item?.price && item?.qty && item?.price * item?.qty) || 0
-    })
-})
+export const getShoppingCartPriceList = createSelector(
+    getShoppingCartItemList,
+    getShoppingCookieCartList,
+    getUserLoginData,
+    (list, cookieList, user) => {
+        const data = user.accessToken ? list : cookieList
+        return data.map((item: ShoppingCartProductDataTrans) => {
+            return (item?.price && item?.qty && item?.price * item?.qty) || 0
+        })
+    },
+)
 
-export const getShoppingCartDisCountPriceList = createSelector(getShoppingCartItemList, promoCode, (list, pData) => {
+export const getShoppingCartDisCountPriceList = createSelector(getShoppingCartItemList, (list) => {
     return list.map((item: ShoppingCartProductDataTrans) => {
         const price = (item?.price && item?.qty && item?.price * item?.qty) || 0
-        if (pData && pData.data) {
-            const isHaveDiscount = pData.data.indexOf(item.pid) != -1
-            return isHaveDiscount ? accDiv(accMul(price, Number(pData.discountPercent)), 100) : 0
+        if (item.discountAmount) {
+            return accSubtr(price, item.discountAmount)
         }
-        return price
+        return 0
     })
 })
 
@@ -65,4 +84,8 @@ export const getShoppingCartPidList = createSelector<any, any, string[]>(getShop
     return list.map((item: ShoppingCartProductDataTrans) => {
         return item.pid
     })
+})
+
+export const getPromoCodeName = createSelector(getShoppingCartItemList, getPromoCode, (list, promoCode) => {
+    return promoCode ? list && list[0] && list[0].eventName : ''
 })

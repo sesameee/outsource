@@ -53,6 +53,7 @@ export interface WishProductData {
 }
 
 export interface ShoppingCartProductDataTrans extends ShoppingCartProductData {
+    eventName?: string
     _cid: string
     _name: string
     _categoryType: string

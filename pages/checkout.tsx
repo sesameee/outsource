@@ -72,11 +72,11 @@ const InvoiceFrom: React.FC<InvoiceFromProps> = ({ type, register }: InvoiceFrom
                         className="form-control"
                         required
                     />
-                    <label htmlFor="invoiceInfo.carrierCode">{t('phone')} *</label>
+                    <label htmlFor="invoiceInfo.invoiceMobile">{t('phone')} *</label>
                     <input
                         ref={register({ required: true })}
                         type="text"
-                        name="invoiceInfo.carrierCode"
+                        name="invoiceInfo.invoiceMobile"
                         className="form-control"
                         required
                     />
@@ -147,8 +147,8 @@ const InvoiceFrom: React.FC<InvoiceFromProps> = ({ type, register }: InvoiceFrom
                         </div>
                     </div>
 
-                    <label htmlFor="invoiceInfo.carrierCode">{t('address')} *</label>
-                    <input type="text" name="invoiceInfo.carrierCode" className="form-control" required />
+                    <label htmlFor="invoiceInfo.invoiceAddress">{t('address')} *</label>
+                    <input type="text" name="invoiceInfo.invoiceAddress" className="form-control" required />
                 </>
             )
         case InvoiceFromType.Donate:

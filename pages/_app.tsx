@@ -27,6 +27,7 @@ const cookieServerProgress = (ctx: NextPageContext) => {
     const accessToken = cookies(ctx).accessToken !== undefined ? (cookies(ctx).accessToken as string) : ''
     const cartList = cookies(ctx).cartList !== undefined ? (cookies(ctx).cartList as string) : ''
     const wishList = cookies(ctx).wishList !== undefined ? (cookies(ctx).wishList as string) : ''
+    const promoCode = cookies(ctx).promoCode !== undefined ? (cookies(ctx).promoCode as string) : ''
     const UserLoginData = {
         code: '0000',
         data: {
@@ -40,6 +41,7 @@ const cookieServerProgress = (ctx: NextPageContext) => {
     }
     accessToken && ctx.store.dispatch(UserLoginActions.fetchUserLoginSuccess({ UserLoginData }))
     cartList && ctx.store.dispatch(ShoppingCartListActions.setShoppingCartListCookie({ data: cartList }))
+    promoCode && ctx.store.dispatch(ShoppingCartListActions.setPromoCode({ promoCode }))
     wishList && ctx.store.dispatch(WishListActions.setWishListCookie({ data: wishList }))
 }
 class MyApp extends App {

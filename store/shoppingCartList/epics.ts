@@ -24,6 +24,9 @@ export const initEpic: Epic = (action$) =>
                 ShoppingCartListActions.setShoppingCartListCookie({
                     data: shoppingCartList.shoppingCartListDataCookie,
                 }),
+                ShoppingCartListActions.setPromoCode({
+                    promoCode: shoppingCartList.promoCode,
+                }),
             )
         }),
     )
@@ -36,6 +39,9 @@ export const fetchShoppingCartListEpic: Epic = (action$, state$) =>
                 HttpService.PostAsync<ShoppingCartListReqData, ShoppingCartListRspData>(SHOPPING_CART_LIST, {
                     ...action.payload,
                     memberId: state$.value.userLogin.memberId,
+                    promoCode: action.payload.promoCode
+                        ? action.payload.promoCode
+                        : state$.value.shoppingCartList.promoCode,
                     accessToken: accessToken,
                 }).pipe(
                     mergeMap((res) => {

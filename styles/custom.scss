@@ -977,3 +977,12 @@
 .ReactModal__Content {
     -webkit-overflow-scrolling: initial !important;
 }
+
+.form-control:disabled,
+.form-control[readonly] {
+    &:focus {
+        background-color: #e9ecef;
+        opacity: 1;
+        border: none;
+    }
+}

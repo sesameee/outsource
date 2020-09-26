@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { CheckoutActions, CheckoutSelectors } from '@/store'
 
 import { TPDirect } from '@/types/Common'
+import { deleteCookie } from '@/utils'
 declare let window: TPDirect
 
 const TAP_PAY_ID = 17392
@@ -230,6 +231,7 @@ export const useCheckoutHandler = (): any => {
         const checkoutRes = useSelector(CheckoutSelectors.checkout)
         useEffect(() => {
             if (checkoutRes.message == '成功') {
+                deleteCookie('promoCode')
                 if (checkoutRes.data.paymentUrl) {
                     window.location.href = checkoutRes.data.paymentUrl
                 } else {

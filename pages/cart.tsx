@@ -3,7 +3,7 @@ import Header from '@/components/Header'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import CartItemList from '@/components/Cart/CartItemList'
-import { ShoppingCartListSelectors, PromoCodeSelectors, UserLoginSelectors } from '@/store'
+import { ShoppingCartListSelectors, UserLoginSelectors } from '@/store'
 import { useSelector } from 'react-redux'
 import { useShoppingCartList } from '@/hooks/ShoppingCart'
 import PromoCode from '@/components/Cart/PromoCode'
@@ -13,7 +13,6 @@ import { useTranslation } from '@/I18n'
 import { NextPage } from 'next'
 import { UseLoginDialog } from '@/hooks/LoginDialog'
 import { useBackBtnDetect } from '@/hooks/BackBtnDetect'
-// import { withTranslation, i18n } from '@/I18n'
 
 const Cart: NextPage<any> = (): JSX.Element => {
     useBackBtnDetect()
@@ -29,13 +28,13 @@ const Cart: NextPage<any> = (): JSX.Element => {
         },
     ]
     useShoppingCartList()
-    const promoData = useSelector(PromoCodeSelectors.promoCode)
+    const promoCodeName = useSelector(ShoppingCartListSelectors.getPromoCodeName)
     const priceArr = useSelector(ShoppingCartListSelectors.getShoppingCartPriceList)
     const discountArr = useSelector(ShoppingCartListSelectors.getShoppingCartDisCountPriceList)
     const [sum, setSum] = React.useState([0])
     const [amount, setAmount] = React.useState(0)
     const [disCountamount, setDisCountamount] = React.useState(0)
-    const finalAmount = promoData.name ? accSubtr(amount, disCountamount) : amount
+    const finalAmount = accSubtr(amount, disCountamount)
     useEffect(() => {
         setSum(priceArr)
         if (sum) {
@@ -107,13 +106,13 @@ const Cart: NextPage<any> = (): JSX.Element => {
                                                         <td>- ${disCountamount}</td>
                                                     </tr>
                                                 )}
-                                                {disCountamount != 0 && (
+                                                {promoCodeName && (
                                                     <tr className="summary-new">
                                                         <td
                                                             colSpan={2}
                                                             style={{ textAlign: 'left', fontSize: '1.2rem' }}
                                                         >
-                                                            {promoData.name}
+                                                            {promoCodeName}
                                                         </td>
                                                     </tr>
                                                 )}

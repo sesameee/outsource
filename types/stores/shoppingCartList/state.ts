@@ -5,4 +5,5 @@ export type State = {
     shoppingCartListData: ShoppingCartListData[]
     shoppingCartListDataCookie: any[]
     error: string
+    promoCode: string
 }

@@ -41,6 +41,10 @@ const UserInfo: React.FC = () => {
         const isFind = userInfoData.canModifyParams.find((item) => item == param)
         return !!isFind
     }
+    const getHideString = (str: string) => {
+        return str.slice(0, str.length - 5)
+    }
+
     return (
         <form action="#" className="member-from" onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
@@ -127,7 +131,7 @@ const UserInfo: React.FC = () => {
                         className="form-control"
                         id="taiwan_id"
                         name="taiwan_id"
-                        value={userInfoData.taiwan_id}
+                        value={getHideString(userInfoData.taiwan_id) + '*****'}
                         required
                         readOnly
                     />

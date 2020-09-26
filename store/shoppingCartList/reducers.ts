@@ -23,6 +23,13 @@ export const setShoppingCartListCookie: CaseReducer<State, PayloadAction<{ data:
     })
 }
 
+export const setPromoCode: CaseReducer<State, PayloadAction<{ promoCode: string }>> = (state, action) => {
+    return produce(state, (draft) => {
+        action.payload.promoCode && setCookie('promoCode', action.payload.promoCode)
+        draft['promoCode'] = action.payload.promoCode
+    })
+}
+
 export const fetchShoppingCartListSuccess: CaseReducer<State, PayloadAction<{ data: ShoppingCartListRspData }>> = (
     state,
     action,
