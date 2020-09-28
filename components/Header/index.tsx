@@ -64,7 +64,7 @@ const Header: React.FC<HeaderProps> = ({ isIndex }: HeaderProps) => {
                             </Link>
                         ) : (
                             <a onClick={() => setIsOpenMember(true)} className="wishlist-link">
-                                <i className="icon-user"></i>
+                                <i className="cursor-pointer icon-user"></i>
                             </a>
                         )}
                     </div>

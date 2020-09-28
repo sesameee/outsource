@@ -9,7 +9,7 @@ type HoverItemListProps = {
 const HoverItemList: React.FC<HoverItemListProps> = ({ itemHoverIndex, setItemHoverIndex }: HoverItemListProps) => {
     const channelList = useSelector(ChannelListSelectors.getChannelList)
     return (
-        <ul className="menu sf-arrows">
+        <ul className="menu sf-arrows hoverItemList">
             {channelList.map((item, index) => {
                 return (
                     <div

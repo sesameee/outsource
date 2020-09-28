@@ -4,6 +4,7 @@ export interface ProductInfoReqData {
 }
 
 export interface ProductInfoData {
+    brandInfo: any
     specName1: string
     specName2: string
     specInfos: any

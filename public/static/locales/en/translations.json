@@ -198,7 +198,7 @@
     "credit_card_pay_off_once": "Credit card (Pay off once)",
     "credit_card_number": "Credit card number",
     "credit_card_expire_date": "Expire date (month/date)",
-    "credit_card_last_three_number": "Last three number",
+    "credit_card_last_three_number": "Security Code",
     "submit_order": "Submit order",
     "confirm_submit_order": "Confirm submit order",
     "write_remark_if_need": "Please note order if needed",

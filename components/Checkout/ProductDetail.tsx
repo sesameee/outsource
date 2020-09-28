@@ -2,6 +2,8 @@ import React from 'react'
 import { ShoppingCartListSelectors } from '@/store'
 import { useSelector } from 'react-redux'
 import { useTranslation } from '@/I18n'
+import { toThousandFilter } from '@/utils'
+import { HandleGetAmount } from '@/hooks/ShoppingCart'
 // import Link from 'next/link'
 // type CartProps = {
 //     setItemHoverIndex: React.Dispatch<React.SetStateAction<null | number>>
@@ -9,7 +11,7 @@ import { useTranslation } from '@/I18n'
 const ProductDetail: React.FC = () => {
     const { t } = useTranslation()
     const CartList = useSelector(ShoppingCartListSelectors.getShoppingCartItemList)
-    let total = 0
+    const { finalAmount } = HandleGetAmount()
     return (
         <table className="table table-summary">
             <thead>
@@ -21,7 +23,6 @@ const ProductDetail: React.FC = () => {
 
             <tbody>
                 {CartList.map((item, index) => {
-                    total = total + Number(item.qty) * Number(item.price)
                     return (
                         <tr key={index}>
                             <td>
@@ -30,13 +31,18 @@ const ProductDetail: React.FC = () => {
                                 <p>{item.spec1}</p>
                                 <p>{item.spec2}</p>
                             </td>
-                            <td>${item.price}</td>
+                            <td>
+                                $
+                                {item.discountAmount
+                                    ? toThousandFilter(item.discountAmount)
+                                    : toThousandFilter(item.price)}
+                            </td>
                         </tr>
                     )
                 })}
                 <tr className="summary-subtotal">
                     <td>{t('commodity_amount')}:</td>
-                    <td>${total}</td>
+                    <td>${toThousandFilter(finalAmount)}</td>
                 </tr>
                 <tr className="summary-subtotal">
                     <td>{t('shipping_price')}</td>
@@ -48,7 +54,7 @@ const ProductDetail: React.FC = () => {
                 </tr>
                 <tr className="summary-total">
                     <td>{t('checkout_price')}</td>
-                    <td>${total}</td>
+                    <td>${toThousandFilter(finalAmount)}</td>
                 </tr>
             </tbody>
         </table>

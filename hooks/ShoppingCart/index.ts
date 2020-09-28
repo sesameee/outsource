@@ -8,6 +8,8 @@ import {
     ErrorAlertActions,
 } from '@/store'
 import { useTranslation } from '@/I18n'
+import React from 'react'
+import { accAdd, accSubtr } from '@/utils'
 
 export const useShoppingCartList = (): void => {
     const dispatch = useDispatch()
@@ -135,4 +137,27 @@ export const useShoppingCartModifyHandler = (): any => {
         [dispatch, getUser, getCartList, t],
     )
     return { handleCart }
+}
+
+export const HandleGetAmount = (): any => {
+    const priceArr = useSelector(ShoppingCartListSelectors.getShoppingCartPriceList)
+    const discountArr = useSelector(ShoppingCartListSelectors.getShoppingCartDisCountPriceList)
+    const [sum, setSum] = React.useState([0])
+    const [amount, setAmount] = React.useState(0)
+    const [disCountamount, setDisCountamount] = React.useState(0)
+    const finalAmount = accSubtr(amount, disCountamount)
+    useEffect(() => {
+        setSum(priceArr)
+        if (sum) {
+            const num = sum.reduce((accumulator, currentValue) => Number(accumulator) + Number(currentValue), 0)
+            setAmount(num)
+            const disNum = discountArr.reduce(
+                (accumulator, currentValue) => accAdd(Number(accumulator), Number(currentValue)),
+                0,
+            )
+            setDisCountamount(disNum)
+        }
+    }, [sum, priceArr, discountArr])
+
+    return { finalAmount, disCountamount, amount, sum, setSum }
 }

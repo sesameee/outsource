@@ -112,15 +112,6 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
         )
     }
 
-    let mLink = ''
-    if (navDatas && productData) {
-        navDatas.map((item) => {
-            if (productData.mName.indexOf(item.title) != -1) {
-                mLink = item.link
-            }
-        })
-    }
-
     const Spec2Select = () => {
         if (subSpecList && subSpecList[spec2] && subSpecList[spec2].name) {
             return (
@@ -147,6 +138,7 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
             )
         }
     }
+    console.log('productData :>> ', productData)
 
     return (
         <div className="page-wrapper">
@@ -165,7 +157,10 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
 
                                     <div className="col-md-6">
                                         <div className="product-details">
-                                            <Link href={mLink} prefetch={false}>
+                                            <Link
+                                                href={`/category/${productData?.brandInfo?.categoryType}/${productData?.brandInfo?.cid}`}
+                                                prefetch={false}
+                                            >
                                                 <h2 className="product-subtitle cursor-pointer">{productData.mName}</h2>
                                             </Link>
 

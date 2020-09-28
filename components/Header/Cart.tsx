@@ -4,6 +4,7 @@ import { ShoppingCartListSelectors, UserLoginSelectors } from '@/store'
 import { useSelector } from 'react-redux'
 import Link from 'next/link'
 import { useTranslation } from '@/I18n'
+import { toThousandFilter } from '@/utils'
 
 type CartProps = {
     setIsOpenMember: any
@@ -60,7 +61,8 @@ const Cart: React.FC<CartProps> = ({ setIsOpenMember }: CartProps) => {
                                         </h4>
 
                                         <span className="cart-product-info">
-                                            <span className="cart-product-qty">{item.qty}</span>x ${item.price}
+                                            <span className="cart-product-qty">{item.qty}</span>x $
+                                            {toThousandFilter(item.price)}
                                         </span>
                                     </div>
 
@@ -94,7 +96,7 @@ const Cart: React.FC<CartProps> = ({ setIsOpenMember }: CartProps) => {
                 </div>
                 <div className="dropdown-cart-total">
                     <span>Total</span>
-                    <span className="cart-total-price">${total}</span>
+                    <span className="cart-total-price">${toThousandFilter(total)}</span>
                 </div>
                 <div className="dropdown-cart-action">
                     <Link href="/cart">

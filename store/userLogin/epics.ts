@@ -13,6 +13,7 @@ import { epicSuccessMiddleware } from '../epicMiddleware'
 import { v4 as uuidv4 } from 'uuid'
 import { setCookie } from '@/utils'
 import { i18n } from '@/I18n'
+import { resendVerifyCodeCreateActions } from '../resendVerifyCode/slice'
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
 export const initEpic: Epic = (action$) =>
@@ -62,7 +63,7 @@ export const fetchUserLoginEpic: Epic = (action$) => {
                             }),
                         ])
                     }
-                    return of(UserLoginActions.fetchUserLoginSuccess({ UserLoginData: res.data }))
+                    return of(resendVerifyCodeCreateActions.fetchResendVerifyCode({ memberId: '', action: 'register' }))
                 }),
                 catchError((error: AxiosError) => {
                     return of(

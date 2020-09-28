@@ -1,13 +1,12 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Header from '@/components/Header'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import CartItemList from '@/components/Cart/CartItemList'
 import { ShoppingCartListSelectors, UserLoginSelectors } from '@/store'
 import { useSelector } from 'react-redux'
-import { useShoppingCartList } from '@/hooks/ShoppingCart'
+import { HandleGetAmount, useShoppingCartList } from '@/hooks/ShoppingCart'
 import PromoCode from '@/components/Cart/PromoCode'
-import { accAdd, accSubtr } from '@/utils'
 import Link from 'next/link'
 import { useTranslation } from '@/I18n'
 import { NextPage } from 'next'
@@ -29,24 +28,7 @@ const Cart: NextPage<any> = (): JSX.Element => {
     ]
     useShoppingCartList()
     const promoCodeName = useSelector(ShoppingCartListSelectors.getPromoCodeName)
-    const priceArr = useSelector(ShoppingCartListSelectors.getShoppingCartPriceList)
-    const discountArr = useSelector(ShoppingCartListSelectors.getShoppingCartDisCountPriceList)
-    const [sum, setSum] = React.useState([0])
-    const [amount, setAmount] = React.useState(0)
-    const [disCountamount, setDisCountamount] = React.useState(0)
-    const finalAmount = accSubtr(amount, disCountamount)
-    useEffect(() => {
-        setSum(priceArr)
-        if (sum) {
-            const num = sum.reduce((accumulator, currentValue) => Number(accumulator) + Number(currentValue), 0)
-            setAmount(num)
-            const disNum = discountArr.reduce(
-                (accumulator, currentValue) => accAdd(Number(accumulator), Number(currentValue)),
-                0,
-            )
-            setDisCountamount(disNum)
-        }
-    }, [sum, priceArr, discountArr])
+    const { finalAmount, disCountamount, amount, sum, setSum } = HandleGetAmount()
     const getUser = useSelector(UserLoginSelectors.getUserLoginData)
     const { setIsOpenMember } = UseLoginDialog()
     return (

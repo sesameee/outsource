@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Header from '@/components/Header'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
-import { ShoppingCartListSelectors, PromoCodeSelectors, AddressInfoSelectors, VerifyInvBarCodeSelectors } from '@/store'
+import { ShoppingCartListSelectors, AddressInfoSelectors, VerifyInvBarCodeSelectors } from '@/store'
 import { useSelector } from 'react-redux'
-import { useShoppingCartList } from '@/hooks/ShoppingCart'
+import { HandleGetAmount, useShoppingCartList } from '@/hooks/ShoppingCart'
 import { useAddressInfo } from '@/hooks/AddressInfo'
-import { accAdd, accSubtr } from '@/utils'
 import BuyNotice from '@/components/commons/BuyNotice'
 import { NextPage } from 'next'
 import { CheckoutReqData } from '@/types/apis/checkout'
@@ -197,20 +196,16 @@ const Checkout: NextPage<any> = (): JSX.Element => {
     ]
     useAddressInfo()
     useShoppingCartList()
-    const promoData = useSelector(PromoCodeSelectors.promoCode)
-    const priceArr = useSelector(ShoppingCartListSelectors.getShoppingCartPriceList)
-    const discountArr = useSelector(ShoppingCartListSelectors.getShoppingCartDisCountPriceList)
+
     const cartArr = useSelector(ShoppingCartListSelectors.getShoppingCartItemList)
-    const [sum, setSum] = React.useState([0])
-    const [amount, setAmount] = React.useState(0)
-    const [disCountamount, setDisCountamount] = React.useState(0)
-    const finalAmount = promoData.name ? accSubtr(amount, disCountamount) : amount
+    const { finalAmount, amount } = HandleGetAmount()
     const AddressInfo = useSelector(AddressInfoSelectors.getAddressInfo)
     const [invoice, setInvoice] = React.useState(InvoiceFromType.PhoneBarcode)
     const [city, setCity] = React.useState(0)
     const [openBuyNotice, setOpenBuyNotice] = React.useState(false)
     const [isApplePay, setIsApplePay] = React.useState(false)
     const { register, handleSubmit, getValues } = useForm<CheckoutReqData>()
+    const promoCode = useSelector(ShoppingCartListSelectors.getPromoCode)
     const {
         handleCheckoutSubmit,
         useSetupTabPay,
@@ -236,6 +231,14 @@ const Checkout: NextPage<any> = (): JSX.Element => {
         }) || []
     const onSubmit = (data: any) => {
         data = { ...data, totalAmount: finalAmount, data: cartData, shippingAmount: 0 }
+        if (promoCode) {
+            data = {
+                ...data,
+                totalAmount: amount,
+                promoCode,
+                promoAmount: finalAmount,
+            }
+        }
         data.shipInfo.receiveCityCode = AddressInfo[city].cityCode
         if (isApplePay) {
             HandleSetupTabPayApplePay(data)
@@ -260,18 +263,6 @@ const Checkout: NextPage<any> = (): JSX.Element => {
         }
     }
 
-    useEffect(() => {
-        setSum(priceArr)
-        if (sum) {
-            const num = sum.reduce((accumulator, currentValue) => Number(accumulator) + Number(currentValue), 0)
-            setAmount(num)
-            const disNum = discountArr.reduce(
-                (accumulator, currentValue) => accAdd(Number(accumulator), Number(currentValue)),
-                0,
-            )
-            setDisCountamount(disNum)
-        }
-    }, [sum, priceArr, discountArr])
     useSetupTabPay(handleGoogleSubmit)
     HandleCheckoutRes(router)
 
@@ -433,7 +424,10 @@ const Checkout: NextPage<any> = (): JSX.Element => {
                                                 />
                                                 <label className="custom-control-label" htmlFor="checkout-diff-address">
                                                     {t('read_and_agree')}
-                                                    <span className="main-color" onClick={() => setOpenBuyNotice(true)}>
+                                                    <span
+                                                        className="main-color underline"
+                                                        onClick={() => setOpenBuyNotice(true)}
+                                                    >
                                                         {t('shopping_notice')}
                                                     </span>
                                                     {t('and_cancel_or_return_commodity')}

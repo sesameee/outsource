@@ -21,6 +21,7 @@ export const initialState: State = {
         info: [],
         breadCrumbs: [],
         specInfos: [],
+        brandInfo: {},
     },
     error: '',
 }

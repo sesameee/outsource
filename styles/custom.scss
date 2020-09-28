@@ -225,7 +225,7 @@
     .product-last-price {
         padding-right: 1rem;
         text-decoration-line: line-through;
-        color: $mainColor;
+        color: $mainFontColor;
     }
 }
 
@@ -278,7 +278,7 @@
     padding: 0px 35px 0px 0px;
 
     .pro-item-content {
-        color: #777;
+        color: #333;
         font-weight: 400;
         font-size: 1.6rem;
         .item-count {
@@ -987,4 +987,33 @@
         border: none;
         cursor: not-allowed;
     }
+}
+.hoverItemList {
+    .menu-title {
+        font-weight: 500;
+        &:hover {
+            color: $mainFontColor;
+            font-weight: 500;
+        }
+    }
+    .megamenu li a {
+        padding-right: 0;
+        padding-left: 0;
+        font-weight: 400;
+        color: $mainColor;
+        &:hover {
+            color: $mainFontColor;
+            font-weight: 300;
+        }
+    }
+}
+
+#sortby {
+    color: $mainFontColor;
+    font-weight: normal;
+}
+
+.underline {
+    cursor: pointer;
+    text-decoration: underline;
 }

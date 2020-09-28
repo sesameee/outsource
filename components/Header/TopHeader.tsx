@@ -24,6 +24,7 @@ const TopHeader: React.FC = () => {
                             <ul>
                                 <li>
                                     <a
+                                        className="cursor-pointer "
                                         onClick={() => {
                                             setLan('en')
                                             i18n.changeLanguage('en')
@@ -35,6 +36,7 @@ const TopHeader: React.FC = () => {
                                 </li>
                                 <li>
                                     <a
+                                        className="cursor-pointer"
                                         onClick={() => {
                                             setLan('tw')
                                             i18n.changeLanguage('tw')
