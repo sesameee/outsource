@@ -10,8 +10,9 @@ type RefundProps = {
     OrderList: OrderData[]
     tabIndex: number
     OrderDetail: OrderDetailData
+    setIsOpenRefund: any
 }
-const Refund: React.FC<RefundProps> = ({ OrderList, tabIndex, OrderDetail }: RefundProps) => {
+const Refund: React.FC<RefundProps> = ({ OrderList, tabIndex, OrderDetail, setIsOpenRefund }: RefundProps) => {
     const { t } = useTranslation()
     const [reason, setReason] = React.useState(1)
     const [refundqty, setRefundqty] = React.useState(new Map())
@@ -78,6 +79,7 @@ const Refund: React.FC<RefundProps> = ({ OrderList, tabIndex, OrderDetail }: Ref
         }
 
         handleRefundSubmit(data)
+        setIsOpenRefund(false)
     }
     return (
         <form onSubmit={handleSubmit(onSubmit)}>

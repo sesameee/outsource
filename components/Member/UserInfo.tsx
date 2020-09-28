@@ -44,6 +44,25 @@ const UserInfo: React.FC = () => {
     const getHideString = (str: string) => {
         return str.slice(0, str.length - 5)
     }
+    const [taiwanId, setTaiwanId] = React.useState('')
+    const [areaCode, setAreaCode] = React.useState(0)
+
+    useEffect(() => {
+        if (userInfoData.taiwan_id) {
+            setTaiwanId(getHideString(userInfoData.taiwan_id) + '*****')
+        }
+        if (userInfoData.address_district) {
+            setAreaCode(Number(userInfoData.address_district))
+        }
+    }, [userInfoData])
+
+    const handleChange = (event: any) => {
+        setTaiwanId(event.target.value)
+    }
+
+    const handleAreaCodeChange = (event: any) => {
+        setAreaCode(event.target.value)
+    }
 
     return (
         <form action="#" className="member-from" onSubmit={handleSubmit(onSubmit)}>
@@ -55,7 +74,7 @@ const UserInfo: React.FC = () => {
                     className="form-control"
                     id="name"
                     name="name"
-                    value={userInfoData.name}
+                    defaultValue={userInfoData.name}
                     required
                     readOnly
                 />
@@ -88,7 +107,7 @@ const UserInfo: React.FC = () => {
                         className="form-control"
                         id="phone"
                         name="phone"
-                        value={userInfoData.phone}
+                        defaultValue={userInfoData.phone}
                         required
                         readOnly
                     />
@@ -103,7 +122,7 @@ const UserInfo: React.FC = () => {
                     className="form-control"
                     id="sex"
                     name="sex"
-                    value={userInfoData.gender}
+                    defaultValue={userInfoData.gender}
                     disabled
                 >
                     <option value="male" defaultChecked={true}>
@@ -114,6 +133,7 @@ const UserInfo: React.FC = () => {
             </div>
             <div className="form-group">
                 <label htmlFor="rocId">{t('id_number')} *</label>
+
                 {getCanModifyParams('taiwan_id') ? (
                     <input
                         type="text"
@@ -121,7 +141,8 @@ const UserInfo: React.FC = () => {
                         className="form-control"
                         id="taiwan_id"
                         name="taiwan_id"
-                        defaultValue={userInfoData.taiwan_id}
+                        value={taiwanId}
+                        onChange={handleChange}
                         required
                     />
                 ) : (
@@ -131,7 +152,8 @@ const UserInfo: React.FC = () => {
                         className="form-control"
                         id="taiwan_id"
                         name="taiwan_id"
-                        value={getHideString(userInfoData.taiwan_id) + '*****'}
+                        value={taiwanId}
+                        onChange={handleChange}
                         required
                         readOnly
                     />
@@ -183,7 +205,8 @@ const UserInfo: React.FC = () => {
                                 name="areaCode"
                                 id="areaCode"
                                 className="form-control"
-                                value={Number(userInfoData.address_district)}
+                                value={areaCode}
+                                onChange={handleAreaCodeChange}
                             >
                                 {areas.map((item, index) => {
                                     return (

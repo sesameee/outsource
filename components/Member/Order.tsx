@@ -38,7 +38,14 @@ const Order: React.FC = () => {
         <div className="accordion accordion-rounded" id="accordion-5" style={{ width: '100%' }}>
             {OrderList && (
                 <MyModal
-                    content={<Refund OrderDetail={OrderDetail} OrderList={OrderList} tabIndex={tabIndex} />}
+                    content={
+                        <Refund
+                            OrderDetail={OrderDetail}
+                            OrderList={OrderList}
+                            tabIndex={tabIndex}
+                            setIsOpenRefund={setIsOpenRefund}
+                        />
+                    }
                     isOpen={IsOpenRefund}
                     setPropIsOpenFn={setIsOpenRefund}
                 />

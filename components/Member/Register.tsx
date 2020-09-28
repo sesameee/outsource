@@ -45,27 +45,6 @@ const FromFirstStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromPro
                     required
                 />
             </div>
-            <div className="form-group">
-                <label htmlFor="taiwanId">{t('id_number')} *</label>
-                <input
-                    type="text"
-                    ref={register({ required: true })}
-                    className="form-control"
-                    id="taiwanId"
-                    name="taiwanId"
-                    required
-                />
-            </div>
-            <input
-                type="text"
-                ref={register}
-                className="form-control"
-                id="isTaiwan"
-                name="isTaiwan"
-                value={1}
-                style={{ display: 'none' }}
-            />
-
             <div className="phone-frame">
                 <div className="form-group phoneCode">
                     <label className="label" htmlFor="phoneCode">
@@ -91,6 +70,26 @@ const FromFirstStep: React.FC<RegisterFromProps> = ({ setStep }: RegisterFromPro
                     />
                 </div>
             </div>
+            <div className="form-group">
+                <label htmlFor="taiwanId">{t('id_number')} *</label>
+                <input
+                    type="text"
+                    ref={register({ required: true })}
+                    className="form-control"
+                    id="taiwanId"
+                    name="taiwanId"
+                    required
+                />
+            </div>
+            <input
+                type="text"
+                ref={register}
+                className="form-control"
+                id="isTaiwan"
+                name="isTaiwan"
+                value={1}
+                style={{ display: 'none' }}
+            />
             <div className="form-group">
                 <label htmlFor="email">{t('email_must')}</label>
                 <input
