@@ -92,6 +92,7 @@
                 backend: { loadPath: 'https://sesameee.github.io/locales/{{lng}}/{{ns}}.json', parse: JSON.parse },
             }),
             { appWithTranslation: x, useTranslation: b, withTranslation: g, i18n: y } = d
+
         var v = d
         const h = process.env.PORT || 3e3,
             m = i()({ dev: !1 }),
