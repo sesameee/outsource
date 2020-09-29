@@ -1,4 +1,3 @@
-import { HYDRATE } from 'next-redux-wrapper'
 import { of } from 'rxjs'
 import { switchMap, catchError, takeUntil } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
@@ -11,13 +10,13 @@ import { BANNER } from '@/services/api/apiConfig'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
-export const initEpic: Epic = (action$) =>
-    action$.pipe(
-        ofType(HYDRATE),
-        switchMap(() => {
-            return of(BannerActions.reset())
-        }),
-    )
+// export const initEpic: Epic = (action$) =>
+//     action$.pipe(
+//         ofType(HYDRATE),
+//         switchMap(() => {
+//             return of(BannerActions.reset())
+//         }),
+//     )
 
 export const fetchBannerEpic: Epic = (action$) =>
     action$.pipe(
@@ -67,4 +66,4 @@ export const fetchisRecommendEpic: Epic = (action$) =>
         }),
     )
 
-export default [initEpic, fetchBannerEpic, fetchisRecommendEpic]
+export default [fetchBannerEpic, fetchisRecommendEpic]
