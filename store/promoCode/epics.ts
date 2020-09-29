@@ -1,6 +1,4 @@
-import { HYDRATE } from 'next-redux-wrapper'
-import { of } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
+import { switchMap, catchError, takeUntil, take } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 import { PayloadAction } from '@reduxjs/toolkit'
@@ -13,13 +11,13 @@ import { epicSuccessMiddleware, epicAuthFailMiddleware, requireValidToken } from
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
-export const initEpic: Epic = (action$) =>
-    action$.pipe(
-        ofType(HYDRATE),
-        switchMap(() => {
-            return of(PromoCodeActions.reset())
-        }),
-    )
+// export const initEpic: Epic = (action$) =>
+//     action$.pipe(
+//         ofType(HYDRATE),
+//         switchMap(() => {
+//             return of(PromoCodeActions.reset())
+//         }),
+//     )
 
 export const fetchPromoCodeEpic: Epic = (action$, state$) =>
     action$.pipe(
@@ -32,7 +30,7 @@ export const fetchPromoCodeEpic: Epic = (action$, state$) =>
                     pid: action.payload.pid,
                     accessToken: accessToken,
                 }).pipe(
-                    mergeMap((res) => {
+                    switchMap((res) => {
                         return epicSuccessMiddleware(res, [PromoCodeActions.fetchPromoCodeSuccess(res.data)])
                     }),
                     catchError((error: AxiosError | string) => {
@@ -42,9 +40,10 @@ export const fetchPromoCodeEpic: Epic = (action$, state$) =>
                         ])
                     }),
                     takeUntil(action$.ofType(PromoCodeActions.stopFetchPromoCode)),
+                    take(1),
                 ),
             ),
         ),
     )
 
-export default [initEpic, fetchPromoCodeEpic]
+export default [fetchPromoCodeEpic]

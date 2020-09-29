@@ -1,6 +1,4 @@
-import { HYDRATE } from 'next-redux-wrapper'
-import { of } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
+import { switchMap, catchError, takeUntil, take } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 import { PayloadAction } from '@reduxjs/toolkit'
@@ -13,13 +11,13 @@ import { epicSuccessMiddleware, epicAuthFailMiddleware, requireValidToken } from
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
-export const initEpic: Epic = (action$) =>
-    action$.pipe(
-        ofType(HYDRATE),
-        switchMap(() => {
-            return of(OrderDetailActions.reset())
-        }),
-    )
+// export const initEpic: Epic = (action$) =>
+//     action$.pipe(
+//         ofType(HYDRATE),
+//         switchMap(() => {
+//             return of(OrderDetailActions.reset())
+//         }),
+//     )
 
 export const fetchOrderDetailEpic: Epic = (action$, state$) =>
     action$.pipe(
@@ -31,7 +29,7 @@ export const fetchOrderDetailEpic: Epic = (action$, state$) =>
                     transId: action.payload.transId,
                     accessToken: accessToken,
                 }).pipe(
-                    mergeMap((res) => {
+                    switchMap((res) => {
                         return epicSuccessMiddleware(res, [OrderDetailActions.fetchOrderDetailSuccess(res.data)])
                     }),
                     catchError((error: AxiosError | string) => {
@@ -41,9 +39,10 @@ export const fetchOrderDetailEpic: Epic = (action$, state$) =>
                         ])
                     }),
                     takeUntil(action$.ofType(OrderDetailActions.stopFetchOrderDetail)),
+                    take(1),
                 ),
             ),
         ),
     )
 
-export default [initEpic, fetchOrderDetailEpic]
+export default [fetchOrderDetailEpic]

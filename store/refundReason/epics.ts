@@ -1,6 +1,5 @@
-import { HYDRATE } from 'next-redux-wrapper'
 import { of } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
+import { switchMap, catchError, takeUntil, take } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 
@@ -12,20 +11,20 @@ import { epicSuccessMiddleware } from '../epicMiddleware'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
-export const initEpic: Epic = (action$) =>
-    action$.pipe(
-        ofType(HYDRATE),
-        switchMap(() => {
-            return of(RefundReasonActions.reset())
-        }),
-    )
+// export const initEpic: Epic = (action$) =>
+//     action$.pipe(
+//         ofType(HYDRATE),
+//         switchMap(() => {
+//             return of(RefundReasonActions.reset())
+//         }),
+//     )
 
 export const fetchRefundReasonEpic: Epic = (action$) =>
     action$.pipe(
         ofType(RefundReasonActions.fetchRefundReason),
         switchMap(() =>
             HttpService.PostAsync<null, RefundReasonRspData>(REFUND_REASON).pipe(
-                mergeMap((res) => {
+                switchMap((res) => {
                     return epicSuccessMiddleware(res, [
                         RefundReasonActions.fetchRefundReasonSuccess({ refundReasonRspData: res.data }),
                     ])
@@ -34,8 +33,9 @@ export const fetchRefundReasonEpic: Epic = (action$) =>
                     return of(RefundReasonActions.fetchRefundReasonFailure({ error: error.message }))
                 }),
                 takeUntil(action$.ofType(RefundReasonActions.stopFetchRefundReason)),
+                take(1),
             ),
         ),
     )
 
-export default [initEpic, fetchRefundReasonEpic]
+export default [fetchRefundReasonEpic]

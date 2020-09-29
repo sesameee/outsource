@@ -9,10 +9,9 @@ export const addressInfoState = (state: RootState): AddressInfoState => state.ad
 //     return addressInfoState.addressInfo.totalItems
 // })
 
-export const getAddressInfo = createSelector<
-    RootState,
-    AddressInfoState,
-    AddressInfoState['addressInfoList']
->(addressInfoState, (addressInfoState: AddressInfoState) => {
-    return addressInfoState.addressInfoList
-})
+export const getAddressInfo = createSelector<RootState, AddressInfoState, AddressInfoState['addressInfoList']>(
+    addressInfoState,
+    (addressInfoState: AddressInfoState) => {
+        return addressInfoState.addressInfoList
+    },
+)

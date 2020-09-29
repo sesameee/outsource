@@ -1,6 +1,5 @@
-import { HYDRATE } from 'next-redux-wrapper'
 import { of } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
+import { switchMap, catchError, takeUntil, take } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 
@@ -12,13 +11,13 @@ import { PayloadAction } from '@reduxjs/toolkit'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
-export const initEpic: Epic = (action$) =>
-    action$.pipe(
-        ofType(HYDRATE),
-        switchMap(() => {
-            return of(CatalogActions.reset())
-        }),
-    )
+// export const initEpic: Epic = (action$) =>
+//     action$.pipe(
+//         ofType(HYDRATE),
+//         switchMap(() => {
+//             return of(CatalogActions.reset())
+//         }),
+//     )
 
 export const fetchCatalogEpic: Epic = (action$) =>
     action$.pipe(
@@ -28,15 +27,16 @@ export const fetchCatalogEpic: Epic = (action$) =>
                 cid: action.payload.cid,
                 categoryType: action.payload.categoryType,
             }).pipe(
-                mergeMap((res) => {
+                switchMap((res) => {
                     return of(CatalogActions.fetchCatalogSuccess({ catalogList: res.data }))
                 }),
                 catchError((error: AxiosError) => {
                     return of(CatalogActions.fetchCatalogFailure({ error: error.message }))
                 }),
                 takeUntil(action$.ofType(CatalogActions.stopFetchCatalog)),
+                take(1),
             ),
         ),
     )
 
-export default [initEpic, fetchCatalogEpic]
+export default [fetchCatalogEpic]

@@ -1,6 +1,6 @@
 import { HYDRATE } from 'next-redux-wrapper'
 import { of } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
+import { switchMap, catchError, takeUntil, take } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 import { PayloadAction } from '@reduxjs/toolkit'
@@ -44,7 +44,7 @@ export const fetchShoppingCartListEpic: Epic = (action$, state$) =>
                         : state$.value.shoppingCartList.promoCode,
                     accessToken: accessToken,
                 }).pipe(
-                    mergeMap((res) => {
+                    switchMap((res) => {
                         return epicSuccessMiddleware(res, [
                             ShoppingCartListActions.fetchShoppingCartListSuccess({ data: res.data }),
                         ])
@@ -56,6 +56,7 @@ export const fetchShoppingCartListEpic: Epic = (action$, state$) =>
                         ])
                     }),
                     takeUntil(action$.ofType(ShoppingCartListActions.stopFetchShoppingCartList)),
+                    take(1),
                 ),
             ),
         ),

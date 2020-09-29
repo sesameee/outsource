@@ -1,6 +1,5 @@
-import { HYDRATE } from 'next-redux-wrapper'
 import { of, throwError } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
+import { switchMap, catchError, takeUntil, take } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 
@@ -13,13 +12,13 @@ import { UserLoginRspAllData } from '@/types/apis/userLogin'
 import { i18n } from '@/I18n'
 const NEED_LOGOUT_ERROR_CODE = '8011'
 
-export const initEpic: Epic = (action$) =>
-    action$.pipe(
-        ofType(HYDRATE),
-        switchMap(() => {
-            return of(RefreshTokenActions.reset())
-        }),
-    )
+// export const initEpic: Epic = (action$) =>
+//     action$.pipe(
+//         ofType(HYDRATE),
+//         switchMap(() => {
+//             return of(RefreshTokenActions.reset())
+//         }),
+//     )
 
 export const fetchRefreshTokenListEpic: Epic = (action$, state$) =>
     action$.pipe(
@@ -32,7 +31,7 @@ export const fetchRefreshTokenListEpic: Epic = (action$, state$) =>
                     };${new Date().getTime()};${uuidv4()}`,
                 ),
             }).pipe(
-                mergeMap((res) => {
+                switchMap((res) => {
                     if (res.data.code === NEED_LOGOUT_ERROR_CODE) {
                         // token 無效登出
                         return throwError(res.data.code)
@@ -51,7 +50,8 @@ export const fetchRefreshTokenListEpic: Epic = (action$, state$) =>
                     )
                 }),
                 takeUntil(action$.ofType(RefreshTokenActions.stopFetchRefreshToken)),
+                take(1),
             ),
         ),
     )
-export default [initEpic, fetchRefreshTokenListEpic]
+export default [fetchRefreshTokenListEpic]

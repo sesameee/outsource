@@ -1,6 +1,5 @@
-import { HYDRATE } from 'next-redux-wrapper'
 import { of } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
+import { switchMap, catchError, takeUntil, take } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 import { PayloadAction } from '@reduxjs/toolkit'
@@ -15,13 +14,13 @@ import { mobileCheck } from '@/utils'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
-export const initEpic: Epic = (action$) =>
-    action$.pipe(
-        ofType(HYDRATE),
-        switchMap(() => {
-            return of(UserRegisterActions.reset())
-        }),
-    )
+// export const initEpic: Epic = (action$) =>
+//     action$.pipe(
+//         ofType(HYDRATE),
+//         switchMap(() => {
+//             return of(UserRegisterActions.reset())
+//         }),
+//     )
 
 export const fetchUserRegisterEpic: Epic = (action$) =>
     action$.pipe(
@@ -38,7 +37,7 @@ export const fetchUserRegisterEpic: Epic = (action$) =>
                 taiwanId: action.payload.taiwanId,
                 registerFrom: mobileCheck() ? 'ec-mobile' : 'ec-web',
             }).pipe(
-                mergeMap((res) => {
+                switchMap((res) => {
                     return epicSuccessMiddleware(res, [
                         UserLoginActions.fetchUserLoginSuccess({
                             UserLoginData: res.data,
@@ -49,8 +48,9 @@ export const fetchUserRegisterEpic: Epic = (action$) =>
                     return of(UserRegisterActions.fetchUserRegisterFailure({ error: error.message }))
                 }),
                 takeUntil(action$.ofType(UserRegisterActions.stopFetchUserRegister)),
+                take(1),
             ),
         ),
     )
 
-export default [initEpic, fetchUserRegisterEpic]
+export default [fetchUserRegisterEpic]

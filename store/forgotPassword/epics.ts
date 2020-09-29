@@ -1,6 +1,5 @@
-import { HYDRATE } from 'next-redux-wrapper'
 import { of } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
+import { switchMap, catchError, takeUntil, take } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 import { PayloadAction } from '@reduxjs/toolkit'
@@ -13,13 +12,13 @@ import { epicSuccessMiddleware } from '../epicMiddleware'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
-export const initEpic: Epic = (action$) =>
-    action$.pipe(
-        ofType(HYDRATE),
-        switchMap(() => {
-            return of(ForgotPasswordActions.reset())
-        }),
-    )
+// export const initEpic: Epic = (action$) =>
+//     action$.pipe(
+//         ofType(HYDRATE),
+//         switchMap(() => {
+//             return of(ForgotPasswordActions.reset())
+//         }),
+//     )
 
 export const fetchForgotPasswordEpic: Epic = (action$) =>
     action$.pipe(
@@ -29,7 +28,7 @@ export const fetchForgotPasswordEpic: Epic = (action$) =>
                 phone: action.payload.phone,
                 rocId: action.payload.rocId,
             }).pipe(
-                mergeMap((res) => {
+                switchMap((res) => {
                     return epicSuccessMiddleware(res, [
                         ForgotPasswordActions.fetchForgotPasswordSuccess(res.data),
                         UserLoginActions.fetchUserLoginSuccess({
@@ -41,8 +40,9 @@ export const fetchForgotPasswordEpic: Epic = (action$) =>
                     return of(ForgotPasswordActions.fetchForgotPasswordFailure({ error: error.message }))
                 }),
                 takeUntil(action$.ofType(ForgotPasswordActions.stopFetchForgotPassword)),
+                take(1),
             ),
         ),
     )
 
-export default [initEpic, fetchForgotPasswordEpic]
+export default [fetchForgotPasswordEpic]

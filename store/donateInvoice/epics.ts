@@ -1,6 +1,5 @@
-import { HYDRATE } from 'next-redux-wrapper'
 import { of } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
+import { switchMap, catchError, takeUntil, take } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 
@@ -12,20 +11,20 @@ import { epicSuccessMiddleware } from '../epicMiddleware'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
-export const initEpic: Epic = (action$) =>
-    action$.pipe(
-        ofType(HYDRATE),
-        switchMap(() => {
-            return of(DonateInvoiceActions.reset())
-        }),
-    )
+// export const initEpic: Epic = (action$) =>
+//     action$.pipe(
+//         ofType(HYDRATE),
+//         switchMap(() => {
+//             return of(DonateInvoiceActions.reset())
+//         }),
+//     )
 
 export const fetchDonateInvoiceListEpic: Epic = (action$) =>
     action$.pipe(
         ofType(DonateInvoiceActions.fetchDonateInvoice),
         switchMap(() =>
             HttpService.PostAsync<null, DonateInvoiceRspData>(DONATE_INVOICE).pipe(
-                mergeMap((res) => {
+                switchMap((res) => {
                     return epicSuccessMiddleware(res, [
                         DonateInvoiceActions.fetchDonateInvoiceSuccess({ donateInvoice: res.data }),
                     ])
@@ -34,8 +33,9 @@ export const fetchDonateInvoiceListEpic: Epic = (action$) =>
                     return of(DonateInvoiceActions.fetchDonateInvoiceFailure({ error: error.message }))
                 }),
                 takeUntil(action$.ofType(DonateInvoiceActions.stopFetchDonateInvoice)),
+                take(1),
             ),
         ),
     )
 
-export default [initEpic, fetchDonateInvoiceListEpic]
+export default [fetchDonateInvoiceListEpic]

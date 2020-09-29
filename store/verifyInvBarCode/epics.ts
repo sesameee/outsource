@@ -1,6 +1,4 @@
-import { HYDRATE } from 'next-redux-wrapper'
-import { of } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
+import { switchMap, catchError, takeUntil, take } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 
@@ -13,13 +11,13 @@ import { epicSuccessMiddleware, epicAuthFailMiddleware, requireValidToken } from
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
-export const initEpic: Epic = (action$) =>
-    action$.pipe(
-        ofType(HYDRATE),
-        switchMap(() => {
-            return of(VerifyInvBarCodeActions.reset())
-        }),
-    )
+// export const initEpic: Epic = (action$) =>
+//     action$.pipe(
+//         ofType(HYDRATE),
+//         switchMap(() => {
+//             return of(VerifyInvBarCodeActions.reset())
+//         }),
+//     )
 
 export const fetchVerifyInvBarCodeListEpic: Epic = (action$, state$) =>
     action$.pipe(
@@ -31,7 +29,7 @@ export const fetchVerifyInvBarCodeListEpic: Epic = (action$, state$) =>
                     barCode: action.payload.barCode,
                     accessToken: accessToken,
                 }).pipe(
-                    mergeMap((res) => {
+                    switchMap((res) => {
                         return epicSuccessMiddleware(res, [
                             VerifyInvBarCodeActions.fetchVerifyInvBarCodeSuccess(res.data),
                         ])
@@ -43,9 +41,10 @@ export const fetchVerifyInvBarCodeListEpic: Epic = (action$, state$) =>
                         ])
                     }),
                     takeUntil(action$.ofType(VerifyInvBarCodeActions.stopFetchVerifyInvBarCode)),
+                    take(1),
                 ),
             ),
         ),
     )
 
-export default [initEpic, fetchVerifyInvBarCodeListEpic]
+export default [fetchVerifyInvBarCodeListEpic]

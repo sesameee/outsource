@@ -2,7 +2,7 @@ import { of, throwError } from 'rxjs'
 import { ErrorAlertActions, UserLoginActions } from '.'
 import { AxiosError } from 'axios'
 import { ofType } from 'redux-observable'
-import { take, mergeMap, startWith } from 'rxjs/operators'
+import { take, switchMap, startWith } from 'rxjs/operators'
 import { i18n } from '@/I18n'
 
 /**
@@ -50,10 +50,11 @@ export const requireValidToken = (action$: any, state$: any, callback: any) => {
         return action$.pipe(
             ofType(UserLoginActions.fetchUserLoginSuccess),
             take(1),
-            mergeMap(() => {
+            switchMap(() => {
                 return callback(state$.value.userLogin.accessToken)
             }),
             startWith({ type: 'FETCH_GENERATE_ACCESS_TOKEN' }),
+            take(1),
         )
     } else {
         return callback(state$.value.userLogin.accessToken)

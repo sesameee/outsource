@@ -1,6 +1,5 @@
-import { HYDRATE } from 'next-redux-wrapper'
 import { of } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
+import { switchMap, catchError, takeUntil, take } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 import { PayloadAction } from '@reduxjs/toolkit'
@@ -13,13 +12,13 @@ import { epicSuccessMiddleware, requireValidToken } from '../epicMiddleware'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
-export const initEpic: Epic = (action$) =>
-    action$.pipe(
-        ofType(HYDRATE),
-        switchMap(() => {
-            return of(MemberAddressInfoActions.reset())
-        }),
-    )
+// export const initEpic: Epic = (action$) =>
+//     action$.pipe(
+//         ofType(HYDRATE),
+//         switchMap(() => {
+//             return of(MemberAddressInfoActions.reset())
+//         }),
+//     )
 
 export const fetchMemberAddressInfoEpic: Epic = (action$, state$) =>
     action$.pipe(
@@ -31,7 +30,7 @@ export const fetchMemberAddressInfoEpic: Epic = (action$, state$) =>
                     category: action.payload.category,
                     accessToken: accessToken,
                 }).pipe(
-                    mergeMap((res) => {
+                    switchMap((res) => {
                         return epicSuccessMiddleware(res, [
                             MemberAddressInfoActions.fetchMemberAddressInfoSuccess(res.data),
                         ])
@@ -40,9 +39,10 @@ export const fetchMemberAddressInfoEpic: Epic = (action$, state$) =>
                         return of(MemberAddressInfoActions.fetchMemberAddressInfoFailure({ error: error.message }))
                     }),
                     takeUntil(action$.ofType(MemberAddressInfoActions.stopFetchMemberAddressInfo)),
+                    take(1),
                 ),
             ),
         ),
     )
 
-export default [initEpic, fetchMemberAddressInfoEpic]
+export default [fetchMemberAddressInfoEpic]

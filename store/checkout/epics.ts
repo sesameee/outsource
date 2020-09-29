@@ -1,6 +1,4 @@
-import { HYDRATE } from 'next-redux-wrapper'
-import { of } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
+import { switchMap, catchError, takeUntil, take } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 import { PayloadAction } from '@reduxjs/toolkit'
@@ -13,13 +11,13 @@ import { epicSuccessMiddleware, requireValidToken, epicAuthFailMiddleware } from
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
-export const initEpic: Epic = (action$) =>
-    action$.pipe(
-        ofType(HYDRATE),
-        switchMap(() => {
-            return of(CheckoutActions.reset())
-        }),
-    )
+// export const initEpic: Epic = (action$) =>
+//     action$.pipe(
+//         ofType(HYDRATE),
+//         switchMap(() => {
+//             return of(CheckoutActions.reset())
+//         }),
+//     )
 
 export const fetchCheckoutEpic: Epic = (action$, state$) =>
     action$.pipe(
@@ -40,7 +38,7 @@ export const fetchCheckoutEpic: Epic = (action$, state$) =>
                     data: action.payload.data,
                     accessToken: accessToken,
                 }).pipe(
-                    mergeMap((res) => {
+                    switchMap((res) => {
                         return epicSuccessMiddleware(res, [CheckoutActions.fetchCheckoutSuccess(res.data)])
                     }),
                     catchError((error: AxiosError | string) => {
@@ -50,9 +48,10 @@ export const fetchCheckoutEpic: Epic = (action$, state$) =>
                         ])
                     }),
                     takeUntil(action$.ofType(CheckoutActions.stopFetchCheckout)),
+                    take(1),
                 ),
             ),
         ),
     )
 
-export default [initEpic, fetchCheckoutEpic]
+export default [fetchCheckoutEpic]

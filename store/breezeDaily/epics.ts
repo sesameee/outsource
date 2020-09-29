@@ -1,4 +1,3 @@
-import { HYDRATE } from 'next-redux-wrapper'
 import { of } from 'rxjs'
 import { switchMap, catchError, takeUntil } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
@@ -11,13 +10,13 @@ import { BREEZE_DAILY_LIST } from '@/services/api/apiConfig'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
-export const initEpic: Epic = (action$) =>
-    action$.pipe(
-        ofType(HYDRATE),
-        switchMap(() => {
-            return of(BreezeDailyActions.reset())
-        }),
-    )
+// export const initEpic: Epic = (action$) =>
+//     action$.pipe(
+//         ofType(HYDRATE),
+//         switchMap(() => {
+//             return of(BreezeDailyActions.reset())
+//         }),
+//     )
 
 export const fetchBreezeDailyListEpic: Epic = (action$) =>
     action$.pipe(
@@ -35,4 +34,4 @@ export const fetchBreezeDailyListEpic: Epic = (action$) =>
         ),
     )
 
-export default [initEpic, fetchBreezeDailyListEpic]
+export default [fetchBreezeDailyListEpic]

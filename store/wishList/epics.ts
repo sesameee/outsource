@@ -1,6 +1,6 @@
 import { HYDRATE } from 'next-redux-wrapper'
 import { of } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
+import { switchMap, catchError, takeUntil, take } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 
@@ -35,7 +35,7 @@ export const fetchWishListListEpic: Epic = (action$, state$) =>
                     memberId: state$.value.userLogin.memberId,
                     accessToken: accessToken,
                 }).pipe(
-                    mergeMap((res) => {
+                    switchMap((res) => {
                         return epicSuccessMiddleware(res, [WishListActions.fetchWishListSuccess(res.data)])
                     }),
                     catchError((error: AxiosError | string) => {
@@ -45,6 +45,7 @@ export const fetchWishListListEpic: Epic = (action$, state$) =>
                         ])
                     }),
                     takeUntil(action$.ofType(WishListActions.stopFetchWishList)),
+                    take(1),
                 ),
             ),
         ),

@@ -1,6 +1,5 @@
-import { HYDRATE } from 'next-redux-wrapper'
 import { of, throwError } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
+import { switchMap, catchError, takeUntil, take } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 
@@ -15,13 +14,13 @@ import { i18n } from '@/I18n'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
-export const initEpic: Epic = (action$) =>
-    action$.pipe(
-        ofType(HYDRATE),
-        switchMap(() => {
-            return of(GenerateAccessTokenActions.reset())
-        }),
-    )
+// export const initEpic: Epic = (action$) =>
+//     action$.pipe(
+//         ofType(HYDRATE),
+//         switchMap(() => {
+//             return of(GenerateAccessTokenActions.reset())
+//         }),
+//     )
 
 export const fetchGenerateAccessTokenListEpic: Epic = (action$, state$) =>
     action$.pipe(
@@ -39,7 +38,7 @@ export const fetchGenerateAccessTokenListEpic: Epic = (action$, state$) =>
                     },
                 },
             ).pipe(
-                mergeMap((res) => {
+                switchMap((res) => {
                     if (res.data.code === NEED_GETREFRESH_ERROR_CODE) {
                         // token 失效需要refresh token
                         console.log('NEED_GETREFRESH_ERROR_CODE :>> ', NEED_GETREFRESH_ERROR_CODE)
@@ -68,8 +67,9 @@ export const fetchGenerateAccessTokenListEpic: Epic = (action$, state$) =>
                     )
                 }),
                 takeUntil(action$.ofType(GenerateAccessTokenActions.stopFetchGenerateAccessToken)),
+                take(1),
             ),
         ),
     )
 
-export default [initEpic, fetchGenerateAccessTokenListEpic]
+export default [fetchGenerateAccessTokenListEpic]

@@ -1,6 +1,6 @@
 import { HYDRATE } from 'next-redux-wrapper'
 import { of } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
+import { switchMap, catchError, takeUntil, take } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 import { PayloadAction } from '@reduxjs/toolkit'
@@ -53,7 +53,7 @@ export const fetchUserLoginEpic: Epic = (action$) => {
                     },
                 },
             ).pipe(
-                mergeMap((res) => {
+                switchMap((res) => {
                     if (res.data.code !== '3004') {
                         console.log('res.data.code  :>> ', res.data.code)
                         return epicSuccessMiddleware(res, [
@@ -72,6 +72,7 @@ export const fetchUserLoginEpic: Epic = (action$) => {
                     )
                 }),
                 takeUntil(action$.ofType(UserLoginActions.stopFetchUserLogin)),
+                take(1),
             )
         }),
     )

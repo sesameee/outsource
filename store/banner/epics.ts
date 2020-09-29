@@ -1,6 +1,5 @@
-import { HYDRATE } from 'next-redux-wrapper'
 import { of } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil, take } from 'rxjs/operators'
+import { switchMap, catchError, takeUntil, take } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 import { PayloadAction } from '@reduxjs/toolkit'
@@ -12,22 +11,22 @@ import { BANNER } from '@/services/api/apiConfig'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
-export const initEpic: Epic = (action$) =>
-    action$.pipe(
-        ofType(HYDRATE),
-        switchMap(() => {
-            return of(BannerActions.reset())
-        }),
-    )
+// export const initEpic: Epic = (action$) =>
+//     action$.pipe(
+//         ofType(HYDRATE),
+//         switchMap(() => {
+//             return of(BannerActions.reset())
+//         }),
+//     )
 
 export const fetchBannerEpic: Epic = (action$) =>
     action$.pipe(
         ofType(BannerActions.fetchBanner),
-        mergeMap((action: PayloadAction<{ isRecommend: number }>) =>
+        switchMap((action: PayloadAction<{ isRecommend: number }>) =>
             HttpService.PostAsync<{ isRecommend: number }, BannerList>(BANNER, {
                 isRecommend: action.payload.isRecommend,
             }).pipe(
-                mergeMap((res) => {
+                switchMap((res) => {
                     return of(
                         BannerActions.fetchBannerSuccess({
                             bannerList: res.data,
@@ -39,9 +38,10 @@ export const fetchBannerEpic: Epic = (action$) =>
                     return of(BannerActions.fetchBannerFailure({ error: error.message }))
                 }),
                 takeUntil(action$.ofType(BannerActions.stopFetchBanner)),
+                take(1),
             ),
         ),
         take(2),
     )
 
-export default [initEpic, fetchBannerEpic]
+export default [fetchBannerEpic]

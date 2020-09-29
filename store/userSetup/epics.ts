@@ -1,6 +1,4 @@
-import { HYDRATE } from 'next-redux-wrapper'
-import { of } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
+import { switchMap, catchError, takeUntil, take } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 import { PayloadAction } from '@reduxjs/toolkit'
@@ -13,13 +11,13 @@ import { epicAuthFailMiddleware, requireValidToken, epicSuccessMiddleware } from
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
-export const initEpic: Epic = (action$) =>
-    action$.pipe(
-        ofType(HYDRATE),
-        switchMap(() => {
-            return of(UserSetupActions.reset())
-        }),
-    )
+// export const initEpic: Epic = (action$) =>
+//     action$.pipe(
+//         ofType(HYDRATE),
+//         switchMap(() => {
+//             return of(UserSetupActions.reset())
+//         }),
+//     )
 
 export const fetchUserSetupEpic: Epic = (action$, state$) =>
     action$.pipe(
@@ -27,6 +25,7 @@ export const fetchUserSetupEpic: Epic = (action$, state$) =>
         switchMap((action: PayloadAction<UserSetupReqData>) =>
             requireValidToken(action$, state$, (accessToken: any) =>
                 HttpService.PostAsync<UserSetupReqData, UserSetupRspData>(USER_SETUP, {
+                    ...action.payload,
                     memberId: state$.value.userLogin.memberId,
                     email: action.payload.email,
                     cityCode: action.payload.cityCode,
@@ -34,7 +33,7 @@ export const fetchUserSetupEpic: Epic = (action$, state$) =>
                     address: action.payload.address,
                     accessToken: accessToken,
                 }).pipe(
-                    mergeMap((res) => {
+                    switchMap((res) => {
                         return epicSuccessMiddleware(
                             res,
                             [
@@ -51,9 +50,10 @@ export const fetchUserSetupEpic: Epic = (action$, state$) =>
                         ])
                     }),
                     takeUntil(action$.ofType(UserSetupActions.stopFetchUserSetup)),
+                    take(1),
                 ),
             ),
         ),
     )
 
-export default [initEpic, fetchUserSetupEpic]
+export default [fetchUserSetupEpic]

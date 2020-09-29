@@ -1,6 +1,5 @@
-import { HYDRATE } from 'next-redux-wrapper'
 import { of } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
+import { switchMap, catchError, takeUntil, take } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 import { PayloadAction } from '@reduxjs/toolkit'
@@ -12,13 +11,13 @@ import { PRODUCT_INFO } from '@/services/api/apiConfig'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
-export const initEpic: Epic = (action$) =>
-    action$.pipe(
-        ofType(HYDRATE),
-        switchMap(() => {
-            return of(ProductInfoActions.reset())
-        }),
-    )
+// export const initEpic: Epic = (action$) =>
+//     action$.pipe(
+//         ofType(HYDRATE),
+//         switchMap(() => {
+//             return of(ProductInfoActions.reset())
+//         }),
+//     )
 
 export const fetchProductInfoEpic: Epic = (action$) =>
     action$.pipe(
@@ -28,7 +27,7 @@ export const fetchProductInfoEpic: Epic = (action$) =>
                 cid: action.payload.cid,
                 pid: action.payload.pid,
             }).pipe(
-                mergeMap((res) => {
+                switchMap((res) => {
                     return of(
                         ProductInfoActions.fetchProductInfoSuccess({
                             ProductInfoData: res.data,
@@ -39,8 +38,9 @@ export const fetchProductInfoEpic: Epic = (action$) =>
                     return of(ProductInfoActions.fetchProductInfoFailure({ error: error.message }))
                 }),
                 takeUntil(action$.ofType(ProductInfoActions.stopFetchProductInfo)),
+                take(1),
             ),
         ),
     )
 
-export default [initEpic, fetchProductInfoEpic]
+export default [fetchProductInfoEpic]

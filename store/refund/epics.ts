@@ -1,6 +1,4 @@
-import { HYDRATE } from 'next-redux-wrapper'
-import { of } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
+import { switchMap, catchError, takeUntil, take } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 import { PayloadAction } from '@reduxjs/toolkit'
@@ -13,13 +11,13 @@ import { epicSuccessMiddleware, epicAuthFailMiddleware, requireValidToken } from
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
-export const initEpic: Epic = (action$) =>
-    action$.pipe(
-        ofType(HYDRATE),
-        switchMap(() => {
-            return of(RefundActions.reset())
-        }),
-    )
+// export const initEpic: Epic = (action$) =>
+//     action$.pipe(
+//         ofType(HYDRATE),
+//         switchMap(() => {
+//             return of(RefundActions.reset())
+//         }),
+//     )
 
 export const fetchRefundEpic: Epic = (action$, state$) =>
     action$.pipe(
@@ -32,7 +30,7 @@ export const fetchRefundEpic: Epic = (action$, state$) =>
                     memo: action.payload.memo,
                     accessToken: accessToken,
                 }).pipe(
-                    mergeMap((res) => {
+                    switchMap((res) => {
                         return epicSuccessMiddleware(res, [RefundActions.fetchRefundSuccess(res.data)], true)
                     }),
                     catchError((error: AxiosError | string) => {
@@ -40,9 +38,10 @@ export const fetchRefundEpic: Epic = (action$, state$) =>
                         return epicAuthFailMiddleware(error, [RefundActions.fetchRefundFailure({ error: res.message })])
                     }),
                     takeUntil(action$.ofType(RefundActions.stopFetchRefund)),
+                    take(1),
                 ),
             ),
         ),
     )
 
-export default [initEpic, fetchRefundEpic]
+export default [fetchRefundEpic]

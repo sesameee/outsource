@@ -1,6 +1,4 @@
-import { HYDRATE } from 'next-redux-wrapper'
-import { of } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
+import { switchMap, catchError, takeUntil, take } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 
@@ -12,13 +10,13 @@ import { epicSuccessMiddleware, epicAuthFailMiddleware, requireValidToken } from
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
-export const initEpic: Epic = (action$) =>
-    action$.pipe(
-        ofType(HYDRATE),
-        switchMap(() => {
-            return of(ResendVerifyCodeActions.reset())
-        }),
-    )
+// export const initEpic: Epic = (action$) =>
+//     action$.pipe(
+//         ofType(HYDRATE),
+//         switchMap(() => {
+//             return of(ResendVerifyCodeActions.reset())
+//         }),
+//     )
 
 export const fetchResendVerifyCodeEpic: Epic = (action$, state$) =>
     action$.pipe(
@@ -29,7 +27,7 @@ export const fetchResendVerifyCodeEpic: Epic = (action$, state$) =>
                     ...action.payload,
                     memberId: state$.value.userLogin.memberId,
                 }).pipe(
-                    mergeMap((res) => {
+                    switchMap((res) => {
                         return epicSuccessMiddleware(res, [
                             ResendVerifyCodeActions.fetchResendVerifyCodeSuccess(res.data),
                         ])
@@ -41,9 +39,10 @@ export const fetchResendVerifyCodeEpic: Epic = (action$, state$) =>
                         ])
                     }),
                     takeUntil(action$.ofType(ResendVerifyCodeActions.stopFetchResendVerifyCode)),
+                    take(1),
                 ),
             ),
         ),
     )
 
-export default [initEpic, fetchResendVerifyCodeEpic]
+export default [fetchResendVerifyCodeEpic]

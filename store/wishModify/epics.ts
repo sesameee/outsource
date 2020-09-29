@@ -1,6 +1,4 @@
-import { HYDRATE } from 'next-redux-wrapper'
-import { of } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil } from 'rxjs/operators'
+import { switchMap, catchError, takeUntil, take } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 import { PayloadAction } from '@reduxjs/toolkit'
@@ -13,13 +11,13 @@ import { epicSuccessMiddleware, epicAuthFailMiddleware, requireValidToken } from
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
-export const initEpic: Epic = (action$) =>
-    action$.pipe(
-        ofType(HYDRATE),
-        switchMap(() => {
-            return of(WishModifyActions.reset())
-        }),
-    )
+// export const initEpic: Epic = (action$) =>
+//     action$.pipe(
+//         ofType(HYDRATE),
+//         switchMap(() => {
+//             return of(WishModifyActions.reset())
+//         }),
+//     )
 
 export const fetchWishModifyEpic: Epic = (action$, state$) =>
     action$.pipe(
@@ -32,7 +30,7 @@ export const fetchWishModifyEpic: Epic = (action$, state$) =>
                     shoppingWishProductList: action.payload.shoppingWishProductList,
                     accessToken: accessToken,
                 }).pipe(
-                    mergeMap((res) => {
+                    switchMap((res) => {
                         return epicSuccessMiddleware(
                             res,
                             [WishModifyActions.fetchWishModifySuccess(res.data), WishListActions.fetchWishList()],
@@ -48,9 +46,10 @@ export const fetchWishModifyEpic: Epic = (action$, state$) =>
                     }),
 
                     takeUntil(action$.ofType(WishModifyActions.stopFetchWishModify)),
+                    take(1),
                 ),
             ),
         ),
     )
 
-export default [initEpic, fetchWishModifyEpic]
+export default [fetchWishModifyEpic]
