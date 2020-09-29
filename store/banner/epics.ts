@@ -1,9 +1,8 @@
 import { HYDRATE } from 'next-redux-wrapper'
 import { of } from 'rxjs'
-import { mergeMap, switchMap, catchError, takeUntil, take } from 'rxjs/operators'
+import { switchMap, catchError, takeUntil } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
-import { PayloadAction } from '@reduxjs/toolkit'
 
 import { BannerActions } from '@/store'
 import HttpService from '@/services/api/HttpService'
@@ -23,15 +22,15 @@ export const initEpic: Epic = (action$) =>
 export const fetchBannerEpic: Epic = (action$) =>
     action$.pipe(
         ofType(BannerActions.fetchBanner),
-        mergeMap((action: PayloadAction<{ isRecommend: number }>) =>
-            HttpService.PostAsync<{ isRecommend: number }, BannerList>(BANNER, {
-                isRecommend: action.payload.isRecommend,
+        switchMap(() => {
+            return HttpService.PostAsync<{ isRecommend: number }, BannerList>(BANNER, {
+                isRecommend: 0,
             }).pipe(
-                mergeMap((res) => {
+                switchMap((res) => {
                     return of(
                         BannerActions.fetchBannerSuccess({
                             bannerList: res.data,
-                            isRecommend: action.payload.isRecommend,
+                            isRecommend: 0,
                         }),
                     )
                 }),
@@ -39,9 +38,33 @@ export const fetchBannerEpic: Epic = (action$) =>
                     return of(BannerActions.fetchBannerFailure({ error: error.message }))
                 }),
                 takeUntil(action$.ofType(BannerActions.stopFetchBanner)),
-            ),
-        ),
-        take(2),
+            )
+        }),
     )
 
-export default [initEpic, fetchBannerEpic]
+export const fetchisRecommendEpic: Epic = (action$) =>
+    action$.pipe(
+        ofType(BannerActions.fetchRecommend),
+        switchMap(() => {
+            console.log('isRecommend :>> ')
+            return HttpService.PostAsync<{ isRecommend: number }, BannerList>(BANNER, {
+                isRecommend: 1,
+            }).pipe(
+                switchMap((res) => {
+                    console.log('res  isRecommend:>> ', res)
+                    return of(
+                        BannerActions.fetchBannerSuccess({
+                            bannerList: res.data,
+                            isRecommend: 1,
+                        }),
+                    )
+                }),
+                catchError((error: AxiosError) => {
+                    return of(BannerActions.fetchBannerFailure({ error: error.message }))
+                }),
+                takeUntil(action$.ofType(BannerActions.stopFetchRecommend)),
+            )
+        }),
+    )
+
+export default [initEpic, fetchBannerEpic, fetchisRecommendEpic]

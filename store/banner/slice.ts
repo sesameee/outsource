@@ -19,4 +19,7 @@ export const bannerSlice = createSlice({
 const fetchBanner = createAction<{ isRecommend: number }>(types.FETCH_BANNER)
 const stopFetchBanner = createAction(types.STOP_FETCH_BANNER)
 
-export const bannerCreateActions = { fetchBanner, stopFetchBanner }
+const fetchRecommend = createAction<{ isRecommend: number }>(types.FETCH_RECOMMEND)
+const stopFetchRecommend = createAction(types.STOP_FETCH_RECOMMEND)
+
+export const bannerCreateActions = { fetchBanner, stopFetchBanner, fetchRecommend, stopFetchRecommend }

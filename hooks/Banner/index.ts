@@ -18,9 +18,9 @@ export const useRecommend = (): void => {
     const { i18n } = useTranslation()
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(BannerActions.fetchBanner({ isRecommend: 1 }))
+        dispatch(BannerActions.fetchRecommend({ isRecommend: 1 }))
         return function cleanup() {
-            dispatch(BannerActions.stopFetchBanner())
+            dispatch(BannerActions.stopFetchRecommend())
         }
     }, [dispatch, i18n.language])
 }
