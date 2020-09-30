@@ -55,7 +55,6 @@ export const fetchUserLoginEpic: Epic = (action$) => {
             ).pipe(
                 switchMap((res) => {
                     if (res.data.code !== '3004') {
-                        console.log('res.data.code  :>> ', res.data.code)
                         return epicSuccessMiddleware(res, [
                             UserLoginActions.fetchUserLoginSuccess({
                                 UserLoginData: res.data,
@@ -63,7 +62,12 @@ export const fetchUserLoginEpic: Epic = (action$) => {
                             }),
                         ])
                     }
-                    return of(resendVerifyCodeCreateActions.fetchResendVerifyCode({ memberId: '', action: 'register' }))
+                    return of(
+                        UserLoginActions.fetchUserLoginSuccess({
+                            UserLoginData: res.data,
+                            isLogin: true,
+                        }),
+                    )
                 }),
                 catchError((error: AxiosError) => {
                     return of(

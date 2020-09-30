@@ -7,6 +7,7 @@ import HttpService from '@/services/api/HttpService'
 import { ResendVerifyCodeReqData, ResendVerifyCodeRspData } from '@/types/apis/resendVerifyCode'
 import { RESEND_VERIFY_CODE } from '@/services/api/apiConfig'
 import { epicSuccessMiddleware, epicAuthFailMiddleware, requireValidToken } from '../epicMiddleware'
+import { of } from 'rxjs'
 
 // TODO: do something
 // @see https://github.com/kirill-konshin/next-redux-wrapper#usage
@@ -28,9 +29,12 @@ export const fetchResendVerifyCodeEpic: Epic = (action$, state$) =>
                     memberId: state$.value.userLogin.memberId,
                 }).pipe(
                     switchMap((res) => {
-                        return epicSuccessMiddleware(res, [
-                            ResendVerifyCodeActions.fetchResendVerifyCodeSuccess(res.data),
-                        ])
+                        if (res.data.code !== '3034') {
+                            return epicSuccessMiddleware(res, [
+                                ResendVerifyCodeActions.fetchResendVerifyCodeSuccess(res.data),
+                            ])
+                        }
+                        return of(ResendVerifyCodeActions.fetchResendVerifyCodeSuccess(res.data))
                     }),
                     catchError((error: AxiosError) => {
                         const res = <AxiosError>error

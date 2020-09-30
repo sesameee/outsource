@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from '@/I18n'
 import { useForm } from 'react-hook-form'
 import { UserLoginReqData } from '@/types/apis/userLogin'
@@ -23,6 +23,9 @@ const FromSecondStep: React.FC<LoginProps> = ({ setStep, setPropIsOpenFn }: Logi
         handleVerifyCodeSubmit(data)
     }
     UseLoginSuccess(setPropIsOpenFn, setStep)
+    useEffect(() => {
+        handleResendVerifyCodeSubmit()
+    }, [handleResendVerifyCodeSubmit])
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
