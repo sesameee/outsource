@@ -4,10 +4,10 @@ import { applyMiddleware, createStore, Middleware } from '@reduxjs/toolkit'
 import { createWrapper } from 'next-redux-wrapper'
 import { createLogger } from 'redux-logger'
 
-import { combineAll } from '@/store/rootEpic'
+import { rootEpic } from '@/store/rootEpic'
 import rootReducer from '@/store/rootReducer'
 import { RootState } from '@/types/stores/root'
-//import { finalize, takeUntil } from 'rxjs/operators'
+import { finalize, takeUntil } from 'rxjs/operators'
 import { createEpicMiddleware } from 'redux-observable'
 import { Subject } from 'rxjs'
 
@@ -20,29 +20,22 @@ if (process.env.NODE_ENV === `development`) {
 
 const configureStore = () => {
     const shutdown$ = new Subject()
+    const serverRootEpic = (action$: any, state$: any, deps: any) => {
+        const output$ = rootEpic(action$.pipe(takeUntil(shutdown$)), state$, deps)
+        return output$.pipe(
+            finalize(() => {
+                const isServer = typeof window === 'undefined'
+                if (isServer) {
+                    shutdown$.complete()
+                }
+            }),
+        )
+    }
 
-    // const rootEpic = (action$: any, state$: any, deps: any) => {
-    //     const epic = combineAll
-    //     const output$ = epic(action$.pipe(takeUntil(shutdown$)), state$.pipe(takeUntil(shutdown$)), deps)
-    //     return output$.pipe(
-    //         finalize(() => {
-    //             shutdown$.complete()
-    //         }),
-    //     )
-    // }
-    const rootEpic = combineAll
     const epicMiddleware = createEpicMiddleware()
     const store = createStore(rootReducer, applyMiddleware(epicMiddleware))
 
-    epicMiddleware.run(rootEpic)
-
-    // store.subscribe(() => {
-    //     const isServer = typeof window === 'undefined'
-    //     if (!isServer) {
-    //         const stateElement = document.getElementById('__NEXT_DATA__')
-    //         //stateElement && (stateElement.innerText = JSON.stringify(store.getState(), null, 2))
-    //     }
-    // })
+    epicMiddleware.run(serverRootEpic)
 
     return {
         store,
@@ -53,13 +46,8 @@ const configureStore = () => {
     }
 }
 
-export const setupStore = () => {
-    const store = configureStore().store
-    return store
-}
-
 export const makeStore: any = () => {
-    const store = setupStore()
+    const store = configureStore().store
     return store
 }
 
