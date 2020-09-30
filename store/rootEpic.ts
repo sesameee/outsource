@@ -31,7 +31,7 @@ import UserSetup from './userSetup/epics'
 import UserPoints from './userPoints/epics'
 import UserData from './userData/epics'
 
-export const rootEpic = combineEpics(
+export const combineAll = combineEpics(
     ...BannerEpics,
     ...ChannelEpics,
     ...CatalogEpics,

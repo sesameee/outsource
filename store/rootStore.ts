@@ -1,12 +1,13 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { applyMiddleware, createStore, Middleware } from '@reduxjs/toolkit'
 
 import { createWrapper } from 'next-redux-wrapper'
 import { createLogger } from 'redux-logger'
 
-import { rootEpic } from '@/store/rootEpic'
+import { combineAll } from '@/store/rootEpic'
 import rootReducer from '@/store/rootReducer'
 import { RootState } from '@/types/stores/root'
-import { finalize, takeUntil } from 'rxjs/operators'
+//import { finalize, takeUntil } from 'rxjs/operators'
 import { createEpicMiddleware } from 'redux-observable'
 import { Subject } from 'rxjs'
 
@@ -20,24 +21,26 @@ if (process.env.NODE_ENV === `development`) {
 const configureStore = () => {
     const shutdown$ = new Subject()
 
-    const rootEpics = (action$: any, state$: any, deps: any) => {
-        const epic = rootEpic
-        const output$ = epic(action$.pipe(takeUntil(shutdown$)), state$.pipe(takeUntil(shutdown$)), deps)
-        return output$.pipe(
-            finalize(() => {
-                shutdown$.complete()
-            }),
-        )
-    }
+    // const rootEpic = (action$: any, state$: any, deps: any) => {
+    //     const epic = combineAll
+    //     const output$ = epic(action$.pipe(takeUntil(shutdown$)), state$.pipe(takeUntil(shutdown$)), deps)
+    //     return output$.pipe(
+    //         finalize(() => {
+    //             shutdown$.complete()
+    //         }),
+    //     )
+    // }
+    const rootEpic = combineAll
     const epicMiddleware = createEpicMiddleware()
     const store = createStore(rootReducer, applyMiddleware(epicMiddleware))
 
-    epicMiddleware.run(rootEpics)
+    epicMiddleware.run(rootEpic)
 
     // store.subscribe(() => {
-    //     if (window.document) {
-    //         const stateElement = document.getElementById('state')
-    //         stateElement && (stateElement.innerText = JSON.stringify(store.getState(), null, 2))
+    //     const isServer = typeof window === 'undefined'
+    //     if (!isServer) {
+    //         const stateElement = document.getElementById('__NEXT_DATA__')
+    //         //stateElement && (stateElement.innerText = JSON.stringify(store.getState(), null, 2))
     //     }
     // })
 
