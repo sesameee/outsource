@@ -1,13 +1,12 @@
 import React, { memo, useEffect } from 'react'
-import { useAddressInfo } from '@/hooks/AddressInfo'
-import { AddressInfoSelectors, UserDataSelectors } from '@/store'
+import { HandleAddress, useAddressInfo } from '@/hooks/AddressInfo'
+import { UserDataSelectors } from '@/store'
 import { useSelector } from 'react-redux'
 import { useTranslation } from '@/I18n'
 import { useForm } from 'react-hook-form'
 import { UserRegisterReqData } from '@/types/apis/userRegister'
 import { useUserRegisterSetupHandler } from '@/hooks/UserSetup'
 import { useUserInfo } from '@/hooks/UserInfo'
-import { AreaData } from '@/types/apis/addressInfo'
 
 const UserInfo: React.FC = () => {
     useAddressInfo()
@@ -15,9 +14,7 @@ const UserInfo: React.FC = () => {
     const { t } = useTranslation()
     const { register, handleSubmit } = useForm<UserRegisterReqData>()
     const userInfoData = useSelector(UserDataSelectors.getUserData)
-    const AddressInfo = useSelector(AddressInfoSelectors.getAddressInfo)
-    const [city, setCity] = React.useState(0)
-    const [areas, setAreas] = React.useState<AreaData[]>([])
+    const { AddressInfo, city, setCity, areas } = HandleAddress()
     const { handleRegiterSetupSubmit } = useUserRegisterSetupHandler()
     const onSubmit = (data: UserRegisterReqData) => {
         handleRegiterSetupSubmit(data)
@@ -26,16 +23,7 @@ const UserInfo: React.FC = () => {
         if (userInfoData.address_county) {
             setCity(Number(userInfoData.address_county))
         }
-    }, [userInfoData])
-    useEffect(() => {
-        const arr = AddressInfo.filter((item) => {
-            return item.cityCode == Number(city)
-        })
-        if (arr && arr[0]) {
-            const areasData = arr[0].areas || []
-            setAreas(areasData)
-        }
-    }, [userInfoData, AddressInfo, city])
+    }, [userInfoData, setCity])
 
     const getCanModifyParams = (param: string) => {
         const isFind = userInfoData.canModifyParams.find((item) => item == param)
@@ -187,7 +175,7 @@ const UserInfo: React.FC = () => {
                                 onChange={(e) => setCity(Number(e.target.value))}
                                 value={city}
                             >
-                                {AddressInfo.map((item, index) => {
+                                {AddressInfo.map((item: any, index: number) => {
                                     return (
                                         <option key={index} value={item.cityCode}>
                                             {item.cityName}
@@ -208,7 +196,7 @@ const UserInfo: React.FC = () => {
                                 value={areaCode}
                                 onChange={handleAreaCodeChange}
                             >
-                                {areas.map((item, index) => {
+                                {areas.map((item: any, index: number) => {
                                     return (
                                         <option key={`a${index}`} value={item.areaCode}>
                                             {item.areaName}

@@ -1,5 +1,5 @@
 import { of } from 'rxjs'
-import { switchMap, catchError, takeUntil, take } from 'rxjs/operators'
+import { switchMap, mergeMap, catchError, takeUntil, take } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 import { PayloadAction } from '@reduxjs/toolkit'
@@ -31,7 +31,7 @@ export const fetchResetPasswordEpic: Epic = (action$, state$) =>
                 pwd2: action.payload.pwd2,
                 type: action.payload.type,
             }).pipe(
-                switchMap((res) => {
+                mergeMap((res) => {
                     return epicSuccessMiddleware(res, [ResetPasswordActions.fetchResetPasswordSuccess(res.data)], true)
                 }),
                 catchError((error: AxiosError) => {

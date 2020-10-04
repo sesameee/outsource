@@ -11,7 +11,6 @@ const Points: React.FC = () => {
     useUserPoints()
     const { t } = useTranslation()
     const userPoints = useSelector(UserPointsSelectors.userPoints)
-    console.log('userPoints :>> ', userPoints)
 
     return (
         <div className="point-frame">
@@ -21,7 +20,8 @@ const Points: React.FC = () => {
             </h1>
             <h4 className="tips">
                 <span className="main-color">{userPoints.expiryPoints}</span>
-                <b> {t('point')} </b>{t('will_be')} {userPoints.expiryDate} {t('expire')}
+                <b> {t('point')} </b>
+                {t('will_be')} {userPoints.expiryDate} {t('expire')}
             </h4>
         </div>
     )

@@ -1,5 +1,5 @@
 import { of } from 'rxjs'
-import { switchMap, catchError, takeUntil, take } from 'rxjs/operators'
+import { switchMap, mergeMap, catchError, takeUntil, take } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 
@@ -28,7 +28,7 @@ export const fetchVerifyCodeListEpic: Epic = (action$, state$) =>
                 memberId: state$.value.userLogin.memberId,
                 code: action.payload.code,
             }).pipe(
-                switchMap((res) => {
+                mergeMap((res) => {
                     return epicSuccessMiddleware(res, [
                         VerifyCodeActions.fetchVerifyCodeSuccess(res.data),
                         UserLoginActions.fetchUserLoginSuccess({

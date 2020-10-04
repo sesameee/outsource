@@ -2,7 +2,7 @@ import React from 'react'
 import { ShoppingCartListSelectors } from '@/store'
 import { useSelector } from 'react-redux'
 import { useTranslation } from '@/I18n'
-import { toThousandFilter } from '@/utils'
+import { currency, toThousandFilter } from '@/utils'
 import { HandleGetAmount } from '@/hooks/ShoppingCart'
 // import Link from 'next/link'
 // type CartProps = {
@@ -32,7 +32,7 @@ const ProductDetail: React.FC = () => {
                                 <p>{item.spec2}</p>
                             </td>
                             <td>
-                                $
+                                {currency()}
                                 {item.discountAmount
                                     ? toThousandFilter(item.discountAmount)
                                     : toThousandFilter(item.price)}
@@ -42,11 +42,14 @@ const ProductDetail: React.FC = () => {
                 })}
                 <tr className="summary-subtotal">
                     <td>{t('commodity_amount')}:</td>
-                    <td>${toThousandFilter(finalAmount)}</td>
+                    <td>
+                        {currency()}
+                        {toThousandFilter(finalAmount)}
+                    </td>
                 </tr>
                 <tr className="summary-subtotal">
                     <td>{t('shipping_price')}</td>
-                    <td>$0</td>
+                    <td>{currency()}0</td>
                 </tr>
                 <tr>
                     <td>{t('delivery_type')}</td>
@@ -54,7 +57,10 @@ const ProductDetail: React.FC = () => {
                 </tr>
                 <tr className="summary-total">
                     <td>{t('checkout_price')}</td>
-                    <td>${toThousandFilter(finalAmount)}</td>
+                    <td>
+                        {currency()}
+                        {toThousandFilter(finalAmount)}
+                    </td>
                 </tr>
             </tbody>
         </table>

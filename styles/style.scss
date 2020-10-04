@@ -13502,6 +13502,13 @@ button:focus {
         top: 0.5rem;
         padding: 0.5rem !important;
         width: auto !important;
+
+        &.order {
+            position: relative;
+            right: 0rem;
+            top: 0rem;
+            padding: 1rem !important;
+        }
     }
     .table-mobile tr td {
         text-align: center;

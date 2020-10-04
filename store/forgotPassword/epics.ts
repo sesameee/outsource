@@ -1,5 +1,5 @@
 import { of } from 'rxjs'
-import { switchMap, catchError, takeUntil, take } from 'rxjs/operators'
+import { switchMap, mergeMap, catchError, takeUntil, take } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 import { PayloadAction } from '@reduxjs/toolkit'
@@ -28,7 +28,7 @@ export const fetchForgotPasswordEpic: Epic = (action$) =>
                 phone: action.payload.phone,
                 rocId: action.payload.rocId,
             }).pipe(
-                switchMap((res) => {
+                mergeMap((res) => {
                     return epicSuccessMiddleware(res, [
                         ForgotPasswordActions.fetchForgotPasswordSuccess(res.data),
                         UserLoginActions.fetchUserLoginSuccess({

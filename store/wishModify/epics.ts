@@ -1,4 +1,4 @@
-import { switchMap, catchError, takeUntil, take } from 'rxjs/operators'
+import { switchMap, mergeMap, catchError, takeUntil, take } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 import { PayloadAction } from '@reduxjs/toolkit'
@@ -30,7 +30,7 @@ export const fetchWishModifyEpic: Epic = (action$, state$) =>
                     shoppingWishProductList: action.payload.shoppingWishProductList,
                     accessToken: accessToken,
                 }).pipe(
-                    switchMap((res) => {
+                    mergeMap((res) => {
                         return epicSuccessMiddleware(
                             res,
                             [WishModifyActions.fetchWishModifySuccess(res.data), WishListActions.fetchWishList()],

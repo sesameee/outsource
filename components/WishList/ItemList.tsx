@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import { useTranslation } from '@/I18n'
 import { useWishModifyHandler } from '@/hooks/Wish'
 import Link from 'next/link'
+import { currency, toThousandFilter } from '@/utils'
 
 const WishList: React.FC = () => {
     const { t } = useTranslation()
@@ -39,7 +40,10 @@ const WishList: React.FC = () => {
                                 </h3>
                             </div>
                         </td>
-                        <td className="price-col">${item.price}</td>
+                        <td className="price-col">
+                            {currency()}
+                            {toThousandFilter(item.price)}
+                        </td>
                         <td className="action-col">
                             <Link href={`/product/${item.cid}/${item.pid}`} prefetch={false}>
                                 <button className="btn btn-block btn-outline-primary-2">

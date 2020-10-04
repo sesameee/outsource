@@ -8,7 +8,7 @@ import Link from 'next/link'
 // import { useShoppingCartModifyHandler } from '@/hooks/ShoppingCart'
 import { useTranslation } from '@/I18n'
 import { useWishModifyHandler } from '@/hooks/Wish'
-import { toThousandFilter } from '@/utils'
+import { currency, toThousandFilter } from '@/utils'
 
 const SortByType = (type: FilterType, productObj: productList) => {
     type = Number(type)
@@ -126,11 +126,13 @@ const ProductList: React.FC<ProductListProps> = ({
                                     <div className="product-price">
                                         {item.listPrice != item.price ? (
                                             <span className=" product-last-price ">
-                                                NT${toThousandFilter(Number(item.listPrice))}
+                                                {currency()}
+                                                {toThousandFilter(Number(item.listPrice))}
                                             </span>
                                         ) : null}
                                         <span className={`${item.listPrice != item.price ? 'highlight-color' : ''}`}>
-                                            NT${toThousandFilter(Number(item.price))}
+                                            {currency()}
+                                            {toThousandFilter(Number(item.price))}
                                         </span>
                                     </div>
                                 </div>

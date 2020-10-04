@@ -1,7 +1,5 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { useAddressInfo } from '@/hooks/AddressInfo'
-import { AddressInfoSelectors } from '@/store'
+import { HandleAddress, useAddressInfo } from '@/hooks/AddressInfo'
 import { useForm } from 'react-hook-form'
 import { UserRegisterReqData } from '@/types/apis/userRegister'
 import { useTranslation } from '@/I18n'
@@ -204,8 +202,7 @@ const FromThirdStep: React.FC<RegisterFromProps> = ({ setPropIsOpenFn }: Registe
     useAddressInfo()
     const { t } = useTranslation()
     const { register, handleSubmit } = useForm<RegisterUserInfoReqData>()
-    const AddressInfo = useSelector(AddressInfoSelectors.getAddressInfo)
-    const [city, setCity] = React.useState(0)
+    const { AddressInfo, city, setCity, areas } = HandleAddress()
     const { handleRegiterSetupSubmit, HandleUserRegisterSetupRes } = useUserRegisterSetupHandler()
     const onSubmit = (data: UserRegisterReqData) => {
         handleRegiterSetupSubmit(data)
@@ -237,13 +234,14 @@ const FromThirdStep: React.FC<RegisterFromProps> = ({ setPropIsOpenFn }: Registe
                                 id="cityCode"
                                 className="form-control"
                                 onChange={(e) => setCity(Number(e.target.value))}
+                                value={city}
                             >
                                 <option value="" selected={true}>
                                     {t('please_select_county')}
                                 </option>
-                                {AddressInfo.map((item, index) => {
+                                {AddressInfo.map((item: any, index: number) => {
                                     return (
-                                        <option key={index} value={index}>
+                                        <option key={index} value={item.cityCode}>
                                             {item.cityName}
                                         </option>
                                     )
@@ -259,18 +257,18 @@ const FromThirdStep: React.FC<RegisterFromProps> = ({ setPropIsOpenFn }: Registe
                                 name="areaCode"
                                 id="areaCode"
                                 className="form-control"
+                                defaultValue=""
                             >
                                 <option value="" selected={true}>
                                     {t('please_select_zone')}
                                 </option>
-                                {AddressInfo[city] &&
-                                    AddressInfo[city].areas.map((item, index) => {
-                                        return (
-                                            <option key={`a${index}`} value={item.zipCode}>
-                                                {item.areaName}
-                                            </option>
-                                        )
-                                    })}
+                                {areas.map((item: any, index: number) => {
+                                    return (
+                                        <option key={`a${index}`} value={item.areaCode}>
+                                            {item.areaName}
+                                        </option>
+                                    )
+                                })}
                             </select>
                         </div>
                     </div>

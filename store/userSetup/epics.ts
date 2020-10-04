@@ -1,4 +1,4 @@
-import { switchMap, catchError, takeUntil, take } from 'rxjs/operators'
+import { switchMap, mergeMap, catchError, takeUntil, take } from 'rxjs/operators'
 import { Epic, ofType } from 'redux-observable'
 import { AxiosError } from 'axios'
 import { PayloadAction } from '@reduxjs/toolkit'
@@ -33,7 +33,7 @@ export const fetchUserSetupEpic: Epic = (action$, state$) =>
                     address: action.payload.address,
                     accessToken: accessToken,
                 }).pipe(
-                    switchMap((res) => {
+                    mergeMap((res) => {
                         return epicSuccessMiddleware(
                             res,
                             [

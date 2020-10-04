@@ -182,3 +182,7 @@ export const mobileCheck = () => {
 export const toThousandFilter = (num: number | undefined) => {
     return num && (+num || 0).toString().replace(/^-?\d+/g, (m) => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','))
 }
+
+export const currency = () => {
+    return 'NT$'
+}

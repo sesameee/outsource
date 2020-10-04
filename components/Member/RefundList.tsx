@@ -3,6 +3,7 @@ import React, { memo } from 'react'
 import { ShoppingCartProductData } from '@/types/apis/common'
 import { BrandInfoData } from '@/types/apis/orderDetail'
 import NumberInput from '../commons/NumberInput'
+import { currency, toThousandFilter } from '@/utils'
 
 type RefundListProps = {
     _item: BrandInfoData
@@ -51,7 +52,10 @@ const RefundList: React.FC<RefundListProps> = ({
                     </h3>
                 </div>
             </td>
-            <td className="price-col">${item.price}</td>
+            <td className="price-col">
+                {currency()}
+                {toThousandFilter(item.price)}
+            </td>
             <td className="price-col">{item.qty}</td>
             <td className="price-col">
                 <NumberInput

@@ -19,6 +19,7 @@ import { useTranslation } from '@/I18n'
 import { NextPage } from 'next'
 import { useWishModifyHandler } from '@/hooks/Wish'
 import { useBackBtnDetect } from '@/hooks/BackBtnDetect'
+import { currency, toThousandFilter } from '@/utils'
 
 interface CategoryProps extends WithRouterProps {
     filterProduct: Set<unknown>
@@ -138,7 +139,6 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
             )
         }
     }
-    console.log('productData :>> ', productData)
 
     return (
         <div className="page-wrapper">
@@ -167,7 +167,10 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
                                             <h1 className="product-title">{productData.pName}</h1>
                                             <div className="product-number-frame">
                                                 {productData.listPrice != productData.price ? (
-                                                    <div className="product-last-price">${productData.listPrice}</div>
+                                                    <div className="product-last-price">
+                                                        {currency()}
+                                                        {toThousandFilter(productData.listPrice)}
+                                                    </div>
                                                 ) : null}
                                                 <div
                                                     className={`product-price ${
@@ -176,7 +179,8 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
                                                             : ''
                                                     }`}
                                                 >
-                                                    ${productData.price}
+                                                    {currency()}
+                                                    {toThousandFilter(productData.price)}
                                                 </div>
                                             </div>
                                             <h4 className="product-id">
@@ -288,7 +292,10 @@ const Product: NextPage<any> = ({ router }: CategoryProps): JSX.Element => {
                             </div>
 
                             <div className="col-6 justify-content-end">
-                                <div className="product-price">${productData.price * amount}</div>
+                                <div className="product-price">
+                                    {currency()}
+                                    {toThousandFilter(productData.price * amount)}
+                                </div>
                                 <div className="product-details-quantity">
                                     <NumberInput
                                         inputName="qty"

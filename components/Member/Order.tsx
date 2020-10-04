@@ -6,6 +6,7 @@ import { useOrderDetailHandler } from '@/hooks/OrderDetail'
 import { useTranslation } from '@/I18n'
 import MyModal from '../MyModal'
 import Refund from './Refund'
+import { currency, toThousandFilter } from '@/utils'
 
 export interface tabDataVo {
     title: string
@@ -136,9 +137,21 @@ const Order: React.FC = () => {
                                                                             </h3>
                                                                         </div>
                                                                     </td>
-                                                                    <td className="price-col">${_pitem.price}</td>
-                                                                    <td className="quantity-col">{_pitem.qty}</td>
-                                                                    <td className="remove-col" rowSpan={2}>
+                                                                    <td className="price-col">
+                                                                        <div>
+                                                                            <p className="pc-hide">
+                                                                                {t('commodity_price_2')}
+                                                                            </p>
+                                                                            {currency()}
+                                                                            {toThousandFilter(_pitem.price)}
+                                                                        </div>
+                                                                    </td>
+
+                                                                    <td className="quantity-col">
+                                                                        <p className="pc-hide">{t('amount')}</p>
+                                                                        {_pitem.qty}
+                                                                    </td>
+                                                                    <td className="remove-col order" rowSpan={2}>
                                                                         <button
                                                                             onClick={() => setIsOpenRefund(true)}
                                                                             type="button"
