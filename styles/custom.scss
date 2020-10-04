@@ -131,6 +131,7 @@
         position: absolute;
         right: 1.5rem;
         top: 1.5rem;
+        z-index: 99999;
     }
 }
 
@@ -1016,4 +1017,25 @@
 .underline {
     cursor: pointer;
     text-decoration: underline;
+}
+
+.product-desc-content p {
+    color: $mainColor;
+}
+
+.newsletter-popup-container {
+    min-height: unset;
+    width: unset;
+    @include for-except-xs {
+        width: 850px;
+    }
+    .btn-frame {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        .btn {
+            margin: 0 10px;
+            min-width: 100px;
+        }
+    }
 }

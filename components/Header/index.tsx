@@ -9,6 +9,8 @@ import Cart from './Cart'
 import Wish from './Wish'
 import MobileMenu from './MobileMenu'
 import ErrorAlert from '../commons/ErrorAlert'
+import dynamic from 'next/dynamic'
+const OnceAlert = dynamic(() => import('../commons/OnceAlert'), { ssr: false })
 import { useUserLoginHandler } from '@/hooks/UserLogin'
 import { useWishList } from '@/hooks/Wish'
 import { useSelector } from 'react-redux'
@@ -26,6 +28,7 @@ const Header: React.FC<HeaderProps> = ({ isIndex }: HeaderProps) => {
     const [IsOpenMenu, setIsOpenMenu] = React.useState(false)
     const headerClass = isIndex ? 'header header-9' : 'header'
     const { UseAuthHandle } = useUserLoginHandler()
+    const [memberIndex, setMemberIndex] = React.useState(0)
     const getUser = useSelector(UserLoginSelectors.getUserLoginData)
     UseAuthHandle()
     return (
@@ -33,12 +36,13 @@ const Header: React.FC<HeaderProps> = ({ isIndex }: HeaderProps) => {
             <MobileMenu IsOpenMenu={IsOpenMenu} setIsOpenMenu={setIsOpenMenu} />
             {!isIndex && <TopHeader />}
             <MyModal
-                content={<MemberTab setPropIsOpenFn={setIsOpenMember} />}
+                content={<MemberTab setPropIsOpenFn={setIsOpenMember} index={memberIndex} />}
                 isOpen={IsOpenMember}
                 setPropIsOpenFn={setIsOpenMember}
             />
             <div className="header-middle sticky-header custom-header">
                 <ErrorAlert />
+                <OnceAlert setPropIsOpenFn={setIsOpenMember} setMemberIndex={setMemberIndex} />
                 <HoverItemList itemHoverIndex={itemHoverIndex} setItemHoverIndex={setItemHoverIndex} />
                 <div className="container">
                     <div className="header-left">

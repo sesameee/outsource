@@ -9812,7 +9812,7 @@ button:focus {
 }
 .container.quickView-container,
 .fullscreen-container .container,
-.container.newsletter-popup-container {
+.newsletter-popup-container {
     width: 1188px;
     max-width: 100%;
 }
@@ -9877,7 +9877,7 @@ button:focus {
     font-size: 4.6rem;
     font-weight: 700;
     letter-spacing: -0.025em;
-    color: #222;
+    color: #0298ab;
     margin-bottom: 1rem;
     text-transform: uppercase;
     line-height: 1.4em;
@@ -9931,7 +9931,7 @@ button:focus {
     background-color: $mainColor;
 }
 .newsletter-popup-container .custom-control {
-    margin-top: 5rem;
+    margin-top: 3rem;
     margin-left: auto;
     margin-right: auto;
     padding-left: 0;
@@ -12906,6 +12906,7 @@ button:focus {
     color: inherit;
     border-bottom-width: 0.2rem;
     padding: 0.9rem 1rem;
+    cursor: pointer;
 }
 .form-tab .nav.nav-pills .nav-link.active {
     color: inherit;

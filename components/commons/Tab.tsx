@@ -7,17 +7,18 @@ export interface tabDataVo {
 
 type TabProps = {
     tabData: tabDataVo[]
+    index: number
 }
-const Tab: React.FC<TabProps> = ({ tabData }: TabProps) => {
-    const [tabIndex, setTabIndex] = React.useState(0)
+const Tab: React.FC<TabProps> = ({ tabData, index }: TabProps) => {
+    const [tabIndex, setTabIndex] = React.useState(index || 0)
     return (
         <div className="form-box">
             <div className="form-tab">
                 <ul className="nav nav-pills nav-fill nav-border-anim" role="tablist">
                     {tabData.map((item, index) => {
-                        const liClass = tabIndex == index ? 'nav-link active' : 'nav-link'
+                        const liClass = tabIndex == index ? 'nav-link active cursor-pointer' : 'nav-link cursor-pointer'
                         return (
-                            <li className="nav-item" key={index} onClick={() => setTabIndex(index)}>
+                            <li className="nav-item cursor-pointer" key={index} onClick={() => setTabIndex(index)}>
                                 <a
                                     className={liClass}
                                     id="signin-tab"

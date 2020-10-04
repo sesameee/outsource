@@ -254,5 +254,8 @@
     "youAreLogout": "You've been logged out",
     "wishTips1": " This item is already on your wish list",
     "wishTips2": "You’ve added this item to your wish list",
-    "credit_number": " Credit card number"
+    "credit_number": " Credit card number",
+    "onceAlert1": "立即登入會員！",
+    "onceAlert2": "使用微風積點禮遇會員即可立即登入購物，快來挑選最適合 妳 ( 你 ) 的熱銷商品吧！",
+    "onceAlert3": "下次不再顯示此訊息"
 }

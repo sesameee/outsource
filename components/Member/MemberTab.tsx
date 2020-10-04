@@ -6,9 +6,10 @@ import { useTranslation } from '@/I18n'
 
 type MemberTabProps = {
     setPropIsOpenFn: any
+    index: number
 }
 
-const MemberTab: React.FC<MemberTabProps> = ({ setPropIsOpenFn }: MemberTabProps) => {
+const MemberTab: React.FC<MemberTabProps> = ({ setPropIsOpenFn, index }: MemberTabProps) => {
     const { t } = useTranslation()
     const TabData: tabDataVo[] = [
         {
@@ -21,7 +22,7 @@ const MemberTab: React.FC<MemberTabProps> = ({ setPropIsOpenFn }: MemberTabProps
         },
     ]
 
-    return <Tab tabData={TabData}></Tab>
+    return <Tab tabData={TabData} index={index}></Tab>
 }
 
 export default memo(MemberTab)

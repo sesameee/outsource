@@ -14,7 +14,7 @@ const Tab: React.FC<TabProps> = ({ tabData }: TabProps) => {
         <div className="product-details-tab">
             <ul className="nav nav-pills justify-content-center" role="tablist">
                 {tabData.map((item, index) => {
-                    const liClass = tabIndex == index ? 'nav-link active' : 'nav-link'
+                    const liClass = tabIndex == index ? 'nav-link cursor-pointer active' : 'nav-link cursor-pointer'
                     return (
                         <li className="nav-item" key={index} onClick={() => setTabIndex(index)}>
                             <a
