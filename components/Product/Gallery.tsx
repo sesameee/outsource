@@ -1,9 +1,8 @@
 import React, { memo, useCallback, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { ProductInfoSelectors } from '@/store'
-import Zoom from 'react-medium-image-zoom'
-import { Controlled as ControlledZoom } from 'react-medium-image-zoom'
-import 'react-medium-image-zoom/dist/styles.css'
+import Lightbox from 'react-image-lightbox'
+import 'react-image-lightbox/style.css'
 const DescNotice: React.FC = () => {
     const productData = useSelector(ProductInfoSelectors.getProductInfo)
     const imgArr = productData.imageUrl
@@ -23,18 +22,23 @@ const DescNotice: React.FC = () => {
             <div className="row">
                 <figure className="product-main-image">
                     {imgArr && imgArr[indexImage] && (
-                        <ControlledZoom isZoomed={isZoomed} onZoomChange={handleZoomChange}>
-                            <Zoom>
-                                <img id="product-zoom" src={imgArr[indexImage]} alt="product image" width="500" />
-                            </Zoom>
-                        </ControlledZoom>
+                        <img id="product-zoom" src={imgArr[indexImage]} alt="product image" width="500" />
                     )}
 
                     <a id="btn-product-gallery" onClick={() => handleImgLoad()} className="btn-product-gallery">
                         <i className="icon-arrows"></i>
                     </a>
                 </figure>
-
+                {isZoomed && (
+                    <Lightbox
+                        mainSrc={imgArr[indexImage]}
+                        nextSrc={imgArr[(indexImage + 1) % imgArr.length]}
+                        prevSrc={imgArr[(indexImage + imgArr.length - 1) % imgArr.length]}
+                        onCloseRequest={() => handleZoomChange(false)}
+                        onMovePrevRequest={() => setindexImage((indexImage + imgArr.length - 1) % imgArr.length)}
+                        onMoveNextRequest={() => setindexImage((indexImage + 1) % imgArr.length)}
+                    />
+                )}
                 <div id="product-zoom-gallery" className="product-image-gallery">
                     {imgArr &&
                         imgArr.map((item, index) => {
