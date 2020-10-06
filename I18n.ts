@@ -8,7 +8,7 @@ const NextI18NextInstance = new NextI18Next({
     preload: [DEFAULT_LANFUAGE],
     use: [Backend],
     backend: {
-        loadPath: 'https://sesameee.github.io/locales/{{lng}}/{{ns}}.json',
+        loadPath: 'https://www-sit.breezeonline.com/static/locales/{{lng}}/{{ns}}.json',
         parse: JSON.parse,
     },
 })
